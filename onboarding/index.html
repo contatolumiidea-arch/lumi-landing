@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMI Onboarding — Setup Your Landing Page</title>
+  <meta name="description" content="Configure your LUMI LANDING page in 10 easy steps.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/onboarding.css">
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="wizard-header" role="banner">
+    <div class="header-inner">
+      <span class="header-brand" data-i18n="nav.brand">LUMI ONBOARDING</span>
+      <nav class="lang-switcher" aria-label="Language">
+        <button class="lang-btn" data-lang-btn="pt">PT</button>
+        <button class="lang-btn active" data-lang-btn="en">EN</button>
+        <button class="lang-btn" data-lang-btn="es">ES</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── Progress Bar ── -->
+  <div class="progress-bar-wrap" role="progressbar" aria-valuemin="1" aria-valuemax="10">
+    <div class="progress-meta">
+      <span class="progress-label">Step 1 of 10</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" style="width:0%"></div>
+    </div>
+    <div class="step-dots" aria-hidden="true">
+      <div class="step-dot active" data-dot="1"></div>
+      <div class="step-dot" data-dot="2"></div>
+      <div class="step-dot" data-dot="3"></div>
+      <div class="step-dot" data-dot="4"></div>
+      <div class="step-dot" data-dot="5"></div>
+      <div class="step-dot" data-dot="6"></div>
+      <div class="step-dot" data-dot="7"></div>
+      <div class="step-dot" data-dot="8"></div>
+      <div class="step-dot" data-dot="9"></div>
+      <div class="step-dot" data-dot="10"></div>
+    </div>
+  </div>
+
+  <!-- ── Wizard Main ── -->
+  <main class="wizard-main">
+
+    <!-- ════════════════════════════════════════════════════
+         STEP 1 — Business Information
+    ═══════════════════════════════════════════════════════ -->
+    <section class="wizard-step active" data-step="1" aria-label="Step 1">
+      <div class="step-content">
+        <header class="step-header">
+          <div class="step-number" data-i18n="steps.1.title">Business Information</div>
+          <h1 class="step-title" data-i18n="steps.1.title">Business Information</h1>
+          <p class="step-subtitle" data-i18n="steps.1.subtitle">Tell us about you and your business</p>
+        </header>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="s1-full-name" data-i18n="s1.full_name">Full Name</label>
+            <input class="form-input" id="s1-full-name" type="text" data-i18n-placeholder="s1.full_name_ph" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="s1-business-name" data-i18n="s1.business_name">Business Name</label>
+            <input class="form-input" id="s1-business-name" type="text" data-i18n-placeholder="s1.business_name_ph" autocomplete="organization">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="s1-title" data-i18n="s1.title">Real Estate Title</label>
+            <select class="form-select" id="s1-title">
+              <option value="realtor" data-i18n="s1.title_realtor">Realtor</option>
+              <option value="agent" data-i18n="s1.title_agent">Real Estate Agent</option>
+              <option value="broker" data-i18n="s1.title_broker">Broker</option>
+              <option value="consultant" data-i18n="s1.title_consultant">Consultant</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="s1-brokerage" data-i18n="s1.brokerage">Brokerage Name</label>
+            <input class="form-input" id="s1-brokerage" type="text" data-i18n-placeholder="s1.brokerage_ph" autocomplete="organization">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="s1-license" data-i18n="s1.license">License Number</label>
+            <input class="form-input" id="s1-license" type="text" data-i18n-placeholder="s1.license_ph">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="s1-email" data-i18n="s1.email">Email</label>
+            <input class="form-input" id="s1-email" type="email" data-i18n-placeholder="s1.email_ph" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="s1-phone" data-i18n="s1.phone">Phone</label>
+            <input class="form-input" id="s1-phone" type="tel" data-i18n-placeholder="s1.phone_ph" autocomplete="tel">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="s1-whatsapp" data-i18n="s1.whatsapp">WhatsApp</label>
+            <input class="form-input" id="s1-whatsapp" type="tel" data-i18n-placeholder="s1.whatsapp_ph">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         STEP 2 — Template Selection
+    ═══════════════════════════════════════════════════════ -->
+    <section class="wizard-step" data-step="2" aria-label="Step 2">
+      <div class="step-content">
+        <header class="step-header">
+          <div class="step-number">02</div>
+          <h2 class="step-title" data-i18n="steps.2.title">Template Selection</h2>
+          <p class="step-subtitle" data-i18n="steps.2.subtitle">Choose the design that best represents your brand</p>
+        </header>
+
+        <div class="templates-grid">
+
+          <!-- Template 01 -->
+          <div class="template-card" data-template="template-01" tabindex="0" role="button" aria-pressed="false">
+            <div class="selected-badge">✓</div>
+            <div class="template-preview">
+              <div class="template-preview-inner tpl-01">
+                <div class="tpl-preview-bar"></div>
+                <div class="tpl-preview-block"></div>
+                <div class="tpl-preview-sub"></div>
+                <div class="tpl-preview-sub" style="width:50%;margin-top:4px"></div>
+              </div>
+            </div>
+            <div class="template-info">
+              <div class="template-name" data-i18n="s2.t01_name">Classic Authority</div>
+              <div class="template-desc" data-i18n="s2.t01_desc">Timeless elegance for established professionals</div>
+              <button class="template-btn" data-i18n="s2.select_btn">Select</button>
+            </div>
+          </div>
+
+          <!-- Template 02 -->
+          <div class="template-card" data-template="template-02" tabindex="0" role="button" aria-pressed="false">
+            <div class="selected-badge">✓</div>
+            <div class="template-preview">
+              <div class="template-preview-inner tpl-02">
+                <div class="tpl-preview-bar"></div>
+                <div class="tpl-preview-block"></div>
+                <div class="tpl-preview-sub"></div>
+                <div class="tpl-preview-sub" style="width:50%;margin-top:4px"></div>
+              </div>
+            </div>
+            <div class="template-info">
+              <div class="template-name" data-i18n="s2.t02_name">Modern Clean</div>
+              <div class="template-desc" data-i18n="s2.t02_desc">Minimalist design focused on conversion</div>
+              <button class="template-btn" data-i18n="s2.select_btn">Select</button>
+            </div>
+          </div>
+
+          <!-- Template 03 -->
+          <div class="template-card" data-template="template-03" tabindex="0" role="button" aria-pressed="false">
+            <div class="selected-badge">✓</div>
+            <div class="template-preview">
+              <div class="template-preview-inner tpl-03">
+                <div class="tpl-preview-bar"></div>
+                <div class="tpl-preview-block"></div>
+                <div class="tpl-preview-sub"></div>
+                <div class="tpl-preview-sub" style="width:50%;margin-top:4px"></div>
+              </div>
+            </div>
+            <div class="template-info">
+              <div class="template-name" data-i18n="s2.t03_name">Luxury Estate</div>
+              <div class="template-desc" data-i18n="s2.t03_desc">Opulent aesthetics for high-end specialists</div>
+              <button class="template-btn" data-i18n="s2.select_btn">Select</button>
+            </div>
+          </div>
+
+          <!-- Template 04 -->
+          <div class="template-card" data-template="template-04" tabindex="0" role="button" aria-pressed="false">
+            <div class="selected-badge">✓</div>
+            <div class="template-preview">
+              <div class="template-preview-inner tpl-04">
+                <div class="tpl-preview-bar"></div>
+                <div class="tpl-preview-block"></div>
+                <div class="tpl-preview-sub"></div>
+                <div class="tpl-preview-sub" style="width:50%;margin-top:4px"></div>
+              </div>
+            </div>
+            <div class="template-info">
+              <div class="template-name" data-i18n="s2.t04_name">American Trust</div>
+              <div class="template-desc" data-i18n="s2.t04_desc">Professional for family-focused realtors</div>
+              <button class="template-btn" data-i18n="s2.select_btn">Select</button>
+            </div>
+          </div>
+
+          <!-- Template 05 -->
+          <div class="template-card" data-template="template-05" tabindex="0" role="button" aria-pressed="false">
+            <div class="selected-badge">✓</div>
+            <div class="template-preview">
+              <div class="template-preview-inner tpl-05">
+                <div class="tpl-preview-bar"></div>
+                <div class="tpl-preview-block"></div>
+                <div class="tpl-preview-sub"></div>
+                <div class="tpl-preview-sub" style="width:50%;margin-top:4px"></div>
+              </div>
+            </div>
+            <div class="template-info">
+              <div class="template-name" data-i18n="s2.t05_name">Elite Gold</div>
+              <div class="template-desc" data-i18n="s2.t05_desc">Bold gold accents for prestige and exclusivity</div>
+              <button class="template-btn" data-i18n="s2.select_btn">Select</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         STEP 3 — Brand Customization
+    ═══════════════════════════════════════════════════════ -->
+    <section class="wizard-step" data-step="3" aria-label="Step 3">
+      <div class="step-content">
+        <header class="step-header">
+          <div class="step-number">03</div>
+          <h2 class="step-title" data-i18n="steps.3.title">Brand Customization</h2>
+          <p class="step-subtitle" data-i18n="steps.3.subtitle">Upload your assets and define your brand colors</p>
+        </header>
+
+        <div class="uploads-grid">
+
+          <!-- Logo Upload -->
+          <div class="upload-group">
+            <label class="form-label" data-i18n="s3.logo_label">Upload Logo</label>
+            <div class="upload-zone" onclick="document.getElementById('s3-logo-input').click()">
+              <div class="upload-icon">🖼️</div>
+              <div class="upload-drag" data-i18n="s3.drag_drop">Drag &amp; drop or click to upload</div>
+              <div class="upload-hint" data-i18n="s3.logo_hint">PNG or SVG recommended</div>
+              <button type="button" class="upload-btn" onclick="event.stopPropagation();document.getElementById('s3-logo-input').click()" data-i18n="s3.logo_btn">Choose Logo</button>
+              <input type="file" id="s3-logo-input" accept="image/*">
+            </div>
+            <div class="upload-preview" id="s3-logo-preview"></div>
+          </div>
+
+          <!-- Profile Photo Upload -->
+          <div class="upload-group">
+            <label class="form-label" data-i18n="s3.photo_label">Upload Profile Photo</label>
+            <div class="upload-zone" onclick="document.getElementById('s3-photo-input').click()">
+              <div class="upload-icon">🤳</div>
+              <div class="upload-drag" data-i18n="s3.drag_drop">Drag &amp; drop or click to upload</div>
+              <div class="upload-hint" data-i18n="s3.photo_hint">Professional headshot, min 400×400px</div>
+              <button type="button" class="upload-btn" onclick="event.stopPropagation();document.getElementById('s3-photo-input').click()" data-i18n="s3.photo_btn">Choose Photo</button>
+              <input type="file" id="s3-photo-input" accept="image/*">
+            </div>
+            <div class="upload-preview" id="s3-photo-preview"></div>
+          </div>
+
+          <!-- Property Photos Upload -->
+          <div class="upload-group upload-group--full">
+            <label class="form-label" data-i18n="s3.props_label">Upload Property Photos</label>
+            <div class="upload-zone" onclick="document.getElementById('s3-props-input').click()">
+              <div class="upload-icon">🏠</div>
+              <div class="upload-drag" data-i18n="s3.drag_drop">Drag &amp; drop or click to upload</div>
+              <div class="upload-hint" data-i18n="s3.props_hint">Up to 5 photos — JPG or PNG</div>
+              <button type="button" class="upload-btn" onclick="event.stopPropagation();document.getElementById('s3-props-input').click()" data-i18n="s3.props_btn">Choose Photos</button>
+              <input type="file" id="s3-props-input" accept="image/*" multiple>
+            </div>
+            <div class="props-preview-wrap" id="s3-props-preview"></div>
+            <span class="props-count" style="display:none"></span>
+          </div>
+
+        </div>
+
+        <div class="form-divider"></div>
+
+        <!-- Color Pickers -->
+        <div class="colors-row">
+          <div class="color-group">
+            <label class="form-label" data-i18n="s3.primary_color">Primary Color</label>
+            <div class="color-picker-wrap" onclick="document.getElementById('s3-primary-color').click()">
+              <div class="color-preview-swatch" id="primary-color-preview" style="background:#D4AF37"></div>
+              <input type="color" id="s3-primary-color" value="#D4AF37">
+              <span class="color-value-label" id="primary-color-label">#D4AF37</span>
+              <span class="color-edit-label" data-i18n="s3.change">Change</span>
+            </div>
+          </div>
+          <div class="color-group">
+            <label class="form-label" data-i18n="s3.secondary_color">Secondary Color</label>
+            <div class="color-picker-wrap" onclick="document.getElementById('s3-secondary-color').click()">
+              <div class="color-preview-swatch" id="secondary-color-preview" style="background:#050505"></div>
+              <input type="color" id="s3-secondary-color" value="#050505">
+              <span class="color-value-label" id="secondary-color-label">#050505</span>
+              <span class="color-edit-label" data-i18n="s3.change">Change</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         STEP 4 — Languages
+    ═══════════════════════════════════════════════════════ -->
+    <section class="wizard-step" data-step="4" aria-label="Step 4">
+      <div class="step-content">
+        <header class="step-header">
+          <div class="step-number">04</div>
+          <h2 class="step-title" data-i18n="steps.4.title">Languages</h2>
+          <p class="step-subtitle" data-i18n="steps.4.subtitle">Select the languages your landing page will be available in</p>
+        </header>
+
+        <div class="langs-grid">
+          <label class="lang-card" tabindex="0">
+            <input type="checkbox" class="lang-checkbox" value="en">
+            <span class="lang-check-icon">✓</span>
+            <span class="lang-flag">🇺🇸</span>
+            <span class="lang-name" data-i18n="s4.en">English</span>
+          </label>
+          <label class="lang-card" tabindex="0">
+            <input type="checkbox" class="lang-checkbox" value="pt">
+            <span class="lang-check-icon">✓</span>
+            <span class="lang-flag">🇧🇷</span>
+            <span class="lang-name" data-i18n="s4.pt">Português</span>
+          </label>
+          <label class="lang-card" tabindex="0">
+            <input type="checkbox" class="lang-checkbox" value="es">
+            <span class="lang-check-icon">✓</span>
+            <span class="lang-flag">🇪🇸</span>
+            <span class="lang-name" data-i18n="s4.es">Español</span>
+          </label>
+        </div>
+        <p class="lang-required-note" data-i18n="s4.required_note">Select at least one language</p>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         STEP 5 — Business Details
+    ═══════════════════════════════════════════════════════ -->
+    <section class="wizard-step" data-step="5" aria-label="Step 5">
+      <div class="step-content">
+        <header class="step-header">
+          <div class="step-number">05</div>
+          <h2 class="step-title" data-i18n="steps.5.title">Business Details</h2>
+          <p class="step-subtitle" data-i18n="steps.5.subtitle">Describe your experience and areas of service</p>
+        </header>
+
+        <div class="form-grid">
+
+          <div class="form-group form-group--full">
+            <label class="form-label" for="s5-about" data-i18n="s5.about">About Your Business</label>
+            <textarea class="form-textarea" id="s5-about" rows="4" data-i18n-placeholder="s5.about_ph"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="s5-years" data-i18n="s5.years">Years of Experience</label>
+            <input class="form-input" id="s5-years" type="number" min="0" max="99" data-i18n-placeholder="s5.years_ph">
+          </div>
+
+          <div class="form-group form-group--full tags-group">
+            <label class="form-label" data-i18n="s5.cities">Cities Served</label>
+            <div class="tags-container" id="tags-cities">
+              <input type="text" class="tag-input" id="tag-input-cities" data-i18n-placeholder="s5.cities_ph">
+            </div>
+            <span class="tag-hint" data-i18n="s5.tag_hint">Press Enter or comma to add</span>
+          </div>
+
+          <div class="form-group form-group--full tags-group">
+            <label class="form-label" data-i18n="s5.states">States Served</label>
+            <div class="tags-container" id="tags-states">
+              <input type="text" class="tag-input" id="tag-input-states" data-i18n-placeholder="s5.states_ph">
+            </div>
+            <span class="tag-hint" data-i18n="s5.tag_hint">Press Enter or comma to add</span>
+          </div>
+
+          <div class="form-group form-group--full tags-group">
+            <label class="form-label" data-i18n="s5.languages">Languages Spoken</label>
+            <div class="tags-container" id="tags-languages">
+              <input type="text" class="tag-input" id="tag-input-languages" data-i18n-placeholder="s5.languages_ph">
+            </div>
+            <span class="tag-hint" data-i18n="s5.tag_hint">Press Enter or comma to add</span>
+          </div>
+
+          <div class="form-group form-group--full tags-group">
+            <label class="form-label" data-i18n="s5.specialties">Specialties</label>
+            <div class="tags-container" id="tags-specialties">
+              <input type="text" class="tag-input" id="tag-input-specialties" data-i18n-placeholder="s5.specialties_ph">
+            </div>
+            <span class="tag-hint" data-i18n="s5.tag_hint">Press Enter or comma to add</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         STEP 6 — Services
+    ═══════════════════════════════════════════════════════ -->
+    <section class="wizard-step" data-step="6" aria-label="Step 6">
+      <div class="step-content">
+        <header class="step-header">
+          <div class="step-number">06</div>
+          <h2 class="step-title" data-i18n="steps.6.title">Services</h2>
+          <p class="step-subtitle" data-i18n="steps.6.subtitle">Select the services you offer to your clients</p>
+        </header>
+
+        <div class="services-grid">
+          <div class="service-card" role="checkbox" aria-checked="false" tabindex="0">
+            <input type="checkbox" class="service-checkbox" value="buying">
+            <div class="service-icon">🏠</div>
+            <div class="service-label" data-i18n="s6.buying">Buying a Home</div>
+          </div>
+          <div class="service-card" role="checkbox" aria-checked="false" tabindex="0">
+            <input type="checkbox" class="service-checkbox" value="selling">
+            <div class="service-icon">💰</div>
+            <div class="service-label" data-i18n="s6.selling">Selling a Home</div>
+          </div>
+          <div class="service-card" role="checkbox" aria-checked="false" tabindex="0">
+            <input type="checkbox" class="service-checkbox" value="investment">
+            <div class="service-icon">📈</div>
+            <div class="service-label" data-i18n="s6.investment">Investment Properties</div>
+          </div>
+          <div class="service-card" role="checkbox" aria-checked="false" tabindex="0">
+            <input type="checkbox" class="service-checkbox" value="relocation">
+            <div class="service-icon">✈️</div>
+            <div class="service-label" data-i18n="s6.relocation">Relocation</div>
+          </div>
+          <div class="service-card" role="checkbox" aria-checked="false" tabindex="0">
+            <input type="checkbox" class="service-checkbox" value="luxury">
+            <div class="service-icon">💎</div>
+            <div class="service-label" data-i18n="s6.luxury">Luxury Homes</div>
+          </div>
+          <div class="service-card" role="checkbox" aria-checked="false" tabindex="0">
+            <input type="checkbox" class="service-checkbox" value="firsttime">
+            <div class="service-icon">🔑</div>
+            <div class="service-label" data-i18n="s6.firsttime">First-Time Buyers</div>
+          </div>
+          <div class="service-card" role="checkbox" aria-checked="false" tabindex="0">
+            <input type="checkbox" class="service-checkbox" value="commercial">
+            <div class="service-icon">🏢</div>
+            <div class="service-label" data-i18n="s6.commercial">Commercial Real Estate</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         STEP 7 — Lead Generation
+    ═══════════════════════════════════════════════════════ -->
+    <section class="wizard-step" data-step="7" aria-label="Step 7">
+      <div class="step-content">
+        <header class="step-header">
+          <div class="step-number">07</div>
+          <h2 class="step-title" data-i18n="steps.7.title">Lead Generation</h2>
+          <p class="step-subtitle" data-i18n="steps.7.subtitle">Configure how you want to capture leads</p>
+        </header>
+
+        <div class="toggles-list">
+
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-label" data-i18n="s7.whatsapp">Enable WhatsApp Button</div>
+              <div class="toggle-desc" data-i18n="s7.whatsapp_desc">Show a floating WhatsApp button for instant contact</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="toggle-whatsapp" checked>
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-label" data-i18n="s7.contactform">Enable Contact Form</div>
+              <div class="toggle-desc" data-i18n="s7.contactform_desc">Display a full contact form on your page</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="toggle-contactform" checked>
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-label" data-i18n="s7.newsletter">Enable Newsletter</div>
+              <div class="toggle-desc" data-i18n="s7.newsletter_desc">Collect email subscriptions from visitors</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="toggle-newsletter">
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-label" data-i18n="s7.ebook">Enable Ebook Download</div>
+              <div class="toggle-desc" data-i18n="s7.ebook_desc">Offer a free guide in exchange for contact info</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="toggle-ebook">
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         STEP 8 — Ebook / Lead Magnet
+    ═══════════════════════════════════════════════════════ -->
+    <section class="wizard-step" data-step="8" aria-label="Step 8">
+      <div class="step-content">
+        <header class="step-header">
+          <div class="step-number">08</div>
+          <h2 class="step-title" data-i18n="steps.8.title">Ebook / Lead Magnet</h2>
+          <p class="step-subtitle" data-i18n="steps.8.subtitle">Offer a free guide to attract more leads</p>
+        </header>
+
+        <p class="form-label" style="margin-bottom:16px;font-size:.95rem;text-transform:none;letter-spacing:0;color:var(--color-white)" data-i18n="s8.question">
+          Do you want to offer a free guide to capture leads?
+        </p>
+
+        <div class="radio-cards">
+          <label class="radio-card">
+            <input type="radio" name="ebook-choice" value="yes">
+            <div class="radio-indicator"></div>
+            <span class="radio-text" data-i18n="s8.yes">Yes, I want to offer a free guide</span>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="ebook-choice" value="no" checked>
+            <div class="radio-indicator"></div>
+            <span class="radio-text" data-i18n="s8.no">No, not at this time</span>
+          </label>
+        </div>
+
+        <div id="ebook-details">
+          <div class="ebook-details-box">
+            <div class="form-grid">
+
+              <div class="form-group upload-group form-group--full">
+                <label class="form-label" data-i18n="s8.upload_pdf">Upload PDF</label>
+                <div class="upload-zone" onclick="document.getElementById('s8-pdf-input').click()">
+                  <div class="upload-icon">📄</div>
+                  <div class="upload-drag" data-i18n="s3.drag_drop">Drag &amp; drop or click to upload</div>
+                  <div class="upload-hint" data-i18n="s8.upload_pdf_hint">Your ebook or guide in PDF format</div>
+                  <button type="button" class="upload-btn" onclick="event.stopPropagation();document.getElementById('s8-pdf-input').click()" data-i18n="s8.upload_btn">Choose PDF</button>
+                  <input type="file" id="s8-pdf-input" accept=".pdf,application/pdf">
+                </div>
+                <div class="upload-preview" id="s8-pdf-preview"></div>
+              </div>
+
+              <div class="form-group form-group--full">
+                <label class="form-label" for="s8-guide-title" data-i18n="s8.guide_title">Guide Title</label>
+                <input class="form-input" id="s8-guide-title" type="text" data-i18n-placeholder="s8.guide_title_ph">
+              </div>
+
+              <div class="form-group form-group--full">
+                <label class="form-label" for="s8-button-text" data-i18n="s8.button_text">Button Text</label>
+                <input class="form-input" id="s8-button-text" type="text" data-i18n-placeholder="s8.button_text_ph">
+              </div>
+
+              <div class="form-group form-group--full">
+                <label class="form-label" data-i18n="s8.capture_fields">Capture fields in the form:</label>
+                <div class="capture-fields">
+                  <label class="capture-checkbox-label">
+                    <input type="checkbox" id="s8-capture-name" checked>
+                    <span class="capture-indicator">✓</span>
+                    <span data-i18n="s8.field_name">Name</span>
+                  </label>
+                  <label class="capture-checkbox-label">
+                    <input type="checkbox" id="s8-capture-email" checked>
+                    <span class="capture-indicator">✓</span>
+                    <span data-i18n="s8.field_email">Email</span>
+                  </label>
+                  <label class="capture-checkbox-label">
+                    <input type="checkbox" id="s8-capture-phone">
+                    <span class="capture-indicator">✓</span>
+                    <span data-i18n="s8.field_phone">Phone</span>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         STEP 9 — CRM Destination
+    ═══════════════════════════════════════════════════════ -->
+    <section class="wizard-step" data-step="9" aria-label="Step 9">
+      <div class="step-content">
+        <header class="step-header">
+          <div class="step-number">09</div>
+          <h2 class="step-title" data-i18n="steps.9.title">CRM Destination</h2>
+          <p class="step-subtitle" data-i18n="steps.9.subtitle">Where should your leads be sent?</p>
+        </header>
+
+        <div class="crm-grid">
+
+          <div class="crm-card" data-crm="my-crm" tabindex="0" role="button">
+            <div class="crm-icon">🔧</div>
+            <div class="crm-name" data-i18n="s9.my_crm">My CRM</div>
+            <div class="crm-desc" data-i18n="s9.my_crm_desc">Send leads via webhook</div>
+          </div>
+
+          <div class="crm-card" data-crm="email" tabindex="0" role="button">
+            <div class="crm-icon">📧</div>
+            <div class="crm-name" data-i18n="s9.email_dest">Email</div>
+            <div class="crm-desc" data-i18n="s9.email_dest_desc">Receive leads in your inbox</div>
+          </div>
+
+          <div class="crm-card" data-crm="sheets" tabindex="0" role="button">
+            <div class="crm-icon">📊</div>
+            <div class="crm-name" data-i18n="s9.sheets">Google Sheets</div>
+            <div class="crm-desc" data-i18n="s9.sheets_desc">Populate a spreadsheet automatically</div>
+          </div>
+
+          <div class="crm-card" data-crm="zapier" tabindex="0" role="button">
+            <div class="crm-icon">⚡</div>
+            <div class="crm-name" data-i18n="s9.zapier">Zapier</div>
+            <div class="crm-desc" data-i18n="s9.zapier_desc">Connect to 5,000+ apps</div>
+          </div>
+
+          <div class="crm-card" data-crm="make" tabindex="0" role="button">
+            <div class="crm-icon">🔄</div>
+            <div class="crm-name" data-i18n="s9.make">Make</div>
+            <div class="crm-desc" data-i18n="s9.make_desc">Automate with Make</div>
+          </div>
+
+          <div class="crm-card" data-crm="no-crm" tabindex="0" role="button">
+            <div class="crm-icon">⏳</div>
+            <div class="crm-name" data-i18n="s9.no_crm">No CRM</div>
+            <div class="crm-desc" data-i18n="s9.no_crm_desc">Set up later</div>
+          </div>
+
+        </div>
+
+        <!-- CRM input fields (show based on selection) -->
+        <div class="crm-field-row" data-crm-field="my-crm">
+          <span class="crm-field-label">Webhook URL</span>
+          <input type="url" class="crm-field-input" id="crm-field-my-crm" data-i18n-placeholder="s9.webhook_ph">
+        </div>
+        <div class="crm-field-row" data-crm-field="email">
+          <span class="crm-field-label">Email</span>
+          <input type="email" class="crm-field-input" id="crm-field-email" data-i18n-placeholder="s9.email_ph">
+        </div>
+        <div class="crm-field-row" data-crm-field="sheets">
+          <span class="crm-field-label">Script URL</span>
+          <input type="url" class="crm-field-input" id="crm-field-sheets" data-i18n-placeholder="s9.sheets_ph">
+        </div>
+        <div class="crm-field-row" data-crm-field="zapier">
+          <span class="crm-field-label">Webhook URL</span>
+          <input type="url" class="crm-field-input" id="crm-field-zapier" data-i18n-placeholder="s9.webhook_ph">
+        </div>
+        <div class="crm-field-row" data-crm-field="make">
+          <span class="crm-field-label">Webhook URL</span>
+          <input type="url" class="crm-field-input" id="crm-field-make" data-i18n-placeholder="s9.webhook_ph">
+        </div>
+
+        <!-- LUMI FLOW Banner -->
+        <div id="lumi-flow-banner">
+          <div class="lumi-flow-badge" data-i18n="s9.lumi_flow_subtitle">Coming Soon</div>
+          <div class="lumi-flow-title" data-i18n="s9.lumi_flow_title">Discover LUMI FLOW CRM</div>
+          <p class="lumi-flow-desc" data-i18n="s9.lumi_flow_desc">The all-in-one CRM built for real estate professionals. Never lose a lead again.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         STEP 10 — Final Review
+    ═══════════════════════════════════════════════════════ -->
+    <section class="wizard-step" data-step="10" aria-label="Step 10">
+      <div class="step-content">
+
+        <!-- Review content -->
+        <div id="step10-review">
+          <header class="step-header">
+            <div class="step-number">10</div>
+            <h2 class="step-title" data-i18n="steps.10.title">Final Review</h2>
+            <p class="step-subtitle" data-i18n="steps.10.subtitle">Review your setup and create your landing page</p>
+          </header>
+
+          <div id="review-content">
+            <!-- Populated dynamically by JS -->
+          </div>
+        </div>
+
+        <!-- Success screen (shown after finish) -->
+        <div id="step10-success">
+          <div class="success-icon">🚀</div>
+          <h2 class="success-title" data-i18n="s10.success_title">Your Landing Page is Ready!</h2>
+          <p class="success-subtitle" data-i18n="s10.success_subtitle">
+            Your configuration file has been downloaded. Send it to the LUMI IDEA team to start building your page.
+          </p>
+          <div class="success-next" data-i18n="s10.success_next">
+            Next steps: Send config.json to your LUMI IDEA account manager
+          </div>
+          <button class="btn-download-again" id="btn-download-again" data-i18n="s10.download_again">
+            Download Config Again
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Bottom Navigation ── -->
+  <nav class="wizard-nav" aria-label="Wizard navigation">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <button class="btn btn--ghost" id="btn-back" aria-label="Go back">
+          ← <span data-i18n="nav.back">Back</span>
+        </button>
+      </div>
+      <div class="nav-right">
+        <button class="btn btn--save" id="btn-save">
+          <span data-i18n="nav.save">Save Progress</span>
+        </button>
+        <button class="btn btn--primary" id="btn-next">
+          <span data-i18n="nav.next">Next</span> →
+        </button>
+        <button class="btn btn--finish" id="btn-finish">
+          <span data-i18n="nav.finish">🚀 Create My Landing Page</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="js/i18n.js"></script>
+  <script src="js/onboarding.js"></script>
+
+  <!-- Inline: color picker live update for value labels -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      function bindColorLabel(inputId, labelId) {
+        const input = document.getElementById(inputId);
+        const label = document.getElementById(labelId);
+        if (!input || !label) return;
+        input.addEventListener("input", () => { label.textContent = input.value; });
+      }
+      bindColorLabel("s3-primary-color", "primary-color-label");
+      bindColorLabel("s3-secondary-color", "secondary-color-label");
+
+      // Keyboard support for template and service cards
+      document.querySelectorAll(".template-card, .service-card, .crm-card").forEach(card => {
+        card.addEventListener("keydown", e => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card.click(); }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

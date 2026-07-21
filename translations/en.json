@@ -1,0 +1,206 @@
+{
+  "lang": "en",
+  "langName": "English",
+
+  "nav": {
+    "about": "About",
+    "services": "Services",
+    "areas": "Areas",
+    "testimonials": "Testimonials",
+    "contact": "Contact",
+    "cta": "Schedule Consultation",
+    "whatsapp": "WhatsApp"
+  },
+
+  "hero": {
+    "badge": "Certified Real Estate Agent",
+    "headline": "Helping You Find Your",
+    "headline_em": "Perfect Home",
+    "subheadline": "Professional real estate guidance for buyers, sellers and investors.",
+    "cta_primary": "Contact Me",
+    "cta_secondary": "Schedule Consultation",
+    "stats": {
+      "deals": "Deals Closed",
+      "years": "Years of Experience",
+      "cities": "Cities Served",
+      "rating": "Average Rating"
+    }
+  },
+
+  "multilingual": {
+    "badge": "Borderless Communication",
+    "headline": "Your website speaks your client's language.",
+    "subheadline": "Serve buyers and sellers in English, Portuguese or Spanish — no communication barriers.",
+    "cta": "See Demo"
+  },
+
+  "about": {
+    "badge": "About the Agent",
+    "headline": "Experience and Dedication in Service of Your Dream",
+    "bio": "With over 10 years of experience in real estate, I specialize in helping families find their ideal home and investors maximize their returns. My commitment is to guide you through every step of the real estate journey with transparency and professionalism.",
+    "experience": "Years of Experience",
+    "deals": "Closed Transactions",
+    "satisfaction": "Client Satisfaction",
+    "specialties_title": "Specialties",
+    "specialties": ["Residential Properties", "Commercial Properties", "Investment Properties", "Relocation", "First-Time Buyers"],
+    "brokerage_label": "Brokerage",
+    "license_label": "License",
+    "cta": "Schedule Consultation"
+  },
+
+  "areas": {
+    "badge": "Areas Served",
+    "headline": "Where I Can Help You",
+    "subheadline": "Operating across multiple regions with deep knowledge of local markets.",
+    "cta": "View Available Properties"
+  },
+
+  "services": {
+    "badge": "Services",
+    "headline": "Complete Solutions for Every Need",
+    "subheadline": "From your first home to an investment portfolio, I offer specialized support at every stage.",
+    "items": [
+      {
+        "icon": "🏠",
+        "title": "Buying a Home",
+        "description": "Complete guidance in finding and acquiring the ideal property for your family or investment."
+      },
+      {
+        "icon": "💰",
+        "title": "Selling Your Home",
+        "description": "Personalized strategy to sell your property at the best price in the shortest time possible."
+      },
+      {
+        "icon": "📈",
+        "title": "Investment Properties",
+        "description": "Market analysis and selection of properties with the highest appreciation and yield potential."
+      },
+      {
+        "icon": "✈️",
+        "title": "Relocation",
+        "description": "Full support for families and professionals relocating to a new city."
+      },
+      {
+        "icon": "🔑",
+        "title": "First-Time Buyers",
+        "description": "Step-by-step guidance for first-time buyers including financing and all the paperwork."
+      },
+      {
+        "icon": "🏢",
+        "title": "Commercial Properties",
+        "description": "Specialized consulting for commercial spaces for expanding businesses or new ventures."
+      }
+    ]
+  },
+
+  "leadmagnet": {
+    "badge": "Free Guide",
+    "headline": "Complete Home Buyer's Guide",
+    "subheadline": "Download for free and discover everything you need to know before buying a home in the USA.",
+    "features": [
+      "How to choose the best neighborhood",
+      "Step-by-step financing process",
+      "Tips to negotiate the best price",
+      "Common mistakes and how to avoid them"
+    ],
+    "form": {
+      "name": "Your Full Name",
+      "email": "Your Email",
+      "phone": "Your Phone",
+      "submit": "Download Free Guide",
+      "privacy": "Your data is safe. We don't send spam.",
+      "success": "Great! Check your email to access the guide.",
+      "error": "An error occurred. Please try again."
+    }
+  },
+
+  "newsletter": {
+    "badge": "Stay Updated",
+    "headline": "Get Real Estate Market Updates",
+    "subheadline": "News, opportunities and trends directly to your inbox. Free and spam-free.",
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "submit": "Subscribe Now",
+      "privacy": "No spam. Unsubscribe anytime.",
+      "success": "Great! You have been subscribed successfully."
+    }
+  },
+
+  "contact": {
+    "badge": "Contact",
+    "headline": "Let's Talk About Your Goals",
+    "subheadline": "Fill out the form and I'll get back to you within 24 hours.",
+    "form": {
+      "name": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "interest_label": "I'm Interested In",
+      "interest_options": [
+        { "value": "buy", "label": "Buying a Home" },
+        { "value": "sell", "label": "Selling My Home" },
+        { "value": "invest", "label": "Investing" },
+        { "value": "relocate", "label": "Relocation" }
+      ],
+      "message": "Message",
+      "submit": "Send Message",
+      "success": "Message sent! I'll get back to you soon.",
+      "error": "Error sending. Please try again."
+    },
+    "direct": {
+      "title": "Direct Contact",
+      "phone_label": "Phone",
+      "email_label": "Email",
+      "office_label": "Office",
+      "hours_label": "Business Hours",
+      "hours": "Monday to Friday: 9am to 6pm"
+    }
+  },
+
+  "testimonials": {
+    "badge": "Testimonials",
+    "headline": "What My Clients Say",
+    "subheadline": "Real stories from people who achieved their dream of homeownership."
+  },
+
+  "referral": {
+    "badge": "Referral",
+    "headline": "Know Someone Looking to Buy or Sell?",
+    "subheadline": "Send a referral and help that person achieve their dream of homeownership.",
+    "form": {
+      "name": "Referral's Name",
+      "phone": "Referral's Phone",
+      "email": "Referral's Email",
+      "message": "Message (optional)",
+      "submit": "Send Referral",
+      "success": "Referral received! We'll be in touch.",
+      "your_name": "Your Name (optional)"
+    }
+  },
+
+  "whatsapp": {
+    "tooltip": "Chat on WhatsApp",
+    "message": "Hello! I would like to know more about your real estate services."
+  },
+
+  "footer": {
+    "tagline": "Your trusted partner in real estate.",
+    "links_title": "Quick Links",
+    "contact_title": "Contact",
+    "social_title": "Social Media",
+    "license_label": "License",
+    "brokerage_label": "Brokerage",
+    "privacy": "Privacy Policy",
+    "fair_housing": "Fair Housing",
+    "terms": "Terms of Use",
+    "powered_by": "Powered by",
+    "copyright": "All rights reserved."
+  },
+
+  "cookie": {
+    "message": "We use cookies to improve your experience. By continuing, you agree to our",
+    "policy": "Privacy Policy",
+    "accept": "Accept",
+    "decline": "Decline"
+  }
+}

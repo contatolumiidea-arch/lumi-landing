@@ -1,0 +1,206 @@
+{
+  "lang": "es",
+  "langName": "Español",
+
+  "nav": {
+    "about": "Sobre Mí",
+    "services": "Servicios",
+    "areas": "Áreas",
+    "testimonials": "Testimonios",
+    "contact": "Contacto",
+    "cta": "Agendar Consulta",
+    "whatsapp": "WhatsApp"
+  },
+
+  "hero": {
+    "badge": "Agente de Bienes Raíces Certificado",
+    "headline": "Ayudándote a Encontrar tu",
+    "headline_em": "Hogar Perfecto",
+    "subheadline": "Orientación profesional en bienes raíces para compradores, vendedores e inversores.",
+    "cta_primary": "Contáctame",
+    "cta_secondary": "Agendar Consulta",
+    "stats": {
+      "deals": "Transacciones Realizadas",
+      "years": "Años de Experiencia",
+      "cities": "Ciudades Atendidas",
+      "rating": "Calificación Promedio"
+    }
+  },
+
+  "multilingual": {
+    "badge": "Comunicación Sin Fronteras",
+    "headline": "Tu sitio web habla el idioma de tu cliente.",
+    "subheadline": "Atiende a compradores y vendedores en inglés, portugués o español — sin barreras de comunicación.",
+    "cta": "Ver Demostración"
+  },
+
+  "about": {
+    "badge": "Sobre el Agente",
+    "headline": "Experiencia y Dedicación al Servicio de tu Sueño",
+    "bio": "Con más de 10 años de experiencia en el mercado inmobiliario, me especializo en ayudar a familias a encontrar su hogar ideal e inversores a maximizar sus retornos. Mi compromiso es guiarte en cada etapa del proceso inmobiliario con transparencia y profesionalismo.",
+    "experience": "Años de Experiencia",
+    "deals": "Transacciones Cerradas",
+    "satisfaction": "Satisfacción del Cliente",
+    "specialties_title": "Especialidades",
+    "specialties": ["Propiedades Residenciales", "Propiedades Comerciales", "Propiedades de Inversión", "Reubicación", "Compradores Primerizos"],
+    "brokerage_label": "Correduría",
+    "license_label": "Licencia",
+    "cta": "Agendar Consulta"
+  },
+
+  "areas": {
+    "badge": "Áreas Atendidas",
+    "headline": "Dónde Puedo Ayudarte",
+    "subheadline": "Operando en diversas regiones con profundo conocimiento del mercado local.",
+    "cta": "Ver Propiedades Disponibles"
+  },
+
+  "services": {
+    "badge": "Servicios",
+    "headline": "Soluciones Completas para Cada Necesidad",
+    "subheadline": "Desde tu primera casa hasta una cartera de inversiones, ofrezco apoyo especializado en cada etapa.",
+    "items": [
+      {
+        "icon": "🏠",
+        "title": "Compra de Propiedad",
+        "description": "Orientación completa en la búsqueda y adquisición de la propiedad ideal para tu familia o inversión."
+      },
+      {
+        "icon": "💰",
+        "title": "Venta de Propiedad",
+        "description": "Estrategia personalizada para vender tu propiedad al mejor precio en el menor tiempo posible."
+      },
+      {
+        "icon": "📈",
+        "title": "Propiedades de Inversión",
+        "description": "Análisis de mercado y selección de propiedades con mayor potencial de valorización y rentabilidad."
+      },
+      {
+        "icon": "✈️",
+        "title": "Reubicación",
+        "description": "Apoyo completo para familias y profesionales en proceso de mudanza a una nueva ciudad."
+      },
+      {
+        "icon": "🔑",
+        "title": "Compradores Primerizos",
+        "description": "Guía paso a paso para compradores de primera vez incluyendo financiamiento y toda la documentación."
+      },
+      {
+        "icon": "🏢",
+        "title": "Propiedades Comerciales",
+        "description": "Consultoría especializada en espacios comerciales para empresas en expansión o nuevos emprendimientos."
+      }
+    ]
+  },
+
+  "leadmagnet": {
+    "badge": "Guía Gratuita",
+    "headline": "Guía Completa para Compradores de Vivienda",
+    "subheadline": "Descarga gratis y descubre todo lo que necesitas saber antes de comprar una casa en EE.UU.",
+    "features": [
+      "Cómo elegir el mejor vecindario",
+      "Proceso de financiamiento paso a paso",
+      "Consejos para negociar el mejor precio",
+      "Errores comunes y cómo evitarlos"
+    ],
+    "form": {
+      "name": "Tu Nombre Completo",
+      "email": "Tu Correo Electrónico",
+      "phone": "Tu Teléfono",
+      "submit": "Descargar Guía Gratuita",
+      "privacy": "Tus datos están seguros. No enviamos spam.",
+      "success": "¡Perfecto! Revisa tu correo para acceder a la guía.",
+      "error": "Ocurrió un error. Inténtalo de nuevo."
+    }
+  },
+
+  "newsletter": {
+    "badge": "Mantente Actualizado",
+    "headline": "Recibe Actualizaciones del Mercado Inmobiliario",
+    "subheadline": "Noticias, oportunidades y tendencias directamente a tu correo. Gratis y sin spam.",
+    "form": {
+      "name": "Tu Nombre",
+      "email": "Tu Correo Electrónico",
+      "submit": "Suscribirme",
+      "privacy": "Sin spam. Cancela cuando quieras.",
+      "success": "¡Genial! Te has suscrito exitosamente."
+    }
+  },
+
+  "contact": {
+    "badge": "Contacto",
+    "headline": "Hablemos de Tus Objetivos",
+    "subheadline": "Completa el formulario y me comunicaré contigo en menos de 24 horas.",
+    "form": {
+      "name": "Nombre Completo",
+      "email": "Correo Electrónico",
+      "phone": "Teléfono",
+      "interest_label": "Estoy Interesado En",
+      "interest_options": [
+        { "value": "buy", "label": "Comprar Propiedad" },
+        { "value": "sell", "label": "Vender mi Propiedad" },
+        { "value": "invest", "label": "Invertir" },
+        { "value": "relocate", "label": "Reubicación" }
+      ],
+      "message": "Mensaje",
+      "submit": "Enviar Mensaje",
+      "success": "¡Mensaje enviado! Me comunicaré pronto.",
+      "error": "Error al enviar. Inténtalo de nuevo."
+    },
+    "direct": {
+      "title": "Contacto Directo",
+      "phone_label": "Teléfono",
+      "email_label": "Correo",
+      "office_label": "Oficina",
+      "hours_label": "Horario de Atención",
+      "hours": "Lunes a Viernes: 9am a 6pm"
+    }
+  },
+
+  "testimonials": {
+    "badge": "Testimonios",
+    "headline": "Lo Que Dicen Mis Clientes",
+    "subheadline": "Historias reales de personas que lograron el sueño de tener su hogar."
+  },
+
+  "referral": {
+    "badge": "Referido",
+    "headline": "¿Conoces a Alguien Que Quiera Comprar o Vender?",
+    "subheadline": "Haz una referencia y ayuda a esa persona a lograr el sueño de tener su hogar.",
+    "form": {
+      "name": "Nombre del Referido",
+      "phone": "Teléfono del Referido",
+      "email": "Correo del Referido",
+      "message": "Mensaje (opcional)",
+      "submit": "Enviar Referido",
+      "success": "¡Referido recibido! Nos pondremos en contacto.",
+      "your_name": "Tu Nombre (opcional)"
+    }
+  },
+
+  "whatsapp": {
+    "tooltip": "Chatear en WhatsApp",
+    "message": "¡Hola! Me gustaría saber más sobre tus servicios de bienes raíces."
+  },
+
+  "footer": {
+    "tagline": "Tu socio de confianza en bienes raíces.",
+    "links_title": "Enlaces Rápidos",
+    "contact_title": "Contacto",
+    "social_title": "Redes Sociales",
+    "license_label": "Licencia",
+    "brokerage_label": "Correduría",
+    "privacy": "Política de Privacidad",
+    "fair_housing": "Ley de Vivienda Justa",
+    "terms": "Términos de Uso",
+    "powered_by": "Desarrollado por",
+    "copyright": "Todos los derechos reservados."
+  },
+
+  "cookie": {
+    "message": "Usamos cookies para mejorar tu experiencia. Al continuar, aceptas nuestra",
+    "policy": "Política de Privacidad",
+    "accept": "Aceptar",
+    "decline": "Rechazar"
+  }
+}
