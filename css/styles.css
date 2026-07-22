@@ -2473,7 +2473,8 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   .hero-content { grid-template-columns: 1fr; }
   .hero-text { text-align: center; }
   .hero-actions { justify-content: center; }
-  .hero-visual { justify-content: center; margin-top: 48px; }
+  .hero-visual { justify-content: center; margin-top: 32px; }
+  .hero-img { max-width: 100%; }
   .showcase-badge--1 { left: 0; }
   .showcase-badge--2 { right: 0; }
   .showcase-badge--3 { left: 0; }
@@ -2538,5 +2539,5 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   .templates-grid { grid-template-columns: 1fr; }
   .integrations-grid { grid-template-columns: 1fr 1fr; }
   .steps-grid { max-width: 100%; }
-  .hero-visual { display: none; }
+  /* hero-visual kept visible on all sizes */
 }
