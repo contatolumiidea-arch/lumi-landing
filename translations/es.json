@@ -3,198 +3,217 @@
   "langName": "Español",
 
   "nav": {
-    "about": "Sobre Mí",
-    "services": "Servicios",
-    "areas": "Áreas",
-    "testimonials": "Testimonios",
+    "solution": "Funcionalidades",
+    "templates": "Plantillas",
+    "pricing": "Precios",
+    "faq": "FAQ",
     "contact": "Contacto",
-    "cta": "Agendar Consulta",
+    "cta": "Comenzar Ahora",
     "whatsapp": "WhatsApp"
   },
 
   "hero": {
-    "badge": "Agente de Bienes Raíces Certificado",
-    "headline": "Ayudándote a Encontrar tu",
-    "headline_em": "Hogar Perfecto",
-    "subheadline": "Orientación profesional en bienes raíces para compradores, vendedores e inversores.",
-    "cta_primary": "Contáctame",
-    "cta_secondary": "Agendar Consulta",
+    "badge": "Landing Pages Inteligentes para Bienes Raíces",
+    "headline": "Transforma Tu Presencia en Bienes Raíces",
+    "headline_em": "En una Máquina de Generación de Leads.",
+    "subheadline": "Landing pages profesionales y multilingües diseñadas para agentes inmobiliarios que quieren más consultas, más leads y más oportunidades.",
+    "cta_primary": "Crear Mi Landing Page",
+    "cta_secondary": "Ver Plantillas",
     "stats": {
-      "deals": "Transacciones Realizadas",
-      "years": "Años de Experiencia",
-      "cities": "Ciudades Atendidas",
-      "rating": "Calificación Promedio"
+      "agents_value": "500+",
+      "agents_label": "Agentes",
+      "languages_value": "3",
+      "languages_label": "Idiomas",
+      "active_value": "24/7",
+      "active_label": "Siempre Activo"
+    }
+  },
+
+  "problem": {
+    "badge": "El Problema",
+    "headline": "La Mayoría de los Agentes Pierden Leads Antes de Hacer Contacto.",
+    "card1_title": "Sin Presencia Profesional en Línea",
+    "card1_desc": "Tu perfil en redes sociales no es suficiente. Los clientes buscan profesionales con una presencia digital dedicada y confiable.",
+    "card2_title": "Los Visitantes Se Van Sin Contactar",
+    "card2_desc": "Sin una estrategia clara de conversión, los clientes potenciales navegan y desaparecen — para siempre.",
+    "card3_title": "El Tráfico de Redes Sociales Se Desperdicia",
+    "card3_desc": "Pasas horas publicando en Instagram y Facebook, pero no tienes forma de capturar esos visitantes como leads."
+  },
+
+  "solution": {
+    "badge": "La Solución",
+    "headline": "Tu Oficina Digital Trabajando 24/7",
+    "subheadline": "LUMI LANDING transforma tu presencia en línea en un sistema completo de generación de leads.",
+    "feat1_title": "Página Profesional de Bienes Raíces",
+    "feat1_desc": "Una landing page impresionante y optimizada para conversión, diseñada exclusivamente para profesionales inmobiliarios.",
+    "feat2_title": "Formularios Inteligentes de Captura",
+    "feat2_desc": "Formularios inteligentes que califican tus leads antes de que lleguen a ti — comprador, vendedor, inversor o referencia.",
+    "feat3_title": "Conexión Instantánea por WhatsApp",
+    "feat3_desc": "Un clic conecta a clientes potenciales directamente a tu WhatsApp con un mensaje personalizado.",
+    "feat4_title": "Experiencia Multilingüe",
+    "feat4_desc": "Tu página atiende automáticamente a clientes en inglés, español o portugués — sin trabajo adicional.",
+    "feat5_title": "Lead Magnets y Ebooks",
+    "feat5_desc": "Ofrece guías gratuitas para capturar información de contacto de visitantes que aún no están listos para comunicarse."
+  },
+
+  "templates": {
+    "badge": "Plantillas",
+    "headline": "Elige Tu Imagen Profesional",
+    "subheadline": "Cinco diseños premium creados para diferentes perfiles de profesionales inmobiliarios.",
+    "t1_name": "Luxury Realtor",
+    "t1_desc": "Elegante y sofisticado para especialistas en propiedades de lujo.",
+    "t2_name": "Modern Agent",
+    "t2_desc": "Limpio y contemporáneo para el agente inmobiliario moderno.",
+    "t3_name": "Neighborhood Specialist",
+    "t3_desc": "Diseño orientado a la comunidad para expertos en mercados locales.",
+    "t4_name": "Real Estate Investor",
+    "t4_desc": "Diseño basado en datos para profesionales de propiedades de inversión.",
+    "t5_name": "First Home Expert",
+    "t5_desc": "Cálido y accesible para especialistas en compradores de primera vivienda.",
+    "preview_btn": "Vista Previa"
+  },
+
+  "howItWorks": {
+    "badge": "Cómo Funciona",
+    "headline": "Tu Landing Page en Línea en 3 Pasos",
+    "step1_title": "Elige Tu Diseño",
+    "step1_desc": "Selecciona una de nuestras cinco plantillas premium diseñadas para profesionales inmobiliarios.",
+    "step2_title": "Agrega Tu Información",
+    "step2_desc": "Completa el proceso de incorporación guiado en minutos. No se requieren conocimientos técnicos.",
+    "step3_title": "Comienza a Recibir Leads",
+    "step3_desc": "Tu página se publica y comienza a capturar leads, consultas y contactos de WhatsApp.",
+    "cta": "Comenzar Ahora →"
+  },
+
+  "leadCapture": {
+    "badge": "Generación de Leads",
+    "headline": "Cada Visitante Puede Convertirse en un Cliente Futuro",
+    "subheadline": "Múltiples mecanismos de captura garantizan que ninguna oportunidad se pierda.",
+    "card1_title": "Formulario de Consulta del Comprador",
+    "card1_desc": "Captura compradores al inicio de su proceso de búsqueda.",
+    "card2_title": "Formulario de Evaluación del Vendedor",
+    "card2_desc": "Conéctate con propietarios que piensan en vender.",
+    "card3_title": "Suscripción al Boletín",
+    "card3_desc": "Mantente presente con actualizaciones del mercado.",
+    "card4_title": "Descarga de Ebook",
+    "card4_desc": "Ofrece valor a cambio de información de contacto."
+  },
+
+  "leadmagnet": {
+    "badge": "Lead Magnet",
+    "headline": "Convierte Tu Conocimiento en Nuevos Leads",
+    "subheadline": "Ofrece una guía gratuita y captura el contacto de clientes potenciales que aún no están listos para comunicarse.",
+    "note": "Este es un ejemplo del lead magnet incluido en cada página de LUMI LANDING.",
+    "ebook_title": "Guía del Comprador de Vivienda",
+    "ebook_sub": "Todo lo que necesitas saber antes de comprar una vivienda en EE.UU.",
+    "form": {
+      "name": "Nombre Completo",
+      "email": "Correo Electrónico",
+      "phone": "Número de Teléfono",
+      "submit": "Descargar Guía Gratuita",
+      "privacy": "Tus datos están seguros. No enviamos spam.",
+      "success": "¡Genial! Revisa tu correo para acceder a la guía.",
+      "error": "Ocurrió un error. Por favor, inténtalo de nuevo."
     }
   },
 
   "multilingual": {
-    "badge": "Comunicación Sin Fronteras",
-    "headline": "Tu sitio web habla el idioma de tu cliente.",
-    "subheadline": "Atiende a compradores y vendedores en inglés, portugués o español — sin barreras de comunicación.",
-    "cta": "Ver Demostración"
-  },
-
-  "about": {
-    "badge": "Sobre el Agente",
-    "headline": "Experiencia y Dedicación al Servicio de tu Sueño",
-    "bio": "Con más de 10 años de experiencia en el mercado inmobiliario, me especializo en ayudar a familias a encontrar su hogar ideal e inversores a maximizar sus retornos. Mi compromiso es guiarte en cada etapa del proceso inmobiliario con transparencia y profesionalismo.",
-    "experience": "Años de Experiencia",
-    "deals": "Transacciones Cerradas",
-    "satisfaction": "Satisfacción del Cliente",
-    "specialties_title": "Especialidades",
-    "specialties": ["Propiedades Residenciales", "Propiedades Comerciales", "Propiedades de Inversión", "Reubicación", "Compradores Primerizos"],
-    "brokerage_label": "Correduría",
-    "license_label": "Licencia",
-    "cta": "Agendar Consulta"
-  },
-
-  "areas": {
-    "badge": "Áreas Atendidas",
-    "headline": "Dónde Puedo Ayudarte",
-    "subheadline": "Operando en diversas regiones con profundo conocimiento del mercado local.",
-    "cta": "Ver Propiedades Disponibles"
-  },
-
-  "services": {
-    "badge": "Servicios",
-    "headline": "Soluciones Completas para Cada Necesidad",
-    "subheadline": "Desde tu primera casa hasta una cartera de inversiones, ofrezco apoyo especializado en cada etapa.",
-    "items": [
-      {
-        "icon": "🏠",
-        "title": "Compra de Propiedad",
-        "description": "Orientación completa en la búsqueda y adquisición de la propiedad ideal para tu familia o inversión."
-      },
-      {
-        "icon": "💰",
-        "title": "Venta de Propiedad",
-        "description": "Estrategia personalizada para vender tu propiedad al mejor precio en el menor tiempo posible."
-      },
-      {
-        "icon": "📈",
-        "title": "Propiedades de Inversión",
-        "description": "Análisis de mercado y selección de propiedades con mayor potencial de valorización y rentabilidad."
-      },
-      {
-        "icon": "✈️",
-        "title": "Reubicación",
-        "description": "Apoyo completo para familias y profesionales en proceso de mudanza a una nueva ciudad."
-      },
-      {
-        "icon": "🔑",
-        "title": "Compradores Primerizos",
-        "description": "Guía paso a paso para compradores de primera vez incluyendo financiamiento y toda la documentación."
-      },
-      {
-        "icon": "🏢",
-        "title": "Propiedades Comerciales",
-        "description": "Consultoría especializada en espacios comerciales para empresas en expansión o nuevos emprendimientos."
-      }
-    ]
-  },
-
-  "leadmagnet": {
-    "badge": "Guía Gratuita",
-    "headline": "Guía Completa para Compradores de Vivienda",
-    "subheadline": "Descarga gratis y descubre todo lo que necesitas saber antes de comprar una casa en EE.UU.",
-    "features": [
-      "Cómo elegir el mejor vecindario",
-      "Proceso de financiamiento paso a paso",
-      "Consejos para negociar el mejor precio",
-      "Errores comunes y cómo evitarlos"
-    ],
-    "form": {
-      "name": "Tu Nombre Completo",
-      "email": "Tu Correo Electrónico",
-      "phone": "Tu Teléfono",
-      "submit": "Descargar Guía Gratuita",
-      "privacy": "Tus datos están seguros. No enviamos spam.",
-      "success": "¡Perfecto! Revisa tu correo para acceder a la guía.",
-      "error": "Ocurrió un error. Inténtalo de nuevo."
-    }
-  },
-
-  "newsletter": {
-    "badge": "Mantente Actualizado",
-    "headline": "Recibe Actualizaciones del Mercado Inmobiliario",
-    "subheadline": "Noticias, oportunidades y tendencias directamente a tu correo. Gratis y sin spam.",
-    "form": {
-      "name": "Tu Nombre",
-      "email": "Tu Correo Electrónico",
-      "submit": "Suscribirme",
-      "privacy": "Sin spam. Cancela cuando quieras.",
-      "success": "¡Genial! Te has suscrito exitosamente."
-    }
-  },
-
-  "contact": {
-    "badge": "Contacto",
-    "headline": "Hablemos de Tus Objetivos",
-    "subheadline": "Completa el formulario y me comunicaré contigo en menos de 24 horas.",
-    "form": {
-      "name": "Nombre Completo",
-      "email": "Correo Electrónico",
-      "phone": "Teléfono",
-      "interest_label": "Estoy Interesado En",
-      "interest_options": [
-        { "value": "buy", "label": "Comprar Propiedad" },
-        { "value": "sell", "label": "Vender mi Propiedad" },
-        { "value": "invest", "label": "Invertir" },
-        { "value": "relocate", "label": "Reubicación" }
-      ],
-      "message": "Mensaje",
-      "submit": "Enviar Mensaje",
-      "success": "¡Mensaje enviado! Me comunicaré pronto.",
-      "error": "Error al enviar. Inténtalo de nuevo."
-    },
-    "direct": {
-      "title": "Contacto Directo",
-      "phone_label": "Teléfono",
-      "email_label": "Correo",
-      "office_label": "Oficina",
-      "hours_label": "Horario de Atención",
-      "hours": "Lunes a Viernes: 9am a 6pm"
-    }
-  },
-
-  "testimonials": {
-    "badge": "Testimonios",
-    "headline": "Lo Que Dicen Mis Clientes",
-    "subheadline": "Historias reales de personas que lograron el sueño de tener su hogar."
-  },
-
-  "referral": {
-    "badge": "Referido",
-    "headline": "¿Conoces a Alguien Que Quiera Comprar o Vender?",
-    "subheadline": "Haz una referencia y ayuda a esa persona a lograr el sueño de tener su hogar.",
-    "form": {
-      "name": "Nombre del Referido",
-      "phone": "Teléfono del Referido",
-      "email": "Correo del Referido",
-      "message": "Mensaje (opcional)",
-      "submit": "Enviar Referido",
-      "success": "¡Referido recibido! Nos pondremos en contacto.",
-      "your_name": "Tu Nombre (opcional)"
-    }
+    "badge": "Multilingüe",
+    "headline": "Conecta Con Más Clientes en Su Idioma Preferido.",
+    "subheadline": "El mercado inmobiliario de EE.UU. es diverso. Tu landing page debe hablarle a cada cliente potencial.",
+    "lang1_name": "English",
+    "lang1_desc": "Alcanza todo el mercado estadounidense con contenido fluido y profesional en inglés.",
+    "lang2_name": "Português",
+    "lang2_desc": "Conéctate con la creciente comunidad brasileña en los Estados Unidos.",
+    "lang3_name": "Español",
+    "lang3_desc": "Atiende al grupo minoritario más grande en el mercado inmobiliario de EE.UU."
   },
 
   "whatsapp": {
-    "tooltip": "Chatear en WhatsApp",
-    "message": "¡Hola! Me gustaría saber más sobre tus servicios de bienes raíces."
+    "badge": "WhatsApp",
+    "headline": "Conexión Instantánea con Clientes Potenciales",
+    "subheadline": "Un botón flotante de WhatsApp en tu página permite a los clientes contactarte al instante — el camino más rápido del lead a la conversación.",
+    "stat1": "98% de tasa de apertura en mensajes de WhatsApp",
+    "stat2": "Tiempo de respuesta promedio: menos de 5 minutos",
+    "cta": "Comenzar Ahora",
+    "tooltip": "Chatear por WhatsApp",
+    "message": "¡Hola! Me interesa saber más sobre LUMI LANDING."
+  },
+
+  "crm": {
+    "badge": "Integraciones",
+    "headline": "Tus Leads, A Tu Manera",
+    "subheadline": "Conecta tu LUMI LANDING con las herramientas que ya usas — o descubre LUMI FLOW, nuestro próximo CRM creado para bienes raíces.",
+    "int1": "Cualquier CRM (webhook)",
+    "int2": "Google Sheets",
+    "int3": "Correo Electrónico (directo)",
+    "int4": "Zapier",
+    "int5": "Make",
+    "flow_title": "LUMI FLOW CRM",
+    "flow_badge": "Próximamente",
+    "flow_desc": "Creado específicamente para profesionales inmobiliarios. Sé el primero en saberlo.",
+    "flow_email_placeholder": "Tu dirección de correo electrónico",
+    "flow_cta": "Notificarme"
+  },
+
+  "pricing": {
+    "badge": "Precios",
+    "headline": "Un Plan. Todo Incluido.",
+    "subheadline": "Sin cuotas de configuración. Sin costos ocultos. Cancela cuando quieras.",
+    "product": "LUMI LANDING",
+    "price": "$49",
+    "period": "/ mes",
+    "annual": "o $470/año (ahorra 2 meses)",
+    "feat1": "Landing page profesional de bienes raíces",
+    "feat2": "Hosting y SSL incluidos",
+    "feat3": "Sitio web multilingüe (EN + PT + ES)",
+    "feat4": "Sistema de captura de leads",
+    "feat5": "Integración con WhatsApp",
+    "feat6": "Lead magnets y herramientas de ebook",
+    "feat7": "Soporte de dominio personalizado",
+    "feat8": "Integraciones con CRM",
+    "feat9": "Soporte prioritario",
+    "cta": "Crear Mi Landing Page",
+    "guarantee": "Garantía de devolución de dinero de 30 días. Sin preguntas."
+  },
+
+  "faq": {
+    "badge": "FAQ",
+    "headline": "Preguntas Frecuentes",
+    "q1": "¿Necesito conocimientos técnicos para configurar mi página?",
+    "a1": "No. Nuestro asistente de incorporación te guía en cada paso. Si puedes completar un formulario, puedes lanzar tu página LUMI LANDING.",
+    "q2": "¿Puedo usar mi propio dominio?",
+    "a2": "Sí. Puedes conectar tu propio dominio (ej. sarahjohnson.com) a tu página LUMI LANDING mientras tu suscripción esté activa.",
+    "q3": "¿Puedo conectar mi CRM?",
+    "a3": "Sí. LUMI LANDING se conecta a cualquier CRM via webhook, así como Zapier, Make, Google Sheets y correo electrónico directo.",
+    "q4": "¿Funciona en múltiples idiomas?",
+    "a4": "Sí. Cada página LUMI LANDING soporta inglés, portugués y español. Tus visitantes pueden cambiar de idioma con un clic.",
+    "q5": "¿Cuánto tiempo toma la configuración?",
+    "a5": "La mayoría de los agentes completan el proceso de incorporación en menos de 30 minutos. Nosotros nos encargamos del resto.",
+    "q6": "¿Qué sucede si cancelo?",
+    "a6": "Puedes cancelar en cualquier momento. Tu página permanece activa hasta el final de tu período de facturación."
   },
 
   "footer": {
-    "tagline": "Tu socio de confianza en bienes raíces.",
-    "links_title": "Enlaces Rápidos",
-    "contact_title": "Contacto",
-    "social_title": "Redes Sociales",
-    "license_label": "Licencia",
-    "brokerage_label": "Correduría",
+    "tagline": "Construyendo el futuro de la tecnología inmobiliaria.",
+    "col1_title": "Productos",
+    "col2_title": "Empresa",
+    "col3_title": "Legal",
+    "product1": "LUMI LANDING",
+    "product2": "LUMI FLOW CRM",
+    "product3": "LUMI ANALYTICS",
+    "coming_soon": "Próximamente",
+    "company1": "Acerca de LUMI IDEA",
+    "company2": "Contacto",
+    "company3": "Blog",
+    "legal1": "Política de Privacidad",
+    "legal2": "Términos de Uso",
+    "legal3": "Aviso de Fair Housing",
     "privacy": "Política de Privacidad",
-    "fair_housing": "Ley de Vivienda Justa",
     "terms": "Términos de Uso",
-    "powered_by": "Desarrollado por",
-    "copyright": "Todos los derechos reservados."
+    "fair_housing": "Fair Housing",
+    "copyright": "Todos los derechos reservados.",
+    "powered_by": "Desarrollado por LUMI IDEA"
   },
 
   "cookie": {
@@ -202,5 +221,40 @@
     "policy": "Política de Privacidad",
     "accept": "Aceptar",
     "decline": "Rechazar"
+  },
+
+  "contact": {
+    "badge": "Contacto",
+    "headline": "¿Listo para Comenzar?",
+    "subheadline": "¿Tienes alguna pregunta? Envíanos un mensaje y te responderemos en 24 horas.",
+    "form": {
+      "name": "Nombre Completo",
+      "email": "Correo Electrónico",
+      "phone": "Teléfono",
+      "interest_label": "Estoy Interesado En",
+      "interest_options": [
+        { "value": "start", "label": "Comenzar con LUMI LANDING" },
+        { "value": "demo", "label": "Solicitar una Demo" },
+        { "value": "pricing", "label": "Información de Precios" },
+        { "value": "other", "label": "Otro" }
+      ],
+      "message": "Tu mensaje",
+      "submit": "Enviar Mensaje",
+      "success": "¡Mensaje enviado! Te responderemos pronto.",
+      "error": "Error al enviar. Por favor, inténtalo de nuevo."
+    }
+  },
+
+  "newsletter": {
+    "badge": "Mantente Actualizado",
+    "headline": "Recibe Novedades de Tecnología Inmobiliaria",
+    "subheadline": "Actualizaciones de productos y novedades directamente a tu correo.",
+    "form": {
+      "name": "Tu Nombre",
+      "email": "Tu Correo",
+      "submit": "Suscribirme",
+      "privacy": "Sin spam. Cancela cuando quieras.",
+      "success": "¡Suscrito con éxito!"
+    }
   }
 }

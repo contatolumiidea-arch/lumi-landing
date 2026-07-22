@@ -3,110 +3,113 @@
   "langName": "English",
 
   "nav": {
-    "about": "About",
-    "services": "Services",
-    "areas": "Areas",
-    "testimonials": "Testimonials",
+    "solution": "Features",
+    "templates": "Templates",
+    "pricing": "Pricing",
+    "faq": "FAQ",
     "contact": "Contact",
-    "cta": "Schedule Consultation",
+    "cta": "Get Started",
     "whatsapp": "WhatsApp"
   },
 
   "hero": {
-    "badge": "Certified Real Estate Agent",
-    "headline": "Helping You Find Your",
-    "headline_em": "Perfect Home",
-    "subheadline": "Professional real estate guidance for buyers, sellers and investors.",
-    "cta_primary": "Contact Me",
-    "cta_secondary": "Schedule Consultation",
+    "badge": "Smart Landing Pages for Real Estate",
+    "headline": "Turn Your Real Estate Presence",
+    "headline_em": "Into a Lead Generation Machine.",
+    "subheadline": "Professional multilingual landing pages designed for real estate agents who want more inquiries, more leads and more opportunities.",
+    "cta_primary": "Create My Landing Page",
+    "cta_secondary": "View Templates",
     "stats": {
-      "deals": "Deals Closed",
-      "years": "Years of Experience",
-      "cities": "Cities Served",
-      "rating": "Average Rating"
+      "agents_value": "500+",
+      "agents_label": "Agents",
+      "languages_value": "3",
+      "languages_label": "Languages",
+      "active_value": "24/7",
+      "active_label": "Always Active"
     }
   },
 
-  "multilingual": {
-    "badge": "Borderless Communication",
-    "headline": "Your website speaks your client's language.",
-    "subheadline": "Serve buyers and sellers in English, Portuguese or Spanish — no communication barriers.",
-    "cta": "See Demo"
+  "problem": {
+    "badge": "The Problem",
+    "headline": "Most Realtors Lose Leads Before They Ever Make Contact.",
+    "card1_title": "No Professional Online Presence",
+    "card1_desc": "Your social media profile is not enough. Clients look for professionals with a dedicated, trustworthy online presence.",
+    "card2_title": "Visitors Leave Without Contacting",
+    "card2_desc": "Without a clear conversion strategy, potential clients browse and disappear — forever.",
+    "card3_title": "Social Media Traffic is Wasted",
+    "card3_desc": "You spend hours posting on Instagram and Facebook, but have no way to capture those visitors as leads."
   },
 
-  "about": {
-    "badge": "About the Agent",
-    "headline": "Experience and Dedication in Service of Your Dream",
-    "bio": "With over 10 years of experience in real estate, I specialize in helping families find their ideal home and investors maximize their returns. My commitment is to guide you through every step of the real estate journey with transparency and professionalism.",
-    "experience": "Years of Experience",
-    "deals": "Closed Transactions",
-    "satisfaction": "Client Satisfaction",
-    "specialties_title": "Specialties",
-    "specialties": ["Residential Properties", "Commercial Properties", "Investment Properties", "Relocation", "First-Time Buyers"],
-    "brokerage_label": "Brokerage",
-    "license_label": "License",
-    "cta": "Schedule Consultation"
+  "solution": {
+    "badge": "The Solution",
+    "headline": "Your Digital Office Working 24/7",
+    "subheadline": "LUMI LANDING transforms your online presence into a complete lead generation system.",
+    "feat1_title": "Professional Real Estate Page",
+    "feat1_desc": "A stunning, conversion-optimized landing page designed exclusively for real estate professionals.",
+    "feat2_title": "Smart Lead Capture Forms",
+    "feat2_desc": "Intelligent forms that qualify your leads before they even reach you — buyer, seller, investor or referral.",
+    "feat3_title": "Instant WhatsApp Connection",
+    "feat3_desc": "One click connects potential clients directly to your WhatsApp with a personalized message.",
+    "feat4_title": "Multilingual Experience",
+    "feat4_desc": "Your page automatically serves clients in English, Spanish or Portuguese — no extra work required.",
+    "feat5_title": "Lead Magnets & Ebooks",
+    "feat5_desc": "Offer free guides to capture contact information from visitors who are not yet ready to reach out."
   },
 
-  "areas": {
-    "badge": "Areas Served",
-    "headline": "Where I Can Help You",
-    "subheadline": "Operating across multiple regions with deep knowledge of local markets.",
-    "cta": "View Available Properties"
+  "templates": {
+    "badge": "Templates",
+    "headline": "Choose Your Professional Look",
+    "subheadline": "Five premium designs built for different real estate profiles.",
+    "t1_name": "Luxury Realtor",
+    "t1_desc": "Elegant and sophisticated for high-end property specialists.",
+    "t2_name": "Modern Agent",
+    "t2_desc": "Clean and contemporary for the modern real estate professional.",
+    "t3_name": "Neighborhood Specialist",
+    "t3_desc": "Community-focused design for local market experts.",
+    "t4_name": "Real Estate Investor",
+    "t4_desc": "Data-driven layout for investment property professionals.",
+    "t5_name": "First Home Expert",
+    "t5_desc": "Warm and approachable for first-time buyer specialists.",
+    "preview_btn": "Preview"
   },
 
-  "services": {
-    "badge": "Services",
-    "headline": "Complete Solutions for Every Need",
-    "subheadline": "From your first home to an investment portfolio, I offer specialized support at every stage.",
-    "items": [
-      {
-        "icon": "🏠",
-        "title": "Buying a Home",
-        "description": "Complete guidance in finding and acquiring the ideal property for your family or investment."
-      },
-      {
-        "icon": "💰",
-        "title": "Selling Your Home",
-        "description": "Personalized strategy to sell your property at the best price in the shortest time possible."
-      },
-      {
-        "icon": "📈",
-        "title": "Investment Properties",
-        "description": "Market analysis and selection of properties with the highest appreciation and yield potential."
-      },
-      {
-        "icon": "✈️",
-        "title": "Relocation",
-        "description": "Full support for families and professionals relocating to a new city."
-      },
-      {
-        "icon": "🔑",
-        "title": "First-Time Buyers",
-        "description": "Step-by-step guidance for first-time buyers including financing and all the paperwork."
-      },
-      {
-        "icon": "🏢",
-        "title": "Commercial Properties",
-        "description": "Specialized consulting for commercial spaces for expanding businesses or new ventures."
-      }
-    ]
+  "howItWorks": {
+    "badge": "How It Works",
+    "headline": "Your Landing Page Live in 3 Steps",
+    "step1_title": "Choose Your Design",
+    "step1_desc": "Select one of our five premium templates designed for real estate professionals.",
+    "step2_title": "Add Your Information",
+    "step2_desc": "Complete our guided onboarding in minutes. No technical knowledge required.",
+    "step3_title": "Start Receiving Leads",
+    "step3_desc": "Your page goes live and starts capturing leads, inquiries and WhatsApp contacts.",
+    "cta": "Start Now →"
+  },
+
+  "leadCapture": {
+    "badge": "Lead Generation",
+    "headline": "Every Visitor Can Become a Future Client",
+    "subheadline": "Multiple capture mechanisms ensure no opportunity is lost.",
+    "card1_title": "Buyer Inquiry Form",
+    "card1_desc": "Capture buyers early in their search process.",
+    "card2_title": "Seller Evaluation Form",
+    "card2_desc": "Connect with homeowners thinking about selling.",
+    "card3_title": "Newsletter Signup",
+    "card3_desc": "Stay top of mind with market updates.",
+    "card4_title": "Ebook Download",
+    "card4_desc": "Offer value in exchange for contact information."
   },
 
   "leadmagnet": {
-    "badge": "Free Guide",
-    "headline": "Complete Home Buyer's Guide",
-    "subheadline": "Download for free and discover everything you need to know before buying a home in the USA.",
-    "features": [
-      "How to choose the best neighborhood",
-      "Step-by-step financing process",
-      "Tips to negotiate the best price",
-      "Common mistakes and how to avoid them"
-    ],
+    "badge": "Lead Magnet",
+    "headline": "Turn Your Knowledge Into New Leads",
+    "subheadline": "Offer a free guide and capture the contact of potential clients who are not yet ready to reach out.",
+    "note": "This is an example of the lead magnet included in every LUMI LANDING page.",
+    "ebook_title": "Home Buyer's Guide",
+    "ebook_sub": "Everything you need to know before buying a home in the USA",
     "form": {
-      "name": "Your Full Name",
-      "email": "Your Email",
-      "phone": "Your Phone",
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
       "submit": "Download Free Guide",
       "privacy": "Your data is safe. We don't send spam.",
       "success": "Great! Check your email to access the guide.",
@@ -114,87 +117,103 @@
     }
   },
 
-  "newsletter": {
-    "badge": "Stay Updated",
-    "headline": "Get Real Estate Market Updates",
-    "subheadline": "News, opportunities and trends directly to your inbox. Free and spam-free.",
-    "form": {
-      "name": "Your Name",
-      "email": "Your Email",
-      "submit": "Subscribe Now",
-      "privacy": "No spam. Unsubscribe anytime.",
-      "success": "Great! You have been subscribed successfully."
-    }
-  },
-
-  "contact": {
-    "badge": "Contact",
-    "headline": "Let's Talk About Your Goals",
-    "subheadline": "Fill out the form and I'll get back to you within 24 hours.",
-    "form": {
-      "name": "Full Name",
-      "email": "Email",
-      "phone": "Phone",
-      "interest_label": "I'm Interested In",
-      "interest_options": [
-        { "value": "buy", "label": "Buying a Home" },
-        { "value": "sell", "label": "Selling My Home" },
-        { "value": "invest", "label": "Investing" },
-        { "value": "relocate", "label": "Relocation" }
-      ],
-      "message": "Message",
-      "submit": "Send Message",
-      "success": "Message sent! I'll get back to you soon.",
-      "error": "Error sending. Please try again."
-    },
-    "direct": {
-      "title": "Direct Contact",
-      "phone_label": "Phone",
-      "email_label": "Email",
-      "office_label": "Office",
-      "hours_label": "Business Hours",
-      "hours": "Monday to Friday: 9am to 6pm"
-    }
-  },
-
-  "testimonials": {
-    "badge": "Testimonials",
-    "headline": "What My Clients Say",
-    "subheadline": "Real stories from people who achieved their dream of homeownership."
-  },
-
-  "referral": {
-    "badge": "Referral",
-    "headline": "Know Someone Looking to Buy or Sell?",
-    "subheadline": "Send a referral and help that person achieve their dream of homeownership.",
-    "form": {
-      "name": "Referral's Name",
-      "phone": "Referral's Phone",
-      "email": "Referral's Email",
-      "message": "Message (optional)",
-      "submit": "Send Referral",
-      "success": "Referral received! We'll be in touch.",
-      "your_name": "Your Name (optional)"
-    }
+  "multilingual": {
+    "badge": "Multilingual",
+    "headline": "Connect With More Clients in Their Preferred Language.",
+    "subheadline": "The US real estate market is diverse. Your landing page should speak to every potential client.",
+    "lang1_name": "English",
+    "lang1_desc": "Reach the full US market with fluent, professional English content.",
+    "lang2_name": "Português",
+    "lang2_desc": "Connect with the growing Brazilian community in the United States.",
+    "lang3_name": "Español",
+    "lang3_desc": "Serve the largest minority group in the US real estate market."
   },
 
   "whatsapp": {
+    "badge": "WhatsApp",
+    "headline": "Instant Connection With Potential Clients",
+    "subheadline": "A floating WhatsApp button on your page lets clients reach you instantly — the fastest path from lead to conversation.",
+    "stat1": "98% open rate on WhatsApp messages",
+    "stat2": "Average response time: under 5 minutes",
+    "cta": "Get Started",
     "tooltip": "Chat on WhatsApp",
-    "message": "Hello! I would like to know more about your real estate services."
+    "message": "Hello! I'm interested in learning more about LUMI LANDING."
+  },
+
+  "crm": {
+    "badge": "Integrations",
+    "headline": "Your Leads, Your Way",
+    "subheadline": "Connect your LUMI LANDING to the tools you already use — or discover LUMI FLOW, our upcoming CRM built for real estate.",
+    "int1": "Any CRM (webhook)",
+    "int2": "Google Sheets",
+    "int3": "Email (direct)",
+    "int4": "Zapier",
+    "int5": "Make",
+    "flow_title": "LUMI FLOW CRM",
+    "flow_badge": "Coming Soon",
+    "flow_desc": "Built specifically for real estate professionals. Be the first to know.",
+    "flow_email_placeholder": "Your email address",
+    "flow_cta": "Notify Me"
+  },
+
+  "pricing": {
+    "badge": "Pricing",
+    "headline": "One Plan. Everything Included.",
+    "subheadline": "No setup fees. No hidden costs. Cancel anytime.",
+    "product": "LUMI LANDING",
+    "price": "$49",
+    "period": "/ month",
+    "annual": "or $470/year (save 2 months)",
+    "feat1": "Professional real estate landing page",
+    "feat2": "Hosting & SSL included",
+    "feat3": "Multilingual website (EN + PT + ES)",
+    "feat4": "Lead capture system",
+    "feat5": "WhatsApp integration",
+    "feat6": "Lead magnets & ebook tools",
+    "feat7": "Custom domain support",
+    "feat8": "CRM integrations",
+    "feat9": "Priority support",
+    "cta": "Create My Landing Page",
+    "guarantee": "30-day money-back guarantee. No questions asked."
+  },
+
+  "faq": {
+    "badge": "FAQ",
+    "headline": "Common Questions",
+    "q1": "Do I need technical knowledge to set up my page?",
+    "a1": "No. Our onboarding wizard guides you through every step. If you can fill out a form, you can launch your LUMI LANDING page.",
+    "q2": "Can I use my own domain?",
+    "a2": "Yes. You can connect your own domain (e.g. sarahjohnson.com) to your LUMI LANDING page while your subscription is active.",
+    "q3": "Can I connect my CRM?",
+    "a3": "Yes. LUMI LANDING connects to any CRM via webhook, as well as Zapier, Make, Google Sheets and direct email.",
+    "q4": "Does it work in multiple languages?",
+    "a4": "Yes. Every LUMI LANDING page supports English, Portuguese and Spanish out of the box. Your visitors can switch languages with one click.",
+    "q5": "How long does setup take?",
+    "a5": "Most agents complete the onboarding in under 30 minutes. We handle everything else.",
+    "q6": "What happens if I cancel?",
+    "a6": "You can cancel anytime. Your page remains active until the end of your billing period."
   },
 
   "footer": {
-    "tagline": "Your trusted partner in real estate.",
-    "links_title": "Quick Links",
-    "contact_title": "Contact",
-    "social_title": "Social Media",
-    "license_label": "License",
-    "brokerage_label": "Brokerage",
+    "tagline": "Building the future of real estate technology.",
+    "col1_title": "Products",
+    "col2_title": "Company",
+    "col3_title": "Legal",
+    "product1": "LUMI LANDING",
+    "product2": "LUMI FLOW CRM",
+    "product3": "LUMI ANALYTICS",
+    "coming_soon": "Coming Soon",
+    "company1": "About LUMI IDEA",
+    "company2": "Contact",
+    "company3": "Blog",
+    "legal1": "Privacy Policy",
+    "legal2": "Terms of Use",
+    "legal3": "Fair Housing Notice",
     "privacy": "Privacy Policy",
-    "fair_housing": "Fair Housing",
     "terms": "Terms of Use",
-    "powered_by": "Powered by",
-    "copyright": "All rights reserved."
+    "fair_housing": "Fair Housing",
+    "copyright": "All rights reserved.",
+    "powered_by": "Powered by LUMI IDEA"
   },
 
   "cookie": {
@@ -202,5 +221,40 @@
     "policy": "Privacy Policy",
     "accept": "Accept",
     "decline": "Decline"
+  },
+
+  "contact": {
+    "badge": "Contact",
+    "headline": "Ready to Get Started?",
+    "subheadline": "Have a question? Send us a message and we'll get back to you within 24 hours.",
+    "form": {
+      "name": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "interest_label": "I'm Interested In",
+      "interest_options": [
+        { "value": "start", "label": "Starting with LUMI LANDING" },
+        { "value": "demo", "label": "Requesting a Demo" },
+        { "value": "pricing", "label": "Pricing Information" },
+        { "value": "other", "label": "Other" }
+      ],
+      "message": "Your message",
+      "submit": "Send Message",
+      "success": "Message sent! We'll get back to you soon.",
+      "error": "Error sending. Please try again."
+    }
+  },
+
+  "newsletter": {
+    "badge": "Stay Updated",
+    "headline": "Get Real Estate Tech Updates",
+    "subheadline": "News and product updates delivered to your inbox.",
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "submit": "Subscribe",
+      "privacy": "No spam. Unsubscribe anytime.",
+      "success": "You have been subscribed successfully."
+    }
   }
 }
