@@ -1,873 +1,875 @@
 /**
- * LUMI ONBOARDING — Wizard Logic
- * 10-step configuration wizard for LUMI LANDING clients.
+ * LUMI ONBOARDING — Premium SaaS Wizard Logic
+ * 9-step onboarding for LUMI LANDING clients.
+ * The LUMI team creates the page — never "build your own."
  */
 
-const LUMI = (() => {
+const OnboardingApp = {
+  currentStep: 0,   // 0 = welcome screen
+  totalSteps: 9,
+  data: {},
+  uploadedFiles: {},
 
-  // ── State ─────────────────────────────────────────────────────────────────
-  const TOTAL_STEPS = 10;
-  const STORAGE_KEY = "lumi_onboarding_data";
-  let currentStep = 1;
-  let data = {};
+  // ── Init ─────────────────────────────────────────────────────────
+  init() {
+    this.data = {
+      uuid: this._generateUUID(),
+      startedAt: new Date().toISOString(),
+    };
 
-  // File object references (can't be stored in localStorage)
-  const fileRefs = {
-    logo: null,
-    photo: null,
-    properties: [],
-    ebook_pdf: null
-  };
+    this._bindWelcome();
+    this._bindNav();
+    this._bindLangSwitcher();
+    this._bindFields();
+    this._bindUploads();
+    this._bindStyleCards();
+    this._bindSpecialties();
+    this._bindTags();
+    this._bindLinks();
+    this._bindGoogleToggle();
+    this._bindLeadWho();
+    this._bindLeadMagnet();
+    this._bindTestimonials();
+    this._bindProperties();
+    this._bindColorPickers();
+    this._bindSubmit();
 
-  // ── UUID Generator (no libs) ──────────────────────────────────────────────
-  function generateUUID() {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
-      const r = (Math.random() * 16) | 0;
-      const v = c === "x" ? r : (r & 0x3) | 0x8;
-      return v.toString(16);
+    this.loadProgress();
+
+    // Listen for lang change to re-render dynamic content
+    document.addEventListener('lumi:langChanged', () => {
+      this._updateDynamicLabels();
     });
-  }
+  },
 
-  // ── LocalStorage helpers ──────────────────────────────────────────────────
-  function saveData() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    showToast(i18n.t("toast.saved"));
-  }
-
-  function loadData() {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        data = JSON.parse(saved);
-        // Restore step if saved
-        if (data._currentStep) {
-          currentStep = data._currentStep;
-        }
-        if (!data.client_id) {
-          data.client_id = generateUUID();
-        }
-      } else {
-        data = {
-          client_id: generateUUID(),
-          created_at: new Date().toISOString(),
-          status: "pending_setup",
-          meta: { lumiProduct: "LUMI LANDING", version: "1.0.0" }
-        };
-      }
-    } catch (e) {
-      data = {
-        client_id: generateUUID(),
-        created_at: new Date().toISOString(),
-        status: "pending_setup",
-        meta: { lumiProduct: "LUMI LANDING", version: "1.0.0" }
-      };
-    }
-  }
-
-  // ── Toast notification ────────────────────────────────────────────────────
-  function showToast(message, type = "success") {
-    const existing = document.querySelector(".lumi-toast");
-    if (existing) existing.remove();
-
-    const toast = document.createElement("div");
-    toast.className = `lumi-toast lumi-toast--${type}`;
-    toast.textContent = message;
-    document.body.appendChild(toast);
-
-    requestAnimationFrame(() => toast.classList.add("lumi-toast--visible"));
-    setTimeout(() => {
-      toast.classList.remove("lumi-toast--visible");
-      setTimeout(() => toast.remove(), 300);
-    }, 2500);
-  }
-
-  // ── Progress bar ──────────────────────────────────────────────────────────
-  function updateProgress() {
-    const pct = ((currentStep - 1) / (TOTAL_STEPS - 1)) * 100;
-    const bar = document.querySelector(".progress-fill");
-    const label = document.querySelector(".progress-label");
-    if (bar) bar.style.width = pct + "%";
-    if (label) {
-      label.textContent = `${i18n.t("nav.step_label")} ${currentStep} ${i18n.t("nav.of")} ${TOTAL_STEPS}`;
-    }
-
-    // Update step indicators
-    document.querySelectorAll(".step-dot").forEach((dot, idx) => {
-      dot.classList.toggle("active", idx + 1 === currentStep);
-      dot.classList.toggle("done", idx + 1 < currentStep);
+  // ── UUID ─────────────────────────────────────────────────────────
+  _generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+      const r = Math.random() * 16 | 0;
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
-  }
+  },
 
-  // ── Navigate to step ─────────────────────────────────────────────────────
-  function goToStep(n, direction = "next") {
-    if (n < 1 || n > TOTAL_STEPS) return;
+  // ── Welcome Screen ───────────────────────────────────────────────
+  _bindWelcome() {
+    const btn = document.getElementById('welcome-cta');
+    if (btn) btn.addEventListener('click', () => this.startOnboarding());
+  },
 
-    const current = document.querySelector(`.wizard-step[data-step="${currentStep}"]`);
+  startOnboarding() {
+    const welcome = document.getElementById('welcome-screen');
+    if (welcome) welcome.classList.add('hidden');
+    document.querySelector('.onb-footer').classList.remove('hidden');
+    this.currentStep = 1;
+    this.showStep(1);
+    this._updateProgress();
+  },
+
+  // ── Show Step ────────────────────────────────────────────────────
+  showStep(n, direction = 'forward') {
+    const steps = document.querySelectorAll('.wizard-step');
+
+    // Hide all, then activate target
+    steps.forEach(s => {
+      s.classList.remove('active', 'exit-left', 'enter-right');
+    });
+
     const target = document.querySelector(`.wizard-step[data-step="${n}"]`);
-    if (!current || !target) return;
+    if (!target) return;
 
-    // Animate out
-    current.classList.add(direction === "next" ? "exit-left" : "exit-right");
-    setTimeout(() => {
-      current.classList.remove("active", "exit-left", "exit-right");
-      currentStep = n;
-      data._currentStep = currentStep;
-      target.classList.add("active", direction === "next" ? "enter-right" : "enter-left");
+    if (direction === 'forward') {
+      target.classList.add('enter-right');
       requestAnimationFrame(() => {
-        target.classList.remove("enter-right", "enter-left");
+        requestAnimationFrame(() => {
+          target.classList.remove('enter-right');
+          target.classList.add('active');
+        });
       });
-      updateProgress();
-      updateNavButtons();
-      populateStep(n);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 280);
-  }
-
-  // ── Update nav buttons ────────────────────────────────────────────────────
-  function updateNavButtons() {
-    const backBtn = document.getElementById("btn-back");
-    const nextBtn = document.getElementById("btn-next");
-    const finishBtn = document.getElementById("btn-finish");
-
-    if (backBtn) backBtn.style.display = currentStep === 1 ? "none" : "flex";
-    if (nextBtn) nextBtn.style.display = currentStep === TOTAL_STEPS ? "none" : "flex";
-    if (finishBtn) finishBtn.style.display = currentStep === TOTAL_STEPS ? "flex" : "none";
-  }
-
-  // ── Populate step with saved data ─────────────────────────────────────────
-  function populateStep(n) {
-    if (n === 1) populateStep1();
-    if (n === 2) populateStep2();
-    if (n === 3) populateStep3();
-    if (n === 4) populateStep4();
-    if (n === 5) populateStep5();
-    if (n === 6) populateStep6();
-    if (n === 7) populateStep7();
-    if (n === 8) populateStep8();
-    if (n === 9) populateStep9();
-    if (n === 10) populateStep10();
-  }
-
-  // ── Collect step data ─────────────────────────────────────────────────────
-  function collectStep(n) {
-    if (n === 1) return collectStep1();
-    if (n === 2) return collectStep2();
-    if (n === 3) return collectStep3();
-    if (n === 4) return collectStep4();
-    if (n === 5) return collectStep5();
-    if (n === 6) return collectStep6();
-    if (n === 7) return collectStep7();
-    if (n === 8) return collectStep8();
-    if (n === 9) return collectStep9();
-    return true;
-  }
-
-  // ── Validation ────────────────────────────────────────────────────────────
-  function showError(fieldId, message) {
-    const field = document.getElementById(fieldId);
-    if (!field) return;
-    field.classList.add("field-error");
-    let errEl = field.parentElement.querySelector(".error-msg");
-    if (!errEl) {
-      errEl = document.createElement("span");
-      errEl.className = "error-msg";
-      field.parentElement.appendChild(errEl);
+    } else {
+      target.classList.add('active');
     }
-    errEl.textContent = message;
-  }
 
-  function clearErrors(stepEl) {
-    stepEl.querySelectorAll(".field-error").forEach(el => el.classList.remove("field-error"));
-    stepEl.querySelectorAll(".error-msg").forEach(el => el.remove());
-    stepEl.querySelectorAll(".step-error-banner").forEach(el => el.remove());
-  }
+    target.scrollTop = 0;
+    this.currentStep = n;
+    this._updateProgress();
+    this._updateButtons();
 
-  function showStepError(stepEl, message) {
-    let banner = stepEl.querySelector(".step-error-banner");
-    if (!banner) {
-      banner = document.createElement("div");
-      banner.className = "step-error-banner";
-      const content = stepEl.querySelector(".step-content");
-      if (content) content.prepend(banner);
+    // Build summary on step 9
+    if (n === 9) this.buildSummary();
+  },
+
+  // ── Navigation ──────────────────────────────────────────────────
+  _bindNav() {
+    document.getElementById('btn-next')?.addEventListener('click', () => this.goNext());
+    document.getElementById('btn-back')?.addEventListener('click', () => this.goBack());
+    document.getElementById('btn-save')?.addEventListener('click', () => this.saveProgress());
+  },
+
+  goNext() {
+    if (!this.validateStep(this.currentStep)) return;
+    this._collectStep(this.currentStep);
+    if (this.currentStep >= this.totalSteps) {
+      this.submitForm();
+      return;
     }
-    banner.textContent = message;
-  }
+    const next = this.currentStep + 1;
+    const current = document.querySelector(`.wizard-step[data-step="${this.currentStep}"]`);
+    if (current) {
+      current.classList.add('exit-left');
+      current.classList.remove('active');
+    }
+    setTimeout(() => {
+      if (current) current.classList.remove('exit-left');
+      this.showStep(next, 'forward');
+    }, 50);
+    this.saveProgress();
+  },
 
-  // ── STEP 1: Business Information ──────────────────────────────────────────
-  function collectStep1() {
-    const stepEl = document.querySelector('.wizard-step[data-step="1"]');
-    clearErrors(stepEl);
-    const d = data.step1_business || {};
+  goBack() {
+    if (this.currentStep <= 1) return;
+    const prev = this.currentStep - 1;
+    const current = document.querySelector(`.wizard-step[data-step="${this.currentStep}"]`);
+    if (current) {
+      current.classList.remove('active');
+    }
+    this.showStep(prev, 'backward');
+  },
 
-    const fields = [
-      { id: "s1-full-name", key: "fullName", required: true },
-      { id: "s1-business-name", key: "businessName", required: true },
-      { id: "s1-title", key: "title", required: false },
-      { id: "s1-brokerage", key: "brokerage", required: false },
-      { id: "s1-license", key: "license", required: false },
-      { id: "s1-email", key: "email", required: true, type: "email" },
-      { id: "s1-phone", key: "phone", required: false },
-      { id: "s1-whatsapp", key: "whatsapp", required: false }
-    ];
+  // ── Progress ─────────────────────────────────────────────────────
+  _updateProgress() {
+    const pct = this.currentStep > 0
+      ? Math.round((this.currentStep / this.totalSteps) * 100)
+      : 0;
+    const fill = document.querySelector('.progress-bar-fill');
+    if (fill) fill.style.width = pct + '%';
 
-    let valid = true;
-    const result = {};
+    const num = document.getElementById('step-num');
+    const tot = document.getElementById('step-total');
+    if (num) num.textContent = this.currentStep;
+    if (tot) tot.textContent = this.totalSteps;
+  },
 
-    fields.forEach(f => {
-      const el = document.getElementById(f.id);
-      if (!el) return;
-      const val = el.value.trim();
-      if (f.required && !val) {
-        showError(f.id, i18n.t("validation.required"));
-        valid = false;
-      } else if (f.type === "email" && val && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
-        showError(f.id, i18n.t("validation.email_invalid"));
-        valid = false;
+  _updateButtons() {
+    const backBtn = document.getElementById('btn-back');
+    const nextBtn = document.getElementById('btn-next');
+    if (backBtn) backBtn.disabled = this.currentStep <= 1;
+    if (nextBtn) {
+      if (this.currentStep === this.totalSteps) {
+        nextBtn.textContent = i18n.t('s9.submit_btn') || 'Enviar para a equipe LUMI';
       } else {
-        result[f.key] = val;
+        nextBtn.textContent = i18n.t('btn.next') || 'Próximo';
       }
-    });
+    }
+  },
 
-    if (valid) data.step1_business = result;
+  _updateDynamicLabels() {
+    this._updateButtons();
+  },
+
+  // ── Validation ───────────────────────────────────────────────────
+  validateStep(n) {
+    let valid = true;
+
+    // Clear previous errors
+    document.querySelectorAll(`.wizard-step[data-step="${n}"] .field-error`)
+      .forEach(e => e.classList.remove('visible'));
+    document.querySelectorAll(`.wizard-step[data-step="${n}"] .form-input, .wizard-step[data-step="${n}"] .form-select, .wizard-step[data-step="${n}"] .form-textarea`)
+      .forEach(el => el.classList.remove('error'));
+
+    if (n === 1) {
+      valid = this._requireField('s1-full-name') && valid;
+      valid = this._requireField('s1-email', 'email') && valid;
+    }
+
     return valid;
-  }
+  },
 
-  function populateStep1() {
-    const d = data.step1_business || {};
-    const map = {
-      "s1-full-name": "fullName",
-      "s1-business-name": "businessName",
-      "s1-title": "title",
-      "s1-brokerage": "brokerage",
-      "s1-license": "license",
-      "s1-email": "email",
-      "s1-phone": "phone",
-      "s1-whatsapp": "whatsapp"
-    };
-    Object.entries(map).forEach(([id, key]) => {
-      const el = document.getElementById(id);
-      if (el && d[key]) el.value = d[key];
-    });
-  }
-
-  // ── STEP 2: Template Selection ────────────────────────────────────────────
-  function collectStep2() {
-    const stepEl = document.querySelector('.wizard-step[data-step="2"]');
-    clearErrors(stepEl);
-    const selected = stepEl.querySelector(".template-card.selected");
-    if (!selected) {
-      showStepError(stepEl, i18n.t("validation.select_template"));
+  _requireField(id, type) {
+    const el = document.getElementById(id);
+    if (!el) return true;
+    const val = el.value.trim();
+    if (!val) {
+      el.classList.add('error');
+      const err = el.parentElement.querySelector('.field-error');
+      if (err) err.classList.add('visible');
       return false;
     }
-    data.step2_template = { selected: selected.dataset.template };
+    if (type === 'email') {
+      const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      if (!ok) {
+        el.classList.add('error');
+        const err = el.parentElement.querySelector('.field-error');
+        if (err) {
+          err.textContent = i18n.t('validation.email_invalid');
+          err.classList.add('visible');
+        }
+        return false;
+      }
+    }
     return true;
-  }
+  },
 
-  function populateStep2() {
-    const d = data.step2_template || {};
-    if (d.selected) {
-      document.querySelectorAll(".template-card").forEach(card => {
-        const isSelected = card.dataset.template === d.selected;
-        card.classList.toggle("selected", isSelected);
-        const btn = card.querySelector(".template-btn");
-        if (btn) btn.textContent = isSelected ? i18n.t("s2.selected_btn") : i18n.t("s2.select_btn");
+  // ── Collect Step Data ────────────────────────────────────────────
+  _collectStep(n) {
+    if (n === 1) {
+      this.data.fullName      = this._val('s1-full-name');
+      this.data.businessName  = this._val('s1-business-name');
+      this.data.phone         = this._val('s1-phone');
+      this.data.whatsapp      = this._val('s1-whatsapp');
+      this.data.email         = this._val('s1-email');
+      this.data.city          = this._val('s1-city');
+      this.data.country       = this._val('s1-country');
+      this.data.language      = this._val('s1-language');
+    }
+    if (n === 2) {
+      this.data.primaryColor   = document.getElementById('s2-primary-color')?.value || '#D4AF37';
+      this.data.secondaryColor = document.getElementById('s2-secondary-color')?.value || '#050505';
+      this.data.stylePreference = document.querySelector('.style-card.selected')?.dataset.style || '';
+    }
+    if (n === 3) {
+      this.data.specialties   = Array.from(document.querySelectorAll('.spec-card.checked')).map(c => c.dataset.spec);
+      this.data.regions       = this._getTags('s3-regions-tags');
+      this.data.propertyTypes = this._getTags('s3-types-tags');
+      this.data.years         = this._val('s3-years');
+      this.data.bio           = this._val('s3-bio');
+    }
+    if (n === 4) {
+      this.data.website   = this._val('s4-website');
+      this.data.instagram = this._val('s4-instagram');
+      this.data.facebook  = this._val('s4-facebook');
+      this.data.linkedin  = this._val('s4-linkedin');
+      this.data.hasGoogle = document.getElementById('s4-google-toggle')?.checked || false;
+      this.data.googleUrl = this._val('s4-google-url');
+    }
+    if (n === 5) {
+      this.data.leadWho         = Array.from(document.querySelectorAll('.lead-who-card.checked')).map(c => c.dataset.who);
+      this.data.leadWhatsapp    = this._val('s5-whatsapp');
+      this.data.leadEmail       = this._val('s5-email');
+    }
+    if (n === 6) {
+      this.data.leadMagnetOption = document.querySelector('.option-card.selected')?.dataset.option || 'lumi';
+      this.data.lumiGuideLanguages = Array.from(document.querySelectorAll('.lang-check-input:checked')).map(c => c.value);
+    }
+    if (n === 7) {
+      this.data.testimonials = this._collectTestimonials();
+    }
+    if (n === 8) {
+      this.data.properties = this._collectProperties();
+    }
+  },
+
+  _val(id) {
+    return document.getElementById(id)?.value?.trim() || '';
+  },
+
+  _getTags(containerId) {
+    return Array.from(document.querySelectorAll(`#${containerId} .tag-item`)).map(t => t.dataset.value || t.childNodes[0].textContent.trim());
+  },
+
+  // ── Field Auto-save ──────────────────────────────────────────────
+  _bindFields() {
+    document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(el => {
+      el.addEventListener('input', () => {
+        // Auto-prefill step 5 from step 1
+        if (el.id === 's1-whatsapp') {
+          const t = document.getElementById('s5-whatsapp');
+          if (t && !t.value) t.value = el.value;
+        }
+        if (el.id === 's1-email') {
+          const t = document.getElementById('s5-email');
+          if (t && !t.value) t.value = el.value;
+        }
+      });
+    });
+
+    // Bio counter
+    const bio = document.getElementById('s3-bio');
+    const counter = document.getElementById('s3-bio-counter');
+    if (bio && counter) {
+      const max = 500;
+      bio.addEventListener('input', () => {
+        const remaining = max - bio.value.length;
+        counter.textContent = remaining + ' ' + (i18n.t('s3.bio_counter') || 'characters remaining');
+        counter.className = 'bio-counter' + (remaining <= 50 ? ' near-limit' : '') + (remaining <= 0 ? ' at-limit' : '');
+        if (bio.value.length > max) bio.value = bio.value.substring(0, max);
       });
     }
-  }
+  },
 
-  // ── STEP 3: Brand Customization ───────────────────────────────────────────
-  function collectStep3() {
-    data.step3_brand = {
-      primaryColor: document.getElementById("s3-primary-color")?.value || "#D4AF37",
-      secondaryColor: document.getElementById("s3-secondary-color")?.value || "#050505",
-      hasLogo: !!fileRefs.logo,
-      hasPhoto: !!fileRefs.photo,
-      propertyPhotosCount: fileRefs.properties.length
-    };
-    return true;
-  }
-
-  function populateStep3() {
-    const d = data.step3_brand || {};
-    const pc = document.getElementById("s3-primary-color");
-    const sc = document.getElementById("s3-secondary-color");
-    if (pc && d.primaryColor) pc.value = d.primaryColor;
-    if (sc && d.secondaryColor) sc.value = d.secondaryColor;
-    updateColorPreview("s3-primary-color", "primary-color-preview");
-    updateColorPreview("s3-secondary-color", "secondary-color-preview");
-  }
-
-  function updateColorPreview(inputId, previewId) {
-    const input = document.getElementById(inputId);
-    const preview = document.getElementById(previewId);
-    if (input && preview) preview.style.background = input.value;
-  }
-
-  // ── STEP 4: Languages ─────────────────────────────────────────────────────
-  function collectStep4() {
-    const stepEl = document.querySelector('.wizard-step[data-step="4"]');
-    clearErrors(stepEl);
-    const checked = [...stepEl.querySelectorAll(".lang-checkbox:checked")].map(el => el.value);
-    if (checked.length === 0) {
-      showStepError(stepEl, i18n.t("validation.min_lang"));
-      return false;
-    }
-    data.step4_languages = checked;
-    return true;
-  }
-
-  function populateStep4() {
-    const langs = data.step4_languages || [];
-    document.querySelectorAll(".lang-checkbox").forEach(cb => {
-      cb.checked = langs.includes(cb.value);
+  // ── Style Cards ──────────────────────────────────────────────────
+  _bindStyleCards() {
+    document.querySelectorAll('.style-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.style-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+      });
     });
-  }
+  },
 
-  // ── STEP 5: Business Details ──────────────────────────────────────────────
-  function collectStep5() {
-    data.step5_details = {
-      about: document.getElementById("s5-about")?.value.trim() || "",
-      yearsExperience: document.getElementById("s5-years")?.value || "",
-      citiesServed: getTagsData("cities"),
-      statesServed: getTagsData("states"),
-      languagesSpoken: getTagsData("languages"),
-      specialties: getTagsData("specialties")
-    };
-    return true;
-  }
-
-  function populateStep5() {
-    const d = data.step5_details || {};
-    if (d.about) { const el = document.getElementById("s5-about"); if (el) el.value = d.about; }
-    if (d.yearsExperience) { const el = document.getElementById("s5-years"); if (el) el.value = d.yearsExperience; }
-    if (d.citiesServed) restoreTagsData("cities", d.citiesServed);
-    if (d.statesServed) restoreTagsData("states", d.statesServed);
-    if (d.languagesSpoken) restoreTagsData("languages", d.languagesSpoken);
-    if (d.specialties) restoreTagsData("specialties", d.specialties);
-  }
-
-  // ── STEP 6: Services ──────────────────────────────────────────────────────
-  function collectStep6() {
-    const stepEl = document.querySelector('.wizard-step[data-step="6"]');
-    clearErrors(stepEl);
-    const checked = [...stepEl.querySelectorAll(".service-checkbox:checked")].map(el => el.value);
-    if (checked.length === 0) {
-      showStepError(stepEl, i18n.t("validation.min_service"));
-      return false;
-    }
-    data.step6_services = checked;
-    return true;
-  }
-
-  function populateStep6() {
-    const services = data.step6_services || [];
-    document.querySelectorAll(".service-checkbox").forEach(cb => {
-      cb.checked = services.includes(cb.value);
-      cb.closest(".service-card")?.classList.toggle("selected", services.includes(cb.value));
+  // ── Specialty Cards ──────────────────────────────────────────────
+  _bindSpecialties() {
+    document.querySelectorAll('.spec-card').forEach(card => {
+      card.addEventListener('click', () => {
+        card.classList.toggle('checked');
+        const cb = card.querySelector('input[type="checkbox"]');
+        if (cb) cb.checked = card.classList.contains('checked');
+      });
     });
-  }
+  },
 
-  // ── STEP 7: Lead Generation ───────────────────────────────────────────────
-  function collectStep7() {
-    data.step7_leadgen = {
-      whatsapp: document.getElementById("toggle-whatsapp")?.checked || false,
-      contactForm: document.getElementById("toggle-contactform")?.checked || false,
-      newsletter: document.getElementById("toggle-newsletter")?.checked || false,
-      ebook: document.getElementById("toggle-ebook")?.checked || false
-    };
-    return true;
-  }
-
-  function populateStep7() {
-    const d = data.step7_leadgen || {};
-    const map = {
-      "toggle-whatsapp": "whatsapp",
-      "toggle-contactform": "contactForm",
-      "toggle-newsletter": "newsletter",
-      "toggle-ebook": "ebook"
-    };
-    Object.entries(map).forEach(([id, key]) => {
-      const el = document.getElementById(id);
-      if (el && d[key] !== undefined) el.checked = d[key];
+  // ── Tags Input ───────────────────────────────────────────────────
+  _bindTags() {
+    document.querySelectorAll('.tags-wrapper').forEach(wrapper => {
+      const input = wrapper.querySelector('.tag-input');
+      if (!input) return;
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ',') {
+          e.preventDefault();
+          const val = input.value.trim().replace(/,$/, '');
+          if (val) {
+            this._addTag(wrapper, val);
+            input.value = '';
+          }
+        }
+        if (e.key === 'Backspace' && !input.value) {
+          const tags = wrapper.querySelectorAll('.tag-item');
+          if (tags.length) tags[tags.length - 1].remove();
+        }
+      });
+      wrapper.addEventListener('click', () => input.focus());
     });
-  }
+  },
 
-  // ── STEP 8: Ebook ─────────────────────────────────────────────────────────
-  function collectStep8() {
-    const enableEbook = document.querySelector('input[name="ebook-choice"]:checked')?.value === "yes";
-    data.step8_ebook = {
-      enabled: enableEbook,
-      guideTitle: document.getElementById("s8-guide-title")?.value.trim() || "",
-      buttonText: document.getElementById("s8-button-text")?.value.trim() || "",
-      captureFields: {
-        name: document.getElementById("s8-capture-name")?.checked || false,
-        email: document.getElementById("s8-capture-email")?.checked || false,
-        phone: document.getElementById("s8-capture-phone")?.checked || false
-      },
-      hasPdf: !!fileRefs.ebook_pdf
-    };
-    return true;
-  }
-
-  function populateStep8() {
-    const d = data.step8_ebook || {};
-    if (d.enabled !== undefined) {
-      const radio = document.querySelector(`input[name="ebook-choice"][value="${d.enabled ? "yes" : "no"}"]`);
-      if (radio) { radio.checked = true; toggleEbookDetails(d.enabled); }
-    }
-    if (d.guideTitle) { const el = document.getElementById("s8-guide-title"); if (el) el.value = d.guideTitle; }
-    if (d.buttonText) { const el = document.getElementById("s8-button-text"); if (el) el.value = d.buttonText; }
-    if (d.captureFields) {
-      const name = document.getElementById("s8-capture-name");
-      const email = document.getElementById("s8-capture-email");
-      const phone = document.getElementById("s8-capture-phone");
-      if (name) name.checked = d.captureFields.name;
-      if (email) email.checked = d.captureFields.email;
-      if (phone) phone.checked = d.captureFields.phone;
-    }
-  }
-
-  function toggleEbookDetails(show) {
-    const details = document.getElementById("ebook-details");
-    if (details) details.style.display = show ? "block" : "none";
-  }
-
-  // ── STEP 9: CRM Destination ───────────────────────────────────────────────
-  function collectStep9() {
-    const stepEl = document.querySelector('.wizard-step[data-step="9"]');
-    clearErrors(stepEl);
-    const selected = stepEl.querySelector(".crm-card.selected");
-    if (!selected) {
-      showStepError(stepEl, i18n.t("validation.select_crm"));
-      return false;
-    }
-    const dest = selected.dataset.crm;
-    const fieldInput = document.getElementById(`crm-field-${dest}`);
-    data.step9_crm = {
-      destination: dest,
-      value: fieldInput?.value.trim() || ""
-    };
-    return true;
-  }
-
-  function populateStep9() {
-    const d = data.step9_crm || {};
-    if (d.destination) {
-      selectCrmCard(d.destination);
-      const fieldInput = document.getElementById(`crm-field-${d.destination}`);
-      if (fieldInput && d.value) fieldInput.value = d.value;
-    }
-  }
-
-  function selectCrmCard(dest) {
-    document.querySelectorAll(".crm-card").forEach(card => {
-      const isSelected = card.dataset.crm === dest;
-      card.classList.toggle("selected", isSelected);
+  _addTag(wrapper, val) {
+    const existing = Array.from(wrapper.querySelectorAll('.tag-item')).map(t => t.dataset.value);
+    if (existing.includes(val)) return;
+    const tag = document.createElement('span');
+    tag.className = 'tag-item';
+    tag.dataset.value = val;
+    tag.innerHTML = `${this._escHtml(val)}<span class="tag-remove" title="Remove">×</span>`;
+    tag.querySelector('.tag-remove').addEventListener('click', (e) => {
+      e.stopPropagation();
+      tag.remove();
     });
-    document.querySelectorAll(".crm-field-row").forEach(row => {
-      row.style.display = row.dataset.crmField === dest ? "flex" : "none";
+    const input = wrapper.querySelector('.tag-input');
+    wrapper.insertBefore(tag, input);
+  },
+
+  _escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  },
+
+  // ── Link Fields (Step 4) ─────────────────────────────────────────
+  _bindLinks() {
+    // Nothing extra needed — inputs handle themselves
+  },
+
+  // ── Google Toggle (Step 4) ───────────────────────────────────────
+  _bindGoogleToggle() {
+    const toggle = document.getElementById('s4-google-toggle');
+    const reveal = document.getElementById('s4-google-reveal');
+    if (toggle && reveal) {
+      toggle.addEventListener('change', () => {
+        reveal.classList.toggle('visible', toggle.checked);
+      });
+    }
+  },
+
+  // ── Lead Who (Step 5) ────────────────────────────────────────────
+  _bindLeadWho() {
+    document.querySelectorAll('.lead-who-card').forEach(card => {
+      card.addEventListener('click', () => {
+        card.classList.toggle('checked');
+      });
     });
-    const lumiFlowBanner = document.getElementById("lumi-flow-banner");
-    if (lumiFlowBanner) lumiFlowBanner.style.display = dest === "no-crm" ? "block" : "none";
-  }
+  },
 
-  // ── STEP 10: Final Review ─────────────────────────────────────────────────
-  function populateStep10() {
-    const container = document.getElementById("review-content");
-    if (!container) return;
+  // ── Lead Magnet Option Cards (Step 6) ────────────────────────────
+  _bindLeadMagnet() {
+    document.querySelectorAll('.option-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        // Show/hide content
+        const opt = card.dataset.option;
+        document.getElementById('lm-own-content')?.classList.toggle('hidden-block', opt !== 'own');
+        document.getElementById('lm-lumi-content')?.classList.toggle('hidden-block', opt !== 'lumi');
+      });
+    });
+  },
 
-    const d1 = data.step1_business || {};
-    const d2 = data.step2_template || {};
-    const d3 = data.step3_brand || {};
-    const d4 = data.step4_languages || [];
-    const d5 = data.step5_details || {};
-    const d6 = data.step6_services || [];
-    const d9 = data.step9_crm || {};
+  // ── Uploads ──────────────────────────────────────────────────────
+  _bindUploads() {
+    document.querySelectorAll('.upload-zone').forEach(zone => {
+      const input = zone.querySelector('input[type="file"]');
+      if (!input) return;
+      const previewId = zone.dataset.preview;
+      const preview = previewId ? document.getElementById(previewId) : null;
 
-    const serviceLabels = {
-      buying: i18n.t("s6.buying"), selling: i18n.t("s6.selling"),
-      investment: i18n.t("s6.investment"), relocation: i18n.t("s6.relocation"),
-      luxury: i18n.t("s6.luxury"), firsttime: i18n.t("s6.firsttime"),
-      commercial: i18n.t("s6.commercial")
-    };
-    const langLabels = { en: "English", pt: "Português", es: "Español" };
-    const templateNames = {
-      "template-01": "Classic Authority", "template-02": "Modern Clean",
-      "template-03": "Luxury Estate", "template-04": "American Trust", "template-05": "Elite Gold"
-    };
-    const crmLabels = {
-      "my-crm": i18n.t("s9.my_crm"), "email": i18n.t("s9.email_dest"),
-      "sheets": "Google Sheets", "zapier": "Zapier", "make": "Make",
-      "no-crm": i18n.t("s9.no_crm")
-    };
+      ['dragenter','dragover'].forEach(evt => {
+        zone.addEventListener(evt, (e) => {
+          e.preventDefault();
+          zone.classList.add('drag-active');
+        });
+      });
+      ['dragleave','drop'].forEach(evt => {
+        zone.addEventListener(evt, (e) => {
+          e.preventDefault();
+          zone.classList.remove('drag-active');
+          if (evt === 'drop' && e.dataTransfer?.files) {
+            this._handleFiles(input, e.dataTransfer.files, preview);
+          }
+        });
+      });
+      input.addEventListener('change', () => {
+        if (input.files?.length) this._handleFiles(input, input.files, preview);
+      });
+    });
+  },
 
-    container.innerHTML = `
-      <div class="review-grid">
-        <div class="review-card">
-          <div class="review-card__icon">👤</div>
-          <div class="review-card__body">
-            <div class="review-card__label" data-i18n="s10.client_name">${i18n.t("s10.client_name")}</div>
-            <div class="review-card__value">${d1.fullName || "—"}</div>
-            <div class="review-card__sub">${d1.businessName || ""}</div>
-          </div>
+  _handleFiles(input, files, previewEl) {
+    if (!previewEl) return;
+    const maxFiles = parseInt(input.dataset.max) || 1;
+    const existing = previewEl.querySelectorAll('.preview-item').length;
+    const toAdd = Math.min(files.length, maxFiles - existing);
+
+    for (let i = 0; i < toAdd; i++) {
+      const file = files[i];
+      const item = document.createElement('div');
+      item.className = 'preview-item';
+
+      if (file.type.startsWith('image/')) {
+        const img = document.createElement('img');
+        img.alt = file.name;
+        const reader = new FileReader();
+        reader.onload = e => { img.src = e.target.result; };
+        reader.readAsDataURL(file);
+        item.appendChild(img);
+
+        // Store for logo preview in summary
+        if (input.id === 's2-logo-input') {
+          const summaryLogoReader = new FileReader();
+          summaryLogoReader.onload = e => {
+            this.data.logoDataUrl = e.target.result;
+          };
+          summaryLogoReader.readAsDataURL(file);
+        }
+      } else {
+        const name = document.createElement('div');
+        name.className = 'preview-item__name';
+        name.textContent = file.name;
+        item.appendChild(name);
+      }
+
+      const rem = document.createElement('span');
+      rem.className = 'preview-remove';
+      rem.textContent = '×';
+      rem.addEventListener('click', () => item.remove());
+      item.appendChild(rem);
+
+      previewEl.appendChild(item);
+    }
+
+    previewEl.classList.toggle('has-files', previewEl.querySelectorAll('.preview-item').length > 0);
+  },
+
+  // ── Color Pickers ────────────────────────────────────────────────
+  _bindColorPickers() {
+    const pairs = [
+      { rowId: 's2-primary-row', nativeId: 's2-primary-color', hexId: 's2-primary-hex', swatchId: 's2-primary-swatch' },
+      { rowId: 's2-secondary-row', nativeId: 's2-secondary-color', hexId: 's2-secondary-hex', swatchId: 's2-secondary-swatch' },
+    ];
+    pairs.forEach(({ rowId, nativeId, hexId, swatchId }) => {
+      const row    = document.getElementById(rowId);
+      const native = document.getElementById(nativeId);
+      const hexEl  = document.getElementById(hexId);
+      const swatch = document.getElementById(swatchId);
+      if (!row || !native || !hexEl || !swatch) return;
+
+      const sync = (hex) => {
+        swatch.style.background = hex;
+        hexEl.value = hex.toUpperCase();
+        native.value = hex;
+      };
+
+      row.addEventListener('click', () => native.click());
+      native.addEventListener('input', () => sync(native.value));
+      hexEl.addEventListener('change', () => {
+        const hex = hexEl.value.trim();
+        if (/^#[0-9A-Fa-f]{6}$/.test(hex)) sync(hex);
+      });
+    });
+  },
+
+  // ── Testimonials (Step 7) ────────────────────────────────────────
+  _testimonialCount: 0,
+
+  _bindTestimonials() {
+    const addBtn = document.getElementById('add-testimonial-btn');
+    if (!addBtn) return;
+    // Add first card on init
+    this._addTestimonialCard();
+    addBtn.addEventListener('click', () => {
+      if (this._testimonialCount >= 5) return;
+      this._addTestimonialCard();
+    });
+  },
+
+  _addTestimonialCard() {
+    const list = document.getElementById('testimonials-list');
+    if (!list) return;
+    this._testimonialCount++;
+    const idx = this._testimonialCount;
+    const t = i18n.t.bind(i18n);
+
+    const card = document.createElement('div');
+    card.className = 'rep-card';
+    card.dataset.testimonial = idx;
+    card.innerHTML = `
+      <div class="rep-card__header">
+        <span class="rep-card__num">${t('s7.client_name') || 'Cliente'} ${idx}</span>
+        <button class="rep-card__remove" type="button">${t('btn.remove') || 'Remover'}</button>
+      </div>
+      <div class="rep-card__grid">
+        <div class="form-group">
+          <label class="form-label">${t('s7.client_name') || 'Nome do cliente'}</label>
+          <input class="form-input" type="text" name="tname-${idx}" placeholder="${t('s7.client_name_ph') || ''}">
         </div>
-        <div class="review-card">
-          <div class="review-card__icon">🎨</div>
-          <div class="review-card__body">
-            <div class="review-card__label" data-i18n="s10.template">${i18n.t("s10.template")}</div>
-            <div class="review-card__value">${templateNames[d2.selected] || "—"}</div>
-          </div>
+        <div class="form-group">
+          <label class="form-label">${t('s7.video_label') || 'Link de vídeo (opcional)'}</label>
+          <input class="form-input" type="url" name="tvideo-${idx}" placeholder="${t('s7.video_ph') || 'YouTube ou Vimeo'}">
         </div>
-        <div class="review-card">
-          <div class="review-card__icon">🎨</div>
-          <div class="review-card__body">
-            <div class="review-card__label" data-i18n="s10.colors">${i18n.t("s10.colors")}</div>
-            <div class="review-colors">
-              <span class="color-swatch" style="background:${d3.primaryColor || "#D4AF37"}"></span>
-              <span class="color-label">${i18n.t("s10.primary")}: ${d3.primaryColor || "#D4AF37"}</span>
-            </div>
-            <div class="review-colors">
-              <span class="color-swatch" style="background:${d3.secondaryColor || "#050505"}"></span>
-              <span class="color-label">${i18n.t("s10.secondary")}: ${d3.secondaryColor || "#050505"}</span>
-            </div>
-          </div>
+        <div class="form-group form-group--full">
+          <label class="form-label">${t('s7.testimonial') || 'Depoimento'}</label>
+          <textarea class="form-textarea" name="ttext-${idx}" rows="3" placeholder="${t('s7.testimonial_ph') || ''}"></textarea>
         </div>
-        <div class="review-card">
-          <div class="review-card__icon">🌐</div>
-          <div class="review-card__body">
-            <div class="review-card__label" data-i18n="s10.languages">${i18n.t("s10.languages")}</div>
-            <div class="review-card__value">${d4.map(l => langLabels[l] || l).join(", ") || "—"}</div>
-          </div>
-        </div>
-        <div class="review-card review-card--wide">
-          <div class="review-card__icon">🏠</div>
-          <div class="review-card__body">
-            <div class="review-card__label" data-i18n="s10.services">${i18n.t("s10.services")}</div>
-            <div class="review-tags">
-              ${d6.length ? d6.map(s => `<span class="review-tag">${serviceLabels[s] || s}</span>`).join("") : "—"}
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-card__icon">🔗</div>
-          <div class="review-card__body">
-            <div class="review-card__label" data-i18n="s10.crm">${i18n.t("s10.crm")}</div>
-            <div class="review-card__value">${crmLabels[d9.destination] || "—"}</div>
+        <div class="form-group">
+          <label class="form-label">${t('s7.photo_label') || 'Foto do cliente (opcional)'}</label>
+          <div class="upload-zone" style="min-height:90px">
+            <div class="upload-icon">📷</div>
+            <div class="upload-cta">${t('s2.upload_cta') || 'Arraste ou clique'}</div>
+            <div class="upload-hint">${t('s7.photo_hint') || 'JPG ou PNG'}</div>
+            <input type="file" accept="image/*" name="tphoto-${idx}">
           </div>
         </div>
       </div>
     `;
-  }
 
-  // ── Generate and download config.json ─────────────────────────────────────
-  function generateConfig() {
-    const config = {
-      client_id: data.client_id,
-      created_at: data.created_at || new Date().toISOString(),
-      status: "pending_setup",
-      step1_business: data.step1_business || {},
-      step2_template: data.step2_template || {},
-      step3_brand: data.step3_brand || {},
-      step4_languages: data.step4_languages || [],
-      step5_details: data.step5_details || {},
-      step6_services: data.step6_services || [],
-      step7_leadgen: data.step7_leadgen || {},
-      step8_ebook: data.step8_ebook || {},
-      step9_crm: data.step9_crm || {},
-      meta: { lumiProduct: "LUMI LANDING", version: "1.0.0", generatedAt: new Date().toISOString() }
+    card.querySelector('.rep-card__remove').addEventListener('click', () => {
+      card.remove();
+      this._testimonialCount--;
+      const addBtn = document.getElementById('add-testimonial-btn');
+      if (addBtn) addBtn.disabled = this._testimonialCount >= 5;
+    });
+
+    list.appendChild(card);
+
+    const addBtn = document.getElementById('add-testimonial-btn');
+    if (addBtn) addBtn.disabled = this._testimonialCount >= 5;
+  },
+
+  _collectTestimonials() {
+    const result = [];
+    document.querySelectorAll('#testimonials-list .rep-card').forEach(card => {
+      const idx = card.dataset.testimonial;
+      result.push({
+        name:  card.querySelector(`[name="tname-${idx}"]`)?.value?.trim() || '',
+        text:  card.querySelector(`[name="ttext-${idx}"]`)?.value?.trim() || '',
+        video: card.querySelector(`[name="tvideo-${idx}"]`)?.value?.trim() || '',
+      });
+    });
+    return result;
+  },
+
+  // ── Properties (Step 8) ──────────────────────────────────────────
+  _propertyCount: 0,
+
+  _bindProperties() {
+    const addBtn = document.getElementById('add-property-btn');
+    if (!addBtn) return;
+    // Start with one card
+    this._addPropertyCard();
+    addBtn.addEventListener('click', () => {
+      if (this._propertyCount >= 6) return;
+      this._addPropertyCard();
+    });
+  },
+
+  _addPropertyCard() {
+    const list = document.getElementById('properties-list');
+    if (!list) return;
+    this._propertyCount++;
+    const idx = this._propertyCount;
+    const t = i18n.t.bind(i18n);
+
+    const card = document.createElement('div');
+    card.className = 'rep-card';
+    card.dataset.property = idx;
+    card.innerHTML = `
+      <div class="rep-card__header">
+        <span class="rep-card__num">${t('s8.highlight_label') || 'Imóvel'} ${idx}</span>
+        <button class="rep-card__remove" type="button">${t('btn.remove') || 'Remover'}</button>
+      </div>
+      <div class="rep-card__grid">
+        <div class="form-group">
+          <label class="form-label">${t('s8.highlight_label') || 'Destaque'}</label>
+          <input class="form-input" type="text" name="phighlight-${idx}" placeholder="${t('s8.highlight_ph') || ''}">
+        </div>
+        <div class="form-group">
+          <label class="form-label">${t('s8.link_label') || 'Link do anúncio'}</label>
+          <input class="form-input" type="url" name="plink-${idx}" placeholder="${t('s8.link_ph') || 'https://...'}">
+        </div>
+        <div class="form-group">
+          <label class="form-label">${t('s8.video_label') || 'Vídeo (URL)'}</label>
+          <input class="form-input" type="url" name="pvideo-${idx}" placeholder="${t('s8.video_ph') || ''}">
+        </div>
+        <div class="form-group">
+          <label class="form-label">${t('s8.photos_label') || 'Fotos do imóvel'}</label>
+          <div class="upload-zone" style="min-height:90px">
+            <div class="upload-icon">🏠</div>
+            <div class="upload-cta">${t('s2.upload_cta') || 'Arraste ou clique'}</div>
+            <div class="upload-hint">${t('s8.photos_hint') || 'Máx. 5 fotos'}</div>
+            <input type="file" accept="image/*" multiple data-max="5" name="pphotos-${idx}">
+          </div>
+        </div>
+      </div>
+    `;
+
+    card.querySelector('.rep-card__remove').addEventListener('click', () => {
+      card.remove();
+      this._propertyCount--;
+      const addBtn = document.getElementById('add-property-btn');
+      if (addBtn) addBtn.disabled = this._propertyCount >= 6;
+    });
+
+    list.appendChild(card);
+
+    const addBtn = document.getElementById('add-property-btn');
+    if (addBtn) addBtn.disabled = this._propertyCount >= 6;
+  },
+
+  _collectProperties() {
+    const result = [];
+    document.querySelectorAll('#properties-list .rep-card').forEach(card => {
+      const idx = card.dataset.property;
+      result.push({
+        highlight: card.querySelector(`[name="phighlight-${idx}"]`)?.value?.trim() || '',
+        link:      card.querySelector(`[name="plink-${idx}"]`)?.value?.trim() || '',
+        video:     card.querySelector(`[name="pvideo-${idx}"]`)?.value?.trim() || '',
+      });
+    });
+    return result;
+  },
+
+  // ── Build Summary (Step 9) ───────────────────────────────────────
+  buildSummary() {
+    this._collectStep(this.currentStep - 1); // collect previous step data
+
+    // Identity
+    const nameEl = document.getElementById('summary-name');
+    const styleEl = document.getElementById('summary-style');
+    const logoEl = document.getElementById('summary-logo');
+    if (nameEl) nameEl.textContent = [this.data.fullName, this.data.businessName].filter(Boolean).join(' — ') || '—';
+    if (styleEl) styleEl.textContent = this.data.stylePreference || '—';
+    if (logoEl && this.data.logoDataUrl) {
+      logoEl.src = this.data.logoDataUrl;
+      logoEl.style.display = 'block';
+    }
+
+    // Colors
+    const c1 = document.getElementById('summary-color1');
+    const c2 = document.getElementById('summary-color2');
+    const cv1 = document.getElementById('summary-color1-val');
+    const cv2 = document.getElementById('summary-color2-val');
+    if (c1) c1.style.background = this.data.primaryColor || '#D4AF37';
+    if (c2) c2.style.background = this.data.secondaryColor || '#050505';
+    if (cv1) cv1.textContent = (this.data.primaryColor || '#D4AF37').toUpperCase();
+    if (cv2) cv2.textContent = (this.data.secondaryColor || '#050505').toUpperCase();
+
+    // Contact
+    const contactEl = document.getElementById('summary-contact');
+    if (contactEl) {
+      const parts = [];
+      if (this.data.phone)    parts.push('📞 ' + this.data.phone);
+      if (this.data.whatsapp) parts.push('💬 ' + this.data.whatsapp);
+      if (this.data.email)    parts.push('✉️ ' + this.data.email);
+      contactEl.textContent = parts.join(' · ') || '—';
+    }
+
+    // Specialties
+    const specEl = document.getElementById('summary-specialties');
+    if (specEl) {
+      specEl.innerHTML = '';
+      (this.data.specialties || []).forEach(s => {
+        const pill = document.createElement('span');
+        pill.className = 'tag-pill';
+        pill.textContent = s;
+        specEl.appendChild(pill);
+      });
+      if (!(this.data.specialties || []).length) specEl.textContent = '—';
+    }
+
+    // Links
+    const linksEl = document.getElementById('summary-links');
+    if (linksEl) {
+      const links = [];
+      if (this.data.instagram) links.push('📸 Instagram');
+      if (this.data.facebook)  links.push('👤 Facebook');
+      if (this.data.linkedin)  links.push('💼 LinkedIn');
+      if (this.data.website)   links.push('🌐 Website');
+      linksEl.textContent = links.join(' · ') || '—';
+    }
+
+    // Lead Magnet
+    const lmEl = document.getElementById('summary-leadmagnet');
+    if (lmEl) lmEl.textContent = this.data.leadMagnetOption === 'own' ? 'Materiais próprios' : 'Modelos LUMI';
+
+    // Testimonials
+    const tEl = document.getElementById('summary-testimonials');
+    const count = (this.data.testimonials || []).filter(t => t.name || t.text).length;
+    if (tEl) tEl.textContent = count + ' ' + (i18n.t('s9.testimonials_count') || 'adicionados');
+  },
+
+  // ── Submit ───────────────────────────────────────────────────────
+  _bindSubmit() {
+    document.getElementById('submit-btn')?.addEventListener('click', () => this.submitForm());
+  },
+
+  submitForm() {
+    // Collect all remaining data
+    for (let i = 1; i <= this.totalSteps; i++) this._collectStep(i);
+    this.data.submittedAt = new Date().toISOString();
+
+    // Log for future webhook integration
+    console.log('[LUMI ONBOARDING] Submission data:', JSON.stringify(this.data, null, 2));
+
+    // Future hooks (stub):
+    // this.sendToCRM(this.data);
+    // this.triggerWebhook(this.data);
+    // this.notifyStripe(this.data);
+
+    // Clear localStorage
+    localStorage.removeItem('lumi_onboarding_progress');
+
+    // Show success
+    this._showSuccess();
+  },
+
+  _showSuccess() {
+    const screen = document.getElementById('success-screen');
+    if (!screen) return;
+    screen.classList.add('visible');
+    document.querySelector('.onb-footer')?.classList.add('hidden');
+    this._spawnParticles(screen);
+  },
+
+  _spawnParticles(container) {
+    const colors = ['#D4AF37', '#F5D77A', '#9A6B18', '#ffffff'];
+    for (let i = 0; i < 60; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.cssText = `
+        left: ${Math.random() * 100}%;
+        top: ${-10 - Math.random() * 30}px;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        width: ${4 + Math.random() * 6}px;
+        height: ${4 + Math.random() * 6}px;
+        animation-delay: ${Math.random() * 1.5}s;
+        animation-duration: ${1.5 + Math.random() * 2}s;
+        border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+      `;
+      container.querySelector('.particles')?.appendChild(p);
+    }
+  },
+
+  // ── Save / Load Progress ─────────────────────────────────────────
+  saveProgress() {
+    const state = {
+      step: this.currentStep,
+      data: this.data,
+      fields: this._snapshotFields(),
     };
-
-    const blob = new Blob([JSON.stringify(config, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `lumi-config-${config.client_id.slice(0, 8)}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-
-    return config;
-  }
-
-  // ── Tags input ────────────────────────────────────────────────────────────
-  function initTagsInput(containerId, inputId) {
-    const container = document.getElementById(containerId);
-    const input = document.getElementById(inputId);
-    if (!container || !input) return;
-
-    input.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === ",") {
-        e.preventDefault();
-        const val = input.value.trim().replace(/,$/, "");
-        if (val) addTag(container, input, val);
-      }
-      if (e.key === "Backspace" && !input.value) {
-        const tags = container.querySelectorAll(".tag");
-        if (tags.length) tags[tags.length - 1].remove();
-      }
-    });
-
-    input.addEventListener("blur", () => {
-      const val = input.value.trim().replace(/,$/, "");
-      if (val) addTag(container, input, val);
-    });
-  }
-
-  function addTag(container, input, value) {
-    const tag = document.createElement("span");
-    tag.className = "tag";
-    tag.innerHTML = `${value}<button type="button" class="tag-remove" aria-label="Remove">×</button>`;
-    tag.querySelector(".tag-remove").addEventListener("click", () => tag.remove());
-    container.insertBefore(tag, input);
-    input.value = "";
-    input.focus();
-  }
-
-  function getTagsData(fieldName) {
-    const container = document.getElementById(`tags-${fieldName}`);
-    if (!container) return [];
-    return [...container.querySelectorAll(".tag")].map(t => t.textContent.replace("×", "").trim());
-  }
-
-  function restoreTagsData(fieldName, values) {
-    if (!values || !values.length) return;
-    const container = document.getElementById(`tags-${fieldName}`);
-    const input = document.getElementById(`tag-input-${fieldName}`);
-    if (!container || !input) return;
-    // Clear existing tags
-    container.querySelectorAll(".tag").forEach(t => t.remove());
-    values.forEach(val => addTag(container, input, val));
-  }
-
-  // ── File upload helpers ───────────────────────────────────────────────────
-  function initFileUpload(inputId, previewId, fileRefKey, multiple = false) {
-    const input = document.getElementById(inputId);
-    const preview = document.getElementById(previewId);
-    if (!input) return;
-
-    const zone = input.closest(".upload-zone");
-
-    if (zone) {
-      zone.addEventListener("dragover", e => { e.preventDefault(); zone.classList.add("drag-over"); });
-      zone.addEventListener("dragleave", () => zone.classList.remove("drag-over"));
-      zone.addEventListener("drop", e => {
-        e.preventDefault();
-        zone.classList.remove("drag-over");
-        const files = e.dataTransfer.files;
-        if (files.length) handleFiles(files, previewId, fileRefKey, multiple);
-      });
+    try {
+      localStorage.setItem('lumi_onboarding_progress', JSON.stringify(state));
+      this._showToast(i18n.t('save.saved') || 'Progresso salvo!');
+    } catch (e) {
+      console.warn('Save error:', e);
     }
+  },
 
-    input.addEventListener("change", () => {
-      handleFiles(input.files, previewId, fileRefKey, multiple);
-    });
-  }
-
-  function handleFiles(files, previewId, fileRefKey, multiple) {
-    const preview = document.getElementById(previewId);
-
-    if (!multiple) {
-      fileRefs[fileRefKey] = files[0];
-      if (files[0] && files[0].type.startsWith("image/") && preview) {
-        const reader = new FileReader();
-        reader.onload = e => {
-          preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
-          preview.style.display = "block";
-        };
-        reader.readAsDataURL(files[0]);
-      } else if (preview) {
-        preview.innerHTML = `<span class="upload-file-name">${files[0]?.name || ""}</span>`;
-        preview.style.display = "block";
+  loadProgress() {
+    try {
+      const raw = localStorage.getItem('lumi_onboarding_progress');
+      if (!raw) return;
+      const state = JSON.parse(raw);
+      if (!state) return;
+      this.data = state.data || {};
+      if (!this.data.uuid) this.data.uuid = this._generateUUID();
+      // Restore fields
+      if (state.fields) this._restoreFields(state.fields);
+      // Restore step
+      if (state.step > 0) {
+        document.getElementById('welcome-screen')?.classList.add('hidden');
+        document.querySelector('.onb-footer')?.classList.remove('hidden');
+        this.currentStep = state.step;
+        this.showStep(state.step);
+        this._updateProgress();
       }
-    } else {
-      const arr = [...files].slice(0, 5);
-      fileRefs[fileRefKey] = arr;
-      if (preview) {
-        preview.innerHTML = arr.map((f, i) => {
-          if (f.type.startsWith("image/")) {
-            return `<div class="prop-thumb-wrap" id="prop-thumb-${i}"><span class="prop-loading">Loading…</span></div>`;
-          }
-          return `<span class="upload-file-name">${f.name}</span>`;
-        }).join("");
-        preview.style.display = arr.length ? "flex" : "none";
-
-        arr.forEach((f, i) => {
-          if (!f.type.startsWith("image/")) return;
-          const reader = new FileReader();
-          reader.onload = e => {
-            const wrap = document.getElementById(`prop-thumb-${i}`);
-            if (wrap) wrap.innerHTML = `<img src="${e.target.result}" alt="Property ${i + 1}">`;
-          };
-          reader.readAsDataURL(f);
-        });
-
-        // Update count label
-        const countEl = document.querySelector(".props-count");
-        if (countEl) countEl.textContent = `${arr.length} ${i18n.t("s3.props_count")}`;
-      }
+    } catch (e) {
+      console.warn('Load error:', e);
     }
-  }
+  },
 
-  // ── Init all steps UI ─────────────────────────────────────────────────────
-  function initStepsUI() {
-    // Step 2: Template cards
-    document.querySelectorAll(".template-card").forEach(card => {
-      const btn = card.querySelector(".template-btn");
-      card.addEventListener("click", () => {
-        document.querySelectorAll(".template-card").forEach(c => {
-          c.classList.remove("selected");
-          const b = c.querySelector(".template-btn");
-          if (b) b.textContent = i18n.t("s2.select_btn");
-        });
-        card.classList.add("selected");
-        if (btn) btn.textContent = i18n.t("s2.selected_btn");
-      });
+  _snapshotFields() {
+    const snapshot = {};
+    document.querySelectorAll('input[id], select[id], textarea[id]').forEach(el => {
+      if (el.type === 'file' || el.type === 'color') return;
+      if (el.type === 'checkbox') {
+        snapshot[el.id] = el.checked;
+      } else {
+        snapshot[el.id] = el.value;
+      }
     });
+    return snapshot;
+  },
 
-    // Step 3: Colors
-    ["s3-primary-color", "s3-secondary-color"].forEach((id, i) => {
+  _restoreFields(fields) {
+    Object.entries(fields).forEach(([id, val]) => {
       const el = document.getElementById(id);
-      const previewId = i === 0 ? "primary-color-preview" : "secondary-color-preview";
-      if (el) {
-        el.addEventListener("input", () => updateColorPreview(id, previewId));
-        updateColorPreview(id, previewId);
+      if (!el || el.type === 'file' || el.type === 'color') return;
+      if (el.type === 'checkbox') {
+        el.checked = val;
+      } else {
+        el.value = val;
       }
     });
+  },
 
-    // Step 3: File uploads
-    initFileUpload("s3-logo-input", "s3-logo-preview", "logo");
-    initFileUpload("s3-photo-input", "s3-photo-preview", "photo");
-    initFileUpload("s3-props-input", "s3-props-preview", "properties", true);
+  _showToast(msg) {
+    const toast = document.getElementById('save-toast');
+    if (!toast) return;
+    toast.textContent = '✓ ' + msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  },
 
-    // Step 5: Tags inputs
-    ["cities", "states", "languages", "specialties"].forEach(field => {
-      initTagsInput(`tags-${field}`, `tag-input-${field}`);
-    });
-
-    // Step 6: Service cards
-    document.querySelectorAll(".service-card").forEach(card => {
-      card.addEventListener("click", () => {
-        const cb = card.querySelector(".service-checkbox");
-        if (cb) {
-          cb.checked = !cb.checked;
-          card.classList.toggle("selected", cb.checked);
-        }
+  // ── Language Switcher ────────────────────────────────────────────
+  _bindLangSwitcher() {
+    document.querySelectorAll('[data-lang-btn]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        i18n.load(btn.getAttribute('data-lang-btn'));
       });
     });
+  },
 
-    // Step 8: Ebook toggle
-    document.querySelectorAll('input[name="ebook-choice"]').forEach(radio => {
-      radio.addEventListener("change", () => toggleEbookDetails(radio.value === "yes"));
-    });
+  // ── Future hooks (stubs) ─────────────────────────────────────────
+  // sendToCRM(data) { }
+  // triggerWebhook(data) { }
+  // notifyStripe(data) { }
+};
 
-    // Step 8: PDF upload
-    initFileUpload("s8-pdf-input", "s8-pdf-preview", "ebook_pdf");
-
-    // Step 9: CRM cards
-    document.querySelectorAll(".crm-card").forEach(card => {
-      card.addEventListener("click", () => selectCrmCard(card.dataset.crm));
-    });
-  }
-
-  // ── Nav buttons ───────────────────────────────────────────────────────────
-  function initNavButtons() {
-    const backBtn = document.getElementById("btn-back");
-    const nextBtn = document.getElementById("btn-next");
-    const saveBtn = document.getElementById("btn-save");
-    const finishBtn = document.getElementById("btn-finish");
-    const downloadAgainBtn = document.getElementById("btn-download-again");
-
-    if (backBtn) {
-      backBtn.addEventListener("click", () => {
-        collectStep(currentStep); // save silently without validation
-        data._currentStep = currentStep;
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-        goToStep(currentStep - 1, "back");
-      });
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener("click", () => {
-        if (collectStep(currentStep)) {
-          data._currentStep = currentStep + 1;
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-          goToStep(currentStep + 1, "next");
-        }
-      });
-    }
-
-    if (saveBtn) {
-      saveBtn.addEventListener("click", () => {
-        collectStep(currentStep);
-        saveData();
-      });
-    }
-
-    if (finishBtn) {
-      finishBtn.addEventListener("click", () => {
-        generateConfig();
-        showSuccessScreen();
-      });
-    }
-
-    if (downloadAgainBtn) {
-      downloadAgainBtn.addEventListener("click", () => generateConfig());
-    }
-  }
-
-  // ── Success screen ────────────────────────────────────────────────────────
-  function showSuccessScreen() {
-    const wizard = document.querySelector(".wizard-step[data-step='10']");
-    const review = document.getElementById("step10-review");
-    const success = document.getElementById("step10-success");
-    if (review) review.style.display = "none";
-    if (success) success.style.display = "block";
-
-    // Clear saved data
-    localStorage.removeItem(STORAGE_KEY);
-  }
-
-  // ── Language switcher ─────────────────────────────────────────────────────
-  function initLangSwitcher() {
-    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-      btn.addEventListener("click", async () => {
-        await i18n.load(btn.getAttribute("data-lang-btn"));
-        // Re-populate current step after lang change
-        populateStep(currentStep);
-      });
-    });
-  }
-
-  // ── Init ──────────────────────────────────────────────────────────────────
-  async function init() {
-    loadData();
-    await i18n.init("en");
-    initStepsUI();
-    initNavButtons();
-    initLangSwitcher();
-
-    // Show starting step
-    const startStep = data._currentStep || 1;
-    const firstStep = document.querySelector('.wizard-step[data-step="1"]');
-    if (firstStep) firstStep.classList.add("active");
-
-    if (startStep > 1) {
-      // Jump to saved step without animation
-      document.querySelectorAll(".wizard-step").forEach(s => s.classList.remove("active"));
-      const target = document.querySelector(`.wizard-step[data-step="${startStep}"]`);
-      if (target) {
-        target.classList.add("active");
-        currentStep = startStep;
-      }
-    }
-
-    updateProgress();
-    updateNavButtons();
-    populateStep(currentStep);
-  }
-
-  return { init };
-})();
-
-document.addEventListener("DOMContentLoaded", () => LUMI.init());
+// ── Bootstrap ────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+  await i18n.init('pt');
+  OnboardingApp.init();
+});
