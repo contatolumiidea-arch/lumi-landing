@@ -1245,7 +1245,6 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   .header-actions .btn-wa-header { display: none; }
 
   /* Hero */
-  .hero-content { grid-template-columns: 1fr; gap: 8px; }
   .hero-image { order: -1; }
   .hero-photo, .hero-photo-placeholder { max-width: 280px; margin: 0 auto; }
   .hero-card--tl { display: none; }
@@ -2551,6 +2550,33 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   .templates-grid { grid-template-columns: 1fr; }
   .integrations-grid { grid-template-columns: 1fr 1fr; }
   .steps-grid { max-width: 100%; }
-  .hero-content { gap: 16px; }
-  .hero-img { width: 100%; max-width: 100%; margin-top: 0; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   HERO MOBILE — must come LAST to override 1024px block
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .hero {
+    min-height: unset;
+    align-items: flex-start;
+    padding-top: 88px;
+    padding-bottom: 32px;
+  }
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .hero-text { text-align: center; }
+  .hero-actions { justify-content: center; }
+  .hero-stats--3col { grid-template-columns: repeat(3, 1fr); }
+  .hero-visual {
+    justify-content: center;
+    margin-top: 0;
+  }
+  .hero-img {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 0;
+    display: block;
+  }
 }
