@@ -1,0 +1,17 @@
+<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LUMI LANDING icon">
+  <!-- Dark background circle -->
+  <circle cx="24" cy="24" r="24" fill="#0f0f0f"/>
+  <!-- House + LL monogram -->
+  <g transform="translate(6, 5)">
+    <!-- Roof triangle -->
+    <polygon points="18,2 34,14 2,14" fill="#D4AF37"/>
+    <!-- Left L vertical -->
+    <rect x="2" y="13" width="5" height="20" fill="#D4AF37"/>
+    <!-- Left L horizontal -->
+    <rect x="2" y="28" width="13" height="5" fill="#D4AF37"/>
+    <!-- Right L vertical -->
+    <rect x="29" y="13" width="5" height="20" fill="#D4AF37"/>
+    <!-- Right L horizontal -->
+    <rect x="21" y="28" width="13" height="5" fill="#D4AF37"/>
+  </g>
+</svg>

@@ -1947,6 +1947,86 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   transition: transform var(--transition);
 }
 
+/* ════════════════════════════════════════════
+   BRAND IDENTITY UPDATE
+   ════════════════════════════════════════════ */
+
+/* ── Logo Image ── */
+.header-logo-img {
+  height: 36px;
+  width: auto;
+  display: block;
+}
+.footer-logo-img {
+  height: 28px;
+  width: auto;
+  display: block;
+  margin-bottom: 16px;
+}
+
+/* ── Template Badge (glass effect) ── */
+.template-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(5, 5, 5, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(212,175,55,.3);
+  color: #D4AF37;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* ── Premium Gold Effects ── */
+/* Gold shimmer on hero headline */
+.hero-headline em {
+  background: linear-gradient(90deg, #D4AF37 0%, #e8c84a 50%, #D4AF37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+@keyframes shimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Gold glow on primary CTA hover */
+.btn-primary:hover {
+  box-shadow: 0 0 32px rgba(212,175,55,.4), 0 8px 16px rgba(0,0,0,.3);
+}
+
+/* Subtle gold border on cards */
+.service-card:hover,
+.feature-card:hover {
+  border-color: rgba(212,175,55,.4);
+  box-shadow: 0 0 0 1px rgba(212,175,55,.1), 0 8px 32px rgba(0,0,0,.4);
+}
+
+/* Pricing card premium style */
+.pricing-card {
+  border: 1px solid rgba(212,175,55,.3);
+  box-shadow: 0 0 60px rgba(212,175,55,.08);
+}
+
+/* Hero background product feel */
+.hero-bg-product {
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(212,175,55,.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(212,175,55,.03) 0%, transparent 60%),
+    #050505;
+  position: absolute;
+  inset: 0;
+}
+
 .faq-answer {
   padding-bottom: 22px;
 }
