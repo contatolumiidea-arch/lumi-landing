@@ -1975,40 +1975,27 @@ textarea.form-control { min-height: 120px; resize: vertical; }
    BRAND IDENTITY UPDATE
    ════════════════════════════════════════════ */
 
-/* ── Logo Image ──
-   SVG is square (810×810) with ~15% padding top and ~23% bottom.
-   We oversize the image and clip via the .header-logo overflow:hidden
-   so the visible mark fills the intended height.
-── */
-.header-logo {
-  overflow: hidden;
-}
+/* ── Logo Image ── */
 .header-logo-img {
-  height: 105px;     /* oversize: 62px target / 0.615 content ratio ≈ 101px */
+  height: 62px;
   width: auto;
   display: block;
-  margin-top: -17px; /* clip top transparent space */
-  margin-bottom: -26px; /* clip bottom transparent space */
   flex-shrink: 0;
 }
 .footer-logo-img {
-  height: 86px;
+  height: 48px;
   width: auto;
   display: block;
   max-width: 200px;
-  margin-top: -13px;
-  margin-bottom: 3px; /* net: original 16px - 13px already removed */
-  object-fit: contain;
+  margin-bottom: 16px;
 }
 
 @media (max-width: 768px) {
   .header-logo-img {
-    height: 80px;
-    margin-top: -13px;
-    margin-bottom: -20px;
+    height: 46px;
   }
   .footer-logo-img {
-    height: 68px;
+    height: 38px;
     margin-top: -10px;
   }
 }
