@@ -1859,6 +1859,7 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   box-shadow: var(--shadow-gold);
 }
 .feature-card-icon  { font-size: 2.5rem; margin-bottom: 20px; }
+.icon-premium { width: 48px; height: 48px; display: block; }
 .feature-card-title { font-size: 1.1rem; margin-bottom: 12px; font-family: var(--font-serif); }
 .feature-card-desc  { font-size: .9rem; color: var(--color-gray); line-height: 1.7; }
 

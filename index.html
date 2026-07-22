@@ -292,17 +292,77 @@
 
     <div class="cards-grid cards-grid--3">
       <div class="feature-card fade-up">
-        <div class="feature-card-icon">🚫</div>
+        <div class="feature-card-icon">
+          <!-- No professional presence: broken/absent shield -->
+          <svg class="icon-premium" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="g-shield" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#F5D77A"/>
+                <stop offset="50%" stop-color="#D4AF37"/>
+                <stop offset="100%" stop-color="#9A6B18"/>
+              </linearGradient>
+              <filter id="glow-shield"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <g filter="url(#glow-shield)">
+              <path d="M28 6L10 13v12c0 10.5 7.7 20.3 18 22.7C38.3 45.3 46 35.5 46 25V13L28 6z" stroke="url(#g-shield)" stroke-width="2" fill="rgba(212,175,55,0.08)"/>
+              <path d="M28 6L10 13v12c0 10.5 7.7 20.3 18 22.7" stroke="url(#g-shield)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.4"/>
+              <line x1="20" y1="20" x2="36" y2="36" stroke="url(#g-shield)" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="36" y1="20" x2="20" y2="36" stroke="url(#g-shield)" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="28" cy="28" r="9" stroke="url(#g-shield)" stroke-width="1.5" fill="none" opacity="0.3"/>
+            </g>
+          </svg>
+        </div>
         <h3 class="feature-card-title" data-i18n="problem.card1_title">No Professional Online Presence</h3>
         <p class="feature-card-desc" data-i18n="problem.card1_desc">Your social media profile is not enough. Clients look for professionals with a dedicated, trustworthy online presence.</p>
       </div>
       <div class="feature-card fade-up">
-        <div class="feature-card-icon">👋</div>
+        <div class="feature-card-icon">
+          <!-- Visitors leaving: arrow escaping a door -->
+          <svg class="icon-premium" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="g-exit" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#F5D77A"/>
+                <stop offset="50%" stop-color="#D4AF37"/>
+                <stop offset="100%" stop-color="#9A6B18"/>
+              </linearGradient>
+              <filter id="glow-exit"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <g filter="url(#glow-exit)">
+              <rect x="10" y="10" width="24" height="36" rx="3" stroke="url(#g-exit)" stroke-width="2" fill="rgba(212,175,55,0.06)"/>
+              <rect x="16" y="24" width="6" height="8" rx="1.5" stroke="url(#g-exit)" stroke-width="1.5" fill="none" opacity="0.5"/>
+              <line x1="34" y1="28" x2="48" y2="28" stroke="url(#g-exit)" stroke-width="2.5" stroke-linecap="round"/>
+              <polyline points="42,22 48,28 42,34" stroke="url(#g-exit)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <circle cx="48" cy="28" r="3" fill="url(#g-exit)" opacity="0.7"/>
+            </g>
+          </svg>
+        </div>
         <h3 class="feature-card-title" data-i18n="problem.card2_title">Visitors Leave Without Contacting</h3>
         <p class="feature-card-desc" data-i18n="problem.card2_desc">Without a clear conversion strategy, potential clients browse and disappear — forever.</p>
       </div>
       <div class="feature-card fade-up">
-        <div class="feature-card-icon">📉</div>
+        <div class="feature-card-icon">
+          <!-- Social traffic wasted: chart dropping with broken link -->
+          <svg class="icon-premium" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="g-chart" x1="0" y1="56" x2="56" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#9A6B18"/>
+                <stop offset="50%" stop-color="#D4AF37"/>
+                <stop offset="100%" stop-color="#F5D77A"/>
+              </linearGradient>
+              <filter id="glow-chart"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <g filter="url(#glow-chart)">
+              <polyline points="10,14 22,24 30,20 40,34 48,44" stroke="url(#g-chart)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <circle cx="10" cy="14" r="3" fill="url(#g-chart)"/>
+              <circle cx="22" cy="24" r="3" fill="url(#g-chart)"/>
+              <circle cx="30" cy="20" r="3" fill="url(#g-chart)"/>
+              <circle cx="40" cy="34" r="3" fill="url(#g-chart)"/>
+              <circle cx="48" cy="44" r="3" fill="url(#g-chart)"/>
+              <line x1="10" y1="48" x2="48" y2="48" stroke="url(#g-chart)" stroke-width="1.5" opacity="0.3" stroke-linecap="round"/>
+              <line x1="10" y1="48" x2="10" y2="10" stroke="url(#g-chart)" stroke-width="1.5" opacity="0.3" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
         <h3 class="feature-card-title" data-i18n="problem.card3_title">Social Media Traffic is Wasted</h3>
         <p class="feature-card-desc" data-i18n="problem.card3_desc">You spend hours posting on Instagram and Facebook, but have no way to capture those visitors as leads.</p>
       </div>
@@ -329,27 +389,27 @@
 
     <div class="cards-grid cards-grid--solution">
       <div class="solution-card fade-up">
-        <div class="solution-card-icon">🏆</div>
+        <div class="solution-card-icon"><svg class="icon-premium" viewBox="0 0 56 56" fill="none"><defs><linearGradient id="g-page" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F5D77A"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#9A6B18"/></linearGradient></defs><rect x="10" y="6" width="36" height="44" rx="4" stroke="url(#g-page)" stroke-width="2" fill="rgba(212,175,55,0.07)"/><line x1="17" y1="17" x2="39" y2="17" stroke="url(#g-page)" stroke-width="2" stroke-linecap="round" opacity="0.8"/><line x1="17" y1="24" x2="39" y2="24" stroke="url(#g-page)" stroke-width="2" stroke-linecap="round" opacity="0.6"/><line x1="17" y1="31" x2="30" y2="31" stroke="url(#g-page)" stroke-width="2" stroke-linecap="round" opacity="0.4"/><circle cx="36" cy="38" r="7" stroke="url(#g-page)" stroke-width="2" fill="rgba(212,175,55,0.12)"/><line x1="36" y1="35" x2="36" y2="41" stroke="url(#g-page)" stroke-width="2" stroke-linecap="round"/><line x1="33" y1="38" x2="39" y2="38" stroke="url(#g-page)" stroke-width="2" stroke-linecap="round"/></svg></div>
         <h3 class="solution-card-title" data-i18n="solution.feat1_title">Professional Real Estate Page</h3>
         <p class="solution-card-desc" data-i18n="solution.feat1_desc">A stunning, conversion-optimized landing page designed exclusively for real estate professionals.</p>
       </div>
       <div class="solution-card fade-up">
-        <div class="solution-card-icon">📋</div>
+        <div class="solution-card-icon"><svg class="icon-premium" viewBox="0 0 56 56" fill="none"><defs><linearGradient id="g-form" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F5D77A"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#9A6B18"/></linearGradient></defs><rect x="8" y="12" width="40" height="32" rx="4" stroke="url(#g-form)" stroke-width="2" fill="rgba(212,175,55,0.07)"/><line x1="16" y1="21" x2="40" y2="21" stroke="url(#g-form)" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/><rect x="16" y="26" width="10" height="6" rx="2" stroke="url(#g-form)" stroke-width="1.8" fill="none"/><rect x="30" y="26" width="10" height="6" rx="2" stroke="url(#g-form)" stroke-width="1.8" fill="rgba(212,175,55,0.2)"/><polyline points="32,29 33.5,31 37,27" stroke="url(#g-form)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><line x1="16" y1="37" x2="28" y2="37" stroke="url(#g-form)" stroke-width="1.8" stroke-linecap="round" opacity="0.4"/></svg></div>
         <h3 class="solution-card-title" data-i18n="solution.feat2_title">Smart Lead Capture Forms</h3>
         <p class="solution-card-desc" data-i18n="solution.feat2_desc">Intelligent forms that qualify your leads before they even reach you — buyer, seller, investor or referral.</p>
       </div>
       <div class="solution-card fade-up">
-        <div class="solution-card-icon">💬</div>
+        <div class="solution-card-icon"><svg class="icon-premium" viewBox="0 0 56 56" fill="none"><defs><linearGradient id="g-wa" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F5D77A"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#9A6B18"/></linearGradient></defs><path d="M28 8C17 8 8 17 8 28c0 3.5.9 6.8 2.5 9.7L8 48l10.6-2.4A19.8 19.8 0 0028 48c11 0 20-9 20-20S39 8 28 8z" stroke="url(#g-wa)" stroke-width="2" fill="rgba(212,175,55,0.07)"/><path d="M20 27c0-1 .4-2 1-2.7l2-2c.4-.4 1-.4 1.4 0l2 2c.4.4.4 1 0 1.4l-1 1c.6 1.2 1.4 2.3 2.3 3.2.9.9 2 1.7 3.2 2.3l1-1c.4-.4 1-.4 1.4 0l2 2c.4.4.4 1 0 1.4l-2 2c-.7.7-1.7 1-2.7 1C24.5 37.6 20 32 20 27z" fill="url(#g-wa)" opacity="0.85"/></svg></div>
         <h3 class="solution-card-title" data-i18n="solution.feat3_title">Instant WhatsApp Connection</h3>
         <p class="solution-card-desc" data-i18n="solution.feat3_desc">One click connects potential clients directly to your WhatsApp with a personalized message.</p>
       </div>
       <div class="solution-card fade-up">
-        <div class="solution-card-icon">🌎</div>
+        <div class="solution-card-icon"><svg class="icon-premium" viewBox="0 0 56 56" fill="none"><defs><linearGradient id="g-globe" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F5D77A"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#9A6B18"/></linearGradient></defs><circle cx="28" cy="28" r="19" stroke="url(#g-globe)" stroke-width="2" fill="rgba(212,175,55,0.07)"/><ellipse cx="28" cy="28" rx="9" ry="19" stroke="url(#g-globe)" stroke-width="1.5" fill="none" opacity="0.5"/><line x1="9" y1="28" x2="47" y2="28" stroke="url(#g-globe)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/><path d="M13 19c4 2 8 3 15 3s11-1 15-3" stroke="url(#g-globe)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.4"/><path d="M13 37c4-2 8-3 15-3s11 1 15 3" stroke="url(#g-globe)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.4"/></svg></div>
         <h3 class="solution-card-title" data-i18n="solution.feat4_title">Multilingual Experience</h3>
         <p class="solution-card-desc" data-i18n="solution.feat4_desc">Your page automatically serves clients in English, Spanish or Portuguese — no extra work required.</p>
       </div>
       <div class="solution-card fade-up">
-        <div class="solution-card-icon">📚</div>
+        <div class="solution-card-icon"><svg class="icon-premium" viewBox="0 0 56 56" fill="none"><defs><linearGradient id="g-book" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F5D77A"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#9A6B18"/></linearGradient></defs><rect x="12" y="8" width="26" height="34" rx="3" stroke="url(#g-book)" stroke-width="2" fill="rgba(212,175,55,0.07)"/><rect x="16" y="8" width="4" height="34" fill="rgba(212,175,55,0.15)" rx="1"/><line x1="22" y1="16" x2="34" y2="16" stroke="url(#g-book)" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/><line x1="22" y1="22" x2="34" y2="22" stroke="url(#g-book)" stroke-width="1.8" stroke-linecap="round" opacity="0.4"/><line x1="22" y1="28" x2="30" y2="28" stroke="url(#g-book)" stroke-width="1.8" stroke-linecap="round" opacity="0.3"/><circle cx="38" cy="40" r="8" stroke="url(#g-book)" stroke-width="2" fill="rgba(212,175,55,0.12)"/><polyline points="34,40 37,43 42,37" stroke="url(#g-book)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
         <h3 class="solution-card-title" data-i18n="solution.feat5_title">Lead Magnets & Ebooks</h3>
         <p class="solution-card-desc" data-i18n="solution.feat5_desc">Offer free guides to capture contact information from visitors who are not yet ready to reach out.</p>
       </div>
@@ -533,22 +593,22 @@
 
     <div class="cards-grid cards-grid--4">
       <div class="capture-card fade-up">
-        <div class="capture-card-icon">🏠</div>
+        <div class="capture-card-icon"><svg class="icon-premium" viewBox="0 0 56 56" fill="none"><defs><linearGradient id="g-home" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F5D77A"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#9A6B18"/></linearGradient></defs><path d="M10 26L28 10l18 16v20H34V34h-12v12H10V26z" stroke="url(#g-home)" stroke-width="2" fill="rgba(212,175,55,0.07)" stroke-linejoin="round"/><rect x="23" y="34" width="10" height="12" rx="2" stroke="url(#g-home)" stroke-width="1.5" fill="rgba(212,175,55,0.12)"/><circle cx="28" cy="28" r="3" fill="url(#g-home)" opacity="0.7"/></svg></div>
         <h3 class="capture-card-title" data-i18n="leadCapture.card1_title">Buyer Inquiry Form</h3>
         <p class="capture-card-desc" data-i18n="leadCapture.card1_desc">Capture buyers early in their search process.</p>
       </div>
       <div class="capture-card fade-up">
-        <div class="capture-card-icon">💰</div>
+        <div class="capture-card-icon"><svg class="icon-premium" viewBox="0 0 56 56" fill="none"><defs><linearGradient id="g-sell" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F5D77A"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#9A6B18"/></linearGradient></defs><circle cx="28" cy="28" r="19" stroke="url(#g-sell)" stroke-width="2" fill="rgba(212,175,55,0.07)"/><path d="M28 16v2M28 38v2M21 21.3l1.4 1.4M35 33.3l1.4 1.4M16 28h2M38 28h2M21 34.7l1.4-1.4M35 22.7l1.4-1.4" stroke="url(#g-sell)" stroke-width="1.8" stroke-linecap="round"/><circle cx="28" cy="28" r="7" stroke="url(#g-sell)" stroke-width="2" fill="rgba(212,175,55,0.15)"/><path d="M25 28.5c0-1.7 1.3-2.5 3-2.5s3 .9 3 2.5-1.3 2-3 2.5-3 .8-3 2.5 1.3 2.5 3 2.5 3-.8 3-2.5" stroke="url(#g-sell)" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></div>
         <h3 class="capture-card-title" data-i18n="leadCapture.card2_title">Seller Evaluation Form</h3>
         <p class="capture-card-desc" data-i18n="leadCapture.card2_desc">Connect with homeowners thinking about selling.</p>
       </div>
       <div class="capture-card fade-up">
-        <div class="capture-card-icon">📧</div>
+        <div class="capture-card-icon"><svg class="icon-premium" viewBox="0 0 56 56" fill="none"><defs><linearGradient id="g-mail" x1="4" y1="16" x2="52" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F5D77A"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#9A6B18"/></linearGradient></defs><rect x="6" y="16" width="44" height="30" rx="4" stroke="url(#g-mail)" stroke-width="2" fill="rgba(212,175,55,0.07)"/><path d="M6 20l22 14 22-14" stroke="url(#g-mail)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3 class="capture-card-title" data-i18n="leadCapture.card3_title">Newsletter Signup</h3>
         <p class="capture-card-desc" data-i18n="leadCapture.card3_desc">Stay top of mind with market updates.</p>
       </div>
       <div class="capture-card fade-up">
-        <div class="capture-card-icon">📖</div>
+        <div class="capture-card-icon"><svg class="icon-premium" viewBox="0 0 56 56" fill="none"><defs><linearGradient id="g-ebook" x1="8" y1="8" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F5D77A"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#9A6B18"/></linearGradient></defs><rect x="10" y="6" width="28" height="36" rx="3" stroke="url(#g-ebook)" stroke-width="2" fill="rgba(212,175,55,0.07)"/><path d="M10 38c0 0 4-3 9-3s9 3 9 3" stroke="url(#g-ebook)" stroke-width="1.8" stroke-linecap="round"/><path d="M19 6v32" stroke="url(#g-ebook)" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.5"/><path d="M14 14h10M14 19h10M14 24h6" stroke="url(#g-ebook)" stroke-width="1.5" stroke-linecap="round"/><circle cx="38" cy="38" r="9" fill="rgba(212,175,55,0.15)" stroke="url(#g-ebook)" stroke-width="1.5"/><path d="M35 38l2.5 2.5L42 35" stroke="url(#g-ebook)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3 class="capture-card-title" data-i18n="leadCapture.card4_title">Ebook Download</h3>
         <p class="capture-card-desc" data-i18n="leadCapture.card4_desc">Offer value in exchange for contact information.</p>
       </div>
