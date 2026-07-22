@@ -348,7 +348,7 @@ h1,h2,h3,h4 { font-family: var(--font-serif); line-height: 1.2; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 64px;
-  align-items: center;
+  align-items: start;
 }
 .hero-img {
   width: 100%;
