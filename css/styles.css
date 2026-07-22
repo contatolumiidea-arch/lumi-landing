@@ -2337,25 +2337,25 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 
 /* ── Logo Image ── */
 .header-logo-img {
-  height: 124px;
+  height: 180px;
   width: auto;
   display: block;
   flex-shrink: 0;
 }
 .footer-logo-img {
-  height: 96px;
+  height: 130px;
   width: auto;
   display: block;
-  max-width: 300px;
+  max-width: 340px;
   margin-bottom: 16px;
 }
 
 @media (max-width: 768px) {
   .header-logo-img {
-    height: 92px;
+    height: 130px;
   }
   .footer-logo-img {
-    height: 76px;
+    height: 100px;
     margin-top: -10px;
   }
 }
