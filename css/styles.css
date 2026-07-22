@@ -173,7 +173,7 @@ h1,h2,h3,h4 { font-family: var(--font-serif); line-height: 1.2; }
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   padding: 12px 0;
-  border-bottom: 1px solid rgba(212,175,55,.15);
+  border-bottom: 1px solid rgba(255,255,255,.06);
   box-shadow: 0 4px 24px rgba(0,0,0,.4);
 }
 .header-inner {
