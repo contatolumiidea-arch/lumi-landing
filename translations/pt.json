@@ -17,7 +17,7 @@
     "headline": "Transforme Sua Presença Imobiliária",
     "headline_em": "Em uma Máquina de Geração de Leads.",
     "headline_html": "<span class=\"hl-white\">Transforme Sua<br>Presença Imobiliária</span><em class=\"hl-gold\">Em uma Máquina<br>de Geração de Leads.</em>",
-    "subheadline": "Landing pages profissionais e multilíngues criadas para agentes imobiliários que querem mais contatos, mais leads e mais oportunidades.",
+    "subheadline": "Landing pages profissionais e multilíngues criadas para corretores que querem mais contatos, mais leads e mais oportunidades.",
     "cta_primary": "Criar Minha Landing Page",
     "cta_secondary": "Ver Templates",
     "stats": {
@@ -34,11 +34,11 @@
     "badge": "O Problema",
     "headline": "A Maioria dos Corretores Perde Leads Antes de Fazer Contato.",
     "card1_title": "Sem Presença Profissional Online",
-    "card1_desc": "Seu perfil nas redes sociais não é suficiente. Os clientes procuram profissionais com uma presença digital dedicada e confiável.",
+    "card1_desc": "Seu perfil nas redes sociais não é suficiente. Clientes buscam profissionais com uma presença digital dedicada e confiável.",
     "card2_title": "Visitantes Saem Sem Entrar em Contato",
-    "card2_desc": "Sem uma estratégia clara de conversão, potenciais clientes navegam e desaparecem — para sempre.",
+    "card2_desc": "Sem uma estratégia clara de conversão, potenciais clientes navegam pelo seu perfil e somem sem deixar nenhum dado.",
     "card3_title": "O Tráfego das Redes Sociais é Desperdiçado",
-    "card3_desc": "Você passa horas postando no Instagram e Facebook, mas não tem como capturar esses visitantes como leads."
+    "card3_desc": "Você investe horas postando no Instagram e Facebook, mas não tem como transformar esses visitantes em leads."
   },
 
   "solution": {
@@ -46,15 +46,15 @@
     "headline": "Seu Escritório Digital Trabalhando 24/7",
     "subheadline": "O LUMI LANDING transforma sua presença online em um sistema completo de geração de leads.",
     "feat1_title": "Página Profissional de Imóveis",
-    "feat1_desc": "Uma landing page impressionante e otimizada para conversão, criada exclusivamente para profissionais do mercado imobiliário.",
+    "feat1_desc": "Uma landing page impressionante, otimizada para conversão e criada exclusivamente para profissionais do mercado imobiliário.",
     "feat2_title": "Formulários Inteligentes de Captação",
-    "feat2_desc": "Formulários inteligentes que qualificam seus leads antes mesmo de chegarem até você — comprador, vendedor, investidor ou indicação.",
+    "feat2_desc": "Formulários que qualificam seus leads antes mesmo de chegarem até você: comprador, vendedor, investidor ou indicação.",
     "feat3_title": "Conexão Instantânea pelo WhatsApp",
     "feat3_desc": "Um clique conecta potenciais clientes diretamente ao seu WhatsApp com uma mensagem personalizada.",
     "feat4_title": "Experiência Multilíngue",
-    "feat4_desc": "Sua página atende automaticamente clientes em inglês, espanhol ou português — sem trabalho extra.",
+    "feat4_desc": "Sua página atende automaticamente clientes em inglês, espanhol ou português, sem nenhum esforço adicional.",
     "feat5_title": "Lead Magnets e Ebooks",
-    "feat5_desc": "Ofereça guias gratuitos para capturar informações de contato de visitantes que ainda não estão prontos para entrar em contato."
+    "feat5_desc": "Ofereça guias gratuitos para capturar o contato de visitantes que ainda estão pesquisando antes de tomar uma decisão."
   },
 
   "templates": {
@@ -77,8 +77,8 @@
   "howItWorks": {
     "badge": "Como Funciona",
     "headline": "Sua Landing Page no Ar em 3 Passos",
-    "step1_title": "Escolha seu Design",
-    "step1_desc": "Selecione um dos nossos cinco templates premium criados para profissionais imobiliários.",
+    "step1_title": "Escolha Seu Design",
+    "step1_desc": "Selecione um dos cinco templates premium criados para profissionais imobiliários.",
     "step2_title": "Adicione Suas Informações",
     "step2_desc": "Complete o onboarding guiado em minutos. Nenhum conhecimento técnico necessário.",
     "step3_title": "Comece a Receber Leads",
@@ -89,7 +89,7 @@
   "leadCapture": {
     "badge": "Geração de Leads",
     "headline": "Cada Visitante Pode Se Tornar um Cliente Futuro",
-    "subheadline": "Múltiplos mecanismos de captação garantem que nenhuma oportunidade seja perdida.",
+    "subheadline": "Cada visitante chega com uma intenção diferente. A LUMI LANDING captura todas elas.",
     "card1_title": "Formulário de Interesse do Comprador",
     "card1_desc": "Capture compradores no início da jornada de busca.",
     "card2_title": "Formulário de Avaliação do Vendedor",
@@ -97,13 +97,13 @@
     "card3_title": "Inscrição em Newsletter",
     "card3_desc": "Mantenha-se presente com atualizações do mercado.",
     "card4_title": "Download de Ebook",
-    "card4_desc": "Ofereça valor em troca de informações de contato."
+    "card4_desc": "Ofereça valor em troca das informações de contato."
   },
 
   "leadmagnet": {
     "badge": "Lead Magnet",
     "headline": "Transforme Seu Conhecimento em Novos Leads",
-    "subheadline": "Ofereça um guia gratuito e capture o contato de potenciais clientes que ainda não estão prontos para entrar em contato.",
+    "subheadline": "Ofereça um guia gratuito e conquiste o contato de clientes que ainda estão pesquisando.",
     "note": "Este é um exemplo do lead magnet incluído em toda página LUMI LANDING.",
     "ebook_title": "Guia do Comprador de Imóveis",
     "ebook_sub": "Tudo que você precisa saber antes de comprar um imóvel nos EUA",
@@ -121,7 +121,7 @@
   "multilingual": {
     "badge": "Multilíngue",
     "headline": "Conecte-se com Mais Clientes no Idioma Preferido Deles.",
-    "subheadline": "O mercado imobiliário americano é diverso. Sua landing page deve falar com cada potencial cliente.",
+    "subheadline": "O mercado imobiliário americano é diverso. Sua página precisa falar com cada cliente no idioma certo.",
     "lang1_name": "English",
     "lang1_desc": "Alcance todo o mercado americano com conteúdo em inglês fluente e profissional.",
     "lang2_name": "Português",
@@ -133,7 +133,7 @@
   "whatsapp": {
     "badge": "WhatsApp",
     "headline": "Conexão Instantânea com Potenciais Clientes",
-    "subheadline": "Um botão flutuante de WhatsApp na sua página permite que os clientes entrem em contato instantaneamente — o caminho mais rápido do lead para a conversa.",
+    "subheadline": "Um botão flutuante de WhatsApp na sua página permite que os clientes entrem em contato instantaneamente. É a forma mais rápida de transformar interesse em conversa real.",
     "stat1": "98% de taxa de abertura em mensagens de WhatsApp",
     "stat2": "Tempo médio de resposta: menos de 5 minutos",
     "cta": "Começar Agora",
@@ -144,7 +144,7 @@
   "crm": {
     "badge": "Integrações",
     "headline": "Seus Leads, Do Seu Jeito",
-    "subheadline": "Conecte seu LUMI LANDING às ferramentas que você já usa — ou conheça o LUMI FLOW, nosso CRM em desenvolvimento para o mercado imobiliário.",
+    "subheadline": "Conecte seu LUMI LANDING às ferramentas que você já usa. Conheça também o LUMI FLOW, nosso CRM em desenvolvimento para o mercado imobiliário.",
     "int1": "Qualquer CRM (webhook)",
     "int2": "Google Sheets",
     "int3": "E-mail (direto)",
@@ -175,7 +175,7 @@
     "feat8": "Integrações com CRM",
     "feat9": "Suporte prioritário",
     "cta": "Criar Minha Landing Page",
-    "guarantee": "Garantia de 30 dias de reembolso. Sem perguntas."
+    "guarantee": "Garantia de 30 dias. Sem perguntas, sem burocracia."
   },
 
   "faq": {
@@ -184,13 +184,13 @@
     "q1": "Preciso de conhecimento técnico para configurar minha página?",
     "a1": "Não. Nosso assistente de onboarding guia você em cada etapa. Se você consegue preencher um formulário, consegue lançar sua página LUMI LANDING.",
     "q2": "Posso usar meu próprio domínio?",
-    "a2": "Sim. Você pode conectar seu próprio domínio (ex.: sarahjohnson.com) à sua página LUMI LANDING enquanto sua assinatura estiver ativa.",
+    "a2": "Sim. Você pode conectar seu próprio domínio (ex.: sarahjohnson.com) à sua página LUMI LANDING enquanto a assinatura estiver ativa.",
     "q3": "Posso conectar meu CRM?",
     "a3": "Sim. O LUMI LANDING se conecta a qualquer CRM via webhook, além de Zapier, Make, Google Sheets e e-mail direto.",
     "q4": "Funciona em múltiplos idiomas?",
     "a4": "Sim. Toda página LUMI LANDING suporta inglês, português e espanhol. Seus visitantes podem trocar o idioma com um clique.",
     "q5": "Quanto tempo leva para configurar?",
-    "a5": "A maioria dos agentes completa o onboarding em menos de 30 minutos. Nós cuidamos de todo o resto.",
+    "a5": "A maioria dos corretores completa o onboarding em menos de 30 minutos. Cuidamos de todo o resto.",
     "q6": "O que acontece se eu cancelar?",
     "a6": "Você pode cancelar a qualquer momento. Sua página permanece ativa até o final do período de cobrança."
   },
@@ -248,8 +248,8 @@
 
   "newsletter": {
     "badge": "Fique Atualizado",
-    "headline": "Receba Novidades de Tecnologia Imobiliária",
-    "subheadline": "Atualizações de produtos e novidades direto no seu e-mail.",
+    "headline": "Receba Novidades sobre Tecnologia Imobiliária",
+    "subheadline": "Atualizações de produto e novidades do mercado direto no seu e-mail.",
     "form": {
       "name": "Seu Nome",
       "email": "Seu E-mail",

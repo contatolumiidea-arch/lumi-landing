@@ -36,7 +36,7 @@
     "card1_title": "No Professional Online Presence",
     "card1_desc": "Your social media profile is not enough. Clients look for professionals with a dedicated, trustworthy online presence.",
     "card2_title": "Visitors Leave Without Contacting",
-    "card2_desc": "Without a clear conversion strategy, potential clients browse and disappear — forever.",
+    "card2_desc": "Without a clear conversion strategy, potential clients browse your profile and vanish without leaving any contact.",
     "card3_title": "Social Media Traffic is Wasted",
     "card3_desc": "You spend hours posting on Instagram and Facebook, but have no way to capture those visitors as leads."
   },
@@ -48,11 +48,11 @@
     "feat1_title": "Professional Real Estate Page",
     "feat1_desc": "A stunning, conversion-optimized landing page designed exclusively for real estate professionals.",
     "feat2_title": "Smart Lead Capture Forms",
-    "feat2_desc": "Intelligent forms that qualify your leads before they even reach you — buyer, seller, investor or referral.",
+    "feat2_desc": "Intelligent forms that qualify your leads before they even reach you: buyer, seller, investor or referral.",
     "feat3_title": "Instant WhatsApp Connection",
     "feat3_desc": "One click connects potential clients directly to your WhatsApp with a personalized message.",
     "feat4_title": "Multilingual Experience",
-    "feat4_desc": "Your page automatically serves clients in English, Spanish or Portuguese — no extra work required.",
+    "feat4_desc": "Your page automatically serves clients in English, Spanish or Portuguese, with no extra work on your end.",
     "feat5_title": "Lead Magnets & Ebooks",
     "feat5_desc": "Offer free guides to capture contact information from visitors who are not yet ready to reach out."
   },
@@ -133,7 +133,7 @@
   "whatsapp": {
     "badge": "WhatsApp",
     "headline": "Instant Connection With Potential Clients",
-    "subheadline": "A floating WhatsApp button on your page lets clients reach you instantly — the fastest path from lead to conversation.",
+    "subheadline": "A floating WhatsApp button on your page lets clients reach you instantly. The fastest path from interest to a real conversation.",
     "stat1": "98% open rate on WhatsApp messages",
     "stat2": "Average response time: under 5 minutes",
     "cta": "Get Started",
@@ -144,7 +144,7 @@
   "crm": {
     "badge": "Integrations",
     "headline": "Your Leads, Your Way",
-    "subheadline": "Connect your LUMI LANDING to the tools you already use — or discover LUMI FLOW, our upcoming CRM built for real estate.",
+    "subheadline": "Connect your LUMI LANDING to the tools you already use. Or discover LUMI FLOW, our upcoming CRM built for real estate.",
     "int1": "Any CRM (webhook)",
     "int2": "Google Sheets",
     "int3": "Email (direct)",

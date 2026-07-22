@@ -36,7 +36,7 @@
     "card1_title": "Sin Presencia Profesional en Línea",
     "card1_desc": "Tu perfil en redes sociales no es suficiente. Los clientes buscan profesionales con una presencia digital dedicada y confiable.",
     "card2_title": "Los Visitantes Se Van Sin Contactar",
-    "card2_desc": "Sin una estrategia clara de conversión, los clientes potenciales navegan y desaparecen — para siempre.",
+    "card2_desc": "Sin una estrategia clara de conversión, los clientes potenciales navegan por tu perfil y se van sin dejar ningún dato.",
     "card3_title": "El Tráfico de Redes Sociales Se Desperdicia",
     "card3_desc": "Pasas horas publicando en Instagram y Facebook, pero no tienes forma de capturar esos visitantes como leads."
   },
@@ -48,11 +48,11 @@
     "feat1_title": "Página Profesional de Bienes Raíces",
     "feat1_desc": "Una landing page impresionante y optimizada para conversión, diseñada exclusivamente para profesionales inmobiliarios.",
     "feat2_title": "Formularios Inteligentes de Captura",
-    "feat2_desc": "Formularios inteligentes que califican tus leads antes de que lleguen a ti — comprador, vendedor, inversor o referencia.",
+    "feat2_desc": "Formularios inteligentes que califican tus leads antes de que lleguen a ti: comprador, vendedor, inversor o referencia.",
     "feat3_title": "Conexión Instantánea por WhatsApp",
     "feat3_desc": "Un clic conecta a clientes potenciales directamente a tu WhatsApp con un mensaje personalizado.",
     "feat4_title": "Experiencia Multilingüe",
-    "feat4_desc": "Tu página atiende automáticamente a clientes en inglés, español o portugués — sin trabajo adicional.",
+    "feat4_desc": "Tu página atiende automáticamente a clientes en inglés, español o portugués, sin ningún esfuerzo adicional.",
     "feat5_title": "Lead Magnets y Ebooks",
     "feat5_desc": "Ofrece guías gratuitas para capturar información de contacto de visitantes que aún no están listos para comunicarse."
   },
@@ -133,7 +133,7 @@
   "whatsapp": {
     "badge": "WhatsApp",
     "headline": "Conexión Instantánea con Clientes Potenciales",
-    "subheadline": "Un botón flotante de WhatsApp en tu página permite a los clientes contactarte al instante — el camino más rápido del lead a la conversación.",
+    "subheadline": "Un botón flotante de WhatsApp en tu página permite que los clientes te contacten al instante. La forma más rápida de convertir interés en conversación real.",
     "stat1": "98% de tasa de apertura en mensajes de WhatsApp",
     "stat2": "Tiempo de respuesta promedio: menos de 5 minutos",
     "cta": "Comenzar Ahora",
@@ -144,7 +144,7 @@
   "crm": {
     "badge": "Integraciones",
     "headline": "Tus Leads, A Tu Manera",
-    "subheadline": "Conecta tu LUMI LANDING con las herramientas que ya usas — o descubre LUMI FLOW, nuestro próximo CRM creado para bienes raíces.",
+    "subheadline": "Conecta tu LUMI LANDING con las herramientas que ya usas. O descubre LUMI FLOW, nuestro próximo CRM creado para bienes raíces.",
     "int1": "Cualquier CRM (webhook)",
     "int2": "Google Sheets",
     "int3": "Correo Electrónico (directo)",
