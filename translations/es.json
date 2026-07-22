@@ -159,12 +159,17 @@
 
   "pricing": {
     "badge": "Precios",
-    "headline": "Un Plan. Todo Incluido.",
+    "headline": "Acceso Completo en Ambos Planes.",
     "subheadline": "Sin cuotas de configuración. Sin costos ocultos. Cancela cuando quieras.",
-    "product": "LUMI LANDING",
-    "price": "$49",
-    "period": "/ mes",
-    "annual": "o $470/año (ahorra 2 meses)",
+    "plan_monthly": "Plan Mensual",
+    "price_monthly": "$49",
+    "period_monthly": "/ mes",
+    "desc_monthly": "Facturación mensual con acceso completo a LUMI LANDING.",
+    "plan_annual": "Plan Anual",
+    "price_annual": "$XXX",
+    "period_annual": "/ año",
+    "desc_annual": "Ahorra eligiendo el plan anual con acceso completo a LUMI LANDING.",
+    "badge_annual": "Mejor Valor",
     "feat1": "Landing page profesional de bienes raíces",
     "feat2": "Hosting y SSL incluidos",
     "feat3": "Sitio web multilingüe (EN + PT + ES)",
@@ -174,7 +179,7 @@
     "feat7": "Soporte de dominio personalizado",
     "feat8": "Integraciones con CRM",
     "feat9": "Soporte prioritario",
-    "cta": "Crear Mi Landing Page",
+    "cta": "Comenzar Ahora",
     "guarantee": "Garantía de devolución de dinero de 30 días. Sin preguntas."
   },
 

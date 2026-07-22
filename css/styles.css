@@ -2231,20 +2231,44 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 
 /* ── Pricing ──────────────────────────────────────────────── */
 .pricing-wrapper {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 880px;
+  margin: 0 auto;
 }
 .pricing-card {
+  position: relative;
   background: rgba(212,175,55,.05);
-  border: 2px solid rgba(212,175,55,.4);
+  border: 2px solid rgba(212,175,55,.3);
   border-radius: var(--radius-xl);
-  padding: 56px 48px;
-  max-width: 520px;
+  padding: 48px 40px;
   width: 100%;
   text-align: center;
-  box-shadow: var(--shadow-gold);
+  display: flex;
+  flex-direction: column;
 }
-.pricing-product {
+.pricing-card--featured {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 48px rgba(212,175,55,.22), 0 8px 40px rgba(0,0,0,.4);
+  background: rgba(212,175,55,.08);
+}
+.pricing-card-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #F5D77A, #D4AF37);
+  color: #000;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 5px 20px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.pricing-plan-label {
   font-size: .75rem;
   font-weight: 700;
   letter-spacing: .15em;
@@ -2259,20 +2283,21 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   gap: 6px;
   margin-bottom: 8px;
 }
-.pricing-price  {
+.pricing-price {
   font-family: var(--font-serif);
-  font-size: 4rem;
+  font-size: 3.6rem;
   background: linear-gradient(135deg, #F5D77A, #D4AF37, #9A6B18);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   line-height: 1;
 }
-.pricing-period { font-size: 1.1rem; color: var(--color-gray); }
-.pricing-annual {
-  font-size: .82rem;
+.pricing-period { font-size: 1rem; color: var(--color-gray); }
+.pricing-desc {
+  font-size: .85rem;
   color: var(--color-gray);
-  margin-bottom: 36px;
+  margin-bottom: 32px;
+  line-height: 1.5;
 }
 .pricing-features {
   list-style: none;
@@ -2281,12 +2306,13 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   gap: 12px;
   margin-bottom: 36px;
   text-align: left;
+  flex: 1;
 }
 .pricing-features li {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: .92rem;
+  font-size: .88rem;
   color: var(--color-gray);
 }
 .check {
@@ -2305,9 +2331,12 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 }
 .pricing-guarantee {
   margin-top: 16px;
-  font-size: .8rem;
+  font-size: .78rem;
   color: var(--color-gray);
-  opacity: .7;
+  opacity: .6;
+}
+@media (max-width: 768px) {
+  .pricing-wrapper { grid-template-columns: 1fr; max-width: 480px; }
 }
 
 /* ── FAQ ──────────────────────────────────────────────────── */
