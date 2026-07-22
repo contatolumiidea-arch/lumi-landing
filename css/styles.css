@@ -348,13 +348,14 @@ h1,h2,h3,h4 { font-family: var(--font-serif); line-height: 1.2; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 48px;
-  align-items: center;
+  align-items: start;
 }
 .hero-img {
   width: 100%;
   max-width: 560px;
   border-radius: 16px;
   display: block;
+  padding-top: 36px;
 }
 .hero-badge {
   display: inline-flex;
