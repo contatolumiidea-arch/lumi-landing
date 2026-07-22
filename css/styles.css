@@ -1319,89 +1319,250 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   align-items: center;
 }
 
-/* ── Product Showcase (Notebook + Phone) ─────────────────── */
+/* ── Product Showcase (MacBook + iPhone) ─────────────────── */
 .hero-visual {
   position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   gap: 0;
-  min-height: 480px;
+  min-height: 520px;
+  padding-bottom: 8px;
 }
 
-/* ── Notebook ─────────────────────────────────────────────── */
-.showcase-notebook {
+/* ══════════════════════════════════════════
+   MacBook
+══════════════════════════════════════════ */
+.mac-wrap {
   position: relative;
   z-index: 2;
   flex-shrink: 0;
-}
-.notebook-shell {
   display: flex;
   flex-direction: column;
   align-items: center;
+  filter: drop-shadow(0 32px 64px rgba(0,0,0,.7));
 }
-.notebook-screen {
-  width: 380px;
-  background: #0a0a0a;
-  border: 2px solid #2a2a2a;
+
+/* Lid */
+.mac-lid {
+  width: 420px;
+}
+.mac-lid-outer {
+  background: linear-gradient(180deg, #3a3a3a 0%, #2c2c2c 40%, #252525 100%);
+  border-radius: 12px 12px 0 0;
+  padding: 6px 6px 0;
+  border: 1px solid #1a1a1a;
   border-bottom: none;
-  border-radius: 10px 10px 0 0;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,.7), 0 0 0 1px rgba(212,175,55,.12);
+  position: relative;
 }
-.notebook-browser-bar {
+.mac-lid-outer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px 12px 0 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.02) 60%, transparent 100%);
+  pointer-events: none;
+}
+.mac-screen-area {
+  background: #000;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+}
+.mac-camera-row {
+  display: flex;
+  justify-content: center;
+  padding: 5px 0 4px;
+  background: #050505;
+}
+.mac-camera-dot {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #1c1c1e;
+  box-shadow: 0 0 0 1px #2a2a2a;
+}
+.mac-browser-bar {
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 7px 12px;
-  background: #111;
+  padding: 6px 10px;
+  background: #1c1c1e;
   border-bottom: 1px solid rgba(255,255,255,.06);
 }
-.nb-dot { display: block; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.nb-dot--r { background: #ff5f57; }
-.nb-dot--y { background: #febc2e; }
-.nb-dot--g { background: #28c840; }
-.nb-url {
+.mac-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.mac-dot--r { background: #ff5f57; }
+.mac-dot--y { background: #febc2e; }
+.mac-dot--g { background: #28c840; }
+.mac-url-bar {
   flex: 1;
-  font-size: .62rem;
-  color: #666;
-  background: rgba(255,255,255,.05);
+  font-size: .6rem;
+  color: #888;
+  background: rgba(255,255,255,.06);
   border-radius: 4px;
-  padding: 2px 8px;
+  padding: 3px 8px;
   margin: 0 6px;
   font-family: var(--font-sans);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.notebook-hinge {
-  width: 420px;
-  height: 6px;
-  background: linear-gradient(180deg, #1a1a1a 0%, #111 100%);
-  border-radius: 0 0 4px 4px;
-  border: 1px solid #222;
-  border-top: none;
+.mac-refresh { font-size: .65rem; color: #555; cursor: default; }
+
+/* Hinge */
+.mac-hinge-bar {
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(180deg, #1a1a1a 0%, #222 50%, #2a2a2a 100%);
+  border-left: 1px solid #111;
+  border-right: 1px solid #111;
 }
-.notebook-base {
-  width: 440px;
-  height: 20px;
-  background: linear-gradient(180deg, #1c1c1c 0%, #141414 100%);
-  border-radius: 0 0 8px 8px;
-  border: 1px solid #222;
+
+/* Base */
+.mac-base {
+  width: 460px;
+  background: linear-gradient(180deg, #2e2e2e 0%, #252525 60%, #1e1e1e 100%);
+  border-radius: 0 0 10px 10px;
+  border: 1px solid #1a1a1a;
   border-top: none;
+  padding: 10px 20px 8px;
+  position: relative;
+}
+.mac-base::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent);
+}
+.mac-keyboard-area {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 8px;
+}
+.mac-keys-row {
+  height: 14px;
+  border-radius: 2px;
+  background: repeating-linear-gradient(90deg, #1e1e1e 0px, #1e1e1e 16px, #2a2a2a 16px, #2a2a2a 18px);
+  opacity: .7;
+}
+.mac-keys-row--fn    { height: 10px; background: repeating-linear-gradient(90deg, #1e1e1e 0px, #1e1e1e 22px, #2a2a2a 22px, #2a2a2a 24px); }
+.mac-keys-row--space { height: 14px; background: #1e1e1e; border-radius: 3px; width: 55%; margin: 0 auto; }
+.mac-trackpad-area { display: flex; justify-content: center; }
+.mac-trackpad {
+  width: 110px;
+  height: 56px;
+  background: linear-gradient(180deg, #222 0%, #1e1e1e 100%);
+  border-radius: 6px;
+  border: 1px solid #111;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+/* Bottom edge feet */
+.mac-bottom-edge {
+  width: 480px;
+  height: 3px;
+  background: linear-gradient(180deg, #111 0%, #0a0a0a 100%);
+  border-radius: 0 0 6px 6px;
+}
+
+/* ══════════════════════════════════════════
+   iPhone 14 Pro
+══════════════════════════════════════════ */
+.iphone-wrap {
+  position: relative;
+  z-index: 3;
+  margin-left: -28px;
+  margin-bottom: 30px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,.8));
+}
+
+/* Side buttons */
+.iphone-btn-action,
+.iphone-btn-vol,
+.iphone-btn-power {
+  position: absolute;
+  background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+  border-radius: 2px;
+}
+.iphone-btn-action {
+  width: 3px; height: 22px;
+  left: -3px; top: 88px;
+  border-radius: 2px 0 0 2px;
+}
+.iphone-btn-vol--up {
+  width: 3px; height: 32px;
+  left: -3px; top: 122px;
+  border-radius: 2px 0 0 2px;
+}
+.iphone-btn-vol--down {
+  width: 3px; height: 32px;
+  left: -3px; top: 162px;
+  border-radius: 2px 0 0 2px;
+}
+.iphone-btn-power {
+  width: 3px; height: 44px;
+  right: -3px; top: 128px;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Body */
+.iphone-body {
+  width: 142px;
+  background: linear-gradient(160deg, #2a2a2a 0%, #1c1c1e 40%, #141414 100%);
+  border-radius: 40px;
+  padding: 3px;
+  border: 1px solid #3a3a3a;
+  position: relative;
+}
+.iphone-body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 40px;
+  background: linear-gradient(150deg, rgba(255,255,255,.12) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Screen glass */
+.iphone-screen-glass {
+  background: #050505;
+  border-radius: 38px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.iphone-dynamic-island {
+  width: 52px;
+  height: 14px;
+  background: #000;
+  border-radius: 20px;
+  margin: 8px auto 6px;
+  flex-shrink: 0;
+}
+.iphone-screen-content {
+  flex: 1;
+  overflow: hidden;
+}
+.iphone-home-indicator {
+  height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
 }
-.notebook-trackpad {
-  width: 60px;
-  height: 10px;
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
-  border-radius: 3px;
+.iphone-home-indicator::after {
+  content: '';
+  display: block;
+  width: 44px;
+  height: 4px;
+  background: rgba(255,255,255,.25);
+  border-radius: 10px;
 }
 
-/* ── Realtor Page (inside notebook) ──────────────────────── */
+/* ── Realtor Page (inside MacBook) ───────────────────────── */
 .rp-page {
   background: #060606;
   font-family: var(--font-sans);
@@ -1568,43 +1729,7 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   margin-bottom: 16px;
   flex-shrink: 0;
 }
-.phone-shell {
-  width: 120px;
-  background: #0e0e0e;
-  border: 2px solid #252525;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 16px 40px rgba(0,0,0,.8), 0 0 0 1px rgba(212,175,55,.1);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-.phone-notch {
-  width: 32px;
-  height: 6px;
-  background: #050505;
-  border-radius: 0 0 6px 6px;
-  margin: 0 auto;
-}
-.phone-screen {
-  flex: 1;
-  background: #070707;
-  overflow: hidden;
-}
-.phone-home-bar {
-  height: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.phone-home-bar::after {
-  content: '';
-  display: block;
-  width: 36px;
-  height: 3px;
-  background: rgba(255,255,255,.2);
-  border-radius: 10px;
-}
+/* (old phone-shell removed — replaced by iphone-wrap) */
 
 /* ── Mobile Realtor Page ──────────────────────────────────── */
 .rp-mobile { font-family: var(--font-sans); }
