@@ -379,10 +379,10 @@ h1,h2,h3,h4 { font-family: var(--font-serif); line-height: 1.2; }
   50% { opacity: .4; transform: scale(1.4); }
 }
 .hero-headline {
-  font-size: clamp(2.2rem, 4.2vw, 3.6rem);
-  line-height: 1.18;
+  font-size: clamp(1.85rem, 3vw, 2.6rem);
+  line-height: 1.2;
   margin-bottom: 24px;
-  max-width: 560px;
+  max-width: 600px;
 }
 .hero-headline .hl-white {
   display: block;
