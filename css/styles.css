@@ -379,14 +379,21 @@ h1,h2,h3,h4 { font-family: var(--font-serif); line-height: 1.2; }
   50% { opacity: .4; transform: scale(1.4); }
 }
 .hero-headline {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  line-height: 1.1;
-  margin-bottom: 20px;
+  font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+  line-height: 1.18;
+  margin-bottom: 24px;
+  max-width: 560px;
 }
-.hero-headline em {
-  font-style: normal;
-  color: var(--color-gold);
+.hero-headline .hl-white {
   display: block;
+  color: var(--color-white);
+  font-style: normal;
+}
+.hero-headline em,
+.hero-headline .hl-gold {
+  font-style: normal;
+  display: block;
+  margin-top: 4px;
 }
 .hero-subheadline {
   font-size: 1.1rem;
@@ -2250,7 +2257,8 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 
 /* ── Premium Gold Effects ── */
 /* Gold shimmer on hero headline */
-.hero-headline em {
+.hero-headline em,
+.hero-headline .hl-gold {
   background: linear-gradient(90deg, #F5D77A 0%, #D4AF37 35%, #9A6B18 60%, #D4AF37 80%, #F5D77A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
