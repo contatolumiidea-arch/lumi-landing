@@ -2470,7 +2470,7 @@ textarea.form-control { min-height: 120px; resize: vertical; }
    RESPONSIVE — PRODUCT SECTIONS (TABLET ≤ 1024px)
    ════════════════════════════════════════════════════════════ */
 @media (max-width: 1024px) {
-  .hero-content { grid-template-columns: 1fr; gap: 8px; }
+  .hero-content { grid-template-columns: 1fr; gap: 40px; }
   .hero-text { text-align: center; }
   .hero-actions { justify-content: center; }
   .hero-visual { justify-content: center; margin-top: 0; }
