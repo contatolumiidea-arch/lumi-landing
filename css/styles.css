@@ -1233,7 +1233,7 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   .header-actions .btn-wa-header { display: none; }
 
   /* Hero */
-  .hero-content { grid-template-columns: 1fr; gap: 40px; }
+  .hero-content { grid-template-columns: 1fr; gap: 8px; }
   .hero-image { order: -1; }
   .hero-photo, .hero-photo-placeholder { max-width: 280px; margin: 0 auto; }
   .hero-card--tl { display: none; }
@@ -2470,10 +2470,10 @@ textarea.form-control { min-height: 120px; resize: vertical; }
    RESPONSIVE — PRODUCT SECTIONS (TABLET ≤ 1024px)
    ════════════════════════════════════════════════════════════ */
 @media (max-width: 1024px) {
-  .hero-content { grid-template-columns: 1fr; }
+  .hero-content { grid-template-columns: 1fr; gap: 8px; }
   .hero-text { text-align: center; }
   .hero-actions { justify-content: center; }
-  .hero-visual { justify-content: center; margin-top: 32px; }
+  .hero-visual { justify-content: center; margin-top: 0; }
   .hero-img { max-width: 100%; }
   .showcase-badge--1 { left: 0; }
   .showcase-badge--2 { right: 0; }
