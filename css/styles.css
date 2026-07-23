@@ -2602,6 +2602,9 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   .hero-visual {
     justify-content: center;
     margin-top: 0;
+    min-height: unset;
+    padding-bottom: 0;
+    align-items: flex-start;
   }
   .hero-img {
     width: 100%;
