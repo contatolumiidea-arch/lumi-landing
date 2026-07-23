@@ -183,6 +183,22 @@
     "guarantee": "Garantia de 30 dias. Sem perguntas, sem burocracia."
   },
 
+  "checkout": {
+    "trust_guarantee": "Garantia de 30 dias",
+    "trust_payment": "Pagamento seguro via Stripe",
+    "trust_cancel": "Cancele quando quiser",
+    "trust_setup": "Entrega em até 3 dias úteis",
+    "faq_title": "Dúvidas frequentes",
+    "faq1_q": "O que acontece após o pagamento?",
+    "faq1_a": "Você é redirecionado automaticamente para o formulário de briefing da LUMI LANDING. Nossa equipe cria sua página em até 3 dias úteis.",
+    "faq2_q": "Posso cancelar a qualquer momento?",
+    "faq2_a": "Sim. Sem fidelidade, sem multa. Você também conta com garantia de 30 dias sem perguntas.",
+    "faq3_q": "O pagamento é seguro?",
+    "faq3_a": "100%. Todo o processo é processado pela Stripe, a plataforma de pagamentos mais confiável do mercado.",
+    "faq4_q": "Qual a diferença entre os planos?",
+    "faq4_a": "Ambos os planos incluem todos os recursos da LUMI LANDING. O plano anual oferece economia significativa para quem quer comprometer-se a longo prazo."
+  },
+
   "faq": {
     "badge": "FAQ",
     "headline": "Perguntas Frequentes",

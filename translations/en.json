@@ -183,6 +183,22 @@
     "guarantee": "30-day money-back guarantee. No questions asked."
   },
 
+  "checkout": {
+    "trust_guarantee": "30-day guarantee",
+    "trust_payment": "Secure payment via Stripe",
+    "trust_cancel": "Cancel anytime",
+    "trust_setup": "Delivery within 3 business days",
+    "faq_title": "Frequently asked questions",
+    "faq1_q": "What happens after payment?",
+    "faq1_a": "You are automatically redirected to the LUMI LANDING briefing form. Our team creates your page within 3 business days.",
+    "faq2_q": "Can I cancel at any time?",
+    "faq2_a": "Yes. No commitment, no penalty. You also have a 30-day no-questions-asked guarantee.",
+    "faq3_q": "Is the payment secure?",
+    "faq3_a": "100%. The entire process is handled by Stripe, the most trusted payment platform on the market.",
+    "faq4_q": "What is the difference between plans?",
+    "faq4_a": "Both plans include all LUMI LANDING features. The annual plan offers significant savings for those who want long-term access."
+  },
+
   "faq": {
     "badge": "FAQ",
     "headline": "Common Questions",
