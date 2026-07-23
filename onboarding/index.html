@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LUMI ONBOARDING — Sua Landing Page Profissional</title>
+  <title>LUMI LANDING — Criar Minha Página Profissional</title>
   <meta name="description" content="Compartilhe as informações da sua marca e a equipe LUMI criará sua landing page personalizada.">
   <meta name="robots" content="noindex,nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,12 +22,21 @@
   <!-- ── Fixed Header ── -->
   <header class="onb-header" role="banner">
     <div class="onb-header__inner">
-      <a href="../" class="onb-header__logo" aria-label="LUMI IDEA">
-        <img src="../assets/logo/lumi-landing-logo.svg" alt="LUMI LANDING" height="48">
+      <a href="../" class="onb-header__logo" aria-label="LUMI LANDING">
+        <img src="../assets/logo/lumi-landing-logo3.svg" alt="LUMI LANDING" height="64">
       </a>
       <div class="onb-header__center" id="header-center" aria-live="polite">
-        <span class="onb-header__step-label" data-i18n="progress.step_label">Etapa</span>
-        <span class="onb-header__step-num"><span id="step-num">1</span>&nbsp;<span data-i18n="progress.of">de</span>&nbsp;<span id="step-total">9</span></span>
+        <div class="step-dots" id="step-dots">
+          <div class="step-dot active" data-dot="1"><span>1</span></div>
+          <div class="step-dot" data-dot="2"><span>2</span></div>
+          <div class="step-dot" data-dot="3"><span>3</span></div>
+          <div class="step-dot" data-dot="4"><span>4</span></div>
+          <div class="step-dot" data-dot="5"><span>5</span></div>
+          <div class="step-dot" data-dot="6"><span>6</span></div>
+          <div class="step-dot" data-dot="7"><span>7</span></div>
+          <div class="step-dot" data-dot="8"><span>8</span></div>
+          <div class="step-dot" data-dot="9"><span>9</span></div>
+        </div>
       </div>
       <nav class="lang-switcher" aria-label="Language">
         <button class="lang-btn active" data-lang-btn="pt">PT</button>
@@ -45,12 +54,28 @@
     ═══════════════════════════════════════════════════════ -->
     <div class="welcome-screen" id="welcome-screen">
       <div class="welcome-bg"></div>
-      <div class="welcome-icon">✨</div>
-      <h1 class="welcome-title" data-i18n="welcome.title">LUMI ONBOARDING</h1>
+      <div class="welcome-icon">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="wg1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#F5D77A"/>
+              <stop offset="50%" stop-color="#D4AF37"/>
+              <stop offset="100%" stop-color="#9A6B18"/>
+            </linearGradient>
+          </defs>
+          <rect x="10" y="8" width="44" height="34" rx="5" stroke="url(#wg1)" stroke-width="2" fill="rgba(212,175,55,0.08)"/>
+          <path d="M22 42l-6 10h36l-6-10" stroke="url(#wg1)" stroke-width="2" stroke-linejoin="round" fill="rgba(212,175,55,0.06)"/>
+          <path d="M26 52h12" stroke="url(#wg1)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M20 22h24M20 28h16" stroke="url(#wg1)" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="49" cy="15" r="7" fill="rgba(212,175,55,0.15)" stroke="url(#wg1)" stroke-width="1.5"/>
+          <path d="M46.5 15l2 2 3.5-3.5" stroke="url(#wg1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h1 class="welcome-title" data-i18n="welcome.title">LUMI LANDING</h1>
       <p class="welcome-tagline" data-i18n="welcome.tagline">Vamos criar sua presença digital profissional.</p>
-      <p class="welcome-subtitle" data-i18n="welcome.subtitle">Conte as informações da sua marca e nossa equipe LUMI irá preparar sua landing page personalizada.</p>
+      <p class="welcome-subtitle" data-i18n="welcome.subtitle">Conte sobre sua marca, seu estilo e seus objetivos. Nossa equipe LUMI irá transformar essas informações em uma landing page personalizada.</p>
       <button class="welcome-cta" id="welcome-cta">
-        <span data-i18n="welcome.cta">Começar</span>
+        <span data-i18n="welcome.cta">Começar meu projeto</span>
         <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M3.75 9h10.5M9.75 4.5 14.25 9l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>

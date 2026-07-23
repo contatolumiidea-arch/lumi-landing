@@ -147,6 +147,14 @@ const OnboardingApp = {
     const tot = document.getElementById('step-total');
     if (num) num.textContent = this.currentStep;
     if (tot) tot.textContent = this.totalSteps;
+
+    // Update step dots
+    document.querySelectorAll('.step-dot').forEach(dot => {
+      const n = parseInt(dot.dataset.dot, 10);
+      dot.classList.remove('active', 'done');
+      if (n === this.currentStep) dot.classList.add('active');
+      else if (n < this.currentStep) dot.classList.add('done');
+    });
   },
 
   _updateButtons() {

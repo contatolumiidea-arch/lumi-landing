@@ -24,7 +24,7 @@
   --shadow:       0 4px 24px rgba(0,0,0,0.6);
   --shadow-gold:  0 0 24px rgba(212,175,55,0.15);
   --transition:   0.25s cubic-bezier(0.4,0,0.2,1);
-  --header-h:     68px;
+  --header-h:     80px;
   --footer-h:     76px;
   --progress-h:   2px;
 }
@@ -86,7 +86,7 @@ a { color: var(--gold); text-decoration: none; }
   justify-content: space-between;
 }
 .onb-header__logo img {
-  height: 48px;
+  height: 64px;
   width: auto;
   display: block;
 }
@@ -95,16 +95,49 @@ a { color: var(--gold); text-decoration: none; }
   align-items: center;
   gap: 12px;
 }
-.onb-header__step-label {
-  font-size: 13px;
-  color: var(--gray);
-  font-weight: 500;
-  letter-spacing: 0.5px;
+
+/* ── Step Dots Progress ────────────────────────────────────── */
+.step-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
-.onb-header__step-num {
-  font-size: 13px;
+.step-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(212,175,55,0.25);
+  background: rgba(212,175,55,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(161,161,161,0.5);
+  transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+.step-dot::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 1px;
+  background: rgba(212,175,55,0.2);
+}
+.step-dot:last-child::after { display: none; }
+.step-dot.done {
+  border-color: rgba(212,175,55,0.5);
+  background: rgba(212,175,55,0.12);
   color: var(--gold);
-  font-weight: 600;
+}
+.step-dot.active {
+  border-color: var(--gold);
+  background: rgba(212,175,55,0.18);
+  color: var(--gold);
+  box-shadow: 0 0 10px rgba(212,175,55,0.3);
 }
 
 /* ── Language Switcher ─────────────────────────────────────── */
@@ -1190,7 +1223,9 @@ a { color: var(--gold); text-decoration: none; }
 
 /* ── Responsive ────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .onb-header { padding: 0 20px; }
+  :root { --header-h: 60px; }
+  .onb-header { padding: 0 16px; }
+  .onb-header__logo img { height: 44px; }
   .onb-header__center { display: none; }
   .wizard-step { padding: 24px 20px; }
   .form-grid { grid-template-columns: 1fr; }

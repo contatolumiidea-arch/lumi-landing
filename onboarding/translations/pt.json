@@ -1,12 +1,12 @@
 {
   "nav": {
-    "brand": "LUMI ONBOARDING"
+    "brand": "LUMI LANDING"
   },
   "welcome": {
-    "title": "LUMI ONBOARDING",
+    "title": "LUMI LANDING",
     "tagline": "Vamos criar sua presença digital profissional.",
-    "subtitle": "Conte as informações da sua marca e nossa equipe LUMI irá preparar sua landing page personalizada.",
-    "cta": "Começar"
+    "subtitle": "Conte sobre sua marca, seu estilo e seus objetivos. Nossa equipe LUMI irá transformar essas informações em uma landing page personalizada.",
+    "cta": "Começar meu projeto"
   },
   "progress": {
     "step_label": "Etapa",
