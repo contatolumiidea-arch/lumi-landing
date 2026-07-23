@@ -166,7 +166,7 @@
     "period_monthly": "/ month",
     "desc_monthly": "Monthly billing with full access to LUMI LANDING.",
     "plan_annual": "Annual Plan",
-    "price_annual": "$XXX",
+    "price_annual": "$490",
     "period_annual": "/ year",
     "desc_annual": "Save by choosing the annual plan with full access to LUMI LANDING.",
     "badge_annual": "Best Value",
@@ -180,6 +180,7 @@
     "feat8": "CRM integrations",
     "feat9": "Priority support",
     "cta": "Get Started",
+    "cta_checkout": "Start My Landing Page",
     "guarantee": "30-day money-back guarantee. No questions asked."
   },
 

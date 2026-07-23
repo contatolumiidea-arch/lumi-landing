@@ -166,7 +166,7 @@
     "period_monthly": "/ mes",
     "desc_monthly": "Facturación mensual con acceso completo a LUMI LANDING.",
     "plan_annual": "Plan Anual",
-    "price_annual": "$XXX",
+    "price_annual": "$490",
     "period_annual": "/ año",
     "desc_annual": "Ahorra eligiendo el plan anual con acceso completo a LUMI LANDING.",
     "badge_annual": "Mejor Valor",
@@ -180,6 +180,7 @@
     "feat8": "Integraciones con CRM",
     "feat9": "Soporte prioritario",
     "cta": "Comenzar Ahora",
+    "cta_checkout": "Comenzar Mi Landing Page",
     "guarantee": "Garantía de devolución de dinero de 30 días. Sin preguntas."
   },
 

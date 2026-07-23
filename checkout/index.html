@@ -89,7 +89,7 @@
            class="co-card-btn"
            target="_blank"
            rel="noopener noreferrer"
-           data-i18n="pricing.cta">Começar Agora</a>
+           data-i18n="pricing.cta_checkout">Start My Landing Page</a>
 
         <p class="co-card-guarantee" data-i18n="pricing.guarantee">Garantia de 30 dias. Sem perguntas, sem burocracia.</p>
       </div>
@@ -99,7 +99,7 @@
         <div class="co-card-badge" data-i18n="pricing.badge_annual">Melhor Valor</div>
         <div class="co-card-plan" data-i18n="pricing.plan_annual">Plano Anual</div>
         <div class="co-card-price-row">
-          <span class="co-card-price" data-i18n="pricing.price_annual">$XXX</span>
+          <span class="co-card-price" data-i18n="pricing.price_annual">$490</span>
           <span class="co-card-period" data-i18n="pricing.period_annual">/ ano</span>
         </div>
         <p class="co-card-desc" data-i18n="pricing.desc_annual">Economize escolhendo o plano anual com acesso completo à LUMI LANDING.</p>
@@ -116,11 +116,11 @@
           <li data-i18n="pricing.feat9">Suporte prioritário</li>
         </ul>
 
-        <!-- ANNUAL LINK PLACEHOLDER — substituir pela URL Stripe quando disponível -->
-        <a href="#annual-link-pending"
+        <a href="https://buy.stripe.com/28EcN66GN48K7VB1u404803"
            class="co-card-btn co-card-btn--featured"
-           data-annual-btn
-           data-i18n="pricing.cta">Começar Agora</a>
+           target="_blank"
+           rel="noopener noreferrer"
+           data-i18n="pricing.cta_checkout">Start My Landing Page</a>
 
         <p class="co-card-guarantee" data-i18n="pricing.guarantee">Garantia de 30 dias. Sem perguntas, sem burocracia.</p>
       </div>
@@ -213,13 +213,7 @@
   // Year
   document.getElementById('co-year').textContent = new Date().getFullYear();
 
-  // Annual button: show notice while link is pending
-  document.querySelector('[data-annual-btn]')?.addEventListener('click', function(e) {
-    if (this.getAttribute('href') === '#annual-link-pending') {
-      e.preventDefault();
-      // Nothing — keeps the button inactive until the link is set
-    }
-  });
+  // Year updated above
 </script>
 </body>
 </html>
