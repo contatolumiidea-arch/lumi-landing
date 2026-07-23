@@ -180,12 +180,10 @@
     "feat8": "Integraciones con CRM",
     "feat9": "Soporte prioritario",
     "cta": "Comenzar Ahora",
-    "cta_checkout": "Comenzar Mi Landing Page",
-    "guarantee": "Garantía de devolución de dinero de 30 días. Sin preguntas."
+    "cta_checkout": "Comenzar Mi Landing Page"
   },
 
   "checkout": {
-    "trust_guarantee": "Garantía de 30 días",
     "trust_payment": "Pago seguro vía Stripe",
     "trust_cancel": "Cancela cuando quieras",
     "trust_setup": "Entrega en hasta 3 días hábiles",
@@ -193,7 +191,7 @@
     "faq1_q": "¿Qué pasa después del pago?",
     "faq1_a": "Eres redirigido automáticamente al formulario de briefing de LUMI LANDING. Nuestro equipo crea tu página en hasta 3 días hábiles.",
     "faq2_q": "¿Puedo cancelar en cualquier momento?",
-    "faq2_a": "Sí. Sin fidelidad, sin penalización. También tienes garantía de 30 días sin preguntas.",
+    "faq2_a": "Sí. Sin fidelidad, sin penalización. Cancela cuando quieras.",
     "faq3_q": "¿El pago es seguro?",
     "faq3_a": "100%. Todo el proceso es gestionado por Stripe, la plataforma de pagos más confiable del mercado.",
     "faq4_q": "¿Cuál es la diferencia entre los planes?",
