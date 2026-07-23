@@ -1445,7 +1445,7 @@ a { color: var(--gold); text-decoration: none; }
   .rep-card__grid { grid-template-columns: 1fr; }
   .rep-card__grid .form-group--full { grid-column: 1; }
   .welcome-steps-preview { max-width: 100%; }
-  .step-indicator { display: flex !important; }
+  .step-indicator:not(.hidden) { display: flex; }
 }
 
 @media (max-width: 480px) {
