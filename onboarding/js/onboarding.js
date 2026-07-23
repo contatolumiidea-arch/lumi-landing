@@ -19,6 +19,7 @@ const OnboardingApp = {
 
     this._bindWelcome();
     this._bindNav();
+    this._bindSidebarSave();
     this._bindLangSwitcher();
     this._bindFields();
     this._bindUploads();
@@ -59,7 +60,17 @@ const OnboardingApp = {
   startOnboarding() {
     const welcome = document.getElementById('welcome-screen');
     if (welcome) welcome.classList.add('hidden');
-    document.querySelector('.onb-footer').classList.remove('hidden');
+
+    const layout = document.getElementById('wizard-layout');
+    if (layout) {
+      layout.classList.remove('hidden');
+      requestAnimationFrame(() => layout.classList.add('visible'));
+    }
+
+    const indicator = document.getElementById('step-indicator');
+    if (indicator) indicator.classList.remove('hidden');
+
+    document.querySelector('.onb-footer')?.classList.remove('hidden');
     this.currentStep = 1;
     this.showStep(1);
     this._updateProgress();
@@ -140,20 +151,29 @@ const OnboardingApp = {
     const pct = this.currentStep > 0
       ? Math.round((this.currentStep / this.totalSteps) * 100)
       : 0;
+
+    // Top progress bar
     const fill = document.querySelector('.progress-bar-fill');
     if (fill) fill.style.width = pct + '%';
 
+    // Header step indicator
     const num = document.getElementById('step-num');
     const tot = document.getElementById('step-total');
     if (num) num.textContent = this.currentStep;
     if (tot) tot.textContent = this.totalSteps;
 
-    // Update step dots
-    document.querySelectorAll('.step-dot').forEach(dot => {
-      const n = parseInt(dot.dataset.dot, 10);
-      dot.classList.remove('active', 'done');
-      if (n === this.currentStep) dot.classList.add('active');
-      else if (n < this.currentStep) dot.classList.add('done');
+    // Sidebar progress bar + percentage
+    const sidebarFill = document.getElementById('sidebar-fill');
+    if (sidebarFill) sidebarFill.style.width = pct + '%';
+    const sidebarPct = document.getElementById('sidebar-pct');
+    if (sidebarPct) sidebarPct.textContent = pct + '%';
+
+    // Sidebar step states
+    document.querySelectorAll('.sidebar-step').forEach(item => {
+      const n = parseInt(item.dataset.sidebarStep, 10);
+      item.classList.remove('active', 'done');
+      if (n === this.currentStep) item.classList.add('active');
+      else if (n < this.currentStep) item.classList.add('done');
     });
   },
 
@@ -818,6 +838,9 @@ const OnboardingApp = {
       // Restore step
       if (state.step > 0) {
         document.getElementById('welcome-screen')?.classList.add('hidden');
+        const layout = document.getElementById('wizard-layout');
+        if (layout) { layout.classList.remove('hidden'); layout.classList.add('visible'); }
+        document.getElementById('step-indicator')?.classList.remove('hidden');
         document.querySelector('.onb-footer')?.classList.remove('hidden');
         this.currentStep = state.step;
         this.showStep(state.step);
@@ -859,6 +882,11 @@ const OnboardingApp = {
     toast.textContent = '✓ ' + msg;
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 2500);
+  },
+
+  // ── Sidebar Save ─────────────────────────────────────────────────
+  _bindSidebarSave() {
+    document.getElementById('sidebar-save-btn')?.addEventListener('click', () => this.saveProgress());
   },
 
   // ── Language Switcher ────────────────────────────────────────────

@@ -3,10 +3,27 @@
     "brand": "LUMI LANDING"
   },
   "welcome": {
-    "title": "LUMI LANDING",
+    "title": "Crie sua presença digital imobiliária profissional",
     "tagline": "Vamos criar sua presença digital profissional.",
     "subtitle": "Conte sobre sua marca, seu estilo e seus objetivos. Nossa equipe LUMI irá transformar essas informações em uma landing page personalizada.",
-    "cta": "Começar meu projeto"
+    "cta": "Começar meu projeto",
+    "badge": "Onboarding Personalizado",
+    "steps_label": "etapas guiadas",
+    "time_label": "minutos",
+    "delivery_label": "dias para entrega",
+    "note": "Suas informações são seguras e usadas apenas para criar sua página."
+  },
+  "sidebar": {
+    "progress": "Progresso",
+    "step1": "Perfil",
+    "step2": "Marca",
+    "step3": "Negócio",
+    "step4": "Digital",
+    "step5": "Leads",
+    "step6": "Lead Magnet",
+    "step7": "Depoimentos",
+    "step8": "Imóveis",
+    "step9": "Revisão"
   },
   "progress": {
     "step_label": "Etapa",

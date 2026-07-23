@@ -3,10 +3,27 @@
     "brand": "LUMI LANDING"
   },
   "welcome": {
-    "title": "LUMI LANDING",
+    "title": "Create your professional real estate digital presence",
     "tagline": "Let's build your professional digital presence.",
     "subtitle": "Tell us about your brand, your style and your goals. The LUMI team will transform that into a personalized landing page.",
-    "cta": "Start my project"
+    "cta": "Start my project",
+    "badge": "Personalized Onboarding",
+    "steps_label": "guided steps",
+    "time_label": "minutes",
+    "delivery_label": "days to delivery",
+    "note": "Your information is secure and used only to create your page."
+  },
+  "sidebar": {
+    "progress": "Progress",
+    "step1": "Profile",
+    "step2": "Brand",
+    "step3": "Business",
+    "step4": "Digital",
+    "step5": "Leads",
+    "step6": "Lead Magnet",
+    "step7": "Testimonials",
+    "step8": "Properties",
+    "step9": "Review"
   },
   "progress": {
     "step_label": "Step",

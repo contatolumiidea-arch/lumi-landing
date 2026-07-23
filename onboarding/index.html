@@ -23,19 +23,14 @@
   <header class="onb-header" role="banner">
     <div class="onb-header__inner">
       <a href="../" class="onb-header__logo" aria-label="LUMI LANDING">
-        <img src="../assets/logo/lumi-landing-logo3.svg" alt="LUMI LANDING" height="64">
+        <img src="../assets/logo/lumi-landing-logo3.svg" alt="LUMI LANDING" height="56">
       </a>
-      <div class="onb-header__center" id="header-center" aria-live="polite">
-        <div class="step-dots" id="step-dots">
-          <div class="step-dot active" data-dot="1"><span>1</span></div>
-          <div class="step-dot" data-dot="2"><span>2</span></div>
-          <div class="step-dot" data-dot="3"><span>3</span></div>
-          <div class="step-dot" data-dot="4"><span>4</span></div>
-          <div class="step-dot" data-dot="5"><span>5</span></div>
-          <div class="step-dot" data-dot="6"><span>6</span></div>
-          <div class="step-dot" data-dot="7"><span>7</span></div>
-          <div class="step-dot" data-dot="8"><span>8</span></div>
-          <div class="step-dot" data-dot="9"><span>9</span></div>
+      <div class="onb-header__center" id="header-center">
+        <div class="step-indicator hidden" id="step-indicator">
+          <span class="step-indicator__label" data-i18n="progress.step_label">Etapa</span>
+          <span class="step-indicator__num" id="step-num">1</span>
+          <span class="step-indicator__sep" data-i18n="progress.of">de</span>
+          <span class="step-indicator__total" id="step-total">9</span>
         </div>
       </div>
       <nav class="lang-switcher" aria-label="Language">
@@ -53,596 +48,660 @@
          WELCOME SCREEN
     ═══════════════════════════════════════════════════════ -->
     <div class="welcome-screen" id="welcome-screen">
-      <div class="welcome-bg"></div>
-      <div class="welcome-icon">
-        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <linearGradient id="wg1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#F5D77A"/>
-              <stop offset="50%" stop-color="#D4AF37"/>
-              <stop offset="100%" stop-color="#9A6B18"/>
-            </linearGradient>
-          </defs>
-          <rect x="10" y="8" width="44" height="34" rx="5" stroke="url(#wg1)" stroke-width="2" fill="rgba(212,175,55,0.08)"/>
-          <path d="M22 42l-6 10h36l-6-10" stroke="url(#wg1)" stroke-width="2" stroke-linejoin="round" fill="rgba(212,175,55,0.06)"/>
-          <path d="M26 52h12" stroke="url(#wg1)" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M20 22h24M20 28h16" stroke="url(#wg1)" stroke-width="1.8" stroke-linecap="round"/>
-          <circle cx="49" cy="15" r="7" fill="rgba(212,175,55,0.15)" stroke="url(#wg1)" stroke-width="1.5"/>
-          <path d="M46.5 15l2 2 3.5-3.5" stroke="url(#wg1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+      <div class="welcome-bg-glow"></div>
+      <div class="welcome-bg-grid"></div>
+
+      <div class="welcome-inner">
+        <div class="welcome-logo">
+          <img src="../assets/logo/lumi-landing-logo3.svg" alt="LUMI LANDING">
+        </div>
+
+        <div class="welcome-badge" data-i18n="welcome.badge">Onboarding Personalizado</div>
+
+        <h1 class="welcome-title" data-i18n="welcome.title">Crie sua presença digital imobiliária profissional</h1>
+
+        <p class="welcome-subtitle" data-i18n="welcome.subtitle">Conte sobre sua marca, seu estilo e seus objetivos. Nossa equipe LUMI transformará essas informações em uma landing page personalizada.</p>
+
+        <div class="welcome-steps-preview">
+          <div class="wsp-item"><span class="wsp-num">9</span><span class="wsp-label" data-i18n="welcome.steps_label">etapas guiadas</span></div>
+          <div class="wsp-divider"></div>
+          <div class="wsp-item"><span class="wsp-num">30</span><span class="wsp-label" data-i18n="welcome.time_label">minutos</span></div>
+          <div class="wsp-divider"></div>
+          <div class="wsp-item"><span class="wsp-num">3</span><span class="wsp-label" data-i18n="welcome.delivery_label">dias para entrega</span></div>
+        </div>
+
+        <button class="welcome-cta" id="welcome-cta">
+          <span data-i18n="welcome.cta">Começar meu projeto</span>
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <p class="welcome-note" data-i18n="welcome.note">Suas informações são seguras e utilizadas apenas para criar sua página.</p>
       </div>
-      <h1 class="welcome-title" data-i18n="welcome.title">LUMI LANDING</h1>
-      <p class="welcome-tagline" data-i18n="welcome.tagline">Vamos criar sua presença digital profissional.</p>
-      <p class="welcome-subtitle" data-i18n="welcome.subtitle">Conte sobre sua marca, seu estilo e seus objetivos. Nossa equipe LUMI irá transformar essas informações em uma landing page personalizada.</p>
-      <button class="welcome-cta" id="welcome-cta">
-        <span data-i18n="welcome.cta">Começar meu projeto</span>
-        <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M3.75 9h10.5M9.75 4.5 14.25 9l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
     </div>
 
     <!-- ════════════════════════════════════════════════════
-         STEP 1 — Informações Profissionais
+         WIZARD LAYOUT (sidebar + content)
     ═══════════════════════════════════════════════════════ -->
-    <section class="wizard-step" data-step="1" aria-label="Step 1 of 9">
-      <div class="step-inner">
-        <header class="step-header">
-          <div class="step-eyebrow">01 / 09</div>
-          <h2 class="step-title" data-i18n="steps.1.title">Sobre você</h2>
-          <p class="step-subtitle" data-i18n="steps.1.subtitle">Vamos começar com suas informações profissionais.</p>
-        </header>
+    <div class="wizard-layout hidden" id="wizard-layout" aria-hidden="true">
 
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label" for="s1-full-name" data-i18n="s1.full_name">Nome completo <span class="required">*</span></label>
-            <input class="form-input" id="s1-full-name" type="text" data-i18n-placeholder="s1.full_name_ph" autocomplete="name" required>
-            <span class="field-error" data-i18n="validation.required">Este campo é obrigatório</span>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="s1-business-name" data-i18n="s1.business_name">Nome da marca / empresa</label>
-            <input class="form-input" id="s1-business-name" type="text" data-i18n-placeholder="s1.business_name_ph" autocomplete="organization">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="s1-phone" data-i18n="s1.phone">Telefone</label>
-            <input class="form-input" id="s1-phone" type="tel" data-i18n-placeholder="s1.phone_ph" autocomplete="tel">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="s1-whatsapp" data-i18n="s1.whatsapp">WhatsApp</label>
-            <input class="form-input" id="s1-whatsapp" type="tel" data-i18n-placeholder="s1.whatsapp_ph">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="s1-email" data-i18n="s1.email">Email profissional <span class="required">*</span></label>
-            <input class="form-input" id="s1-email" type="email" data-i18n-placeholder="s1.email_ph" autocomplete="email" required>
-            <span class="field-error" data-i18n="validation.required">Este campo é obrigatório</span>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="s1-city" data-i18n="s1.city">Cidade / Região onde trabalha</label>
-            <input class="form-input" id="s1-city" type="text" data-i18n-placeholder="s1.city_ph" autocomplete="address-level2">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="s1-country" data-i18n="s1.country">País</label>
-            <select class="form-select" id="s1-country">
-              <option value="brasil" data-i18n="s1.country_brasil">Brasil</option>
-              <option value="usa" data-i18n="s1.country_usa">Estados Unidos</option>
-              <option value="portugal" data-i18n="s1.country_portugal">Portugal</option>
-              <option value="other" data-i18n="s1.country_other">Outro</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="s1-language" data-i18n="s1.language">Idioma principal</label>
-            <select class="form-select" id="s1-language">
-              <option value="pt" data-i18n="s1.language_pt">Português</option>
-              <option value="en" data-i18n="s1.language_en">English</option>
-              <option value="es" data-i18n="s1.language_es">Español</option>
-            </select>
-          </div>
+      <!-- Sidebar -->
+      <aside class="onb-sidebar" role="navigation" aria-label="Progresso do onboarding">
+        <div class="sidebar-header">
+          <div class="sidebar-progress-label" data-i18n="sidebar.progress">Seu Progresso</div>
+          <div class="sidebar-progress-pct" id="sidebar-pct">11%</div>
         </div>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════════════
-         STEP 2 — Identidade Visual
-    ═══════════════════════════════════════════════════════ -->
-    <section class="wizard-step" data-step="2" aria-label="Step 2 of 9">
-      <div class="step-inner">
-        <header class="step-header">
-          <div class="step-eyebrow">02 / 09</div>
-          <h2 class="step-title" data-i18n="steps.2.title">Sua identidade visual</h2>
-          <p class="step-subtitle" data-i18n="steps.2.subtitle">Envie os materiais da sua marca. Nossa equipe irá aplicá-los na sua página.</p>
-        </header>
-
-        <!-- Uploads -->
-        <div class="uploads-grid">
-
-          <div class="upload-group">
-            <label class="form-label" data-i18n="s2.logo_label">Logo</label>
-            <div class="upload-zone" data-preview="s2-logo-preview">
-              <div class="upload-icon">🖼️</div>
-              <div class="upload-cta" data-i18n="s2.upload_cta">Arraste ou clique para enviar</div>
-              <div class="upload-hint" data-i18n="s2.logo_hint">PNG ou SVG, máx. 5MB</div>
-              <input type="file" id="s2-logo-input" accept="image/png,image/svg+xml" data-max="1">
-            </div>
-            <div class="upload-preview" id="s2-logo-preview"></div>
-          </div>
-
-          <div class="upload-group">
-            <label class="form-label" data-i18n="s2.photo_label">Foto profissional</label>
-            <div class="upload-zone" data-preview="s2-photo-preview">
-              <div class="upload-icon">🤳</div>
-              <div class="upload-cta" data-i18n="s2.upload_cta">Arraste ou clique para enviar</div>
-              <div class="upload-hint" data-i18n="s2.photo_hint">JPG ou PNG, máx. 10MB</div>
-              <input type="file" id="s2-photo-input" accept="image/*" data-max="1">
-            </div>
-            <div class="upload-preview" id="s2-photo-preview"></div>
-          </div>
-
-          <div class="upload-group">
-            <label class="form-label" data-i18n="s2.team_label">Fotos da equipe</label>
-            <div class="upload-zone" data-preview="s2-team-preview">
-              <div class="upload-icon">👥</div>
-              <div class="upload-cta" data-i18n="s2.upload_cta">Arraste ou clique para enviar</div>
-              <div class="upload-hint" data-i18n="s2.team_hint">Máx. 5 arquivos</div>
-              <input type="file" id="s2-team-input" accept="image/*" multiple data-max="5">
-            </div>
-            <div class="upload-preview" id="s2-team-preview"></div>
-          </div>
-
-          <div class="upload-group">
-            <label class="form-label" data-i18n="s2.properties_label">Fotos de imóveis</label>
-            <div class="upload-zone" data-preview="s2-props-preview">
-              <div class="upload-icon">🏠</div>
-              <div class="upload-cta" data-i18n="s2.upload_cta">Arraste ou clique para enviar</div>
-              <div class="upload-hint" data-i18n="s2.properties_hint">Máx. 10 arquivos</div>
-              <input type="file" id="s2-props-input" accept="image/*" multiple data-max="10">
-            </div>
-            <div class="upload-preview" id="s2-props-preview"></div>
-          </div>
-
-          <div class="upload-group upload-group--full">
-            <label class="form-label" data-i18n="s2.videos_label">Vídeos</label>
-            <div class="upload-zone" data-preview="s2-videos-preview">
-              <div class="upload-icon">🎬</div>
-              <div class="upload-cta" data-i18n="s2.upload_cta">Arraste ou clique para enviar</div>
-              <div class="upload-hint" data-i18n="s2.videos_hint">Máx. 3 arquivos MP4/MOV ou links</div>
-              <input type="file" id="s2-videos-input" accept="video/*" multiple data-max="3">
-            </div>
-            <div class="upload-preview" id="s2-videos-preview"></div>
-          </div>
-
+        <div class="sidebar-progress-bar">
+          <div class="sidebar-progress-fill" id="sidebar-fill"></div>
         </div>
-
-        <!-- Color Pickers -->
-        <div class="colors-row" style="margin-bottom:28px">
-          <div class="color-group">
-            <label class="form-label" data-i18n="s2.primary_color">Cor principal da marca</label>
-            <div class="color-picker-row" id="s2-primary-row">
-              <div class="color-swatch" id="s2-primary-swatch" style="background:#D4AF37"></div>
-              <input type="text" class="color-hex" id="s2-primary-hex" value="#D4AF37" maxlength="7">
-              <span class="color-edit" data-i18n="s3.change">Alterar</span>
-              <input type="color" class="color-native" id="s2-primary-color" value="#D4AF37">
+        <nav class="sidebar-steps">
+          <div class="sidebar-step active" data-sidebar-step="1">
+            <div class="sidebar-step__line"></div>
+            <div class="sidebar-step__dot"><span>1</span></div>
+            <div class="sidebar-step__text">
+              <div class="sidebar-step__name" data-i18n="sidebar.step1">Perfil</div>
             </div>
           </div>
-          <div class="color-group">
-            <label class="form-label" data-i18n="s2.secondary_color">Cor secundária</label>
-            <div class="color-picker-row" id="s2-secondary-row">
-              <div class="color-swatch" id="s2-secondary-swatch" style="background:#050505"></div>
-              <input type="text" class="color-hex" id="s2-secondary-hex" value="#050505" maxlength="7">
-              <span class="color-edit" data-i18n="s3.change">Alterar</span>
-              <input type="color" class="color-native" id="s2-secondary-color" value="#050505">
+          <div class="sidebar-step" data-sidebar-step="2">
+            <div class="sidebar-step__line"></div>
+            <div class="sidebar-step__dot"><span>2</span></div>
+            <div class="sidebar-step__text">
+              <div class="sidebar-step__name" data-i18n="sidebar.step2">Marca</div>
             </div>
           </div>
-        </div>
-
-        <!-- Style Selection -->
-        <div>
-          <label class="form-label" data-i18n="s2.style_label">Estilo visual</label>
-          <div class="style-cards">
-            <div class="style-card" data-style="luxury">
-              <div class="style-card__icon">💎</div>
-              <div class="style-card__label" data-i18n="s2.style_luxury">Luxury</div>
-            </div>
-            <div class="style-card" data-style="modern">
-              <div class="style-card__icon">✨</div>
-              <div class="style-card__label" data-i18n="s2.style_modern">Modern</div>
-            </div>
-            <div class="style-card" data-style="minimal">
-              <div class="style-card__icon">○</div>
-              <div class="style-card__label" data-i18n="s2.style_minimal">Minimal</div>
-            </div>
-            <div class="style-card" data-style="classic">
-              <div class="style-card__icon">🏛️</div>
-              <div class="style-card__label" data-i18n="s2.style_classic">Classic</div>
+          <div class="sidebar-step" data-sidebar-step="3">
+            <div class="sidebar-step__line"></div>
+            <div class="sidebar-step__dot"><span>3</span></div>
+            <div class="sidebar-step__text">
+              <div class="sidebar-step__name" data-i18n="sidebar.step3">Negócio</div>
             </div>
           </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════════════
-         STEP 3 — Informações Imobiliárias
-    ═══════════════════════════════════════════════════════ -->
-    <section class="wizard-step" data-step="3" aria-label="Step 3 of 9">
-      <div class="step-inner">
-        <header class="step-header">
-          <div class="step-eyebrow">03 / 09</div>
-          <h2 class="step-title" data-i18n="steps.3.title">Seu negócio imobiliário</h2>
-          <p class="step-subtitle" data-i18n="steps.3.subtitle">Conte sobre sua atuação para personalizarmos o conteúdo da sua página.</p>
-        </header>
-
-        <!-- Specialties -->
-        <div style="margin-bottom:28px">
-          <label class="form-label" style="margin-bottom:14px;display:block" data-i18n="s3.specialty_label">Especialidade</label>
-          <div class="specialty-grid">
-            <label class="spec-card" data-spec="Compra">
-              <input type="checkbox" value="Compra">
-              <div class="spec-card__check">✓</div>
-              <div class="spec-card__icon">🏠</div>
-              <div class="spec-card__label" data-i18n="s3.spec_buy">Compra</div>
-            </label>
-            <label class="spec-card" data-spec="Venda">
-              <input type="checkbox" value="Venda">
-              <div class="spec-card__check">✓</div>
-              <div class="spec-card__icon">💰</div>
-              <div class="spec-card__label" data-i18n="s3.spec_sell">Venda</div>
-            </label>
-            <label class="spec-card" data-spec="Investimentos">
-              <input type="checkbox" value="Investimentos">
-              <div class="spec-card__check">✓</div>
-              <div class="spec-card__icon">📈</div>
-              <div class="spec-card__label" data-i18n="s3.spec_invest">Investimentos</div>
-            </label>
-            <label class="spec-card" data-spec="Aluguel">
-              <input type="checkbox" value="Aluguel">
-              <div class="spec-card__check">✓</div>
-              <div class="spec-card__icon">🔑</div>
-              <div class="spec-card__label" data-i18n="s3.spec_rent">Aluguel</div>
-            </label>
-          </div>
-        </div>
-
-        <!-- Tags + Fields -->
-        <div class="form-grid">
-          <div class="form-group form-group--full">
-            <label class="form-label" data-i18n="s3.regions_label">Regiões atendidas</label>
-            <div class="tags-wrapper" id="s3-regions-tags">
-              <input class="tag-input" id="s3-regions-input" type="text" data-i18n-placeholder="s3.regions_ph">
+          <div class="sidebar-step" data-sidebar-step="4">
+            <div class="sidebar-step__line"></div>
+            <div class="sidebar-step__dot"><span>4</span></div>
+            <div class="sidebar-step__text">
+              <div class="sidebar-step__name" data-i18n="sidebar.step4">Digital</div>
             </div>
           </div>
-          <div class="form-group form-group--full">
-            <label class="form-label" data-i18n="s3.types_label">Tipos de imóveis</label>
-            <div class="tags-wrapper" id="s3-types-tags">
-              <input class="tag-input" id="s3-types-input" type="text" data-i18n-placeholder="s3.types_ph">
+          <div class="sidebar-step" data-sidebar-step="5">
+            <div class="sidebar-step__line"></div>
+            <div class="sidebar-step__dot"><span>5</span></div>
+            <div class="sidebar-step__text">
+              <div class="sidebar-step__name" data-i18n="sidebar.step5">Leads</div>
             </div>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="s3-years" data-i18n="s3.years_label">Anos de experiência</label>
-            <input class="form-input" id="s3-years" type="number" min="0" max="99" data-i18n-placeholder="s3.years_ph">
+          <div class="sidebar-step" data-sidebar-step="6">
+            <div class="sidebar-step__line"></div>
+            <div class="sidebar-step__dot"><span>6</span></div>
+            <div class="sidebar-step__text">
+              <div class="sidebar-step__name" data-i18n="sidebar.step6">Conteúdo</div>
+            </div>
           </div>
-          <div class="form-group form-group--full">
-            <label class="form-label" for="s3-bio" data-i18n="s3.bio_label">Descrição profissional</label>
-            <textarea class="form-textarea" id="s3-bio" rows="5" maxlength="500" data-i18n-placeholder="s3.bio_ph"></textarea>
-            <div class="bio-counter" id="s3-bio-counter">500 caracteres restantes</div>
+          <div class="sidebar-step" data-sidebar-step="7">
+            <div class="sidebar-step__line"></div>
+            <div class="sidebar-step__dot"><span>7</span></div>
+            <div class="sidebar-step__text">
+              <div class="sidebar-step__name" data-i18n="sidebar.step7">Depoimentos</div>
+            </div>
           </div>
+          <div class="sidebar-step" data-sidebar-step="8">
+            <div class="sidebar-step__line"></div>
+            <div class="sidebar-step__dot"><span>8</span></div>
+            <div class="sidebar-step__text">
+              <div class="sidebar-step__name" data-i18n="sidebar.step8">Imóveis</div>
+            </div>
+          </div>
+          <div class="sidebar-step" data-sidebar-step="9">
+            <div class="sidebar-step__line"></div>
+            <div class="sidebar-step__dot"><span>9</span></div>
+            <div class="sidebar-step__text">
+              <div class="sidebar-step__name" data-i18n="sidebar.step9">Revisão</div>
+            </div>
+          </div>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="sidebar-save-btn" id="sidebar-save-btn" data-i18n="btn.save">Salvar Progresso</div>
         </div>
+      </aside>
 
-      </div>
-    </section>
+      <!-- Content Area -->
+      <div class="wizard-content">
 
-    <!-- ════════════════════════════════════════════════════
-         STEP 4 — Links Profissionais
-    ═══════════════════════════════════════════════════════ -->
-    <section class="wizard-step" data-step="4" aria-label="Step 4 of 9">
-      <div class="step-inner">
-        <header class="step-header">
-          <div class="step-eyebrow">04 / 09</div>
-          <h2 class="step-title" data-i18n="steps.4.title">Sua presença digital</h2>
-          <p class="step-subtitle" data-i18n="steps.4.subtitle">Compartilhe seus perfis para conectarmos tudo na sua landing page.</p>
-        </header>
+        <!-- ════════════════════════════════════════════════════
+             STEP 1 — Informações Profissionais
+        ═══════════════════════════════════════════════════════ -->
+        <section class="wizard-step" data-step="1" aria-label="Step 1 of 9">
+          <div class="step-inner">
+            <header class="step-header">
+              <div class="step-eyebrow">01 / 09</div>
+              <h2 class="step-title" data-i18n="steps.1.title">Sobre você</h2>
+              <p class="step-subtitle" data-i18n="steps.1.subtitle">Vamos começar com suas informações profissionais.</p>
+            </header>
 
-        <div class="link-fields">
-          <div class="link-field">
-            <span class="link-field__icon">🌐</span>
-            <span class="link-field__label" data-i18n="s4.website_label">Website</span>
-            <input class="link-field__input" id="s4-website" type="url" data-i18n-placeholder="s4.website_ph">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="s1-full-name" data-i18n="s1.full_name">Nome completo <span class="required">*</span></label>
+                <input class="form-input" id="s1-full-name" type="text" data-i18n-placeholder="s1.full_name_ph" autocomplete="name" required>
+                <span class="field-error" data-i18n="validation.required">Este campo é obrigatório</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="s1-business-name" data-i18n="s1.business_name">Nome da marca / empresa</label>
+                <input class="form-input" id="s1-business-name" type="text" data-i18n-placeholder="s1.business_name_ph" autocomplete="organization">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="s1-phone" data-i18n="s1.phone">Telefone</label>
+                <input class="form-input" id="s1-phone" type="tel" data-i18n-placeholder="s1.phone_ph" autocomplete="tel">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="s1-whatsapp" data-i18n="s1.whatsapp">WhatsApp</label>
+                <input class="form-input" id="s1-whatsapp" type="tel" data-i18n-placeholder="s1.whatsapp_ph">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="s1-email" data-i18n="s1.email">Email profissional <span class="required">*</span></label>
+                <input class="form-input" id="s1-email" type="email" data-i18n-placeholder="s1.email_ph" autocomplete="email" required>
+                <span class="field-error" data-i18n="validation.required">Este campo é obrigatório</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="s1-city" data-i18n="s1.city">Cidade / Região onde trabalha</label>
+                <input class="form-input" id="s1-city" type="text" data-i18n-placeholder="s1.city_ph" autocomplete="address-level2">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="s1-country" data-i18n="s1.country">País</label>
+                <select class="form-select" id="s1-country">
+                  <option value="brasil" data-i18n="s1.country_brasil">Brasil</option>
+                  <option value="usa" data-i18n="s1.country_usa">Estados Unidos</option>
+                  <option value="portugal" data-i18n="s1.country_portugal">Portugal</option>
+                  <option value="other" data-i18n="s1.country_other">Outro</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="s1-language" data-i18n="s1.language">Idioma principal</label>
+                <select class="form-select" id="s1-language">
+                  <option value="pt" data-i18n="s1.language_pt">Português</option>
+                  <option value="en" data-i18n="s1.language_en">English</option>
+                  <option value="es" data-i18n="s1.language_es">Español</option>
+                </select>
+              </div>
+            </div>
           </div>
-          <div class="link-field">
-            <span class="link-field__icon">📸</span>
-            <span class="link-field__label" data-i18n="s4.instagram_label">Instagram</span>
-            <input class="link-field__input" id="s4-instagram" type="text" data-i18n-placeholder="s4.instagram_ph">
+        </section>
+
+        <!-- ════════════════════════════════════════════════════
+             STEP 2 — Identidade Visual
+        ═══════════════════════════════════════════════════════ -->
+        <section class="wizard-step" data-step="2" aria-label="Step 2 of 9">
+          <div class="step-inner">
+            <header class="step-header">
+              <div class="step-eyebrow">02 / 09</div>
+              <h2 class="step-title" data-i18n="steps.2.title">Sua identidade visual</h2>
+              <p class="step-subtitle" data-i18n="steps.2.subtitle">Envie os materiais da sua marca. Nossa equipe irá aplicá-los na sua página.</p>
+            </header>
+
+            <div class="uploads-grid">
+              <div class="upload-group">
+                <label class="form-label" data-i18n="s2.logo_label">Logo</label>
+                <div class="upload-zone" data-preview="s2-logo-preview">
+                  <div class="upload-icon">🖼️</div>
+                  <div class="upload-cta" data-i18n="s2.upload_cta">Arraste ou clique para enviar</div>
+                  <div class="upload-hint" data-i18n="s2.logo_hint">PNG ou SVG, máx. 5MB</div>
+                  <input type="file" id="s2-logo-input" accept="image/png,image/svg+xml" data-max="1">
+                </div>
+                <div class="upload-preview" id="s2-logo-preview"></div>
+              </div>
+
+              <div class="upload-group">
+                <label class="form-label" data-i18n="s2.photo_label">Foto profissional</label>
+                <div class="upload-zone" data-preview="s2-photo-preview">
+                  <div class="upload-icon">🤳</div>
+                  <div class="upload-cta" data-i18n="s2.upload_cta">Arraste ou clique para enviar</div>
+                  <div class="upload-hint" data-i18n="s2.photo_hint">JPG ou PNG, máx. 10MB</div>
+                  <input type="file" id="s2-photo-input" accept="image/*" data-max="1">
+                </div>
+                <div class="upload-preview" id="s2-photo-preview"></div>
+              </div>
+
+              <div class="upload-group">
+                <label class="form-label" data-i18n="s2.team_label">Fotos da equipe</label>
+                <div class="upload-zone" data-preview="s2-team-preview">
+                  <div class="upload-icon">👥</div>
+                  <div class="upload-cta" data-i18n="s2.upload_cta">Arraste ou clique para enviar</div>
+                  <div class="upload-hint" data-i18n="s2.team_hint">Máx. 5 arquivos</div>
+                  <input type="file" id="s2-team-input" accept="image/*" multiple data-max="5">
+                </div>
+                <div class="upload-preview" id="s2-team-preview"></div>
+              </div>
+
+              <div class="upload-group">
+                <label class="form-label" data-i18n="s2.properties_label">Fotos de imóveis</label>
+                <div class="upload-zone" data-preview="s2-props-preview">
+                  <div class="upload-icon">🏠</div>
+                  <div class="upload-cta" data-i18n="s2.upload_cta">Arraste ou clique para enviar</div>
+                  <div class="upload-hint" data-i18n="s2.properties_hint">Máx. 10 arquivos</div>
+                  <input type="file" id="s2-props-input" accept="image/*" multiple data-max="10">
+                </div>
+                <div class="upload-preview" id="s2-props-preview"></div>
+              </div>
+
+              <div class="upload-group upload-group--full">
+                <label class="form-label" data-i18n="s2.videos_label">Vídeos</label>
+                <div class="upload-zone" data-preview="s2-videos-preview">
+                  <div class="upload-icon">🎬</div>
+                  <div class="upload-cta" data-i18n="s2.upload_cta">Arraste ou clique para enviar</div>
+                  <div class="upload-hint" data-i18n="s2.videos_hint">Máx. 3 arquivos MP4/MOV ou links</div>
+                  <input type="file" id="s2-videos-input" accept="video/*" multiple data-max="3">
+                </div>
+                <div class="upload-preview" id="s2-videos-preview"></div>
+              </div>
+            </div>
+
+            <div class="colors-row" style="margin-bottom:28px">
+              <div class="color-group">
+                <label class="form-label" data-i18n="s2.primary_color">Cor principal da marca</label>
+                <div class="color-picker-row" id="s2-primary-row">
+                  <div class="color-swatch" id="s2-primary-swatch" style="background:#D4AF37"></div>
+                  <input type="text" class="color-hex" id="s2-primary-hex" value="#D4AF37" maxlength="7">
+                  <span class="color-edit" data-i18n="s3.change">Alterar</span>
+                  <input type="color" class="color-native" id="s2-primary-color" value="#D4AF37">
+                </div>
+              </div>
+              <div class="color-group">
+                <label class="form-label" data-i18n="s2.secondary_color">Cor secundária</label>
+                <div class="color-picker-row" id="s2-secondary-row">
+                  <div class="color-swatch" id="s2-secondary-swatch" style="background:#050505"></div>
+                  <input type="text" class="color-hex" id="s2-secondary-hex" value="#050505" maxlength="7">
+                  <span class="color-edit" data-i18n="s3.change">Alterar</span>
+                  <input type="color" class="color-native" id="s2-secondary-color" value="#050505">
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" data-i18n="s2.style_label">Estilo visual</label>
+              <div class="style-cards">
+                <div class="style-card" data-style="luxury">
+                  <div class="style-card__icon">💎</div>
+                  <div class="style-card__label" data-i18n="s2.style_luxury">Luxury</div>
+                </div>
+                <div class="style-card" data-style="modern">
+                  <div class="style-card__icon">✨</div>
+                  <div class="style-card__label" data-i18n="s2.style_modern">Modern</div>
+                </div>
+                <div class="style-card" data-style="minimal">
+                  <div class="style-card__icon">○</div>
+                  <div class="style-card__label" data-i18n="s2.style_minimal">Minimal</div>
+                </div>
+                <div class="style-card" data-style="classic">
+                  <div class="style-card__icon">🏛️</div>
+                  <div class="style-card__label" data-i18n="s2.style_classic">Classic</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="link-field">
-            <span class="link-field__icon">👤</span>
-            <span class="link-field__label" data-i18n="s4.facebook_label">Facebook</span>
-            <input class="link-field__input" id="s4-facebook" type="url" data-i18n-placeholder="s4.facebook_ph">
+        </section>
+
+        <!-- ════════════════════════════════════════════════════
+             STEP 3 — Informações Imobiliárias
+        ═══════════════════════════════════════════════════════ -->
+        <section class="wizard-step" data-step="3" aria-label="Step 3 of 9">
+          <div class="step-inner">
+            <header class="step-header">
+              <div class="step-eyebrow">03 / 09</div>
+              <h2 class="step-title" data-i18n="steps.3.title">Seu negócio imobiliário</h2>
+              <p class="step-subtitle" data-i18n="steps.3.subtitle">Conte sobre sua atuação para personalizarmos o conteúdo da sua página.</p>
+            </header>
+
+            <div style="margin-bottom:28px">
+              <label class="form-label" style="margin-bottom:14px;display:block" data-i18n="s3.specialty_label">Especialidade</label>
+              <div class="specialty-grid">
+                <label class="spec-card" data-spec="Compra">
+                  <input type="checkbox" value="Compra">
+                  <div class="spec-card__check">✓</div>
+                  <div class="spec-card__icon">🏠</div>
+                  <div class="spec-card__label" data-i18n="s3.spec_buy">Compra</div>
+                </label>
+                <label class="spec-card" data-spec="Venda">
+                  <input type="checkbox" value="Venda">
+                  <div class="spec-card__check">✓</div>
+                  <div class="spec-card__icon">💰</div>
+                  <div class="spec-card__label" data-i18n="s3.spec_sell">Venda</div>
+                </label>
+                <label class="spec-card" data-spec="Investimentos">
+                  <input type="checkbox" value="Investimentos">
+                  <div class="spec-card__check">✓</div>
+                  <div class="spec-card__icon">📈</div>
+                  <div class="spec-card__label" data-i18n="s3.spec_invest">Investimentos</div>
+                </label>
+                <label class="spec-card" data-spec="Aluguel">
+                  <input type="checkbox" value="Aluguel">
+                  <div class="spec-card__check">✓</div>
+                  <div class="spec-card__icon">🔑</div>
+                  <div class="spec-card__label" data-i18n="s3.spec_rent">Aluguel</div>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group form-group--full">
+                <label class="form-label" data-i18n="s3.regions_label">Regiões atendidas</label>
+                <div class="tags-wrapper" id="s3-regions-tags">
+                  <input class="tag-input" id="s3-regions-input" type="text" data-i18n-placeholder="s3.regions_ph">
+                </div>
+              </div>
+              <div class="form-group form-group--full">
+                <label class="form-label" data-i18n="s3.types_label">Tipos de imóveis</label>
+                <div class="tags-wrapper" id="s3-types-tags">
+                  <input class="tag-input" id="s3-types-input" type="text" data-i18n-placeholder="s3.types_ph">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="s3-years" data-i18n="s3.years_label">Anos de experiência</label>
+                <input class="form-input" id="s3-years" type="number" min="0" max="99" data-i18n-placeholder="s3.years_ph">
+              </div>
+              <div class="form-group form-group--full">
+                <label class="form-label" for="s3-bio" data-i18n="s3.bio_label">Descrição profissional</label>
+                <textarea class="form-textarea" id="s3-bio" rows="5" maxlength="500" data-i18n-placeholder="s3.bio_ph"></textarea>
+                <div class="bio-counter" id="s3-bio-counter">500 caracteres restantes</div>
+              </div>
+            </div>
           </div>
-          <div class="link-field">
-            <span class="link-field__icon">💼</span>
-            <span class="link-field__label" data-i18n="s4.linkedin_label">LinkedIn</span>
-            <input class="link-field__input" id="s4-linkedin" type="url" data-i18n-placeholder="s4.linkedin_ph">
+        </section>
+
+        <!-- ════════════════════════════════════════════════════
+             STEP 4 — Links Profissionais
+        ═══════════════════════════════════════════════════════ -->
+        <section class="wizard-step" data-step="4" aria-label="Step 4 of 9">
+          <div class="step-inner">
+            <header class="step-header">
+              <div class="step-eyebrow">04 / 09</div>
+              <h2 class="step-title" data-i18n="steps.4.title">Sua presença digital</h2>
+              <p class="step-subtitle" data-i18n="steps.4.subtitle">Compartilhe seus perfis para conectarmos tudo na sua landing page.</p>
+            </header>
+
+            <div class="link-fields">
+              <div class="link-field">
+                <span class="link-field__icon">🌐</span>
+                <span class="link-field__label" data-i18n="s4.website_label">Website</span>
+                <input class="link-field__input" id="s4-website" type="url" data-i18n-placeholder="s4.website_ph">
+              </div>
+              <div class="link-field">
+                <span class="link-field__icon">📸</span>
+                <span class="link-field__label" data-i18n="s4.instagram_label">Instagram</span>
+                <input class="link-field__input" id="s4-instagram" type="text" data-i18n-placeholder="s4.instagram_ph">
+              </div>
+              <div class="link-field">
+                <span class="link-field__icon">👤</span>
+                <span class="link-field__label" data-i18n="s4.facebook_label">Facebook</span>
+                <input class="link-field__input" id="s4-facebook" type="url" data-i18n-placeholder="s4.facebook_ph">
+              </div>
+              <div class="link-field">
+                <span class="link-field__icon">💼</span>
+                <span class="link-field__label" data-i18n="s4.linkedin_label">LinkedIn</span>
+                <input class="link-field__input" id="s4-linkedin" type="url" data-i18n-placeholder="s4.linkedin_ph">
+              </div>
+            </div>
+
+            <div class="toggle-row">
+              <span class="toggle-row__label" data-i18n="s4.google_toggle">Você possui perfil no Google Meu Negócio?</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="s4-google-toggle">
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+            <div class="toggle-reveal" id="s4-google-reveal">
+              <div class="form-group">
+                <label class="form-label" for="s4-google-url" data-i18n="s4.google_label">Link do Google Meu Negócio</label>
+                <input class="form-input" id="s4-google-url" type="url" data-i18n-placeholder="s4.google_ph">
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
 
-        <!-- Google My Business toggle -->
-        <div class="toggle-row">
-          <span class="toggle-row__label" data-i18n="s4.google_toggle">Você possui perfil no Google Meu Negócio?</span>
-          <label class="toggle-switch">
-            <input type="checkbox" id="s4-google-toggle">
-            <span class="toggle-track"></span>
-          </label>
-        </div>
-        <div class="toggle-reveal" id="s4-google-reveal">
-          <div class="form-group">
-            <label class="form-label" for="s4-google-url" data-i18n="s4.google_label">Link do Google Meu Negócio</label>
-            <input class="form-input" id="s4-google-url" type="url" data-i18n-placeholder="s4.google_ph">
+        <!-- ════════════════════════════════════════════════════
+             STEP 5 — Captura de Leads
+        ═══════════════════════════════════════════════════════ -->
+        <section class="wizard-step" data-step="5" aria-label="Step 5 of 9">
+          <div class="step-inner">
+            <header class="step-header">
+              <div class="step-eyebrow">05 / 09</div>
+              <h2 class="step-title" data-i18n="steps.5.title">Como você quer receber seus leads?</h2>
+              <p class="step-subtitle" data-i18n="steps.5.subtitle">Configure onde e como os contatos de potenciais clientes chegarão até você.</p>
+            </header>
+
+            <div style="margin-bottom:28px">
+              <label class="form-label" style="margin-bottom:14px;display:block" data-i18n="s5.who_label">Quem você quer receber?</label>
+              <div class="lead-who-grid">
+                <label class="lead-who-card" data-who="Compradores">
+                  <input type="checkbox" value="Compradores">
+                  <div class="lead-who-card__icon">🏠</div>
+                  <div class="lead-who-card__label" data-i18n="s5.who_buyers">Compradores</div>
+                </label>
+                <label class="lead-who-card" data-who="Vendedores">
+                  <input type="checkbox" value="Vendedores">
+                  <div class="lead-who-card__icon">💰</div>
+                  <div class="lead-who-card__label" data-i18n="s5.who_sellers">Vendedores</div>
+                </label>
+                <label class="lead-who-card" data-who="Investidores">
+                  <input type="checkbox" value="Investidores">
+                  <div class="lead-who-card__icon">📈</div>
+                  <div class="lead-who-card__label" data-i18n="s5.who_investors">Investidores</div>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="s5-whatsapp" data-i18n="s5.whatsapp_label">WhatsApp de destino</label>
+                <input class="form-input" id="s5-whatsapp" type="tel" data-i18n-placeholder="s5.whatsapp_ph">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="s5-email" data-i18n="s5.email_label">Email de recebimento</label>
+                <input class="form-input" id="s5-email" type="email" data-i18n-placeholder="s5.email_ph">
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
 
-      </div>
-    </section>
+        <!-- ════════════════════════════════════════════════════
+             STEP 6 — Lead Magnet / E-books
+        ═══════════════════════════════════════════════════════ -->
+        <section class="wizard-step" data-step="6" aria-label="Step 6 of 9">
+          <div class="step-inner">
+            <header class="step-header">
+              <div class="step-eyebrow">06 / 09</div>
+              <h2 class="step-title" data-i18n="steps.6.title">Transforme visitantes em clientes</h2>
+              <p class="step-subtitle" data-i18n="steps.6.subtitle">Materiais gratuitos são a forma mais eficaz de capturar contatos qualificados.</p>
+            </header>
 
-    <!-- ════════════════════════════════════════════════════
-         STEP 5 — Captura de Leads
-    ═══════════════════════════════════════════════════════ -->
-    <section class="wizard-step" data-step="5" aria-label="Step 5 of 9">
-      <div class="step-inner">
-        <header class="step-header">
-          <div class="step-eyebrow">05 / 09</div>
-          <h2 class="step-title" data-i18n="steps.5.title">Como você quer receber seus leads?</h2>
-          <p class="step-subtitle" data-i18n="steps.5.subtitle">Configure onde e como os contatos de potenciais clientes chegarão até você.</p>
-        </header>
-
-        <!-- Who to receive -->
-        <div style="margin-bottom:28px">
-          <label class="form-label" style="margin-bottom:14px;display:block" data-i18n="s5.who_label">Quem você quer receber?</label>
-          <div class="lead-who-grid">
-            <label class="lead-who-card" data-who="Compradores">
-              <input type="checkbox" value="Compradores">
-              <div class="lead-who-card__icon">🏠</div>
-              <div class="lead-who-card__label" data-i18n="s5.who_buyers">Compradores</div>
-            </label>
-            <label class="lead-who-card" data-who="Vendedores">
-              <input type="checkbox" value="Vendedores">
-              <div class="lead-who-card__icon">💰</div>
-              <div class="lead-who-card__label" data-i18n="s5.who_sellers">Vendedores</div>
-            </label>
-            <label class="lead-who-card" data-who="Investidores">
-              <input type="checkbox" value="Investidores">
-              <div class="lead-who-card__icon">📈</div>
-              <div class="lead-who-card__label" data-i18n="s5.who_investors">Investidores</div>
-            </label>
-          </div>
-        </div>
-
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label" for="s5-whatsapp" data-i18n="s5.whatsapp_label">WhatsApp de destino</label>
-            <input class="form-input" id="s5-whatsapp" type="tel" data-i18n-placeholder="s5.whatsapp_ph">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="s5-email" data-i18n="s5.email_label">Email de recebimento</label>
-            <input class="form-input" id="s5-email" type="email" data-i18n-placeholder="s5.email_ph">
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════════════
-         STEP 6 — Lead Magnet / E-books
-    ═══════════════════════════════════════════════════════ -->
-    <section class="wizard-step" data-step="6" aria-label="Step 6 of 9">
-      <div class="step-inner">
-        <header class="step-header">
-          <div class="step-eyebrow">06 / 09</div>
-          <h2 class="step-title" data-i18n="steps.6.title">Transforme visitantes em clientes</h2>
-          <p class="step-subtitle" data-i18n="steps.6.subtitle">Materiais gratuitos são a forma mais eficaz de capturar contatos qualificados.</p>
-        </header>
-
-        <div class="option-cards">
-
-          <!-- Option: Own materials -->
-          <div class="option-card" data-option="own">
-            <input type="radio" class="option-card__radio" name="lead-magnet" value="own">
-            <div class="option-card__title" data-i18n="s6.own_option">Usar meus próprios materiais</div>
-            <div id="lm-own-content" class="hidden-block">
-              <div class="uploads-grid" style="grid-template-columns:1fr;gap:12px">
-                <div class="upload-group">
-                  <label class="form-label" data-i18n="s6.ebook_buyer">E-book Comprador</label>
-                  <div class="upload-zone" data-preview="lm-buyer-preview" style="min-height:100px">
-                    <div class="upload-icon">📘</div>
-                    <div class="upload-cta" data-i18n="s2.upload_cta">Arraste ou clique para enviar</div>
-                    <div class="upload-hint" data-i18n="s6.ebook_hint">PDF, máx. 20MB</div>
-                    <input type="file" id="lm-buyer-input" accept=".pdf" data-max="1">
+            <div class="option-cards">
+              <div class="option-card" data-option="own">
+                <input type="radio" class="option-card__radio" name="lead-magnet" value="own">
+                <div class="option-card__title" data-i18n="s6.own_option">Usar meus próprios materiais</div>
+                <div id="lm-own-content" class="hidden-block">
+                  <div class="uploads-grid" style="grid-template-columns:1fr;gap:12px">
+                    <div class="upload-group">
+                      <label class="form-label" data-i18n="s6.ebook_buyer">E-book Comprador</label>
+                      <div class="upload-zone" data-preview="lm-buyer-preview" style="min-height:100px">
+                        <div class="upload-icon">📘</div>
+                        <div class="upload-cta" data-i18n="s2.upload_cta">Arraste ou clique para enviar</div>
+                        <div class="upload-hint" data-i18n="s6.ebook_hint">PDF, máx. 20MB</div>
+                        <input type="file" id="lm-buyer-input" accept=".pdf" data-max="1">
+                      </div>
+                      <div class="upload-preview" id="lm-buyer-preview"></div>
+                    </div>
+                    <div class="upload-group">
+                      <label class="form-label" data-i18n="s6.ebook_seller">E-book Vendedor</label>
+                      <div class="upload-zone" data-preview="lm-seller-preview" style="min-height:100px">
+                        <div class="upload-icon">📗</div>
+                        <div class="upload-cta" data-i18n="s2.upload_cta">Arraste ou clique para enviar</div>
+                        <div class="upload-hint" data-i18n="s6.ebook_hint">PDF, máx. 20MB</div>
+                        <input type="file" id="lm-seller-input" accept=".pdf" data-max="1">
+                      </div>
+                      <div class="upload-preview" id="lm-seller-preview"></div>
+                    </div>
                   </div>
-                  <div class="upload-preview" id="lm-buyer-preview"></div>
                 </div>
-                <div class="upload-group">
-                  <label class="form-label" data-i18n="s6.ebook_seller">E-book Vendedor</label>
-                  <div class="upload-zone" data-preview="lm-seller-preview" style="min-height:100px">
-                    <div class="upload-icon">📗</div>
-                    <div class="upload-cta" data-i18n="s2.upload_cta">Arraste ou clique para enviar</div>
-                    <div class="upload-hint" data-i18n="s6.ebook_hint">PDF, máx. 20MB</div>
-                    <input type="file" id="lm-seller-input" accept=".pdf" data-max="1">
+              </div>
+
+              <div class="option-card selected" data-option="lumi">
+                <div class="option-card__badge" data-i18n="s6.recommended">Recomendado</div>
+                <input type="radio" class="option-card__radio" name="lead-magnet" value="lumi" checked>
+                <div class="option-card__title" data-i18n="s6.lumi_option">Usar modelos LUMI</div>
+                <div id="lm-lumi-content">
+                  <div class="lumi-guide-cards">
+                    <div class="lumi-guide-item">✓ <span data-i18n="s6.lumi_buyer">Guia do Comprador</span></div>
+                    <div class="lumi-guide-item">✓ <span data-i18n="s6.lumi_seller">Guia do Vendedor</span></div>
                   </div>
-                  <div class="upload-preview" id="lm-seller-preview"></div>
+                  <div style="margin-top:12px">
+                    <label class="form-label" data-i18n="s6.lang_label">Idioma dos modelos LUMI</label>
+                    <div class="lang-check-grid">
+                      <label class="lang-check-item">
+                        <input type="checkbox" class="lang-check-input" value="pt" checked>
+                        🇧🇷 Português
+                      </label>
+                      <label class="lang-check-item">
+                        <input type="checkbox" class="lang-check-input" value="en">
+                        🇺🇸 English
+                      </label>
+                      <label class="lang-check-item">
+                        <input type="checkbox" class="lang-check-input" value="es">
+                        🇪🇸 Español
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="notice-box">
+              <span class="notice-box__icon">💡</span>
+              <span data-i18n="s6.notice">Os materiais LUMI serão personalizados com sua marca, logo e informações de contato.</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════════════════════════════════════════════════════
+             STEP 7 — Depoimentos
+        ═══════════════════════════════════════════════════════ -->
+        <section class="wizard-step" data-step="7" aria-label="Step 7 of 9">
+          <div class="step-inner">
+            <header class="step-header">
+              <div class="step-eyebrow">07 / 09</div>
+              <h2 class="step-title" data-i18n="steps.7.title">O que seus clientes dizem?</h2>
+              <p class="step-subtitle" data-i18n="steps.7.subtitle">Depoimentos reais aumentam a credibilidade da sua página. Adicione até 5.</p>
+            </header>
+
+            <div class="repeatable-list" id="testimonials-list"></div>
+
+            <button class="add-btn" id="add-testimonial-btn" type="button" style="margin-top:16px">
+              <span>+</span>
+              <span data-i18n="btn.add_testimonial">+ Adicionar depoimento</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- ════════════════════════════════════════════════════
+             STEP 8 — Imóveis em Destaque
+        ═══════════════════════════════════════════════════════ -->
+        <section class="wizard-step" data-step="8" aria-label="Step 8 of 9">
+          <div class="step-inner">
+            <header class="step-header">
+              <div class="step-eyebrow">08 / 09</div>
+              <h2 class="step-title" data-i18n="steps.8.title">Destaque seus melhores imóveis</h2>
+              <p class="step-subtitle" data-i18n="steps.8.subtitle">Mostre exemplos reais do seu trabalho na sua landing page.</p>
+            </header>
+
+            <div class="repeatable-list" id="properties-list"></div>
+
+            <button class="add-btn" id="add-property-btn" type="button" style="margin-top:16px">
+              <span>+</span>
+              <span data-i18n="btn.add_property">+ Adicionar imóvel</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- ════════════════════════════════════════════════════
+             STEP 9 — Revisão Final
+        ═══════════════════════════════════════════════════════ -->
+        <section class="wizard-step" data-step="9" aria-label="Step 9 of 9">
+          <div class="step-inner">
+            <header class="step-header">
+              <div class="step-eyebrow">09 / 09</div>
+              <h2 class="step-title" data-i18n="steps.9.title">Sua landing page está quase pronta.</h2>
+              <p class="step-subtitle" data-i18n="steps.9.subtitle">Revise as informações abaixo. Nossa equipe irá criar sua página em até 3 dias úteis.</p>
+            </header>
+
+            <div class="summary-grid">
+              <div class="summary-card">
+                <div class="summary-card__title" data-i18n="s9.section_identity">Identidade</div>
+                <div class="summary-card__value">
+                  <img class="logo-preview-thumb" id="summary-logo" alt="Logo">
+                  <div id="summary-name">—</div>
+                  <div style="font-size:12px;color:#A1A1A1;margin-top:4px" id="summary-style"></div>
+                </div>
+              </div>
+              <div class="summary-card">
+                <div class="summary-card__title" data-i18n="s9.section_colors">Cores</div>
+                <div class="summary-card__value">
+                  <div class="summary-color-row">
+                    <div class="summary-swatch" id="summary-color1" style="background:#D4AF37"></div>
+                    <span id="summary-color1-val" style="font-size:12px;font-family:monospace">#D4AF37</span>
+                  </div>
+                  <div class="summary-color-row" style="margin-top:8px">
+                    <div class="summary-swatch" id="summary-color2" style="background:#050505;border:1px solid #333"></div>
+                    <span id="summary-color2-val" style="font-size:12px;font-family:monospace">#050505</span>
+                  </div>
+                </div>
+              </div>
+              <div class="summary-card">
+                <div class="summary-card__title" data-i18n="s9.section_contact">Contato</div>
+                <div class="summary-card__value" id="summary-contact" style="font-size:13px">—</div>
+              </div>
+              <div class="summary-card">
+                <div class="summary-card__title" data-i18n="s9.section_specialties">Especialidades</div>
+                <div class="summary-card__value" id="summary-specialties">—</div>
+              </div>
+              <div class="summary-card">
+                <div class="summary-card__title" data-i18n="s9.section_links">Links</div>
+                <div class="summary-card__value" id="summary-links" style="font-size:13px">—</div>
+              </div>
+              <div class="summary-card">
+                <div class="summary-card__title" data-i18n="s9.section_leadmagnet">Lead Magnet</div>
+                <div class="summary-card__value" id="summary-leadmagnet">—</div>
+              </div>
+              <div class="summary-card" style="grid-column:1/-1">
+                <div class="summary-card__title" data-i18n="s9.section_testimonials">Depoimentos</div>
+                <div class="summary-card__value" id="summary-testimonials">—</div>
+              </div>
+            </div>
+
+            <div class="submit-cta">
+              <button class="submit-btn" id="submit-btn" type="button">
+                🚀 <span data-i18n="s9.submit_btn">Enviar para a equipe LUMI</span>
+              </button>
+              <p class="submit-notice" data-i18n="s9.submit_notice">
+                Ao enviar, nossa equipe receberá todos os seus materiais e iniciará a criação da sua landing page.
+              </p>
+              <div class="trust-badges">
+                <div class="trust-badge">
+                  <span class="trust-badge__icon">🔒</span>
+                  <span data-i18n="s9.badge_secure">Seus dados estão seguros</span>
+                </div>
+                <div class="trust-badge">
+                  <span class="trust-badge__icon">⚡</span>
+                  <span data-i18n="s9.badge_response">Resposta em até 24h</span>
+                </div>
+                <div class="trust-badge">
+                  <span class="trust-badge__icon">✓</span>
+                  <span data-i18n="s9.badge_team">Equipe especializada</span>
                 </div>
               </div>
             </div>
           </div>
+        </section>
 
-          <!-- Option: LUMI templates -->
-          <div class="option-card selected" data-option="lumi">
-            <div class="option-card__badge" data-i18n="s6.recommended">Recomendado</div>
-            <input type="radio" class="option-card__radio" name="lead-magnet" value="lumi" checked>
-            <div class="option-card__title" data-i18n="s6.lumi_option">Usar modelos LUMI</div>
-            <div id="lm-lumi-content">
-              <div class="lumi-guide-cards">
-                <div class="lumi-guide-item">✓ <span data-i18n="s6.lumi_buyer">Guia do Comprador</span></div>
-                <div class="lumi-guide-item">✓ <span data-i18n="s6.lumi_seller">Guia do Vendedor</span></div>
-              </div>
-              <div style="margin-top:12px">
-                <label class="form-label" data-i18n="s6.lang_label">Idioma dos modelos LUMI</label>
-                <div class="lang-check-grid">
-                  <label class="lang-check-item">
-                    <input type="checkbox" class="lang-check-input" value="pt" checked>
-                    🇧🇷 Português
-                  </label>
-                  <label class="lang-check-item">
-                    <input type="checkbox" class="lang-check-input" value="en">
-                    🇺🇸 English
-                  </label>
-                  <label class="lang-check-item">
-                    <input type="checkbox" class="lang-check-input" value="es">
-                    🇪🇸 Español
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="notice-box">
-          <span class="notice-box__icon">💡</span>
-          <span data-i18n="s6.notice">Os materiais LUMI serão personalizados com sua marca, logo e informações de contato.</span>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════════════
-         STEP 7 — Depoimentos
-    ═══════════════════════════════════════════════════════ -->
-    <section class="wizard-step" data-step="7" aria-label="Step 7 of 9">
-      <div class="step-inner">
-        <header class="step-header">
-          <div class="step-eyebrow">07 / 09</div>
-          <h2 class="step-title" data-i18n="steps.7.title">O que seus clientes dizem?</h2>
-          <p class="step-subtitle" data-i18n="steps.7.subtitle">Depoimentos reais aumentam a credibilidade da sua página. Adicione até 5.</p>
-        </header>
-
-        <div class="repeatable-list" id="testimonials-list"></div>
-
-        <button class="add-btn" id="add-testimonial-btn" type="button" style="margin-top:16px">
-          <span>+</span>
-          <span data-i18n="btn.add_testimonial">+ Adicionar depoimento</span>
-        </button>
-
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════════════
-         STEP 8 — Imóveis em Destaque
-    ═══════════════════════════════════════════════════════ -->
-    <section class="wizard-step" data-step="8" aria-label="Step 8 of 9">
-      <div class="step-inner">
-        <header class="step-header">
-          <div class="step-eyebrow">08 / 09</div>
-          <h2 class="step-title" data-i18n="steps.8.title">Destaque seus melhores imóveis</h2>
-          <p class="step-subtitle" data-i18n="steps.8.subtitle">Mostre exemplos reais do seu trabalho na sua landing page.</p>
-        </header>
-
-        <div class="repeatable-list" id="properties-list"></div>
-
-        <button class="add-btn" id="add-property-btn" type="button" style="margin-top:16px">
-          <span>+</span>
-          <span data-i18n="btn.add_property">+ Adicionar imóvel</span>
-        </button>
-
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════════════════
-         STEP 9 — Revisão Final
-    ═══════════════════════════════════════════════════════ -->
-    <section class="wizard-step" data-step="9" aria-label="Step 9 of 9">
-      <div class="step-inner">
-        <header class="step-header">
-          <div class="step-eyebrow">09 / 09</div>
-          <h2 class="step-title" data-i18n="steps.9.title">Sua landing page está quase pronta.</h2>
-          <p class="step-subtitle" data-i18n="steps.9.subtitle">Revise as informações abaixo. Nossa equipe irá criar sua página em até 3 dias úteis.</p>
-        </header>
-
-        <div class="summary-grid">
-
-          <div class="summary-card">
-            <div class="summary-card__title" data-i18n="s9.section_identity">Identidade</div>
-            <div class="summary-card__value">
-              <img class="logo-preview-thumb" id="summary-logo" alt="Logo">
-              <div id="summary-name">—</div>
-              <div style="font-size:12px;color:#A1A1A1;margin-top:4px" id="summary-style"></div>
-            </div>
-          </div>
-
-          <div class="summary-card">
-            <div class="summary-card__title" data-i18n="s9.section_colors">Cores</div>
-            <div class="summary-card__value">
-              <div class="summary-color-row">
-                <div class="summary-swatch" id="summary-color1" style="background:#D4AF37"></div>
-                <span id="summary-color1-val" style="font-size:12px;font-family:monospace">#D4AF37</span>
-              </div>
-              <div class="summary-color-row" style="margin-top:8px">
-                <div class="summary-swatch" id="summary-color2" style="background:#050505;border:1px solid #333"></div>
-                <span id="summary-color2-val" style="font-size:12px;font-family:monospace">#050505</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="summary-card">
-            <div class="summary-card__title" data-i18n="s9.section_contact">Contato</div>
-            <div class="summary-card__value" id="summary-contact" style="font-size:13px">—</div>
-          </div>
-
-          <div class="summary-card">
-            <div class="summary-card__title" data-i18n="s9.section_specialties">Especialidades</div>
-            <div class="summary-card__value" id="summary-specialties">—</div>
-          </div>
-
-          <div class="summary-card">
-            <div class="summary-card__title" data-i18n="s9.section_links">Links</div>
-            <div class="summary-card__value" id="summary-links" style="font-size:13px">—</div>
-          </div>
-
-          <div class="summary-card">
-            <div class="summary-card__title" data-i18n="s9.section_leadmagnet">Lead Magnet</div>
-            <div class="summary-card__value" id="summary-leadmagnet">—</div>
-          </div>
-
-          <div class="summary-card" style="grid-column:1/-1">
-            <div class="summary-card__title" data-i18n="s9.section_testimonials">Depoimentos</div>
-            <div class="summary-card__value" id="summary-testimonials">—</div>
-          </div>
-
-        </div>
-
-        <!-- Submit CTA -->
-        <div class="submit-cta">
-          <button class="submit-btn" id="submit-btn" type="button">
-            🚀 <span data-i18n="s9.submit_btn">Enviar para a equipe LUMI</span>
-          </button>
-          <p class="submit-notice" data-i18n="s9.submit_notice">
-            Ao enviar, nossa equipe receberá todos os seus materiais e iniciará a criação da sua landing page.
-          </p>
-          <div class="trust-badges">
-            <div class="trust-badge">
-              <span class="trust-badge__icon">🔒</span>
-              <span data-i18n="s9.badge_secure">Seus dados estão seguros</span>
-            </div>
-            <div class="trust-badge">
-              <span class="trust-badge__icon">⚡</span>
-              <span data-i18n="s9.badge_response">Resposta em até 24h</span>
-            </div>
-            <div class="trust-badge">
-              <span class="trust-badge__icon">✓</span>
-              <span data-i18n="s9.badge_team">Equipe especializada</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
+      </div><!-- /.wizard-content -->
+    </div><!-- /#wizard-layout -->
 
   </main>
 
