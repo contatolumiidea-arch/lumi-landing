@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — LUMI Admin</title>
+  <link rel="stylesheet" href="css/admin.css">
+  <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-logo">LUMI IDEA</div>
+    <div class="login-subtitle">Painel Administrativo · Acesso restrito</div>
+
+    <div class="login-error" id="login-error"></div>
+
+    <form id="login-form">
+      <div class="field-group">
+        <label class="field-label" for="email">Email</label>
+        <input class="field-input" id="email" type="email" name="email" autocomplete="email" required placeholder="equipe@lumiidea.com">
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="password">Senha</label>
+        <input class="field-input" id="password" type="password" name="password" autocomplete="current-password" required placeholder="••••••••">
+      </div>
+      <button class="login-btn" type="submit" id="login-btn">Entrar</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Se já estiver logado, redirecionar para dashboard
+  (async () => {
+    try {
+      const r = await fetch('/api/auth/me', { credentials: 'include' });
+      if (r.ok) window.location.replace('/admin/dashboard.html');
+    } catch {}
+  })();
+
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('login-btn');
+    const errEl = document.getElementById('login-error');
+    errEl.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Entrando...';
+
+    const body = {
+      email:    document.getElementById('email').value,
+      password: document.getElementById('password').value,
+    };
+
+    try {
+      const r = await fetch('/api/auth/login', {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      const data = await r.json();
+
+      if (!r.ok) {
+        errEl.textContent = data.error || 'Erro ao fazer login.';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Entrar';
+        return;
+      }
+
+      window.location.replace('/admin/dashboard.html');
+    } catch {
+      errEl.textContent = 'Erro de conexão. Tente novamente.';
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Entrar';
+    }
+  });
+</script>
+</body>
+</html>

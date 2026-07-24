@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interessados — LUMI Admin</title>
+  <link rel="stylesheet" href="css/admin.css">
+  <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+
+<div class="admin-layout">
+  <div id="admin-sidebar-mount"></div>
+
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <span class="topbar-title">Interessados na LUMI</span>
+    </div>
+
+    <div class="admin-content">
+      <div class="filter-bar">
+        <input class="filter-input" id="search" type="text" placeholder="Buscar por nome ou email..." oninput="onSearch()">
+        <select class="filter-select" id="filter-origin" onchange="loadProspects(1)">
+          <option value="">Todas as origens</option>
+          <option value="leadmagnet">Leadmagnet</option>
+          <option value="newsletter">Newsletter</option>
+          <option value="contact_form">Formulário contato</option>
+        </select>
+        <select class="filter-select" id="filter-status" onchange="loadProspects(1)">
+          <option value="">Todos os status</option>
+          <option value="new">Novo</option>
+          <option value="contacted">Contactado</option>
+          <option value="converted">Convertido</option>
+        </select>
+      </div>
+
+      <div class="section-header">
+        <span class="section-title">Interessados</span>
+        <span class="section-count" id="total-count">—</span>
+      </div>
+
+      <div class="table-wrap">
+        <div class="table-wrap-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>País</th>
+                <th>Origem</th>
+                <th>Status</th>
+                <th>Data</th>
+              </tr>
+            </thead>
+            <tbody id="prospects-tbody">
+              <tr><td colspan="7"><div class="loading"><div class="spinner"></div></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+let searchTimeout;
+
+(async () => {
+  renderLayout('prospects');
+  await requireAuth();
+  await loadProspects(1);
+})();
+
+function onSearch() {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => loadProspects(1), 350);
+}
+
+async function loadProspects(page = 1) {
+  const origin = document.getElementById('filter-origin').value;
+  const status = document.getElementById('filter-status').value;
+  const search = document.getElementById('search').value.trim();
+
+  const params = new URLSearchParams({ page, limit: 50 });
+  if (origin) params.set('origin', origin);
+  if (status) params.set('status', status);
+  if (search) params.set('search', search);
+
+  const tbody = document.getElementById('prospects-tbody');
+  tbody.innerHTML = `<tr><td colspan="7"><div class="loading"><div class="spinner"></div></div></td></tr>`;
+
+  const data = await API.get(`/admin/prospects?${params}`);
+  if (!data) return;
+
+  document.getElementById('total-count').textContent = data.total ?? 0;
+
+  if (!data.prospects?.length) {
+    tbody.innerHTML = `<tr><td colspan="7"><div class="empty"><div class="empty-icon">📬</div>Nenhum interessado encontrado.</div></td></tr>`;
+    document.getElementById('pagination').innerHTML = '';
+    return;
+  }
+
+  tbody.innerHTML = data.prospects.map(p => `
+    <tr>
+      <td class="td-name">${p.name || '—'}</td>
+      <td class="td-mono">${p.email}</td>
+      <td class="td-mono">${p.phone || '—'}</td>
+      <td>${p.country || '—'}</td>
+      <td>${pillHTML(p.origin)}</td>
+      <td>${pillHTML(p.status)}</td>
+      <td class="td-date">${fmtDatetime(p.created_at)}</td>
+    </tr>
+  `).join('');
+
+  const totalPages = Math.ceil(data.total / 50);
+  document.getElementById('pagination').innerHTML = totalPages > 1 ? `
+    <span>${(page-1)*50+1}–${Math.min(page*50, data.total)} de ${data.total}</span>
+    <button class="btn btn-outline" onclick="loadProspects(${page-1})" ${page<=1?'disabled':''}>‹ Anterior</button>
+    <button class="btn btn-outline" onclick="loadProspects(${page+1})" ${page>=totalPages?'disabled':''}>Próximo ›</button>
+  ` : '';
+}
+</script>
+</body>
+</html>

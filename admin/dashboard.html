@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — LUMI Admin</title>
+  <link rel="stylesheet" href="css/admin.css">
+  <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+
+<div class="admin-layout">
+  <div id="admin-sidebar-mount"></div>
+
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <span class="topbar-title">Dashboard</span>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- Stats -->
+      <div class="stats-grid" id="stats-grid">
+        <div class="loading"><div class="spinner"></div> Carregando...</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+
+        <!-- Últimos clientes -->
+        <div>
+          <div class="section-header">
+            <span class="section-title">Últimos Clientes</span>
+            <span class="section-spacer"></span>
+            <a href="/admin/clients.html" class="btn btn-outline btn-sm">Ver todos</a>
+          </div>
+          <div class="table-wrap" id="recent-clients">
+            <div class="loading"><div class="spinner"></div></div>
+          </div>
+        </div>
+
+        <!-- Últimos leads -->
+        <div>
+          <div class="section-header">
+            <span class="section-title">Últimos Leads</span>
+            <span class="section-spacer"></span>
+            <a href="/admin/leads.html" class="btn btn-outline btn-sm">Ver todos</a>
+          </div>
+          <div class="table-wrap" id="recent-leads">
+            <div class="loading"><div class="spinner"></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+(async () => {
+  renderLayout('dashboard');
+  await requireAuth();
+
+  const data = await API.get('/admin/dashboard');
+  if (!data) return;
+
+  const { stats, recentClients, recentLeads } = data;
+
+  // Render stats
+  document.getElementById('stats-grid').innerHTML = `
+    <div class="stat-card gold">
+      <div class="stat-label">Clientes LUMI</div>
+      <div class="stat-value">${stats.totalClients ?? 0}</div>
+      <div class="stat-sub">${stats.activeSubscriptions ?? 0} assinaturas ativas</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Aguard. Onboarding</div>
+      <div class="stat-value">${stats.pendingOnboarding ?? 0}</div>
+      <div class="stat-sub">corretores pendentes</div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-label">Leads Hoje</div>
+      <div class="stat-value">${stats.leadsToday ?? 0}</div>
+      <div class="stat-sub">${stats.totalLeads ?? 0} total de leads</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Interessados / 7d</div>
+      <div class="stat-value">${stats.prospectsThisWeek ?? 0}</div>
+      <div class="stat-sub">${stats.totalProspects ?? 0} total de prospects</div>
+    </div>
+  `;
+
+  // Render recent clients
+  document.getElementById('recent-clients').innerHTML = recentClients?.length
+    ? `<table>
+        <thead><tr><th>Nome</th><th>Status</th><th>Data</th></tr></thead>
+        <tbody>
+          ${recentClients.map(c => `
+            <tr onclick="window.location='/admin/clients.html?id=${c.id}'">
+              <td><div class="td-name">${c.full_name}</div><div class="td-sub">${c.email}</div></td>
+              <td>${pillHTML(c.client_status)}</td>
+              <td class="td-date">${fmtDate(c.purchased_at)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>`
+    : `<div class="empty"><div class="empty-icon">👤</div>Nenhum cliente ainda.</div>`;
+
+  // Render recent leads
+  document.getElementById('recent-leads').innerHTML = recentLeads?.length
+    ? `<table>
+        <thead><tr><th>Nome</th><th>Origem</th><th>Data</th></tr></thead>
+        <tbody>
+          ${recentLeads.map(l => `
+            <tr>
+              <td><div class="td-name">${l.lead_name || l.lead_email || '—'}</div></td>
+              <td>${pillHTML(l.origin)}</td>
+              <td class="td-date">${fmtDatetime(l.created_at)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>`
+    : `<div class="empty"><div class="empty-icon">📊</div>Nenhum lead ainda.</div>`;
+})();
+</script>
+</body>
+</html>
