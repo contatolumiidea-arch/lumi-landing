@@ -761,65 +761,136 @@
 
 
 <!-- ════════════════════════════════════════════
-     SECTION 9 — WHATSAPP
+     SECTION 9 — CONTACT CHANNELS
      ════════════════════════════════════════════ -->
 <section class="section section--gray" id="whatsapp-section">
   <div class="container">
     <div class="whatsapp-inner">
 
-      <!-- Phone Mockup -->
+      <!-- Phone Mockup — Contact Choice Screen -->
       <div class="phone-mockup-wrap fade-in">
         <div class="phone-mockup">
           <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <div class="phone-wa-header">
+          <div class="phone-screen phone-screen--contact">
+            <div class="phone-contact-header">
               <div class="phone-wa-avatar">SJ</div>
               <div class="phone-wa-info">
                 <strong>Sarah Johnson</strong>
-                <span>online</span>
+                <span>Realtor · Miami, FL</span>
               </div>
             </div>
-            <div class="phone-wa-messages">
-              <div class="phone-wa-msg phone-wa-msg--in">
-                Hi! I saw your page and I'm interested in buying a home 🏠
-              </div>
-              <div class="phone-wa-msg phone-wa-msg--out">
-                Hi! I'd love to help. What's your budget and timeline?
-              </div>
-              <div class="phone-wa-msg phone-wa-msg--in">
-                Around $500k, looking to move in 3 months
-              </div>
+            <div class="phone-contact-prompt">
+              How would you like to contact Sarah?
             </div>
-            <div class="phone-wa-bar">
-              <span class="phone-wa-input-placeholder"></span>
-              <span class="phone-wa-send">➤</span>
+            <div class="phone-contact-btns">
+              <button class="phone-cta-btn phone-cta-btn--call">
+                <svg viewBox="0 0 20 20" fill="none"><path d="M2 3.5A1.5 1.5 0 013.5 2h1.24a1 1 0 01.97.757l.7 2.8a1 1 0 01-.27.97l-1.15 1.15a12.05 12.05 0 005.33 5.33l1.15-1.15a1 1 0 01.97-.27l2.8.7a1 1 0 01.757.97V16.5A1.5 1.5 0 0116.5 18C8.544 18 2 11.456 2 3.5z" fill="currentColor"/></svg>
+                Call
+              </button>
+              <button class="phone-cta-btn phone-cta-btn--text">
+                <svg viewBox="0 0 20 20" fill="none"><path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v7a2 2 0 01-2 2H6l-4 4V5z" fill="currentColor"/></svg>
+                Text
+              </button>
+              <button class="phone-cta-btn phone-cta-btn--wa">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.022.5 3.927 1.376 5.601L0 24l6.583-1.337A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.032-1.385l-.36-.214-3.733.758.79-3.631-.235-.373A9.818 9.818 0 012.182 12C2.182 6.59 6.59 2.182 12 2.182S21.818 6.59 21.818 12 17.41 21.818 12 21.818z"/></svg>
+                WhatsApp
+              </button>
+              <button class="phone-cta-btn phone-cta-btn--email">
+                <svg viewBox="0 0 20 20" fill="none"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" fill="currentColor"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" fill="currentColor"/></svg>
+                Email
+              </button>
             </div>
+            <div class="phone-contact-note">Your choice. Your convenience.</div>
           </div>
+        </div>
+
+        <!-- Floating channel buttons around phone -->
+        <div class="float-channel float-channel--tl" aria-hidden="true">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path d="M2 3.5A1.5 1.5 0 013.5 2h1.24a1 1 0 01.97.757l.7 2.8a1 1 0 01-.27.97l-1.15 1.15a12.05 12.05 0 005.33 5.33l1.15-1.15a1 1 0 01.97-.27l2.8.7a1 1 0 01.757.97V16.5A1.5 1.5 0 0116.5 18C8.544 18 2 11.456 2 3.5z"/></svg>
+          Phone Call
+        </div>
+        <div class="float-channel float-channel--tr" aria-hidden="true">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v7a2 2 0 01-2 2H6l-4 4V5z"/></svg>
+          SMS / Text
+        </div>
+        <div class="float-channel float-channel--br float-channel--gold" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+          WhatsApp
+        </div>
+        <div class="float-channel float-channel--bl" aria-hidden="true">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884zM18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+          Email
         </div>
       </div>
 
       <!-- Text -->
       <div>
-        <div class="section-badge" data-i18n="whatsapp.badge">WhatsApp</div>
-        <h2 class="section-headline" data-i18n="whatsapp.headline">Instant Connection With Potential Clients</h2>
+        <div class="section-badge" data-i18n="whatsapp.badge">Canais de Contato</div>
+        <h2 class="section-headline" data-i18n="whatsapp.headline">Conexão Instantânea com Seus Clientes</h2>
         <div class="gold-line"></div>
         <p class="section-subheadline" data-i18n="whatsapp.subheadline">
-          Um botão flutuante de WhatsApp na sua página permite que os clientes entrem em contato instantaneamente. É a forma mais rápida de transformar interesse em conversa real.
+          Cada corretor trabalha de uma forma diferente. Escolha os canais de contato que seus clientes podem usar para falar diretamente com você.
         </p>
 
-        <div class="whatsapp-stats">
-          <div class="wa-stat">
-            <span class="wa-stat-icon">📊</span>
-            <span data-i18n="whatsapp.stat1">98% open rate on WhatsApp messages</span>
+        <div class="contact-channels-grid">
+          <div class="contact-channel-card">
+            <div class="ccc-icon">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M2 3.5A1.5 1.5 0 013.5 2h1.24a1 1 0 01.97.757l.7 2.8a1 1 0 01-.27.97l-1.15 1.15a12.05 12.05 0 005.33 5.33l1.15-1.15a1 1 0 01.97-.27l2.8.7a1 1 0 01.757.97V16.5A1.5 1.5 0 0116.5 18C8.544 18 2 11.456 2 3.5z"/></svg>
+            </div>
+            <div>
+              <strong data-i18n="whatsapp.ch_phone_title">Phone Call</strong>
+              <span data-i18n="whatsapp.ch_phone_desc">Ligação direta para você</span>
+            </div>
           </div>
-          <div class="wa-stat">
-            <span class="wa-stat-icon">⚡</span>
-            <span data-i18n="whatsapp.stat2">Average response time: under 5 minutes</span>
+          <div class="contact-channel-card">
+            <div class="ccc-icon">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v7a2 2 0 01-2 2H6l-4 4V5z"/></svg>
+            </div>
+            <div>
+              <strong data-i18n="whatsapp.ch_sms_title">SMS / Text</strong>
+              <span data-i18n="whatsapp.ch_sms_desc">Mensagem de texto direta</span>
+            </div>
+          </div>
+          <div class="contact-channel-card contact-channel-card--gold">
+            <div class="ccc-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.022.5 3.927 1.376 5.601L0 24l6.583-1.337A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.032-1.385l-.36-.214-3.733.758.79-3.631-.235-.373A9.818 9.818 0 012.182 12C2.182 6.59 6.59 2.182 12 2.182S21.818 6.59 21.818 12 17.41 21.818 12 21.818z"/></svg>
+            </div>
+            <div>
+              <strong data-i18n="whatsapp.ch_wa_title">WhatsApp</strong>
+              <span data-i18n="whatsapp.ch_wa_desc">Mensagem instantânea pelo WhatsApp</span>
+            </div>
+          </div>
+          <div class="contact-channel-card">
+            <div class="ccc-icon">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884zM18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+            </div>
+            <div>
+              <strong data-i18n="whatsapp.ch_email_title">Email</strong>
+              <span data-i18n="whatsapp.ch_email_desc">Receba solicitações por e-mail</span>
+            </div>
+          </div>
+          <div class="contact-channel-card">
+            <div class="ccc-icon">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+            </div>
+            <div>
+              <strong data-i18n="whatsapp.ch_schedule_title">Schedule a Call</strong>
+              <span data-i18n="whatsapp.ch_schedule_desc">Clientes agendam uma conversa</span>
+            </div>
+          </div>
+          <div class="contact-channel-card">
+            <div class="ccc-icon">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7z"/></svg>
+            </div>
+            <div>
+              <strong data-i18n="whatsapp.ch_messenger_title">Messenger</strong>
+              <span data-i18n="whatsapp.ch_messenger_desc">Conecte pelo Facebook Messenger</span>
+            </div>
           </div>
         </div>
 
         <div style="margin-top:36px">
-          <a href="/checkout" class="btn btn-primary btn-lg" data-i18n="whatsapp.cta">Get Started</a>
+          <a href="/checkout" class="btn btn-primary btn-lg" data-i18n="whatsapp.cta">Escolha Seus Canais de Atendimento →</a>
         </div>
       </div>
 

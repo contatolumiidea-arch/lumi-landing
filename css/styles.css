@@ -2103,7 +2103,7 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 .lang-info strong { font-size: .95rem; color: var(--color-white); }
 .lang-info span   { font-size: .82rem; color: var(--color-gray); line-height: 1.5; }
 
-/* ── WhatsApp Section ─────────────────────────────────────── */
+/* ── Contact Channels Section ─────────────────────────────── */
 .whatsapp-inner {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
@@ -2132,6 +2132,135 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 .phone-screen {
   background: #0a0a0a;
   border-top: 1px solid rgba(255,255,255,.06);
+}
+
+/* Contact choice screen inside phone */
+.phone-screen--contact { padding-bottom: 16px; }
+.phone-contact-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.phone-contact-prompt {
+  font-size: .72rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.85);
+  text-align: center;
+  padding: 14px 12px 10px;
+  line-height: 1.4;
+}
+.phone-contact-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 0 12px;
+}
+.phone-cta-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 6px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.05);
+  color: rgba(255,255,255,.8);
+  font-size: .6rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s;
+}
+.phone-cta-btn svg { width: 18px; height: 18px; opacity: .8; }
+.phone-cta-btn--call  { color: #60C060; border-color: rgba(96,192,96,.25); }
+.phone-cta-btn--text  { color: #60AAFF; border-color: rgba(96,170,255,.25); }
+.phone-cta-btn--wa    { color: var(--color-gold); border-color: rgba(201,168,76,.35); background: rgba(201,168,76,.08); }
+.phone-cta-btn--email { color: #CC88FF; border-color: rgba(204,136,255,.25); }
+.phone-contact-note {
+  text-align: center;
+  font-size: .58rem;
+  color: rgba(255,255,255,.3);
+  padding: 10px 12px 0;
+}
+
+/* Floating channel pills around phone */
+.phone-mockup-wrap { position: relative; }
+.float-channel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(20,20,20,.95);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 20px;
+  padding: 6px 12px 6px 8px;
+  font-size: .68rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.7);
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+  animation: floatPill 3s ease-in-out infinite;
+}
+.float-channel svg { opacity: .7; flex-shrink: 0; }
+.float-channel--gold { border-color: rgba(201,168,76,.4); color: var(--color-gold); }
+.float-channel--gold svg { opacity: 1; }
+.float-channel--tl { top: 12%;  left: -20%;  animation-delay: 0s; }
+.float-channel--tr { top: 28%;  right: -22%; animation-delay: .7s; }
+.float-channel--br { bottom: 28%; right: -24%; animation-delay: 1.4s; }
+.float-channel--bl { bottom: 12%; left: -22%; animation-delay: 2.1s; }
+@keyframes floatPill {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-5px); }
+}
+
+/* Contact channel cards grid */
+.contact-channels-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 32px;
+}
+.contact-channel-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 12px;
+  padding: 14px 16px;
+  transition: border-color .2s;
+}
+.contact-channel-card:hover { border-color: rgba(201,168,76,.3); }
+.contact-channel-card--gold {
+  border-color: rgba(201,168,76,.25);
+  background: rgba(201,168,76,.05);
+}
+.contact-channel-card--gold .ccc-icon { color: var(--color-gold); background: rgba(201,168,76,.12); }
+.ccc-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255,255,255,.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,.6);
+  flex-shrink: 0;
+}
+.contact-channel-card strong {
+  display: block;
+  font-size: .82rem;
+  color: var(--color-white);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.contact-channel-card span {
+  display: block;
+  font-size: .72rem;
+  color: var(--color-gray);
+  line-height: 1.3;
 }
 .phone-wa-header {
   display: flex;
@@ -2611,6 +2740,8 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 
   .whatsapp-inner { grid-template-columns: 1fr; gap: 48px; }
   .phone-mockup-wrap { order: -1; }
+  .float-channel { display: none; }
+  .contact-channels-grid { grid-template-columns: 1fr; }
 
   .footer-grid--product { grid-template-columns: 1fr 1fr; }
 }
