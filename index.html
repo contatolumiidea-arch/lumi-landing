@@ -772,35 +772,36 @@
         <div class="phone-mockup">
           <div class="phone-notch"></div>
           <div class="phone-screen phone-screen--contact">
-            <div class="phone-contact-header">
-              <div class="phone-wa-avatar">SJ</div>
-              <div class="phone-wa-info">
-                <strong>Sarah Johnson</strong>
-                <span>Realtor · Miami, FL</span>
-              </div>
+            <!-- Agent profile -->
+            <div class="phone-agent-profile">
+              <div class="phone-agent-avatar">SJ</div>
+              <div class="phone-agent-name">Sarah Johnson</div>
+              <div class="phone-agent-title">Realtor · Miami, FL</div>
             </div>
-            <div class="phone-contact-prompt">
-              How would you like to contact Sarah?
-            </div>
-            <div class="phone-contact-btns">
-              <button class="phone-cta-btn phone-cta-btn--call">
-                <svg viewBox="0 0 20 20" fill="none"><path d="M2 3.5A1.5 1.5 0 013.5 2h1.24a1 1 0 01.97.757l.7 2.8a1 1 0 01-.27.97l-1.15 1.15a12.05 12.05 0 005.33 5.33l1.15-1.15a1 1 0 01.97-.27l2.8.7a1 1 0 01.757.97V16.5A1.5 1.5 0 0116.5 18C8.544 18 2 11.456 2 3.5z" fill="currentColor"/></svg>
-                Call
-              </button>
-              <button class="phone-cta-btn phone-cta-btn--text">
-                <svg viewBox="0 0 20 20" fill="none"><path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v7a2 2 0 01-2 2H6l-4 4V5z" fill="currentColor"/></svg>
-                Text
-              </button>
-              <button class="phone-cta-btn phone-cta-btn--wa">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.022.5 3.927 1.376 5.601L0 24l6.583-1.337A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.032-1.385l-.36-.214-3.733.758.79-3.631-.235-.373A9.818 9.818 0 012.182 12C2.182 6.59 6.59 2.182 12 2.182S21.818 6.59 21.818 12 17.41 21.818 12 21.818z"/></svg>
+            <div class="phone-contact-prompt">Contact Sarah Johnson</div>
+            <!-- Vertical channel buttons -->
+            <div class="phone-contact-list">
+              <button class="phone-list-btn phone-list-btn--wa">
+                <span class="plb-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.022.5 3.927 1.376 5.601L0 24l6.583-1.337A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.032-1.385l-.36-.214-3.733.758.79-3.631-.235-.373A9.818 9.818 0 012.182 12C2.182 6.59 6.59 2.182 12 2.182S21.818 6.59 21.818 12 17.41 21.818 12 21.818z"/></svg></span>
                 WhatsApp
               </button>
-              <button class="phone-cta-btn phone-cta-btn--email">
-                <svg viewBox="0 0 20 20" fill="none"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" fill="currentColor"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" fill="currentColor"/></svg>
+              <button class="phone-list-btn phone-list-btn--text">
+                <span class="plb-icon"><svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v7a2 2 0 01-2 2H6l-4 4V5z"/></svg></span>
+                Text Message
+              </button>
+              <button class="phone-list-btn phone-list-btn--call">
+                <span class="plb-icon"><svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path d="M2 3.5A1.5 1.5 0 013.5 2h1.24a1 1 0 01.97.757l.7 2.8a1 1 0 01-.27.97l-1.15 1.15a12.05 12.05 0 005.33 5.33l1.15-1.15a1 1 0 01.97-.27l2.8.7a1 1 0 01.757.97V16.5A1.5 1.5 0 0116.5 18C8.544 18 2 11.456 2 3.5z"/></svg></span>
+                Call Now
+              </button>
+              <button class="phone-list-btn phone-list-btn--email">
+                <span class="plb-icon"><svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884zM18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg></span>
                 Email
               </button>
+              <button class="phone-list-btn phone-list-btn--appt">
+                <span class="plb-icon"><svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg></span>
+                Schedule Appointment
+              </button>
             </div>
-            <div class="phone-contact-note">Your choice. Your convenience.</div>
           </div>
         </div>
 
@@ -826,20 +827,20 @@
       <!-- Text -->
       <div>
         <div class="section-badge" data-i18n="whatsapp.badge">Canais de Contato</div>
-        <h2 class="section-headline" data-i18n="whatsapp.headline">Conexão Instantânea com Seus Clientes</h2>
+        <h2 class="section-headline" data-i18n="whatsapp.headline">Conecte Seus Clientes Pelo Canal Que Eles Preferirem</h2>
         <div class="gold-line"></div>
         <p class="section-subheadline" data-i18n="whatsapp.subheadline">
-          Cada corretor trabalha de uma forma diferente. Escolha os canais de contato que seus clientes podem usar para falar diretamente com você.
+          Cada cliente prefere uma forma diferente de contato. Sua página LUMI permite escolher os canais que fazem sentido para o seu negócio e transformar visitantes em conversas reais.
         </p>
 
         <div class="contact-channels-grid">
-          <div class="contact-channel-card">
+          <div class="contact-channel-card contact-channel-card--gold">
             <div class="ccc-icon">
-              <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M2 3.5A1.5 1.5 0 013.5 2h1.24a1 1 0 01.97.757l.7 2.8a1 1 0 01-.27.97l-1.15 1.15a12.05 12.05 0 005.33 5.33l1.15-1.15a1 1 0 01.97-.27l2.8.7a1 1 0 01.757.97V16.5A1.5 1.5 0 0116.5 18C8.544 18 2 11.456 2 3.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.022.5 3.927 1.376 5.601L0 24l6.583-1.337A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.032-1.385l-.36-.214-3.733.758.79-3.631-.235-.373A9.818 9.818 0 012.182 12C2.182 6.59 6.59 2.182 12 2.182S21.818 6.59 21.818 12 17.41 21.818 12 21.818z"/></svg>
             </div>
             <div>
-              <strong data-i18n="whatsapp.ch_phone_title">Phone Call</strong>
-              <span data-i18n="whatsapp.ch_phone_desc">Ligação direta para você</span>
+              <strong data-i18n="whatsapp.ch_wa_title">WhatsApp</strong>
+              <span data-i18n="whatsapp.ch_wa_desc">Conecte clientes que preferem mensagens instantâneas</span>
             </div>
           </div>
           <div class="contact-channel-card">
@@ -847,17 +848,17 @@
               <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v7a2 2 0 01-2 2H6l-4 4V5z"/></svg>
             </div>
             <div>
-              <strong data-i18n="whatsapp.ch_sms_title">SMS / Text</strong>
-              <span data-i18n="whatsapp.ch_sms_desc">Mensagem de texto direta</span>
+              <strong data-i18n="whatsapp.ch_sms_title">Text Message</strong>
+              <span data-i18n="whatsapp.ch_sms_desc">Receba mensagens diretamente no celular</span>
             </div>
           </div>
-          <div class="contact-channel-card contact-channel-card--gold">
+          <div class="contact-channel-card">
             <div class="ccc-icon">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.022.5 3.927 1.376 5.601L0 24l6.583-1.337A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.032-1.385l-.36-.214-3.733.758.79-3.631-.235-.373A9.818 9.818 0 012.182 12C2.182 6.59 6.59 2.182 12 2.182S21.818 6.59 21.818 12 17.41 21.818 12 21.818z"/></svg>
+              <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M2 3.5A1.5 1.5 0 013.5 2h1.24a1 1 0 01.97.757l.7 2.8a1 1 0 01-.27.97l-1.15 1.15a12.05 12.05 0 005.33 5.33l1.15-1.15a1 1 0 01.97-.27l2.8.7a1 1 0 01.757.97V16.5A1.5 1.5 0 0116.5 18C8.544 18 2 11.456 2 3.5z"/></svg>
             </div>
             <div>
-              <strong data-i18n="whatsapp.ch_wa_title">WhatsApp</strong>
-              <span data-i18n="whatsapp.ch_wa_desc">Mensagem instantânea pelo WhatsApp</span>
+              <strong data-i18n="whatsapp.ch_phone_title">Phone Call</strong>
+              <span data-i18n="whatsapp.ch_phone_desc">Permita ligações com apenas um clique</span>
             </div>
           </div>
           <div class="contact-channel-card">
@@ -866,7 +867,7 @@
             </div>
             <div>
               <strong data-i18n="whatsapp.ch_email_title">Email</strong>
-              <span data-i18n="whatsapp.ch_email_desc">Receba solicitações por e-mail</span>
+              <span data-i18n="whatsapp.ch_email_desc">Receba solicitações profissionais por e-mail</span>
             </div>
           </div>
           <div class="contact-channel-card">
@@ -874,23 +875,14 @@
               <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
             </div>
             <div>
-              <strong data-i18n="whatsapp.ch_schedule_title">Schedule a Call</strong>
-              <span data-i18n="whatsapp.ch_schedule_desc">Clientes agendam uma conversa</span>
-            </div>
-          </div>
-          <div class="contact-channel-card">
-            <div class="ccc-icon">
-              <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7z"/></svg>
-            </div>
-            <div>
-              <strong data-i18n="whatsapp.ch_messenger_title">Messenger</strong>
-              <span data-i18n="whatsapp.ch_messenger_desc">Conecte pelo Facebook Messenger</span>
+              <strong data-i18n="whatsapp.ch_schedule_title">Appointment</strong>
+              <span data-i18n="whatsapp.ch_schedule_desc">Permita que clientes agendem uma conversa</span>
             </div>
           </div>
         </div>
 
         <div style="margin-top:36px">
-          <a href="/checkout" class="btn btn-primary btn-lg" data-i18n="whatsapp.cta">Escolha Seus Canais de Atendimento →</a>
+          <a href="/checkout" class="btn btn-primary btn-lg" data-i18n="whatsapp.cta">Criar Minha Página Profissional →</a>
         </div>
       </div>
 
