@@ -2421,27 +2421,51 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 .integrations-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 14px;
 }
-/* 5 items: 3 on top row, 2 centered */
-.integrations-grid .integration-card:nth-child(4) { grid-column: 1 / 2; }
-.integrations-grid .integration-card:nth-child(5) { grid-column: 2 / 3; }
 
 .integration-card {
   background: rgba(255,255,255,.04);
   border: 1px solid rgba(255,255,255,.08);
   border-radius: var(--radius-md);
-  padding: 20px 16px;
-  text-align: center;
-  font-size: .85rem;
-  color: var(--color-gray);
+  padding: 18px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
   transition: var(--transition);
 }
 .integration-card:hover {
-  border-color: rgba(212,175,55,.25);
-  color: var(--color-white);
+  border-color: rgba(212,175,55,.3);
+  background: rgba(212,175,55,.05);
 }
-.integration-icon { font-size: 1.6rem; margin-bottom: 8px; }
+.integration-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(212,175,55,.1);
+  border: 1px solid rgba(212,175,55,.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-gold);
+}
+.integration-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.integration-info strong {
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--color-white);
+  letter-spacing: .01em;
+}
+.integration-info span {
+  font-size: .72rem;
+  color: rgba(255,255,255,.45);
+  line-height: 1.4;
+}
 
 /* LUMI FLOW Card */
 .lumi-flow-card {
@@ -2795,8 +2819,7 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 
   .crm-layout { grid-template-columns: 1fr; }
   .integrations-grid { grid-template-columns: repeat(3, 1fr); }
-  .integrations-grid .integration-card:nth-child(4),
-  .integrations-grid .integration-card:nth-child(5) { grid-column: auto; }
+
   .lumi-flow-card { padding: 32px 28px; }
 
   .whatsapp-inner { grid-template-columns: 1fr; gap: 48px; }
@@ -2819,8 +2842,7 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 
   .crm-layout { grid-template-columns: 1fr; }
   .integrations-grid { grid-template-columns: repeat(2, 1fr); }
-  .integrations-grid .integration-card:nth-child(4),
-  .integrations-grid .integration-card:nth-child(5) { grid-column: auto; }
+
 
   .lumi-flow-input-row { flex-direction: column; }
   .lumi-flow-input-row .btn { width: 100%; justify-content: center; }
