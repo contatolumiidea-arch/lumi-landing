@@ -78,13 +78,15 @@
 
   "howItWorks": {
     "badge": "How It Works",
-    "headline": "Your Landing Page Live in 3 Steps",
-    "step1_title": "Choose Your Design",
-    "step1_desc": "Select the design that best reflects your image and your brand.",
-    "step2_title": "Add Your Information",
-    "step2_desc": "Complete our guided onboarding in minutes. No technical knowledge required.",
-    "step3_title": "Start Receiving New Contacts",
-    "step3_desc": "Your page goes live and starts attracting contacts, inquiries and WhatsApp messages.",
+    "headline": "Your Professional Page Ready in 4 Steps",
+    "step1_title": "Choose Your Plan",
+    "step1_desc": "Pick the right solution for your brand and complete your subscription.",
+    "step2_title": "Send Your Information",
+    "step2_desc": "After purchase, access our guided onboarding and share your professional details, photos and preferences.",
+    "step3_title": "LUMI Builds Your Page",
+    "step3_desc": "Our team turns your information into a fully personalized professional page.",
+    "step4_title": "Start Receiving Contacts",
+    "step4_desc": "Share your page and make it easy for new clients to reach you.",
     "cta": "Start Now →"
   },
 

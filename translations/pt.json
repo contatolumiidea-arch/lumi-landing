@@ -78,13 +78,15 @@
 
   "howItWorks": {
     "badge": "Como Funciona",
-    "headline": "Sua Landing Page no Ar em 3 Passos",
-    "step1_title": "Escolha Seu Design",
-    "step1_desc": "Selecione o modelo que melhor representa a sua imagem e a sua marca.",
-    "step2_title": "Adicione Suas Informações",
-    "step2_desc": "Complete o onboarding guiado em minutos. Nenhum conhecimento técnico necessário.",
-    "step3_title": "Comece a Receber Novos Contatos",
-    "step3_desc": "Sua página entra no ar e começa a atrair contatos, clientes e conexões pelo WhatsApp.",
+    "headline": "Sua Página Profissional Pronta em 4 Passos",
+    "step1_title": "Escolha Seu Plano",
+    "step1_desc": "Escolha a solução ideal para sua marca e finalize sua assinatura.",
+    "step2_title": "Envie Suas Informações",
+    "step2_desc": "Após a compra, acesse nosso onboarding guiado e envie seus dados profissionais, fotos e preferências.",
+    "step3_title": "A LUMI Cria Sua Página",
+    "step3_desc": "Nossa equipe transforma suas informações em uma página profissional personalizada.",
+    "step4_title": "Comece a Receber Contatos",
+    "step4_desc": "Compartilhe sua página e facilite a conexão com novos clientes.",
     "cta": "Começar Agora →"
   },
 

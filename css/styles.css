@@ -1973,7 +1973,7 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 /* ── How It Works ─────────────────────────────────────────── */
 .steps-grid {
   display: grid;
-  grid-template-columns: 1fr auto 1fr auto 1fr;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
   gap: 0;
   align-items: start;
   max-width: 860px;

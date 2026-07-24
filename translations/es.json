@@ -78,13 +78,15 @@
 
   "howItWorks": {
     "badge": "Cómo Funciona",
-    "headline": "Tu Landing Page en Línea en 3 Pasos",
-    "step1_title": "Elige Tu Diseño",
-    "step1_desc": "Selecciona el modelo que mejor refleje tu imagen y tu marca profesional.",
-    "step2_title": "Agrega Tu Información",
-    "step2_desc": "Completa el proceso de incorporación guiado en minutos. No se requieren conocimientos técnicos.",
-    "step3_title": "Comienza a Recibir Nuevos Contactos",
-    "step3_desc": "Tu página se publica y comienza a atraer contactos, consultas y mensajes de WhatsApp.",
+    "headline": "Tu Página Profesional Lista en 4 Pasos",
+    "step1_title": "Elige Tu Plan",
+    "step1_desc": "Elige la solución ideal para tu marca y completa tu suscripción.",
+    "step2_title": "Envía Tu Información",
+    "step2_desc": "Después de la compra, accede a nuestro onboarding guiado y comparte tus datos profesionales, fotos y preferencias.",
+    "step3_title": "LUMI Crea Tu Página",
+    "step3_desc": "Nuestro equipo transforma tu información en una página profesional completamente personalizada.",
+    "step4_title": "Empieza a Recibir Contactos",
+    "step4_desc": "Comparte tu página y facilita la conexión con nuevos clientes.",
     "cta": "Comenzar Ahora →"
   },
 
