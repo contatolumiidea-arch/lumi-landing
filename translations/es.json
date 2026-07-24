@@ -4,7 +4,7 @@
 
   "nav": {
     "solution": "Funcionalidades",
-    "templates": "Plantillas",
+    "templates": "Modelos",
     "pricing": "Precios",
     "faq": "FAQ",
     "contact": "Contacto",
@@ -19,7 +19,7 @@
     "headline_html": "<span class=\"hl-white\">Transforma Tu<br>Presencia Inmobiliaria</span><em class=\"hl-gold\">En una Máquina<br>de Generación de Leads.</em>",
     "subheadline": "Landing pages profesionales y multilingües diseñadas para agentes inmobiliarios que quieren más consultas, más leads y más oportunidades.",
     "cta_primary": "Crear Mi Landing Page",
-    "cta_secondary": "Ver Plantillas",
+    "cta_secondary": "Ver Modelos",
     "stats": {
       "agents_value": "500+",
       "agents_label": "Agentes",
@@ -58,7 +58,7 @@
   },
 
   "templates": {
-    "badge": "Plantillas",
+    "badge": "Modelos",
     "headline": "Elige Tu Imagen Profesional",
     "subheadline": "Cinco diseños premium creados para diferentes perfiles de profesionales inmobiliarios.",
     "t1_name": "Luxury Realtor",
@@ -78,7 +78,7 @@
     "badge": "Cómo Funciona",
     "headline": "Tu Landing Page en Línea en 3 Pasos",
     "step1_title": "Elige Tu Diseño",
-    "step1_desc": "Selecciona una de nuestras cinco plantillas premium diseñadas para profesionales inmobiliarios.",
+    "step1_desc": "Selecciona uno de nuestros cinco modelos premium diseñados para profesionales inmobiliarios.",
     "step2_title": "Agrega Tu Información",
     "step2_desc": "Completa el proceso de incorporación guiado en minutos. No se requieren conocimientos técnicos.",
     "step3_title": "Comienza a Recibir Leads",
