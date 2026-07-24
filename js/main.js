@@ -50,6 +50,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Animate on scroll
   initScrollAnimations();
+
+  // Chat conversation animation
+  initChatConversation();
 });
 
 // ── Apply static config to DOM ────────────────────────────────────────────────
@@ -331,4 +334,98 @@ function initCookieBanner() {
     localStorage.setItem("lumi_cookies", "declined");
     banner.style.display = "none";
   });
+}
+
+// ── Chat Conversation Animation ───────────────────────────────────────────────
+function initChatConversation() {
+  const container = document.getElementById("chat-conversation");
+  if (!container) return;
+
+  const messages = [
+    { side: "left",  lang: "🇺🇸 English",    text: "I'm looking for a home in Miami. Can you help?",      delay: 0    },
+    { side: "right", lang: "🇧🇷 Português",  text: "Claro! Vamos encontrar o lar perfeito para você.",     delay: 1800 },
+    { side: "left",  lang: "🇪🇸 Español",    text: "¿Tiene propiedades en Brickell o Wynwood?",            delay: 3800 },
+    { side: "right", lang: "🇺🇸 English",    text: "Yes! I have listings in both. Let's schedule a tour.", delay: 5600 },
+  ];
+
+  const CYCLE_DURATION = 9000; // ms before restart
+  const TYPING_DURATION = 900; // ms the typing indicator shows
+
+  let timers = [];
+  let started = false;
+
+  function clearTimers() {
+    timers.forEach(clearTimeout);
+    timers = [];
+  }
+
+  function addBubble(msg) {
+    const bubble = document.createElement("div");
+    bubble.className = `chat-bubble chat-bubble--${msg.side} chat-bubble--animated`;
+    bubble.innerHTML = `<div class="chat-lang-tag">${msg.lang}</div>${msg.text}`;
+    container.appendChild(bubble);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function showTyping(side) {
+    const el = document.createElement("div");
+    el.className = "chat-typing";
+    el.dataset.typing = "1";
+    el.innerHTML = "<span></span><span></span><span></span>";
+    if (side === "right") {
+      el.style.alignSelf = "flex-end";
+      el.style.borderBottomRightRadius = "4px";
+      el.style.borderBottomLeftRadius = "16px";
+      el.style.background = "var(--color-gold)";
+    }
+    container.appendChild(el);
+    container.scrollTop = container.scrollHeight;
+    return el;
+  }
+
+  function removeTyping() {
+    container.querySelectorAll("[data-typing]").forEach(el => el.remove());
+  }
+
+  function runCycle() {
+    container.innerHTML = "";
+
+    messages.forEach((msg, i) => {
+      // For right-side (agent replies): show typing indicator first
+      if (msg.side === "right") {
+        timers.push(setTimeout(() => {
+          showTyping("right");
+        }, msg.delay));
+        timers.push(setTimeout(() => {
+          removeTyping();
+          addBubble(msg);
+        }, msg.delay + TYPING_DURATION));
+      } else {
+        timers.push(setTimeout(() => addBubble(msg), msg.delay));
+      }
+    });
+
+    // Restart cycle
+    timers.push(setTimeout(() => {
+      runCycle();
+    }, CYCLE_DURATION));
+  }
+
+  // Start only when section enters viewport
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !started) {
+        started = true;
+        runCycle();
+      }
+      if (!entry.isIntersecting && started) {
+        // Pause & reset when out of view so it restarts fresh on re-entry
+        clearTimers();
+        started = false;
+        container.innerHTML = "";
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(container.closest(".multilingual") || container);
 }
