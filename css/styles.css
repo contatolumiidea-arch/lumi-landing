@@ -812,8 +812,9 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   justify-content: center;
 }
 .ebook-mockup-img {
-  width: 260px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 480px;
+  height: auto;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   display: block;
