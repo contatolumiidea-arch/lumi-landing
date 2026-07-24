@@ -2245,8 +2245,8 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 .phone-list-btn--email { color: #CC88FF; border-color: rgba(204,136,255,.2); }
 .phone-list-btn--appt  { color: var(--color-gold); border-color: rgba(201,168,76,.3); background: rgba(201,168,76,.07); }
 
-/* Floating channel pills around phone */
-.phone-mockup-wrap { position: relative; }
+/* Floating channel pills around phone — contained within phone column */
+.phone-mockup-wrap { position: relative; z-index: 1; }
 .float-channel {
   position: absolute;
   display: flex;
@@ -2262,18 +2262,20 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   white-space: nowrap;
   backdrop-filter: blur(8px);
   pointer-events: none;
+  z-index: 2;
   animation: floatPill 3s ease-in-out infinite;
 }
 .float-channel svg { opacity: .7; flex-shrink: 0; }
 .float-channel--gold { border-color: rgba(201,168,76,.4); color: var(--color-gold); }
 .float-channel--gold svg { opacity: 1; }
-.float-channel--tl { top: 12%;  left: -20%;  animation-delay: 0s; }
-.float-channel--tr { top: 28%;  right: -22%; animation-delay: .7s; }
-.float-channel--br { bottom: 28%; right: -24%; animation-delay: 1.4s; }
-.float-channel--bl { bottom: 12%; left: -22%; animation-delay: 2.1s; }
+/* Pills stay above and below the phone, never reaching the right text column */
+.float-channel--tl { top: -16px;  left: 0;   animation-delay: 0s; }
+.float-channel--tr { top: -16px;  right: 0;  animation-delay: .7s; }
+.float-channel--br { bottom: -16px; right: 0; animation-delay: 1.4s; }
+.float-channel--bl { bottom: -16px; left: 0;  animation-delay: 2.1s; }
 @keyframes floatPill {
   0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-5px); }
+  50%       { transform: translateY(-6px); }
 }
 
 /* Contact channel cards grid */
