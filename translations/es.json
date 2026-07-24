@@ -15,9 +15,9 @@
   "hero": {
     "badge": "Landing Pages Inteligentes para Bienes Raíces",
     "headline": "Transforma Tu Presencia en Bienes Raíces",
-    "headline_em": "En una Máquina de Generación de Leads.",
-    "headline_html": "<span class=\"hl-white\">Transforma Tu<br>Presencia Inmobiliaria</span><em class=\"hl-gold\">En una Máquina<br>de Generación de Leads.</em>",
-    "subheadline": "Tu landing page profesional y multilingüe — diseñada para capturar más consultas, más leads y más oportunidades en piloto automático.",
+    "headline_em": "En una Máquina de Captación de Clientes.",
+    "headline_html": "<span class=\"hl-white\">Transforma Tu<br>Presencia Inmobiliaria</span><em class=\"hl-gold\">En una Máquina<br>de Captación de Clientes.</em>",
+    "subheadline": "Tu landing page profesional y multilingüe — diseñada para atraer más consultas, más clientes y más oportunidades en piloto automático.",
     "cta_primary": "Crear Mi Landing Page",
     "cta_secondary": "Ver Modelos",
     "stats": {
@@ -32,28 +32,28 @@
 
   "problem": {
     "badge": "El Problema",
-    "headline": "La Mayoría de los Agentes Pierden Leads Antes de Hacer Contacto.",
+    "headline": "Estás Perdiendo Clientes Antes de Hacer Contacto.",
     "card1_title": "Sin Presencia Profesional en Línea",
     "card1_desc": "Tu perfil en redes sociales no es suficiente. Los clientes buscan profesionales con una presencia digital dedicada y confiable.",
     "card2_title": "Los Visitantes Se Van Sin Contactar",
     "card2_desc": "Sin una estrategia clara de conversión, los clientes potenciales navegan por tu perfil y se van sin dejar ningún dato.",
     "card3_title": "El Tráfico de Redes Sociales Se Desperdicia",
-    "card3_desc": "Pasas horas publicando en Instagram y Facebook, pero no tienes forma de capturar esos visitantes como leads."
+    "card3_desc": "Pasas horas publicando en Instagram y Facebook, pero no tienes forma de convertir esos visitantes en clientes."
   },
 
   "solution": {
     "badge": "La Solución",
     "headline": "Tu Oficina Digital Trabajando 24/7",
-    "subheadline": "LUMI LANDING transforma tu presencia en línea en un sistema completo de generación de leads.",
+    "subheadline": "LUMI LANDING transforma tu presencia en línea en un sistema completo de captación de nuevos clientes.",
     "feat1_title": "Página Profesional para Agentes Inmobiliarios",
     "feat1_desc": "Una landing page impresionante, optimizada para conversión y creada exclusivamente para tu negocio inmobiliario.",
     "feat2_title": "Formularios Inteligentes de Captura",
-    "feat2_desc": "Formularios inteligentes que califican tus leads antes de que lleguen a ti: comprador, vendedor, inversor o referencia.",
+    "feat2_desc": "Formularios inteligentes que califican tus contactos antes de que lleguen a ti: comprador, vendedor, inversor o referencia.",
     "feat3_title": "Conexión Instantánea por WhatsApp",
     "feat3_desc": "Un clic conecta a clientes potenciales directamente a tu WhatsApp con un mensaje personalizado.",
     "feat4_title": "Experiencia Multilingüe",
     "feat4_desc": "Tu página atiende automáticamente a clientes en inglés, español o portugués, sin ningún esfuerzo adicional.",
-    "feat5_title": "Lead Magnets y Ebooks",
+    "feat5_title": "Guías Gratuitas y Ebooks",
     "feat5_desc": "Ofrece guías gratuitas para capturar información de contacto de visitantes que aún no están listos para comunicarse."
   },
 
@@ -81,13 +81,13 @@
     "step1_desc": "Selecciona el modelo que mejor refleje tu imagen y tu marca profesional.",
     "step2_title": "Agrega Tu Información",
     "step2_desc": "Completa el proceso de incorporación guiado en minutos. No se requieren conocimientos técnicos.",
-    "step3_title": "Comienza a Recibir Leads",
-    "step3_desc": "Tu página se publica y comienza a capturar leads, consultas y contactos de WhatsApp.",
+    "step3_title": "Comienza a Recibir Nuevos Contactos",
+    "step3_desc": "Tu página se publica y comienza a atraer contactos, consultas y mensajes de WhatsApp.",
     "cta": "Comenzar Ahora →"
   },
 
   "leadCapture": {
-    "badge": "Generación de Leads",
+    "badge": "Nuevos Clientes",
     "headline": "Cada Visitante Puede Convertirse en un Cliente Futuro",
     "subheadline": "Múltiples mecanismos de captura garantizan que ninguna oportunidad se pierda.",
     "card1_title": "Formulario de Consulta del Comprador",
@@ -101,10 +101,10 @@
   },
 
   "leadmagnet": {
-    "badge": "Lead Magnet",
-    "headline": "Convierte Tu Conocimiento en Nuevos Leads",
+    "badge": "Guía Gratuita",
+    "headline": "Convierte Tu Conocimiento en Nuevos Clientes",
     "subheadline": "Ofrece una guía gratuita y captura el contacto de clientes potenciales que aún no están listos para comunicarse.",
-    "note": "Este es un ejemplo del lead magnet incluido en cada página de LUMI LANDING.",
+    "note": "Este es un ejemplo de la guía gratuita incluida en cada página de LUMI LANDING.",
     "ebook_title": "Guía del Comprador de Vivienda",
     "ebook_sub": "Todo lo que necesitas saber antes de comprar una vivienda en EE.UU.",
     "form": {
@@ -143,7 +143,7 @@
 
   "crm": {
     "badge": "Integraciones",
-    "headline": "Tus Leads, A Tu Manera",
+    "headline": "Tus Contactos, A Tu Manera",
     "subheadline": "Conecta tu página con las herramientas que ya usas — sin código, sin complicaciones.",
     "int1": "Cualquier CRM (webhook)",
     "int2": "Google Sheets",
@@ -173,9 +173,9 @@
     "feat1": "Landing page profesional para agentes inmobiliarios",
     "feat2": "Hosting y SSL incluidos",
     "feat3": "Sitio web multilingüe (EN + PT + ES)",
-    "feat4": "Sistema de captura de leads",
+    "feat4": "Sistema de captación de nuevos contactos",
     "feat5": "Integración con WhatsApp",
-    "feat6": "Lead magnets y herramientas de ebook",
+    "feat6": "Guías gratuitas y herramientas de ebook",
     "feat7": "Soporte de dominio personalizado",
     "feat8": "Integraciones con CRM",
     "feat9": "Soporte prioritario",

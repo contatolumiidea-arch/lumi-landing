@@ -15,9 +15,9 @@
   "hero": {
     "badge": "Smart Landing Pages for Real Estate",
     "headline": "Turn Your Real Estate Presence",
-    "headline_em": "Into a Lead Generation Machine.",
-    "headline_html": "<span class=\"hl-white\">Turn Your<br>Real Estate Presence</span><em class=\"hl-gold\">Into a Lead<br>Generation Machine.</em>",
-    "subheadline": "Your professional multilingual landing page — built to capture more inquiries, more leads and more opportunities on autopilot.",
+    "headline_em": "Into a Client Generation Machine.",
+    "headline_html": "<span class=\"hl-white\">Turn Your<br>Real Estate Presence</span><em class=\"hl-gold\">Into a Client<br>Generation Machine.</em>",
+    "subheadline": "Your professional multilingual landing page — built to attract more inquiries, more clients and more opportunities on autopilot.",
     "cta_primary": "Create My Landing Page",
     "cta_secondary": "View Templates",
     "stats": {
@@ -32,28 +32,28 @@
 
   "problem": {
     "badge": "The Problem",
-    "headline": "You're Losing Leads Before You Ever Make Contact.",
+    "headline": "You're Losing Clients Before You Ever Make Contact.",
     "card1_title": "No Professional Online Presence",
     "card1_desc": "Your social media profile is not enough. Clients look for professionals with a dedicated, trustworthy online presence.",
     "card2_title": "Visitors Leave Without Contacting",
     "card2_desc": "Without a clear conversion strategy, potential clients browse your profile and vanish without leaving any contact.",
     "card3_title": "Social Media Traffic is Wasted",
-    "card3_desc": "You spend hours posting on Instagram and Facebook, but have no way to capture those visitors as leads."
+    "card3_desc": "You spend hours posting on Instagram and Facebook, but have no way to turn those visitors into clients."
   },
 
   "solution": {
     "badge": "The Solution",
     "headline": "Your Digital Office Working 24/7",
-    "subheadline": "LUMI LANDING transforms your online presence into a complete lead generation system.",
+    "subheadline": "LUMI LANDING transforms your online presence into a complete client generation system.",
     "feat1_title": "Professional Page for Real Estate Agents",
     "feat1_desc": "A stunning, conversion-optimized landing page designed exclusively for your real estate business.",
-    "feat2_title": "Smart Lead Capture Forms",
-    "feat2_desc": "Intelligent forms that qualify your leads before they even reach you: buyer, seller, investor or referral.",
+    "feat2_title": "Smart Contact Capture Forms",
+    "feat2_desc": "Intelligent forms that qualify your contacts before they even reach you: buyer, seller, investor or referral.",
     "feat3_title": "Instant WhatsApp Connection",
     "feat3_desc": "One click connects potential clients directly to your WhatsApp with a personalized message.",
     "feat4_title": "Multilingual Experience",
     "feat4_desc": "Your page automatically serves clients in English, Spanish or Portuguese, with no extra work on your end.",
-    "feat5_title": "Lead Magnets & Ebooks",
+    "feat5_title": "Free Guides & Ebooks",
     "feat5_desc": "Offer free guides to capture contact information from visitors who are not yet ready to reach out."
   },
 
@@ -81,13 +81,13 @@
     "step1_desc": "Select the design that best reflects your image and your brand.",
     "step2_title": "Add Your Information",
     "step2_desc": "Complete our guided onboarding in minutes. No technical knowledge required.",
-    "step3_title": "Start Receiving Leads",
-    "step3_desc": "Your page goes live and starts capturing leads, inquiries and WhatsApp contacts.",
+    "step3_title": "Start Receiving New Contacts",
+    "step3_desc": "Your page goes live and starts attracting contacts, inquiries and WhatsApp messages.",
     "cta": "Start Now →"
   },
 
   "leadCapture": {
-    "badge": "Lead Generation",
+    "badge": "New Clients",
     "headline": "Every Visitor Can Become a Future Client",
     "subheadline": "Multiple capture mechanisms ensure no opportunity is lost.",
     "card1_title": "Buyer Inquiry Form",
@@ -101,10 +101,10 @@
   },
 
   "leadmagnet": {
-    "badge": "Lead Magnet",
-    "headline": "Turn Your Knowledge Into New Leads",
+    "badge": "Free Guide",
+    "headline": "Turn Your Knowledge Into New Clients",
     "subheadline": "Offer a free guide and capture the contact of potential clients who are not yet ready to reach out.",
-    "note": "This is an example of the lead magnet included in every LUMI LANDING page.",
+    "note": "This is an example of the free guide included in every LUMI LANDING page.",
     "ebook_title": "Home Buyer's Guide",
     "ebook_sub": "Everything you need to know before buying a home in the USA",
     "form": {
@@ -143,7 +143,7 @@
 
   "crm": {
     "badge": "Integrations",
-    "headline": "Your Leads, Your Way",
+    "headline": "Your Contacts, Your Way",
     "subheadline": "Connect your page to the tools you already use — no code, no hassle.",
     "int1": "Any CRM (webhook)",
     "int2": "Google Sheets",
@@ -173,9 +173,9 @@
     "feat1": "Professional landing page for real estate agents",
     "feat2": "Hosting & SSL included",
     "feat3": "Multilingual website (EN + PT + ES)",
-    "feat4": "Lead capture system",
+    "feat4": "New contact capture system",
     "feat5": "WhatsApp integration",
-    "feat6": "Lead magnets & ebook tools",
+    "feat6": "Free guides & ebook tools",
     "feat7": "Custom domain support",
     "feat8": "CRM integrations",
     "feat9": "Priority support",
