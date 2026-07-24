@@ -205,8 +205,12 @@ function initForms(cfg) {
 
       try {
         await sendFormData(data, cfg);
-        showFormFeedback(form, "success");
         form.reset();
+        if (formType === "leadmagnet") {
+          window.location.href = "/guia-exemplo";
+        } else {
+          showFormFeedback(form, "success");
+        }
       } catch (err) {
         showFormFeedback(form, "error");
       } finally {
