@@ -2268,11 +2268,14 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 .float-channel svg { opacity: .7; flex-shrink: 0; }
 .float-channel--gold { border-color: rgba(201,168,76,.4); color: var(--color-gold); }
 .float-channel--gold svg { opacity: 1; }
-/* Pills stay above and below the phone, never reaching the right text column */
-.float-channel--tl { top: -16px;  left: 0;   animation-delay: 0s; }
-.float-channel--tr { top: -16px;  right: 0;  animation-delay: .7s; }
-.float-channel--br { bottom: -16px; right: 0; animation-delay: 1.4s; }
-.float-channel--bl { bottom: -16px; left: 0;  animation-delay: 2.1s; }
+/* Pills anchored above/below the phone (240px wide, centered in wrap).
+   left/right values are relative to the wrap center (50% ≈ phone center).
+   Left pills: right edge at phone left edge (50% - 120px), shifted left.
+   Right pills: start at phone right edge (50% + 120px), extend right within wrap. */
+.float-channel--tl { top: 18%;    left: 4%;  animation-delay: 0s; }
+.float-channel--tr { top: 18%;    left: 52%; animation-delay: .7s; }
+.float-channel--br { bottom: 18%; left: 52%; animation-delay: 1.4s; }
+.float-channel--bl { bottom: 18%; left: 4%;  animation-delay: 2.1s; }
 @keyframes floatPill {
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-6px); }
