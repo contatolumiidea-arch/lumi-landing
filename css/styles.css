@@ -1869,9 +1869,32 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
-/* 5 cards: 3 on top, 2 centered below */
-.cards-grid--solution .solution-card:nth-child(4) { grid-column: 1 / 2; }
-.cards-grid--solution .solution-card:nth-child(5) { grid-column: 2 / 3; }
+/* 6 cards: 2 rows of 3 — no forced positioning needed */
+
+/* Contact option tags inside solution card */
+.solution-contact-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.contact-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border: 1px solid rgba(212,175,55,0.35);
+  border-radius: 20px;
+  font-size: .75rem;
+  color: rgba(212,175,55,0.85);
+  background: rgba(212,175,55,0.06);
+  line-height: 1;
+}
+.contact-tag svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
 
 .solution-card {
   background: rgba(255,255,255,.03);
