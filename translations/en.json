@@ -17,7 +17,7 @@
     "headline": "Turn Your Real Estate Presence",
     "headline_em": "Into a Lead Generation Machine.",
     "headline_html": "<span class=\"hl-white\">Turn Your<br>Real Estate Presence</span><em class=\"hl-gold\">Into a Lead<br>Generation Machine.</em>",
-    "subheadline": "Professional multilingual landing pages designed for real estate agents who want more inquiries, more leads and more opportunities.",
+    "subheadline": "Your professional multilingual landing page — built to capture more inquiries, more leads and more opportunities on autopilot.",
     "cta_primary": "Create My Landing Page",
     "cta_secondary": "View Templates",
     "stats": {
@@ -32,7 +32,7 @@
 
   "problem": {
     "badge": "The Problem",
-    "headline": "Most Realtors Lose Leads Before They Ever Make Contact.",
+    "headline": "You're Losing Leads Before You Ever Make Contact.",
     "card1_title": "No Professional Online Presence",
     "card1_desc": "Your social media profile is not enough. Clients look for professionals with a dedicated, trustworthy online presence.",
     "card2_title": "Visitors Leave Without Contacting",
@@ -46,7 +46,7 @@
     "headline": "Your Digital Office Working 24/7",
     "subheadline": "LUMI LANDING transforms your online presence into a complete lead generation system.",
     "feat1_title": "Professional Real Estate Page",
-    "feat1_desc": "A stunning, conversion-optimized landing page designed exclusively for real estate professionals.",
+    "feat1_desc": "A stunning, conversion-optimized landing page designed exclusively for your real estate business.",
     "feat2_title": "Smart Lead Capture Forms",
     "feat2_desc": "Intelligent forms that qualify your leads before they even reach you: buyer, seller, investor or referral.",
     "feat3_title": "Instant WhatsApp Connection",
@@ -60,7 +60,7 @@
   "templates": {
     "badge": "Templates",
     "headline": "Choose Your Professional Look",
-    "subheadline": "Five premium designs built for different real estate profiles.",
+    "subheadline": "Five premium designs. Choose the one that best represents you and your brand.",
     "t1_name": "Luxury Realtor",
     "t1_desc": "Elegant and sophisticated for high-end property specialists.",
     "t2_name": "Modern Agent",
@@ -78,7 +78,7 @@
     "badge": "How It Works",
     "headline": "Your Landing Page Live in 3 Steps",
     "step1_title": "Choose Your Design",
-    "step1_desc": "Select one of our five premium templates designed for real estate professionals.",
+    "step1_desc": "Select the design that best reflects your image and your brand.",
     "step2_title": "Add Your Information",
     "step2_desc": "Complete our guided onboarding in minutes. No technical knowledge required.",
     "step3_title": "Start Receiving Leads",
@@ -121,13 +121,13 @@
   "multilingual": {
     "badge": "Multilingual",
     "headline": "Connect With More Clients in Their Preferred Language.",
-    "subheadline": "The US real estate market is diverse. Your landing page should speak to every potential client.",
+    "subheadline": "Your clients speak English, Portuguese and Spanish. Your page speaks all three — with one click.",
     "lang1_name": "English",
     "lang1_desc": "Reach the full US market with fluent, professional English content.",
     "lang2_name": "Português",
     "lang2_desc": "Connect with the growing Brazilian community in the United States.",
     "lang3_name": "Español",
-    "lang3_desc": "Serve the largest minority group in the US real estate market."
+    "lang3_desc": "Reach the largest minority group of home buyers in the US."
   },
 
   "whatsapp": {
@@ -144,7 +144,7 @@
   "crm": {
     "badge": "Integrations",
     "headline": "Your Leads, Your Way",
-    "subheadline": "Connect your LUMI LANDING to the tools you already use. Or discover LUMI FLOW, our upcoming CRM built for real estate.",
+    "subheadline": "Connect your page to the tools you already use — no code, no hassle.",
     "int1": "Any CRM (webhook)",
     "int2": "Google Sheets",
     "int3": "Email (direct)",
@@ -152,7 +152,7 @@
     "int5": "Make",
     "flow_title": "LUMI FLOW CRM",
     "flow_badge": "Coming Soon",
-    "flow_desc": "Built specifically for real estate professionals. Be the first to know.",
+    "flow_desc": "Built for your real estate business. Be the first to know.",
     "flow_email_placeholder": "Your email address",
     "flow_cta": "Notify Me"
   },
@@ -210,7 +210,7 @@
     "q4": "Does it work in multiple languages?",
     "a4": "Yes. Every LUMI LANDING page supports English, Portuguese and Spanish out of the box. Your visitors can switch languages with one click.",
     "q5": "How long does setup take?",
-    "a5": "Most agents complete the onboarding in under 30 minutes. We handle everything else.",
+    "a5": "You complete the briefing in under 30 minutes. LUMI handles everything else.",
     "q6": "What happens if I cancel?",
     "a6": "You can cancel anytime. Your page remains active until the end of your billing period."
   },

@@ -17,7 +17,7 @@
     "headline": "Transforma Tu Presencia en Bienes Raíces",
     "headline_em": "En una Máquina de Generación de Leads.",
     "headline_html": "<span class=\"hl-white\">Transforma Tu<br>Presencia Inmobiliaria</span><em class=\"hl-gold\">En una Máquina<br>de Generación de Leads.</em>",
-    "subheadline": "Landing pages profesionales y multilingües diseñadas para agentes inmobiliarios que quieren más consultas, más leads y más oportunidades.",
+    "subheadline": "Tu landing page profesional y multilingüe — diseñada para capturar más consultas, más leads y más oportunidades en piloto automático.",
     "cta_primary": "Crear Mi Landing Page",
     "cta_secondary": "Ver Modelos",
     "stats": {
@@ -46,7 +46,7 @@
     "headline": "Tu Oficina Digital Trabajando 24/7",
     "subheadline": "LUMI LANDING transforma tu presencia en línea en un sistema completo de generación de leads.",
     "feat1_title": "Página Profesional de Bienes Raíces",
-    "feat1_desc": "Una landing page impresionante y optimizada para conversión, diseñada exclusivamente para profesionales inmobiliarios.",
+    "feat1_desc": "Una landing page impresionante, optimizada para conversión y creada exclusivamente para tu negocio inmobiliario.",
     "feat2_title": "Formularios Inteligentes de Captura",
     "feat2_desc": "Formularios inteligentes que califican tus leads antes de que lleguen a ti: comprador, vendedor, inversor o referencia.",
     "feat3_title": "Conexión Instantánea por WhatsApp",
@@ -60,7 +60,7 @@
   "templates": {
     "badge": "Modelos",
     "headline": "Elige Tu Imagen Profesional",
-    "subheadline": "Cinco diseños premium creados para diferentes perfiles de profesionales inmobiliarios.",
+    "subheadline": "Cinco diseños premium. Elige el que mejor te represente a ti y a tu marca.",
     "t1_name": "Luxury Realtor",
     "t1_desc": "Elegante y sofisticado para especialistas en propiedades de lujo.",
     "t2_name": "Modern Agent",
@@ -78,7 +78,7 @@
     "badge": "Cómo Funciona",
     "headline": "Tu Landing Page en Línea en 3 Pasos",
     "step1_title": "Elige Tu Diseño",
-    "step1_desc": "Selecciona uno de nuestros cinco modelos premium diseñados para profesionales inmobiliarios.",
+    "step1_desc": "Selecciona el modelo que mejor refleje tu imagen y tu marca profesional.",
     "step2_title": "Agrega Tu Información",
     "step2_desc": "Completa el proceso de incorporación guiado en minutos. No se requieren conocimientos técnicos.",
     "step3_title": "Comienza a Recibir Leads",
@@ -121,13 +121,13 @@
   "multilingual": {
     "badge": "Multilingüe",
     "headline": "Conecta Con Más Clientes en Su Idioma Preferido.",
-    "subheadline": "El mercado inmobiliario de EE.UU. es diverso. Tu landing page debe hablarle a cada cliente potencial.",
+    "subheadline": "Tus clientes hablan inglés, portugués y español. Tu página los atiende a todos — con un clic.",
     "lang1_name": "English",
     "lang1_desc": "Alcanza todo el mercado estadounidense con contenido fluido y profesional en inglés.",
     "lang2_name": "Português",
     "lang2_desc": "Conéctate con la creciente comunidad brasileña en los Estados Unidos.",
     "lang3_name": "Español",
-    "lang3_desc": "Atiende al grupo minoritario más grande en el mercado inmobiliario de EE.UU."
+    "lang3_desc": "Alcanza al grupo minoritario más grande de compradores de vivienda en EE.UU."
   },
 
   "whatsapp": {
@@ -144,7 +144,7 @@
   "crm": {
     "badge": "Integraciones",
     "headline": "Tus Leads, A Tu Manera",
-    "subheadline": "Conecta tu LUMI LANDING con las herramientas que ya usas. O descubre LUMI FLOW, nuestro próximo CRM creado para bienes raíces.",
+    "subheadline": "Conecta tu página con las herramientas que ya usas — sin código, sin complicaciones.",
     "int1": "Cualquier CRM (webhook)",
     "int2": "Google Sheets",
     "int3": "Correo Electrónico (directo)",
@@ -152,7 +152,7 @@
     "int5": "Make",
     "flow_title": "LUMI FLOW CRM",
     "flow_badge": "Próximamente",
-    "flow_desc": "Creado específicamente para profesionales inmobiliarios. Sé el primero en saberlo.",
+    "flow_desc": "Creado para tu negocio inmobiliario. Sé el primero en saberlo.",
     "flow_email_placeholder": "Tu dirección de correo electrónico",
     "flow_cta": "Notificarme"
   },
@@ -210,7 +210,7 @@
     "q4": "¿Funciona en múltiples idiomas?",
     "a4": "Sí. Cada página LUMI LANDING soporta inglés, portugués y español. Tus visitantes pueden cambiar de idioma con un clic.",
     "q5": "¿Cuánto tiempo toma la configuración?",
-    "a5": "La mayoría de los agentes completan el proceso de incorporación en menos de 30 minutos. Nosotros nos encargamos del resto.",
+    "a5": "Tú completas el briefing en menos de 30 minutos. LUMI se encarga del resto.",
     "q6": "¿Qué sucede si cancelo?",
     "a6": "Puedes cancelar en cualquier momento. Tu página permanece activa hasta el final de tu período de facturación."
   },
