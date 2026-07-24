@@ -811,6 +811,13 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   display: flex;
   justify-content: center;
 }
+.ebook-mockup-img {
+  width: 260px;
+  max-width: 100%;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  display: block;
+}
 .ebook-mockup {
   width: 260px;
   aspect-ratio: 3/4;
