@@ -1021,6 +1021,8 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 .testimonial-author { display: flex; align-items: center; gap: 12px; }
 .testimonial-info strong { display: block; font-size: .9rem; }
 .testimonial-info span  { font-size: .8rem; color: var(--color-gray); }
+.testimonial-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.testimonial-avatar--initials { display: flex; align-items: center; justify-content: center; background: var(--color-gold, #C8A84B); color: #fff; font-weight: 700; font-size: 1.1rem; }
 
 /* ════════════════════════════════════════════════════════════
    REFERRAL

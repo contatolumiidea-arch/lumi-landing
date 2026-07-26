@@ -122,16 +122,20 @@ function buildTestimonials(t, cfg) {
   const lang = i18n.getCurrentLang();
 
   container.innerHTML = cfg.testimonials.map(item => {
-    const text = item[`text_${lang}`] || item.text_en || "";
+    const text = item[`text_${lang}`] || item.text_en || item.text || "";
     const stars = "★".repeat(item.rating || 5);
+    const avatar = item.photo
+      ? `<img src="${item.photo}" alt="${item.name}" class="testimonial-avatar">`
+      : `<div class="testimonial-avatar testimonial-avatar--initials">${(item.name || '?').charAt(0).toUpperCase()}</div>`;
     return `
       <div class="testimonial-card fade-up">
         <div class="testimonial-stars">${stars}</div>
         <p class="testimonial-text">"${text}"</p>
         <div class="testimonial-author">
+          ${avatar}
           <div class="testimonial-info">
             <strong>${item.name}</strong>
-            <span>${item.city}</span>
+            ${item.city ? `<span>${item.city}</span>` : ''}
           </div>
         </div>
       </div>

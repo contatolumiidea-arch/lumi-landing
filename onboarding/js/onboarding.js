@@ -561,17 +561,13 @@ const OnboardingApp = {
           <label class="form-label">${t('s7.client_name') || 'Nome do cliente'}</label>
           <input class="form-input" type="text" name="tname-${idx}" placeholder="${t('s7.client_name_ph') || ''}">
         </div>
-        <div class="form-group">
-          <label class="form-label">${t('s7.video_label') || 'Link de vídeo (opcional)'}</label>
-          <input class="form-input" type="url" name="tvideo-${idx}" placeholder="${t('s7.video_ph') || 'YouTube ou Vimeo'}">
-        </div>
         <div class="form-group form-group--full">
           <label class="form-label">${t('s7.testimonial') || 'Depoimento'}</label>
           <textarea class="form-textarea" name="ttext-${idx}" rows="3" placeholder="${t('s7.testimonial_ph') || ''}"></textarea>
         </div>
         <div class="form-group">
-          <label class="form-label">${t('s7.photo_label') || 'Foto do cliente (opcional)'}</label>
-          <div class="upload-zone" style="min-height:90px">
+          <label class="form-label">${t('s7.photo_label') || 'Foto do cliente'}</label>
+          <div class="upload-zone" data-photo-zone="${idx}" style="min-height:90px">
             <div class="upload-icon">📷</div>
             <div class="upload-cta">${t('s2.upload_cta') || 'Arraste ou clique'}</div>
             <div class="upload-hint">${t('s7.photo_hint') || 'JPG ou PNG'}</div>
@@ -588,6 +584,19 @@ const OnboardingApp = {
       if (addBtn) addBtn.disabled = this._testimonialCount >= 5;
     });
 
+    const fileInput = card.querySelector(`[name="tphoto-${idx}"]`);
+    const zone = card.querySelector(`[data-photo-zone="${idx}"]`);
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        zone.innerHTML = `<img src="${e.target.result}" alt="Foto" style="max-height:80px;border-radius:50%;object-fit:cover;">`;
+        zone.dataset.photoUrl = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
     list.appendChild(card);
 
     const addBtn = document.getElementById('add-testimonial-btn');
@@ -598,10 +607,11 @@ const OnboardingApp = {
     const result = [];
     document.querySelectorAll('#testimonials-list .rep-card').forEach(card => {
       const idx = card.dataset.testimonial;
+      const zone = card.querySelector(`[data-photo-zone="${idx}"]`);
       result.push({
         name:  card.querySelector(`[name="tname-${idx}"]`)?.value?.trim() || '',
         text:  card.querySelector(`[name="ttext-${idx}"]`)?.value?.trim() || '',
-        video: card.querySelector(`[name="tvideo-${idx}"]`)?.value?.trim() || '',
+        photo: zone?.dataset.photoUrl || '',
       });
     });
     return result;
