@@ -35,46 +35,69 @@ module.exports = async function handler(req, res) {
     const email = session.customer_details?.email || session.customer_email;
     const name  = session.customer_details?.name  || 'Corretor';
 
-    // Cria o cliente se não existir (idempotente via upsert por email)
-    const { data: client, error: clientError } = await db
+    // Busca cliente existente pelo e-mail (um cliente pode comprar várias vezes)
+    let clientId;
+    const { data: existing } = await db
       .from('lumi_clients')
-      .upsert({
-        email,
-        full_name: name,
-        stripe_customer_id: session.customer,
-        client_status: 'pending_onboarding',
-        purchased_at: new Date().toISOString(),
-      }, { onConflict: 'email', ignoreDuplicates: false })
       .select('id')
-      .single();
+      .eq('email', email)
+      .maybeSingle();
 
-    if (clientError) {
-      console.error('[Stripe webhook] Error creating client:', clientError);
-      return res.status(500).json({ error: 'Failed to create client.' });
+    if (existing) {
+      // Reusa o client_id e atualiza apenas o stripe_customer_id se necessário
+      clientId = existing.id;
+      await db
+        .from('lumi_clients')
+        .update({ stripe_customer_id: session.customer, updated_at: new Date().toISOString() })
+        .eq('id', clientId);
+      console.log(`[LUMI] Cliente existente reutilizado: ${email} (id: ${clientId})`);
+    } else {
+      // Primeira compra: cria o registro do cliente
+      const { data: newClient, error: clientError } = await db
+        .from('lumi_clients')
+        .insert({
+          email,
+          full_name:          name,
+          stripe_customer_id: session.customer,
+          client_status:      'pending_onboarding',
+          purchased_at:       new Date().toISOString(),
+        })
+        .select('id')
+        .single();
+
+      if (clientError || !newClient) {
+        console.error('[Stripe webhook] Error creating client:', clientError);
+        return res.status(500).json({ error: 'Failed to create client.' });
+      }
+
+      clientId = newClient.id;
+      console.log(`[LUMI] Novo cliente criado: ${email} (id: ${clientId})`);
     }
 
-    // Cria a assinatura
+    // Sempre cria uma nova assinatura/contratação para cada compra
     const planType = session.mode === 'subscription'
       ? (session.amount_total >= 40000 ? 'annual' : 'monthly')
       : 'monthly';
 
-    await db.from('lumi_subscriptions').insert({
-      client_id: client.id,
-      stripe_customer_id: session.customer,
-      stripe_subscription_id: session.subscription || null,
-      plan_type: planType,
-      status: 'active',
-      current_period_start: new Date().toISOString(),
+    const { error: subError } = await db.from('lumi_subscriptions').insert({
+      client_id:               clientId,
+      stripe_customer_id:      session.customer,
+      stripe_subscription_id:  session.subscription || null,
+      plan_type:               planType,
+      status:                  'active',
+      current_period_start:    new Date().toISOString(),
     });
 
-    // Cria registro inicial de onboarding
+    if (subError) {
+      console.error('[Stripe webhook] Error creating subscription:', subError);
+    }
+
+    // Cria onboarding inicial apenas se o cliente ainda não tiver um
     await db.from('lumi_onboarding').upsert({
-      client_id: client.id,
-      status: 'in_progress',
+      client_id:    clientId,
+      status:       'in_progress',
       current_step: 1,
     }, { onConflict: 'client_id', ignoreDuplicates: true });
-
-    console.log(`[LUMI] Novo cliente criado: ${email}`);
   }
 
   if (event.type === 'customer.subscription.updated' || event.type === 'customer.subscription.deleted') {
