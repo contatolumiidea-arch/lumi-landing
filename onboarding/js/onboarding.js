@@ -118,10 +118,7 @@ const OnboardingApp = {
   goNext() {
     if (!this.validateStep(this.currentStep)) return;
     this._collectStep(this.currentStep);
-    if (this.currentStep >= this.totalSteps) {
-      this.submitForm();
-      return;
-    }
+    if (this.currentStep >= this.totalSteps) return;
     const next = this.currentStep + 1;
     const current = document.querySelector(`.wizard-step[data-step="${this.currentStep}"]`);
     if (current) {
