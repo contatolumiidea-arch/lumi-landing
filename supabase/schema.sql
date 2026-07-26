@@ -153,7 +153,7 @@ COMMENT ON TABLE landing_pages IS 'Landing pages criadas pela equipe LUMI para c
 -- ─────────────────────────────────────────────────────────────
 CREATE TABLE lumi_onboarding (
   id              UUID        PRIMARY KEY DEFAULT uuid_generate_v4(),
-  client_id       UUID        NOT NULL REFERENCES lumi_clients(id) ON DELETE CASCADE,
+  client_id       UUID        NOT NULL UNIQUE REFERENCES lumi_clients(id) ON DELETE CASCADE,
   step1_business  JSONB,
   step2_template  JSONB,
   step3_brand     JSONB,
