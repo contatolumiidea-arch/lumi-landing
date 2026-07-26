@@ -6,7 +6,7 @@
 
 const OnboardingApp = {
   currentStep: 0,   // 0 = welcome screen
-  totalSteps: 9,
+  totalSteps: 8,
   data: {},
   uploadedFiles: {},
 
@@ -31,7 +31,6 @@ const OnboardingApp = {
     this._bindLeadWho();
     this._bindLeadMagnet();
     this._bindTestimonials();
-    this._bindProperties();
     this._bindColorPickers();
     this._bindSubmit();
 
@@ -105,8 +104,8 @@ const OnboardingApp = {
     this._updateProgress();
     this._updateButtons();
 
-    // Build summary on step 9
-    if (n === 9) this.buildSummary();
+    // Build summary on step 8
+    if (n === 8) this.buildSummary();
   },
 
   // ── Navigation ──────────────────────────────────────────────────
@@ -255,7 +254,7 @@ const OnboardingApp = {
       this.data.stylePreference = document.querySelector('.style-card.selected')?.dataset.style || '';
     }
     if (n === 3) {
-      this.data.specialties   = Array.from(document.querySelectorAll('.spec-card.checked')).map(c => c.dataset.spec);
+      this.data.specialties   = Array.from(document.querySelectorAll('.spec-card input:checked')).map(cb => cb.value);
       this.data.regions       = this._getTags('s3-regions-tags');
       this.data.propertyTypes = this._getTags('s3-types-tags');
       this.data.years         = this._val('s3-years');
@@ -270,7 +269,7 @@ const OnboardingApp = {
       this.data.googleUrl = this._val('s4-google-url');
     }
     if (n === 5) {
-      this.data.leadWho         = Array.from(document.querySelectorAll('.lead-who-card.checked')).map(c => c.dataset.who);
+      this.data.leadWho         = Array.from(document.querySelectorAll('.lead-who-card input:checked')).map(cb => cb.value);
       this.data.leadWhatsapp    = this._val('s5-whatsapp');
       this.data.leadEmail       = this._val('s5-email');
     }
@@ -280,9 +279,6 @@ const OnboardingApp = {
     }
     if (n === 7) {
       this.data.testimonials = this._collectTestimonials();
-    }
-    if (n === 8) {
-      this.data.properties = this._collectProperties();
     }
   },
 
@@ -337,10 +333,10 @@ const OnboardingApp = {
   // ── Specialty Cards ──────────────────────────────────────────────
   _bindSpecialties() {
     document.querySelectorAll('.spec-card').forEach(card => {
-      card.addEventListener('click', () => {
-        card.classList.toggle('checked');
-        const cb = card.querySelector('input[type="checkbox"]');
-        if (cb) cb.checked = card.classList.contains('checked');
+      const cb = card.querySelector('input[type="checkbox"]');
+      if (!cb) return;
+      cb.addEventListener('change', () => {
+        card.classList.toggle('checked', cb.checked);
       });
     });
   },
@@ -406,8 +402,10 @@ const OnboardingApp = {
   // ── Lead Who (Step 5) ────────────────────────────────────────────
   _bindLeadWho() {
     document.querySelectorAll('.lead-who-card').forEach(card => {
-      card.addEventListener('click', () => {
-        card.classList.toggle('checked');
+      const cb = card.querySelector('input[type="checkbox"]');
+      if (!cb) return;
+      cb.addEventListener('change', () => {
+        card.classList.toggle('checked', cb.checked);
       });
     });
   },
@@ -609,87 +607,7 @@ const OnboardingApp = {
     return result;
   },
 
-  // ── Properties (Step 8) ──────────────────────────────────────────
-  _propertyCount: 0,
-
-  _bindProperties() {
-    const addBtn = document.getElementById('add-property-btn');
-    if (!addBtn) return;
-    // Start with one card
-    this._addPropertyCard();
-    addBtn.addEventListener('click', () => {
-      if (this._propertyCount >= 6) return;
-      this._addPropertyCard();
-    });
-  },
-
-  _addPropertyCard() {
-    const list = document.getElementById('properties-list');
-    if (!list) return;
-    this._propertyCount++;
-    const idx = this._propertyCount;
-    const t = i18n.t.bind(i18n);
-
-    const card = document.createElement('div');
-    card.className = 'rep-card';
-    card.dataset.property = idx;
-    card.innerHTML = `
-      <div class="rep-card__header">
-        <span class="rep-card__num">${t('s8.highlight_label') || 'Imóvel'} ${idx}</span>
-        <button class="rep-card__remove" type="button">${t('btn.remove') || 'Remover'}</button>
-      </div>
-      <div class="rep-card__grid">
-        <div class="form-group">
-          <label class="form-label">${t('s8.highlight_label') || 'Destaque'}</label>
-          <input class="form-input" type="text" name="phighlight-${idx}" placeholder="${t('s8.highlight_ph') || ''}">
-        </div>
-        <div class="form-group">
-          <label class="form-label">${t('s8.link_label') || 'Link do anúncio'}</label>
-          <input class="form-input" type="url" name="plink-${idx}" placeholder="${t('s8.link_ph') || 'https://...'}">
-        </div>
-        <div class="form-group">
-          <label class="form-label">${t('s8.video_label') || 'Vídeo (URL)'}</label>
-          <input class="form-input" type="url" name="pvideo-${idx}" placeholder="${t('s8.video_ph') || ''}">
-        </div>
-        <div class="form-group">
-          <label class="form-label">${t('s8.photos_label') || 'Fotos do imóvel'}</label>
-          <div class="upload-zone" style="min-height:90px">
-            <div class="upload-icon">🏠</div>
-            <div class="upload-cta">${t('s2.upload_cta') || 'Arraste ou clique'}</div>
-            <div class="upload-hint">${t('s8.photos_hint') || 'Máx. 5 fotos'}</div>
-            <input type="file" accept="image/*" multiple data-max="5" name="pphotos-${idx}">
-          </div>
-        </div>
-      </div>
-    `;
-
-    card.querySelector('.rep-card__remove').addEventListener('click', () => {
-      card.remove();
-      this._propertyCount--;
-      const addBtn = document.getElementById('add-property-btn');
-      if (addBtn) addBtn.disabled = this._propertyCount >= 6;
-    });
-
-    list.appendChild(card);
-
-    const addBtn = document.getElementById('add-property-btn');
-    if (addBtn) addBtn.disabled = this._propertyCount >= 6;
-  },
-
-  _collectProperties() {
-    const result = [];
-    document.querySelectorAll('#properties-list .rep-card').forEach(card => {
-      const idx = card.dataset.property;
-      result.push({
-        highlight: card.querySelector(`[name="phighlight-${idx}"]`)?.value?.trim() || '',
-        link:      card.querySelector(`[name="plink-${idx}"]`)?.value?.trim() || '',
-        video:     card.querySelector(`[name="pvideo-${idx}"]`)?.value?.trim() || '',
-      });
-    });
-    return result;
-  },
-
-  // ── Build Summary (Step 9) ───────────────────────────────────────
+  // ── Build Summary (Step 8) ───────────────────────────────────────
   buildSummary() {
     this._collectStep(this.currentStep - 1); // collect previous step data
 

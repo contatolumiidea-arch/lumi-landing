@@ -19,11 +19,10 @@
     "step2": "Marca",
     "step3": "Negocio",
     "step4": "Digital",
-    "step5": "Leads",
+    "step5": "Clientes",
     "step6": "Lead Magnet",
     "step7": "Testimonios",
-    "step8": "Propiedades",
-    "step9": "Revisión"
+    "step8": "Revisión"
   },
   "progress": {
     "step_label": "Paso",
@@ -43,11 +42,10 @@
     "2": { "title": "Tu identidad visual", "subtitle": "Sube los materiales de tu marca. Nuestro equipo los aplicará en tu página." },
     "3": { "title": "Tu negocio inmobiliario", "subtitle": "Cuéntanos sobre tu actividad para personalizar el contenido de tu página." },
     "4": { "title": "Tu presencia digital", "subtitle": "Comparte tus perfiles para conectar todo en tu landing page." },
-    "5": { "title": "¿Cómo quieres recibir tus leads?", "subtitle": "Configura dónde y cómo llegarán los contactos de clientes potenciales." },
+    "5": { "title": "¿Cómo quieres recibir tus clientes?", "subtitle": "Configura dónde y cómo llegarán los contactos de clientes potenciales." },
     "6": { "title": "Convierte visitantes en clientes", "subtitle": "Los materiales gratuitos son la forma más efectiva de capturar contactos calificados." },
     "7": { "title": "¿Qué dicen tus clientes?", "subtitle": "Los testimonios reales aumentan la credibilidad de tu página. Agrega hasta 5." },
-    "8": { "title": "Destaca tus mejores propiedades", "subtitle": "Muestra ejemplos reales de tu trabajo en tu landing page." },
-    "9": { "title": "Tu landing page está casi lista.", "subtitle": "Revisa la información a continuación. Nuestro equipo creará tu página en hasta 3 días hábiles." }
+    "8": { "title": "Tu landing page está casi lista.", "subtitle": "Revisa la información a continuación. Nuestro equipo creará tu página en hasta 3 días hábiles." }
   },
   "s1": {
     "full_name": "Nombre completo",
@@ -79,18 +77,18 @@
     "photo_hint": "JPG o PNG, máx. 10MB",
     "team_label": "Fotos del equipo",
     "team_hint": "Máx. 5 archivos",
-    "properties_label": "Fotos de propiedades",
-    "properties_hint": "Máx. 10 archivos",
+    "properties_label": "Galería de tu Marca",
+    "properties_hint": "Máx. 8 archivos",
     "videos_label": "Videos",
     "videos_hint": "Máx. 3 archivos MP4/MOV o enlaces",
     "upload_cta": "Arrastra o haz clic para subir",
     "primary_color": "Color principal de marca",
     "secondary_color": "Color secundario",
     "style_label": "Estilo visual",
-    "style_luxury": "Luxury",
-    "style_modern": "Modern",
-    "style_minimal": "Minimal",
-    "style_classic": "Classic"
+    "style_luxury": "Luxury Realtor",
+    "style_modern": "Modern Agent",
+    "style_minimal": "Neighborhood Specialist",
+    "style_classic": "First Home Expert"
   },
   "s3": {
     "change": "Cambiar",
@@ -127,6 +125,8 @@
     "who_buyers": "Compradores",
     "who_sellers": "Vendedores",
     "who_investors": "Inversores",
+    "who_owners": "Propietarios",
+    "who_renters": "Inquilinos",
     "whatsapp_label": "WhatsApp de destino",
     "whatsapp_ph": "+52 (55) 1234-5678",
     "email_label": "Email de recepción",
