@@ -691,24 +691,67 @@ const OnboardingApp = {
     document.getElementById('submit-btn')?.addEventListener('click', () => this.submitForm());
   },
 
-  submitForm() {
+  async submitForm() {
     // Collect all remaining data
     for (let i = 1; i <= this.totalSteps; i++) this._collectStep(i);
     this.data.submittedAt = new Date().toISOString();
 
-    // Log for future webhook integration
-    console.log('[LUMI ONBOARDING] Submission data:', JSON.stringify(this.data, null, 2));
+    const submitBtn = document.getElementById('submit-btn');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = i18n.t('s9.submitting') || 'Enviando…';
+    }
 
-    // Future hooks (stub):
-    // this.sendToCRM(this.data);
-    // this.triggerWebhook(this.data);
-    // this.notifyStripe(this.data);
+    const payload = {
+      client_id:      this.data.clientId || null,
+      testimonials:   this.data.testimonials   || [],
+      social_links:   {
+        website:   this.data.website,
+        instagram: this.data.instagram,
+        facebook:  this.data.facebook,
+        linkedin:  this.data.linkedin,
+        google:    this.data.googleUrl,
+      },
+      onboarding_data: this.data,
+    };
 
-    // Clear localStorage
-    localStorage.removeItem('lumi_onboarding_progress');
+    // [DIAG] — remove após investigação
+    console.log('[ONBOARDING] payload enviado:', JSON.stringify(payload, null, 2));
 
-    // Show success
-    this._showSuccess();
+    try {
+      const res = await fetch('/api/onboarding/save', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload),
+      });
+
+      const json = await res.json();
+
+      // [DIAG] — remove após investigação
+      console.log('[ONBOARDING] resposta da API:', res.status, JSON.stringify(json));
+
+      if (!res.ok) {
+        throw new Error(json.error || 'Erro desconhecido');
+      }
+
+      localStorage.removeItem('lumi_onboarding_progress');
+      this._showSuccess();
+
+    } catch (err) {
+      // [DIAG] — remove após investigação
+      console.error('[ONBOARDING] erro no envio:', err.message);
+
+      const errorMsg = document.getElementById('submit-error');
+      if (errorMsg) {
+        errorMsg.textContent = 'Não foi possível enviar suas informações. Tente novamente ou entre em contato com a equipe LUMI.';
+        errorMsg.style.display = 'block';
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = i18n.t('s9.submit_btn') || 'Enviar para a equipe LUMI';
+      }
+    }
   },
 
   _showSuccess() {

@@ -19,23 +19,51 @@ module.exports = async function handler(req, res) {
   // [DIAG] — remove após investigação
   console.log('[ONBOARDING SAVE] body recebido:', JSON.stringify(req.body || {}, null, 2));
 
-  const { client_id, step, data, social_links, testimonials, properties } = req.body || {};
-
-  if (!client_id) {
-    return res.status(400).json({ error: 'client_id é obrigatório.' });
-  }
+  const { client_id, step, data, social_links, testimonials, properties, onboarding_data } = req.body || {};
 
   const db = getDb();
 
-  // Verificar se o cliente existe
-  const { data: client } = await db
-    .from('lumi_clients')
-    .select('id')
-    .eq('id', client_id)
-    .single();
+  let resolvedClientId = client_id;
 
-  if (!client) {
-    return res.status(404).json({ error: 'Cliente não encontrado.' });
+  // Sem client_id (sem Stripe ainda): criar registro provisório em lumi_clients
+  if (!resolvedClientId) {
+    const name  = onboarding_data?.fullName  || onboarding_data?.businessName || 'Sem nome';
+    const email = onboarding_data?.email     || null;
+    const phone = onboarding_data?.phone     || null;
+
+    console.log('[ONBOARDING SAVE] sem client_id — criando cliente provisório:', { name, email });
+
+    const { data: newClient, error: insertErr } = await db
+      .from('lumi_clients')
+      .insert({
+        name,
+        email,
+        phone,
+        plan:          'pending',
+        status:        'active',
+        client_status: 'onboarding',
+      })
+      .select('id')
+      .single();
+
+    if (insertErr || !newClient) {
+      console.error('[ONBOARDING SAVE] erro ao criar cliente provisório:', insertErr);
+      return res.status(500).json({ error: 'Erro ao registrar cliente.' });
+    }
+
+    resolvedClientId = newClient.id;
+    console.log('[ONBOARDING SAVE] cliente provisório criado com id:', resolvedClientId);
+  } else {
+    // Verificar se o cliente existe
+    const { data: client } = await db
+      .from('lumi_clients')
+      .select('id')
+      .eq('id', resolvedClientId)
+      .single();
+
+    if (!client) {
+      return res.status(404).json({ error: 'Cliente não encontrado.' });
+    }
   }
 
   const update = { updated_at: new Date().toISOString() };
@@ -45,37 +73,36 @@ module.exports = async function handler(req, res) {
     update.current_step = Math.max(step, 1);
   }
 
-  if (social_links !== undefined)  update.social_links  = social_links;
-  if (testimonials  !== undefined) update.testimonials  = testimonials;
-  if (properties    !== undefined) update.properties    = properties;
+  if (social_links    !== undefined) update.social_links  = social_links;
+  if (testimonials    !== undefined) update.testimonials  = testimonials;
+  if (properties      !== undefined) update.properties    = properties;
+  if (onboarding_data !== undefined) update.step1_business = onboarding_data;
 
-  // Marcar como concluído se for o último passo
-  if (step === 9) {
-    update.status       = 'completed';
-    update.completed_at = new Date().toISOString();
+  // Marcar como concluído no envio final
+  update.status       = 'completed';
+  update.completed_at = new Date().toISOString();
 
-    await db
-      .from('lumi_clients')
-      .update({
-        client_status: 'in_production',
-        onboarding_completed_at: new Date().toISOString(),
-      })
-      .eq('id', client_id);
-  }
+  await db
+    .from('lumi_clients')
+    .update({
+      client_status:           'onboarding_received',
+      onboarding_completed_at: new Date().toISOString(),
+    })
+    .eq('id', resolvedClientId);
 
   // [DIAG] — remove após investigação
-  console.log('[ONBOARDING SAVE] tabela destino: lumi_onboarding | client_id:', client_id, '| payload:', JSON.stringify(update));
+  console.log('[ONBOARDING SAVE] tabela destino: lumi_onboarding | client_id:', resolvedClientId, '| payload keys:', Object.keys(update));
 
   const { error } = await db
     .from('lumi_onboarding')
-    .upsert({ client_id, ...update }, { onConflict: 'client_id' });
+    .upsert({ client_id: resolvedClientId, ...update }, { onConflict: 'client_id' });
 
   // [DIAG] — remove após investigação
   if (error) {
     console.error('[ONBOARDING SAVE] erro Supabase:', JSON.stringify({ message: error.message, code: error.code, details: error.details, hint: error.hint }));
     return res.status(500).json({ error: 'Erro ao salvar dados.' });
   }
-  console.log('[ONBOARDING SAVE] upsert ok | client_id:', client_id);
+  console.log('[ONBOARDING SAVE] upsert ok | client_id:', resolvedClientId);
 
-  return res.status(200).json({ ok: true });
+  return res.status(200).json({ ok: true, client_id: resolvedClientId });
 };
