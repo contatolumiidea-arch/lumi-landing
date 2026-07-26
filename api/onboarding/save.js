@@ -36,11 +36,9 @@ module.exports = async function handler(req, res) {
     const { data: newClient, error: insertErr } = await db
       .from('lumi_clients')
       .insert({
-        name,
+        full_name:     name,
         email,
         phone,
-        plan:          'pending',
-        status:        'active',
         client_status: 'onboarding',
       })
       .select('id')
