@@ -39,7 +39,7 @@ module.exports = async function handler(req, res) {
         full_name:     name,
         email,
         phone,
-        client_status: 'onboarding',
+        client_status: 'pending_onboarding',
       })
       .select('id')
       .single();
