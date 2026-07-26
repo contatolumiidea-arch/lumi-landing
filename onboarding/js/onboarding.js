@@ -450,11 +450,24 @@ const OnboardingApp = {
     });
   },
 
+  // Maps input id → { key: string, multiple: bool }
+  // key is the this.data field name; multiple=true uses an array
+  _UPLOAD_DATA_MAP: {
+    's2-logo-input':    { key: 'logoDataUrl',        multiple: false },
+    's2-photo-input':   { key: 'professionalPhoto',  multiple: false },
+    's2-team-input':    { key: 'teamPhotos',         multiple: true  },
+    's2-props-input':   { key: 'brandGallery',       multiple: true  },
+    's2-videos-input':  { key: 'videos',             multiple: true  },
+    'lm-buyer-input':   { key: 'buyerEbook',         multiple: false },
+    'lm-seller-input':  { key: 'sellerEbook',        multiple: false },
+  },
+
   _handleFiles(input, files, previewEl) {
     if (!previewEl) return;
     const maxFiles = parseInt(input.dataset.max) || 1;
     const existing = previewEl.querySelectorAll('.preview-item').length;
     const toAdd = Math.min(files.length, maxFiles - existing);
+    const mapping = this._UPLOAD_DATA_MAP[input.id];
 
     for (let i = 0; i < toAdd; i++) {
       const file = files[i];
@@ -465,35 +478,53 @@ const OnboardingApp = {
         const img = document.createElement('img');
         img.alt = file.name;
         const reader = new FileReader();
-        reader.onload = e => { img.src = e.target.result; };
+        reader.onload = e => {
+          img.src = e.target.result;
+          if (mapping) this._storeUpload(mapping, e.target.result);
+        };
         reader.readAsDataURL(file);
         item.appendChild(img);
-
-        // Store for logo preview in summary
-        if (input.id === 's2-logo-input') {
-          const summaryLogoReader = new FileReader();
-          summaryLogoReader.onload = e => {
-            this.data.logoDataUrl = e.target.result;
-          };
-          summaryLogoReader.readAsDataURL(file);
-        }
       } else {
-        const name = document.createElement('div');
-        name.className = 'preview-item__name';
-        name.textContent = file.name;
-        item.appendChild(name);
+        // Non-image (PDF, video): show filename + read as Data URL for persistence
+        const nameEl = document.createElement('div');
+        nameEl.className = 'preview-item__name';
+        nameEl.textContent = file.name;
+        item.appendChild(nameEl);
+
+        if (mapping) {
+          const reader = new FileReader();
+          reader.onload = e => this._storeUpload(mapping, e.target.result);
+          reader.readAsDataURL(file);
+        }
       }
 
       const rem = document.createElement('span');
       rem.className = 'preview-remove';
       rem.textContent = '×';
-      rem.addEventListener('click', () => item.remove());
+      rem.addEventListener('click', () => {
+        item.remove();
+        previewEl.classList.toggle('has-files', previewEl.querySelectorAll('.preview-item').length > 0);
+      });
       item.appendChild(rem);
 
       previewEl.appendChild(item);
     }
 
     previewEl.classList.toggle('has-files', previewEl.querySelectorAll('.preview-item').length > 0);
+  },
+
+  _storeUpload(mapping, dataUrl) {
+    if (mapping.multiple) {
+      if (!Array.isArray(this.data[mapping.key])) this.data[mapping.key] = [];
+      this.data[mapping.key].push(dataUrl);
+    } else {
+      this.data[mapping.key] = dataUrl;
+    }
+    // Keep legacy logoDataUrl alias for summary preview
+    if (mapping.key === 'logoDataUrl') {
+      const logoEl = document.getElementById('summary-logo');
+      if (logoEl) { logoEl.src = dataUrl; logoEl.style.display = 'block'; }
+    }
   },
 
   // ── Color Pickers ────────────────────────────────────────────────
