@@ -5,6 +5,13 @@ const { signToken, getCookieHeader } = require('../_lib/auth');
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
+  // [RUNTIME DIAG] — remove após investigação
+  console.log('[RUNTIME]', {
+    supabaseHost: process.env.SUPABASE_URL ? new URL(process.env.SUPABASE_URL).hostname : 'MISSING',
+    env: process.env.VERCEL_ENV,
+    url: process.env.VERCEL_URL,
+  });
+
   const { email, password } = req.body || {};
 
   if (!email || !password) {
