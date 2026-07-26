@@ -450,53 +450,50 @@ const OnboardingApp = {
     });
   },
 
-  // Maps input id → { key: string, multiple: bool }
-  // key is the this.data field name; multiple=true uses an array
+  // input id → { key in this.data, folder in Storage, multiple }
   _UPLOAD_DATA_MAP: {
-    's2-logo-input':    { key: 'logoDataUrl',        multiple: false },
-    's2-photo-input':   { key: 'professionalPhoto',  multiple: false },
-    's2-team-input':    { key: 'teamPhotos',         multiple: true  },
-    's2-props-input':   { key: 'brandGallery',       multiple: true  },
-    's2-videos-input':  { key: 'videos',             multiple: true  },
-    'lm-buyer-input':   { key: 'buyerEbook',         multiple: false },
-    'lm-seller-input':  { key: 'sellerEbook',        multiple: false },
+    's2-logo-input':    { key: 'logoUrl',              folder: 'logo',    multiple: false },
+    's2-photo-input':   { key: 'professionalPhotoUrl', folder: 'brand',   multiple: false },
+    's2-team-input':    { key: 'teamPhotoUrls',        folder: 'team',    multiple: true  },
+    's2-props-input':   { key: 'brandGalleryUrls',     folder: 'gallery', multiple: true  },
+    's2-videos-input':  { key: 'videoUrls',            folder: 'videos',  multiple: true  },
+    'lm-buyer-input':   { key: 'buyerEbookUrl',        folder: 'ebooks',  multiple: false },
+    'lm-seller-input':  { key: 'sellerEbookUrl',       folder: 'ebooks',  multiple: false },
   },
+
+  // Count of uploads in-flight — submitForm waits for zero
+  _pendingUploads: 0,
 
   _handleFiles(input, files, previewEl) {
     if (!previewEl) return;
     const maxFiles = parseInt(input.dataset.max) || 1;
     const existing = previewEl.querySelectorAll('.preview-item').length;
-    const toAdd = Math.min(files.length, maxFiles - existing);
-    const mapping = this._UPLOAD_DATA_MAP[input.id];
+    const toAdd    = Math.min(files.length, maxFiles - existing);
+    const mapping  = this._UPLOAD_DATA_MAP[input.id];
 
     for (let i = 0; i < toAdd; i++) {
       const file = files[i];
       const item = document.createElement('div');
-      item.className = 'preview-item';
+      item.className = 'preview-item uploading';
 
+      // Immediate visual preview
       if (file.type.startsWith('image/')) {
         const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
         img.alt = file.name;
-        const reader = new FileReader();
-        reader.onload = e => {
-          img.src = e.target.result;
-          if (mapping) this._storeUpload(mapping, e.target.result);
-        };
-        reader.readAsDataURL(file);
         item.appendChild(img);
       } else {
-        // Non-image (PDF, video): show filename + read as Data URL for persistence
         const nameEl = document.createElement('div');
         nameEl.className = 'preview-item__name';
         nameEl.textContent = file.name;
         item.appendChild(nameEl);
-
-        if (mapping) {
-          const reader = new FileReader();
-          reader.onload = e => this._storeUpload(mapping, e.target.result);
-          reader.readAsDataURL(file);
-        }
       }
+
+      // Upload spinner
+      const spinner = document.createElement('span');
+      spinner.className = 'preview-spinner';
+      spinner.textContent = '⏳';
+      item.appendChild(spinner);
 
       const rem = document.createElement('span');
       rem.className = 'preview-remove';
@@ -508,22 +505,65 @@ const OnboardingApp = {
       item.appendChild(rem);
 
       previewEl.appendChild(item);
-    }
+      previewEl.classList.add('has-files');
 
-    previewEl.classList.toggle('has-files', previewEl.querySelectorAll('.preview-item').length > 0);
+      if (mapping) {
+        this._uploadToStorage(file, mapping, item, spinner);
+      }
+    }
   },
 
-  _storeUpload(mapping, dataUrl) {
-    if (mapping.multiple) {
-      if (!Array.isArray(this.data[mapping.key])) this.data[mapping.key] = [];
-      this.data[mapping.key].push(dataUrl);
-    } else {
-      this.data[mapping.key] = dataUrl;
-    }
-    // Keep legacy logoDataUrl alias for summary preview
-    if (mapping.key === 'logoDataUrl') {
-      const logoEl = document.getElementById('summary-logo');
-      if (logoEl) { logoEl.src = dataUrl; logoEl.style.display = 'block'; }
+  async _uploadToStorage(file, mapping, item, spinner) {
+    this._pendingUploads++;
+    try {
+      const res = await fetch('/api/onboarding/upload-token', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          uuid:        this.data.uuid,
+          folder:      mapping.folder,
+          filename:    file.name,
+          contentType: file.type,
+        }),
+      });
+
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || 'Erro ao obter token de upload');
+
+      // Upload directly to Supabase Storage — bypasses Vercel 4.5 MB body limit
+      const uploadRes = await fetch(json.signedUrl, {
+        method:  'PUT',
+        headers: { 'Content-Type': file.type },
+        body:    file,
+      });
+      if (!uploadRes.ok) throw new Error('Erro ao enviar arquivo para o storage');
+
+      // Store URL in this.data
+      if (mapping.multiple) {
+        if (!Array.isArray(this.data[mapping.key])) this.data[mapping.key] = [];
+        this.data[mapping.key].push(json.publicUrl);
+      } else {
+        this.data[mapping.key] = json.publicUrl;
+      }
+
+      // Update logo preview in summary step
+      if (mapping.key === 'logoUrl') {
+        const logoEl = document.getElementById('summary-logo');
+        if (logoEl) { logoEl.src = json.publicUrl; logoEl.style.display = 'block'; }
+      }
+
+      spinner.textContent = '✓';
+      spinner.className = 'preview-done';
+      item.classList.remove('uploading');
+
+    } catch (err) {
+      console.error('[upload]', err.message);
+      spinner.textContent = '✗';
+      spinner.className = 'preview-error';
+      item.classList.remove('uploading');
+      item.classList.add('upload-failed');
+    } finally {
+      this._pendingUploads--;
     }
   },
 
@@ -655,8 +695,9 @@ const OnboardingApp = {
     const logoEl = document.getElementById('summary-logo');
     if (nameEl) nameEl.textContent = [this.data.fullName, this.data.businessName].filter(Boolean).join(' — ') || '—';
     if (styleEl) styleEl.textContent = this.data.stylePreference || '—';
-    if (logoEl && this.data.logoDataUrl) {
-      logoEl.src = this.data.logoDataUrl;
+    const logoSrc = this.data.logoUrl || this.data.logoDataUrl;
+    if (logoEl && logoSrc) {
+      logoEl.src = logoSrc;
       logoEl.style.display = 'block';
     }
 
@@ -728,6 +769,17 @@ const OnboardingApp = {
     if (submitBtn) {
       submitBtn.disabled = true;
       submitBtn.textContent = i18n.t('s9.submitting') || 'Enviando…';
+    }
+
+    // Wait for any in-flight file uploads before submitting
+    if (this._pendingUploads > 0) {
+      if (submitBtn) submitBtn.textContent = 'Aguardando uploads…';
+      await new Promise(resolve => {
+        const interval = setInterval(() => {
+          if (this._pendingUploads <= 0) { clearInterval(interval); resolve(); }
+        }, 300);
+      });
+      if (submitBtn) submitBtn.textContent = i18n.t('s9.submitting') || 'Enviando…';
     }
 
     const payload = {

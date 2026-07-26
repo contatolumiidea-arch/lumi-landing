@@ -317,14 +317,48 @@ function renderBriefing(onboarding) {
     ${row('Especialidades', list(d.specialties))}
   `);
 
+  // Helper: render an image from URL or base64 Data URL
+  const imgEl = (src, alt, h = 60) => src
+    ? `<img src="${src}" alt="${alt}" style="max-height:${h}px;max-width:220px;border-radius:4px;background:#fff;padding:4px;">`
+    : null;
+
+  // Helper: render a clickable file link
+  const fileLink = (url, label) => url
+    ? `<a href="${url}" target="_blank" style="color:var(--gold);text-decoration:underline;">${label}</a>`
+    : null;
+
+  // Helper: render a small image grid
+  const imgGrid = (urls) => {
+    if (!urls?.length) return null;
+    return `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">${
+      urls.map(u => `<img src="${u}" style="width:64px;height:64px;object-fit:cover;border-radius:4px;background:#fff;">`).join('')
+    }</div>`;
+  };
+
+  // Compatibility: logoUrl (new) or logoDataUrl (legacy base64)
+  const logoSrc = d.logoUrl || d.logoDataUrl || null;
+  const profSrc = d.professionalPhotoUrl || d.professionalPhoto || null;
+
   // 2 — Identidade da marca
   const s2 = section('Identidade da Marca', '🎨', `
     ${row('Estilo visual escolhido', d.stylePreference)}
     ${row('Cor primária', swatch(d.primaryColor))}
     ${row('Cor secundária', swatch(d.secondaryColor))}
-    ${d.logoDataUrl
-      ? `<div class="detail-row"><span class="detail-key">Logo</span><span class="detail-val"><img src="${d.logoDataUrl}" alt="Logo" style="max-height:60px;max-width:180px;border-radius:4px;background:#fff;padding:4px;"></span></div>`
+    ${logoSrc
+      ? `<div class="detail-row"><span class="detail-key">Logo</span><span class="detail-val">${imgEl(logoSrc, 'Logo')}</span></div>`
       : row('Logo', null)}
+    ${profSrc
+      ? `<div class="detail-row"><span class="detail-key">Foto profissional</span><span class="detail-val">${imgEl(profSrc, 'Foto profissional', 80)}</span></div>`
+      : row('Foto profissional', null)}
+    ${(d.teamPhotoUrls || d.teamPhotos)?.length
+      ? `<div class="detail-row"><span class="detail-key">Fotos da equipe</span><span class="detail-val">${imgGrid(d.teamPhotoUrls || d.teamPhotos)}</span></div>`
+      : row('Fotos da equipe', null)}
+    ${(d.brandGalleryUrls || d.brandGallery)?.length
+      ? `<div class="detail-row"><span class="detail-key">Galeria da marca</span><span class="detail-val">${imgGrid(d.brandGalleryUrls || d.brandGallery)}</span></div>`
+      : row('Galeria da marca', null)}
+    ${(d.videoUrls || d.videos)?.length
+      ? `<div class="detail-row"><span class="detail-key">Vídeos</span><span class="detail-val">${(d.videoUrls || d.videos).map((u, i) => fileLink(u, `Vídeo ${i + 1}`)).join(' &nbsp; ')}</span></div>`
+      : row('Vídeos', null)}
   `);
 
   // 3 — Informações comerciais
@@ -349,10 +383,18 @@ function renderBriefing(onboarding) {
     ${row('Email para captação', d.leadEmail)}
   `);
 
+  // Ebook URLs — new (URL) or legacy (base64 Data URL)
+  const buyerEbook  = d.buyerEbookUrl  || (d.buyerEbook  && !d.buyerEbook.startsWith('data:')  ? d.buyerEbook  : null);
+  const sellerEbook = d.sellerEbookUrl || (d.sellerEbook && !d.sellerEbook.startsWith('data:') ? d.sellerEbook : null);
+  const buyerLegacy  = !buyerEbook  && d.buyerEbook  ? '(arquivo base64 — re-upload necessário)' : null;
+  const sellerLegacy = !sellerEbook && d.sellerEbook ? '(arquivo base64 — re-upload necessário)' : null;
+
   // 6 — Lead Magnet
   const s6 = section('Lead Magnet', '📘', `
     ${row('Tipo de lead magnet', d.leadMagnetOption)}
     ${row('Idiomas do guia LUMI', list(d.lumiGuideLanguages))}
+    ${buyerEbook  ? `<div class="detail-row"><span class="detail-key">E-book Comprador</span><span class="detail-val">${fileLink(buyerEbook, '📥 Baixar PDF')}</span></div>`  : row('E-book Comprador',  buyerLegacy)}
+    ${sellerEbook ? `<div class="detail-row"><span class="detail-key">E-book Vendedor</span><span class="detail-val">${fileLink(sellerEbook, '📥 Baixar PDF')}</span></div>` : row('E-book Vendedor', sellerLegacy)}
   `);
 
   // 7 — Depoimentos
@@ -374,10 +416,16 @@ function renderBriefing(onboarding) {
   const s7 = section('Depoimentos', '⭐', s7content);
 
   // 8 — Materiais enviados
-  const hasMaterials = d.logoDataUrl;
-  const s8 = section('Materiais Enviados', '📎', hasMaterials
-    ? `<div class="detail-row"><span class="detail-key">Logo</span><span class="detail-val"><img src="${d.logoDataUrl}" alt="Logo" style="max-height:80px;border-radius:4px;background:#fff;padding:4px;"></span></div>`
-    : row('Arquivos', null));
+  const matParts = [
+    logoSrc   ? `<div class="detail-row"><span class="detail-key">Logo</span><span class="detail-val">${imgEl(logoSrc, 'Logo', 72)}</span></div>` : '',
+    profSrc   ? `<div class="detail-row"><span class="detail-key">Foto profissional</span><span class="detail-val">${imgEl(profSrc, 'Foto profissional', 90)}</span></div>` : '',
+    (d.teamPhotoUrls || d.teamPhotos)?.length    ? `<div class="detail-row"><span class="detail-key">Fotos da equipe</span><span class="detail-val">${imgGrid(d.teamPhotoUrls || d.teamPhotos)}</span></div>` : '',
+    (d.brandGalleryUrls || d.brandGallery)?.length ? `<div class="detail-row"><span class="detail-key">Galeria</span><span class="detail-val">${imgGrid(d.brandGalleryUrls || d.brandGallery)}</span></div>` : '',
+    buyerEbook  ? `<div class="detail-row"><span class="detail-key">E-book Comprador</span><span class="detail-val">${fileLink(buyerEbook, '📥 Baixar PDF')}</span></div>`  : '',
+    sellerEbook ? `<div class="detail-row"><span class="detail-key">E-book Vendedor</span><span class="detail-val">${fileLink(sellerEbook, '📥 Baixar PDF')}</span></div>` : '',
+  ].filter(Boolean).join('');
+
+  const s8 = section('Materiais Enviados', '📎', matParts || row('Arquivos', null));
 
   return `<div class="briefing-sections">${s1}${s2}${s3}${s4}${s5}${s6}${s7}${s8}</div>`;
 }

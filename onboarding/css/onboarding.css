@@ -712,6 +712,14 @@ a { color: var(--gold); text-decoration: none; }
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.preview-item.uploading { opacity: .7; }
+.preview-item.upload-failed { border-color: #e05a5a; }
+.preview-spinner, .preview-done, .preview-error {
+  position: absolute;
+  bottom: 3px; right: 3px;
+  font-size: 11px;
+  line-height: 1;
+}
 .preview-remove {
   position: absolute;
   top: 3px; right: 3px;
