@@ -7,6 +7,11 @@ module.exports = async function handler(req, res) {
 
   const { email, password } = req.body || {};
 
+  // [DIAG] Temporary safe diagnostics — remove after investigation
+  console.log('[DIAG] email received:', email);
+  console.log('[DIAG] password received:', typeof password, 'length:', password ? password.length : 'null');
+  console.log('[DIAG] Content-Type:', req.headers['content-type']);
+
   if (!email || !password) {
     return res.status(400).json({ error: 'Email e senha são obrigatórios.' });
   }
@@ -18,11 +23,22 @@ module.exports = async function handler(req, res) {
     .eq('email', email.toLowerCase().trim())
     .single();
 
+  // [DIAG]
+  console.log('[DIAG] db error:', error?.message || null);
+  console.log('[DIAG] user found:', !!user);
+  console.log('[DIAG] is_active:', user?.is_active);
+  console.log('[DIAG] hash length from db:', user?.password_hash?.length);
+  console.log('[DIAG] hash prefix from db:', user?.password_hash?.slice(0, 7));
+
   if (error || !user || !user.is_active) {
     return res.status(401).json({ error: 'Credenciais inválidas.' });
   }
 
   const valid = await bcrypt.compare(password, user.password_hash);
+  // [DIAG]
+  console.log('[DIAG] password length used in compare:', password.length);
+  console.log('[DIAG] bcrypt.compare result:', valid);
+
   if (!valid) {
     return res.status(401).json({ error: 'Credenciais inválidas.' });
   }
