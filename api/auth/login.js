@@ -5,13 +5,6 @@ const { signToken, getCookieHeader } = require('../_lib/auth');
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  // [RUNTIME DIAG] — remove após investigação
-  console.log('[RUNTIME]', {
-    supabaseHost: process.env.SUPABASE_URL ? new URL(process.env.SUPABASE_URL).hostname : 'MISSING',
-    env: process.env.VERCEL_ENV,
-    url: process.env.VERCEL_URL,
-  });
-
   const { email, password } = req.body || {};
 
   if (!email || !password) {
@@ -25,24 +18,11 @@ module.exports = async function handler(req, res) {
     .eq('email', email.toLowerCase().trim())
     .single();
 
-  // [DIAG] — remove após investigação
-  try {
-    const supabaseHostname = new URL(process.env.SUPABASE_URL || '').hostname;
-    console.log('[DIAG] SUPABASE_URL hostname:', supabaseHostname);
-  } catch { console.log('[DIAG] SUPABASE_URL: inválida ou ausente'); }
-  console.log('[DIAG] VERCEL_ENV:', process.env.VERCEL_ENV || 'undefined');
-  console.log('[DIAG] VERCEL_URL:', process.env.VERCEL_URL || 'undefined');
-  console.log('[DIAG] email recebido:', email);
-  console.log('[DIAG] usuario encontrado:', !!user);
-  console.log('[DIAG] is_active:', user?.is_active ?? 'n/a');
-  console.log('[DIAG] password_hash length:', user?.password_hash?.length ?? 'n/a');
-
   if (error || !user || !user.is_active) {
     return res.status(401).json({ error: 'Credenciais inválidas.' });
   }
 
   const valid = await bcrypt.compare(password, user.password_hash);
-  console.log('[DIAG] bcrypt.compare result:', valid);
 
   if (!valid) {
     return res.status(401).json({ error: 'Credenciais inválidas.' });
