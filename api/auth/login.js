@@ -26,9 +26,13 @@ module.exports = async function handler(req, res) {
   // [DIAG]
   console.log('[DIAG] db error:', error?.message || null);
   console.log('[DIAG] user found:', !!user);
-  console.log('[DIAG] is_active:', user?.is_active);
-  console.log('[DIAG] hash length from db:', user?.password_hash?.length);
-  console.log('[DIAG] hash prefix from db:', user?.password_hash?.slice(0, 7));
+  console.log('[DIAG USER]', JSON.stringify({
+    keys: Object.keys(user || {}),
+    email: user?.email,
+    hasPasswordHash: !!user?.password_hash,
+    passwordHashType: typeof user?.password_hash,
+    passwordHashLength: user?.password_hash?.length
+  }));
 
   if (error || !user || !user.is_active) {
     return res.status(401).json({ error: 'Credenciais inválidas.' });
