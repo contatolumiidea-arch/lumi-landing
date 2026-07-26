@@ -13,7 +13,8 @@ function getDb() {
   }
 
   client = createClient(url, key, {
-    auth: { persistSession: false }
+    auth:     { persistSession: false },
+    realtime: { enabled: false },
   });
 
   return client;
