@@ -795,8 +795,42 @@ const OnboardingApp = {
       onboarding_data: this.data,
     };
 
+    // ── Remover base64 do payload antes de enviar ──────────────────
+    // Testimonial photos ainda são DataURL — limpar antes de enviar
+    if (Array.isArray(payload.testimonials)) {
+      payload.testimonials = payload.testimonials.map(function(t) {
+        return Object.assign({}, t, { photo: t.photo && t.photo.startsWith('data:') ? '' : (t.photo || '') });
+      });
+    }
+    // Remover quaisquer chaves base64 antigas que possam ter vindo do localStorage
+    const BASE64_LEGACY_KEYS = [
+      'logoDataUrl', 'professionalPhoto', 'teamPhotos', 'brandGallery',
+      'videos', 'buyerEbook', 'sellerEbook',
+    ];
+    if (payload.onboarding_data && typeof payload.onboarding_data === 'object') {
+      BASE64_LEGACY_KEYS.forEach(function(k) { delete payload.onboarding_data[k]; });
+    }
+
     // [DIAG] — remove após investigação
-    console.log('[ONBOARDING] payload enviado:', JSON.stringify(payload, null, 2));
+    (function diagPayload(obj) {
+      const str = JSON.stringify(obj);
+      console.log('[DIAG] método: POST');
+      console.log('[DIAG] payload total:', (str.length / 1024).toFixed(1), 'KB');
+      console.log('[DIAG] chaves do payload:', Object.keys(obj));
+      var base64Found = false;
+      function scan(v, path) {
+        if (typeof v === 'string' && v.startsWith('data:')) {
+          base64Found = true;
+          console.warn('[DIAG] AINDA tem base64 em:', path, '—', (v.length / 1024).toFixed(1), 'KB');
+        } else if (Array.isArray(v)) {
+          v.forEach(function(el, i) { scan(el, path + '[' + i + ']'); });
+        } else if (v && typeof v === 'object') {
+          Object.keys(v).forEach(function(k) { scan(v[k], path ? path + '.' + k : k); });
+        }
+      }
+      scan(obj, '');
+      if (!base64Found) console.log('[DIAG] Nenhum base64 encontrado no payload. OK.');
+    })(payload);
 
     try {
       const res = await fetch('/api/onboarding/save', {
