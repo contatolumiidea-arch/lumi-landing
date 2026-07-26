@@ -24,14 +24,14 @@ module.exports = async function handler(req, res) {
     .single();
 
   // [DIAG]
-  console.log('[DIAG] db error:', error?.message || null);
-  console.log('[DIAG] user found:', !!user);
-  console.log('[DIAG USER]', JSON.stringify({
-    keys: Object.keys(user || {}),
-    email: user?.email,
-    hasPasswordHash: !!user?.password_hash,
-    passwordHashType: typeof user?.password_hash,
-    passwordHashLength: user?.password_hash?.length
+  console.log('[DIAG SUPABASE]', JSON.stringify({
+    dataExists: !!user,
+    error: error ? {
+      message: error.message,
+      code: error.code,
+      details: error.details,
+      hint: error.hint
+    } : null
   }));
 
   if (error || !user || !user.is_active) {
