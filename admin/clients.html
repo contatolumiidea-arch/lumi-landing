@@ -66,22 +66,24 @@
 
       <!-- DETAIL VIEW -->
       <div id="view-detail" style="display:none;">
-        <div style="margin-bottom:16px;">
+        <div style="margin-bottom:16px;display:flex;align-items:center;gap:12px;">
           <button class="btn btn-outline btn-sm" onclick="showList()">← Voltar para clientes</button>
+          <span id="briefing-status-badge"></span>
         </div>
 
         <div class="detail-grid" id="detail-cards">
           <div class="loading"><div class="spinner"></div></div>
         </div>
 
-        <div class="section-header" style="margin-top:20px;">
-          <span class="section-title">Dados do Onboarding</span>
+        <div class="section-header" style="margin-top:28px;">
+          <span class="section-title">Briefing para criação da Landing Page</span>
+          <span class="section-count" id="briefing-step-count"></span>
         </div>
-        <div class="table-wrap" id="onboarding-wrap">
+        <div id="briefing-wrap">
           <div class="loading"><div class="spinner"></div></div>
         </div>
 
-        <div class="section-header" style="margin-top:20px;">
+        <div class="section-header" style="margin-top:28px;">
           <span class="section-title">Leads Recebidos</span>
           <span class="section-count" id="leads-count">—</span>
         </div>
@@ -202,7 +204,7 @@ async function showDetail(id) {
   document.getElementById('view-list').style.display = 'none';
   document.getElementById('view-detail').style.display = 'block';
   document.getElementById('topbar-title').textContent = 'Clientes LUMI';
-  document.getElementById('topbar-crumb').textContent = '/ Detalhes';
+  document.getElementById('topbar-crumb').textContent = '/ Briefing';
 
   const data = await API.get(`/admin/client?id=${id}`);
   if (!data) return;
@@ -211,17 +213,17 @@ async function showDetail(id) {
   const sub = client.lumi_subscriptions?.[0];
   const page = client.landing_pages?.[0];
 
-  // Info cards
+  // ── Info cards (topo) ────────────────────────────────────────────
   document.getElementById('detail-cards').innerHTML = `
     <div class="detail-card">
       <div class="detail-card-title">Informações do Corretor</div>
-      <div class="detail-row"><span class="detail-key">Nome</span><span class="detail-val">${client.full_name}</span></div>
-      <div class="detail-row"><span class="detail-key">Email</span><span class="detail-val">${client.email}</span></div>
+      <div class="detail-row"><span class="detail-key">Nome</span><span class="detail-val">${client.full_name || '—'}</span></div>
+      <div class="detail-row"><span class="detail-key">Email</span><span class="detail-val">${client.email || '—'}</span></div>
       <div class="detail-row"><span class="detail-key">Telefone</span><span class="detail-val">${client.phone || '—'}</span></div>
       <div class="detail-row"><span class="detail-key">Empresa</span><span class="detail-val">${client.business_name || '—'}</span></div>
-      <div class="detail-row"><span class="detail-key">País</span><span class="detail-val">${client.country}</span></div>
+      <div class="detail-row"><span class="detail-key">País</span><span class="detail-val">${client.country || '—'}</span></div>
       <div class="detail-row"><span class="detail-key">Comprou em</span><span class="detail-val">${fmtDatetime(client.purchased_at)}</span></div>
-      <div class="detail-row"><span class="detail-key">Onboarding</span><span class="detail-val">${client.onboarding_completed_at ? fmtDate(client.onboarding_completed_at) : 'Pendente'}</span></div>
+      <div class="detail-row"><span class="detail-key">Onboarding concluído</span><span class="detail-val">${client.onboarding_completed_at ? fmtDate(client.onboarding_completed_at) : 'Pendente'}</span></div>
     </div>
     <div class="detail-card">
       <div class="detail-card-title">Status e Assinatura</div>
@@ -230,54 +232,154 @@ async function showDetail(id) {
       <div class="detail-row"><span class="detail-key">Assinatura</span><span class="detail-val">${sub ? pillHTML(sub.status) : '—'}</span></div>
       <div class="detail-row"><span class="detail-key">Renova em</span><span class="detail-val">${sub?.current_period_end ? fmtDate(sub.current_period_end) : '—'}</span></div>
       <div class="detail-row"><span class="detail-key">Landing Page</span><span class="detail-val">${page?.published_url ? `<a href="${page.published_url}" target="_blank" style="color:var(--gold)">${page.published_url}</a>` : pillHTML(page?.status || 'draft')}</span></div>
-      <div class="detail-row"><span class="detail-key">Notas</span><span class="detail-val">${client.notes || '—'}</span></div>
+      <div class="detail-row"><span class="detail-key">Notas internas</span><span class="detail-val">${client.notes || '—'}</span></div>
       <div style="margin-top:12px;">
-        <button class="btn btn-primary btn-sm" onclick="openStatusModal('${client.client_status}', '${client.notes || ''}', '${page?.published_url || ''}')">Editar status</button>
+        <button class="btn btn-primary btn-sm" onclick="openStatusModal('${client.client_status}', '${(client.notes || '').replace(/'/g, "\\'")}', '${page?.published_url || ''}')">Editar status</button>
       </div>
     </div>
   `;
 
-  // Onboarding summary
-  if (onboarding) {
-    const b = onboarding.step1_business || {};
-    document.getElementById('onboarding-wrap').innerHTML = `
-      <table>
-        <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
-        <tbody>
-          <tr><td>Nome completo</td><td>${b.fullName || '—'}</td></tr>
-          <tr><td>Empresa</td><td>${b.businessName || '—'}</td></tr>
-          <tr><td>Licença</td><td>${b.license || '—'}</td></tr>
-          <tr><td>WhatsApp</td><td>${b.whatsapp || '—'}</td></tr>
-          <tr><td>Idiomas</td><td>${(onboarding.step4_languages || []).join(', ') || '—'}</td></tr>
-          <tr><td>Template</td><td>${onboarding.step2_template?.selected || '—'}</td></tr>
-          <tr><td>Step atual</td><td>${onboarding.current_step} / 9</td></tr>
-          <tr><td>Status</td><td>${pillHTML(onboarding.status)}</td></tr>
-        </tbody>
-      </table>`;
-  } else {
-    document.getElementById('onboarding-wrap').innerHTML = `<div class="empty"><div class="empty-icon">📋</div>Onboarding não iniciado.</div>`;
-  }
+  // Badge de status no topo
+  document.getElementById('briefing-status-badge').innerHTML = onboarding
+    ? `${pillHTML(onboarding.status)} &nbsp; Step ${onboarding.current_step || '—'} / 8`
+    : '';
 
-  // Leads
+  // ── Briefing completo ────────────────────────────────────────────
+  document.getElementById('briefing-wrap').innerHTML = renderBriefing(onboarding);
+
+  // ── Leads ────────────────────────────────────────────────────────
   document.getElementById('leads-count').textContent = leads?.length || 0;
   if (leads?.length) {
     document.getElementById('leads-wrap').innerHTML = `
-      <table>
-        <thead><tr><th>Nome</th><th>Email</th><th>Telefone</th><th>Origem</th><th>Data</th></tr></thead>
-        <tbody>
-          ${leads.map(l => `
-            <tr>
-              <td>${l.lead_name || '—'}</td>
-              <td class="td-mono">${l.lead_email || '—'}</td>
-              <td class="td-mono">${l.lead_phone || '—'}</td>
-              <td>${pillHTML(l.origin)}</td>
-              <td class="td-date">${fmtDatetime(l.created_at)}</td>
-            </tr>`).join('')}
-        </tbody>
-      </table>`;
+      <div class="table-wrap-scroll">
+        <table>
+          <thead><tr><th>Nome</th><th>Email</th><th>Telefone</th><th>Origem</th><th>Data</th></tr></thead>
+          <tbody>
+            ${leads.map(l => `
+              <tr>
+                <td>${l.lead_name || '—'}</td>
+                <td class="td-mono">${l.lead_email || '—'}</td>
+                <td class="td-mono">${l.lead_phone || '—'}</td>
+                <td>${pillHTML(l.origin)}</td>
+                <td class="td-date">${fmtDatetime(l.created_at)}</td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>`;
   } else {
     document.getElementById('leads-wrap').innerHTML = `<div class="empty"><div class="empty-icon">📊</div>Nenhum lead gerado ainda.</div>`;
   }
+}
+
+// ── Briefing renderer ─────────────────────────────────────────────────────────
+function renderBriefing(onboarding) {
+  if (!onboarding) {
+    return `<div class="empty" style="margin-top:12px;"><div class="empty-icon">📋</div>Onboarding não iniciado.</div>`;
+  }
+
+  // O submitForm envia this.data completo como onboarding_data → salvo em step1_business
+  const d = onboarding.step1_business || {};
+  const social = onboarding.social_links || {};
+  const testimonials = onboarding.testimonials || [];
+
+  const ni = v => v || '<span style="color:var(--muted);font-style:italic;">não informado</span>';
+  const row = (label, value) => `
+    <div class="detail-row">
+      <span class="detail-key">${label}</span>
+      <span class="detail-val">${ni(value)}</span>
+    </div>`;
+  const list = arr => Array.isArray(arr) && arr.length ? arr.join(', ') : null;
+  const swatch = hex => hex ? `<span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:${hex};border:1px solid var(--border);vertical-align:middle;margin-right:6px;"></span>${hex}` : null;
+
+  const section = (title, icon, content) => `
+    <div class="briefing-section">
+      <div class="briefing-section__header">
+        <span class="briefing-section__icon">${icon}</span>
+        <span class="briefing-section__title">${title}</span>
+      </div>
+      <div class="briefing-section__body detail-card" style="margin-top:0;border-radius:0 0 10px 10px;">
+        ${content}
+      </div>
+    </div>`;
+
+  // 1 — Perfil do negócio
+  const s1 = section('Perfil do Negócio', '👤', `
+    ${row('Nome completo', d.fullName)}
+    ${row('Nome da empresa', d.businessName)}
+    ${row('Email', d.email)}
+    ${row('Telefone', d.phone)}
+    ${row('WhatsApp', d.whatsapp)}
+    ${row('Cidade', d.city)}
+    ${row('País', d.country)}
+    ${row('Idioma principal', d.language)}
+    ${row('Anos de experiência', d.years)}
+    ${row('Bio / Apresentação', d.bio ? `<span style="white-space:pre-wrap;">${d.bio}</span>` : null)}
+    ${row('Especialidades', list(d.specialties))}
+  `);
+
+  // 2 — Identidade da marca
+  const s2 = section('Identidade da Marca', '🎨', `
+    ${row('Estilo visual escolhido', d.stylePreference)}
+    ${row('Cor primária', swatch(d.primaryColor))}
+    ${row('Cor secundária', swatch(d.secondaryColor))}
+    ${d.logoDataUrl
+      ? `<div class="detail-row"><span class="detail-key">Logo</span><span class="detail-val"><img src="${d.logoDataUrl}" alt="Logo" style="max-height:60px;max-width:180px;border-radius:4px;background:#fff;padding:4px;"></span></div>`
+      : row('Logo', null)}
+  `);
+
+  // 3 — Informações comerciais
+  const s3 = section('Informações Comerciais', '🏠', `
+    ${row('Tipos de imóvel', list(d.propertyTypes))}
+    ${row('Regiões de atuação', list(d.regions))}
+  `);
+
+  // 4 — Presença digital
+  const s4 = section('Presença Digital', '🌐', `
+    ${row('Website', social.website || d.website)}
+    ${row('Instagram', social.instagram || d.instagram)}
+    ${row('Facebook', social.facebook || d.facebook)}
+    ${row('LinkedIn', social.linkedin || d.linkedin)}
+    ${row('Google Meu Negócio', (social.google || d.googleUrl) ? `<a href="${social.google || d.googleUrl}" target="_blank" style="color:var(--gold)">${social.google || d.googleUrl}</a>` : null)}
+  `);
+
+  // 5 — Público e clientes
+  const s5 = section('Público e Clientes', '🎯', `
+    ${row('Público-alvo', list(d.leadWho))}
+    ${row('WhatsApp para captação', d.leadWhatsapp)}
+    ${row('Email para captação', d.leadEmail)}
+  `);
+
+  // 6 — Lead Magnet
+  const s6 = section('Lead Magnet', '📘', `
+    ${row('Tipo de lead magnet', d.leadMagnetOption)}
+    ${row('Idiomas do guia LUMI', list(d.lumiGuideLanguages))}
+  `);
+
+  // 7 — Depoimentos
+  let s7content = '';
+  if (testimonials.length) {
+    s7content = testimonials.map((t, i) => `
+      <div style="padding:12px 0;${i > 0 ? 'border-top:1px solid var(--border);' : ''}">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+          ${t.photo
+            ? `<img src="${t.photo}" alt="${t.name || ''}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">`
+            : `<div style="width:40px;height:40px;border-radius:50%;background:var(--gold-mid);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--gold);flex-shrink:0;">${(t.name || '?').charAt(0).toUpperCase()}</div>`}
+          <strong style="color:var(--text);">${t.name || '—'}</strong>
+        </div>
+        <div style="color:var(--muted);font-size:.85rem;line-height:1.5;">"${t.text || '—'}"</div>
+      </div>`).join('');
+  } else {
+    s7content = row('Depoimentos', null);
+  }
+  const s7 = section('Depoimentos', '⭐', s7content);
+
+  // 8 — Materiais enviados
+  const hasMaterials = d.logoDataUrl;
+  const s8 = section('Materiais Enviados', '📎', hasMaterials
+    ? `<div class="detail-row"><span class="detail-key">Logo</span><span class="detail-val"><img src="${d.logoDataUrl}" alt="Logo" style="max-height:80px;border-radius:4px;background:#fff;padding:4px;"></span></div>`
+    : row('Arquivos', null));
+
+  return `<div class="briefing-sections">${s1}${s2}${s3}${s4}${s5}${s6}${s7}${s8}</div>`;
 }
 
 function showList() {
