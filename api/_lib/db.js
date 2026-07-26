@@ -1,5 +1,11 @@
 const { createClient } = require('@supabase/supabase-js');
 
+// Node.js 20 on Vercel does not expose globalThis.WebSocket — polyfill required
+// by @supabase/realtime-js before createClient is called.
+if (!globalThis.WebSocket) {
+  globalThis.WebSocket = require('ws');
+}
+
 let client = null;
 
 function getDb() {
@@ -13,8 +19,7 @@ function getDb() {
   }
 
   client = createClient(url, key, {
-    auth:     { persistSession: false },
-    realtime: { enabled: false },
+    auth: { persistSession: false },
   });
 
   return client;
