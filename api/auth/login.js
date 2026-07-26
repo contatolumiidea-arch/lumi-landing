@@ -19,6 +19,12 @@ module.exports = async function handler(req, res) {
     .single();
 
   // [DIAG] — remove após investigação
+  try {
+    const supabaseHostname = new URL(process.env.SUPABASE_URL || '').hostname;
+    console.log('[DIAG] SUPABASE_URL hostname:', supabaseHostname);
+  } catch { console.log('[DIAG] SUPABASE_URL: inválida ou ausente'); }
+  console.log('[DIAG] VERCEL_ENV:', process.env.VERCEL_ENV || 'undefined');
+  console.log('[DIAG] VERCEL_URL:', process.env.VERCEL_URL || 'undefined');
   console.log('[DIAG] email recebido:', email);
   console.log('[DIAG] usuario encontrado:', !!user);
   console.log('[DIAG] is_active:', user?.is_active ?? 'n/a');
