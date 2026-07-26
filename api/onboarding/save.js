@@ -16,6 +16,9 @@ const STEP_FIELDS = {
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
+  // [DIAG] — remove após investigação
+  console.log('[ONBOARDING SAVE] body recebido:', JSON.stringify(req.body || {}, null, 2));
+
   const { client_id, step, data, social_links, testimonials, properties } = req.body || {};
 
   if (!client_id) {
@@ -60,14 +63,19 @@ module.exports = async function handler(req, res) {
       .eq('id', client_id);
   }
 
+  // [DIAG] — remove após investigação
+  console.log('[ONBOARDING SAVE] tabela destino: lumi_onboarding | client_id:', client_id, '| payload:', JSON.stringify(update));
+
   const { error } = await db
     .from('lumi_onboarding')
     .upsert({ client_id, ...update }, { onConflict: 'client_id' });
 
+  // [DIAG] — remove após investigação
   if (error) {
-    console.error('[Onboarding save]', error);
+    console.error('[ONBOARDING SAVE] erro Supabase:', JSON.stringify({ message: error.message, code: error.code, details: error.details, hint: error.hint }));
     return res.status(500).json({ error: 'Erro ao salvar dados.' });
   }
+  console.log('[ONBOARDING SAVE] upsert ok | client_id:', client_id);
 
   return res.status(200).json({ ok: true });
 };
