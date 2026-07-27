@@ -1064,11 +1064,9 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 .referral-visual .icon { font-size: 4rem; margin-bottom: 16px; }
 
 /* ════════════════════════════════════════════════════════════
-   CONTACT FLOAT BUTTON
-   Default: email / LUMI gold — switches to WhatsApp green on
-   realtor pages when cfg.whatsapp is present (via .wa-active).
+   CONTACT FLOAT BUTTON — email (LUMI sales page)
    ════════════════════════════════════════════════════════════ */
-[data-whatsapp-btn] {
+[data-contact-btn] {
   position: fixed;
   bottom: 32px;
   right: 32px;
@@ -1083,24 +1081,38 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   justify-content: center;
   box-shadow: 0 4px 24px rgba(0,0,0,.55), 0 0 0 1px rgba(212,175,55,.1);
   transition: var(--transition);
+  text-decoration: none;
 }
-[data-whatsapp-btn]:hover {
+[data-contact-btn]:hover {
   transform: scale(1.1);
   box-shadow: 0 8px 32px rgba(212,175,55,.25), 0 0 0 1px rgba(212,175,55,.3);
   border-color: rgba(212,175,55,.6);
 }
-[data-whatsapp-btn] svg { width: 26px; height: 26px; fill: #D4AF37; }
-/* WhatsApp mode (realtor pages) */
-[data-whatsapp-btn].wa-active {
+[data-contact-btn] svg { width: 26px; height: 26px; fill: #D4AF37; }
+
+/* WhatsApp float — realtor pages */
+[data-whatsapp-btn] {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 999;
+  width: 60px;
+  height: 60px;
   background: #25D366;
-  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0 4px 20px rgba(37,211,102,.4);
+  transition: var(--transition);
+  text-decoration: none;
 }
-[data-whatsapp-btn].wa-active:hover {
+[data-whatsapp-btn]:hover {
+  transform: scale(1.1);
   box-shadow: 0 8px 30px rgba(37,211,102,.5);
-  border-color: transparent;
 }
-[data-whatsapp-btn].wa-active svg { fill: white; }
+[data-whatsapp-btn] svg { width: 28px; height: 28px; fill: white; }
+
 .wa-tooltip {
   position: absolute;
   right: 70px;
@@ -1116,6 +1128,7 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   transition: var(--transition);
   border: 1px solid rgba(212,175,55,.2);
 }
+[data-contact-btn]:hover .wa-tooltip { opacity: 1; }
 [data-whatsapp-btn]:hover .wa-tooltip { opacity: 1; }
 
 /* ════════════════════════════════════════════════════════════
