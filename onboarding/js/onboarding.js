@@ -266,9 +266,14 @@ const OnboardingApp = {
       this.data.googleUrl = this._val('s4-google-url');
     }
     if (n === 5) {
-      this.data.leadWho         = Array.from(document.querySelectorAll('.lead-who-card input:checked')).map(cb => cb.value);
-      this.data.leadWhatsapp    = this._val('s5-whatsapp');
-      this.data.leadEmail       = this._val('s5-email');
+      this.data.leadWho            = Array.from(document.querySelectorAll('.lead-who-card input[type="checkbox"]:checked')).map(cb => cb.value);
+      this.data.leadWhatsapp       = this._val('s5-whatsapp');
+      this.data.leadEmail          = this._val('s5-email');
+      this.data.leadChannel        = document.querySelector('[name="s5-lead-channel"]:checked')?.value || '';
+      this.data.crmUsage           = document.querySelector('[name="s5-crm"]:checked')?.value || '';
+      this.data.crmName            = this._val('s5-crm-name');
+      this.data.leadWelcomeMessage = this._val('s5-welcome-message');
+      this.data.businessHours      = this._val('s5-business-hours');
     }
     if (n === 6) {
       this.data.leadMagnetOption = document.querySelector('.option-card.selected')?.dataset.option || 'lumi';
@@ -300,6 +305,14 @@ const OnboardingApp = {
           const t = document.getElementById('s5-email');
           if (t && !t.value) t.value = el.value;
         }
+      });
+    });
+
+    // Toggle CRM name field
+    document.querySelectorAll('[name="s5-crm"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const wrap = document.getElementById('s5-crm-name-wrap');
+        if (wrap) wrap.style.display = radio.value === 'outro' && radio.checked ? 'block' : 'none';
       });
     });
 
@@ -776,6 +789,19 @@ const OnboardingApp = {
     // Lead Magnet
     const lmEl = document.getElementById('summary-leadmagnet');
     if (lmEl) lmEl.textContent = this.data.leadMagnetOption === 'own' ? 'Materiais próprios' : 'Modelos LUMI';
+
+    // Lead delivery config
+    const channelMap = { whatsapp: 'WhatsApp', email: 'Email', crm_lumi: 'CRM LUMI', outro: 'Outro' };
+    const crmMap     = { none: 'Não uso CRM', outro: 'Uso outro CRM', lumi: 'Quero CRM LUMI' };
+    const ldEl = document.getElementById('summary-lead-delivery');
+    if (ldEl) {
+      const parts = [];
+      if (this.data.leadChannel)        parts.push('Canal: ' + (channelMap[this.data.leadChannel] || this.data.leadChannel));
+      if (this.data.crmUsage)           parts.push('CRM: ' + (crmMap[this.data.crmUsage] || this.data.crmUsage));
+      if (this.data.crmName)            parts.push('(' + this.data.crmName + ')');
+      if (this.data.businessHours)      parts.push('Atendimento: ' + this.data.businessHours);
+      ldEl.textContent = parts.join(' · ') || '—';
+    }
 
     // Testimonials
     const tEl = document.getElementById('summary-testimonials');

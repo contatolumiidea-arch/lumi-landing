@@ -377,10 +377,16 @@ function renderBriefing(onboarding) {
   `);
 
   // 5 — Público e clientes
+  const channelLabel = { whatsapp: 'WhatsApp', email: 'Email', crm_lumi: 'CRM LUMI', outro: 'Outro' };
+  const crmLabel     = { none: 'Não usa CRM', outro: 'Usa outro CRM', lumi: 'Quer CRM LUMI' };
   const s5 = section('Público e Clientes', '🎯', `
     ${row('Público-alvo', list(d.leadWho))}
     ${row('WhatsApp para captação', d.leadWhatsapp)}
     ${row('Email para captação', d.leadEmail)}
+    ${row('Canal principal de recebimento', d.leadChannel ? (channelLabel[d.leadChannel] || d.leadChannel) : null)}
+    ${row('CRM', d.crmUsage ? (crmLabel[d.crmUsage] || d.crmUsage) + (d.crmName ? ' — ' + d.crmName : '') : null)}
+    ${row('Mensagem automática inicial', d.leadWelcomeMessage ? `<span style="white-space:pre-wrap;">${d.leadWelcomeMessage}</span>` : null)}
+    ${row('Horário de atendimento', d.businessHours)}
   `);
 
   // Ebook URLs — new (URL) or legacy (base64 Data URL)
