@@ -2,7 +2,7 @@ const { getDb } = require('../_lib/db');
 
 const BUCKET = 'onboarding-files';
 
-const ALLOWED_FOLDERS = ['logo', 'brand', 'team', 'gallery', 'videos', 'ebooks'];
+const ALLOWED_FOLDERS = ['logo', 'brand', 'team', 'gallery', 'videos', 'ebooks', 'testimonials'];
 
 const ALLOWED_TYPES = new Set([
   'image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/svg+xml',
