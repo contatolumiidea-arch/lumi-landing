@@ -78,10 +78,10 @@
   'use strict';
 
   const SOURCE_LABELS = {
-    buyer_form:     'Consulta Comprador',
-    seller_form:    'Avaliação Vendedor',
-    newsletter:     'Boletim',
-    ebook_download: 'Download Ebook',
+    buyer_form:     'Formulário de Consulta do Comprador',
+    seller_form:    'Formulário de Avaliação do Vendedor',
+    newsletter:     'Inscrição no Boletim',
+    ebook_download: 'Download de Ebook',
   };
 
   const LIMIT = 50;
@@ -147,17 +147,14 @@
     }
 
     const rows = leads.map(l => {
-      const sourceLabel = SOURCE_LABELS[l.lead_source] || esc(l.lead_source) || esc(l.origin) || 'site';
+      const sourceLabel = SOURCE_LABELS[l.lead_source] || esc(l.lead_source) || esc(l.origin) || '—';
       return `
       <tr>
-        <td>
-          <div class="cell-name">${esc(l.lead_name) || '—'}</div>
-          <div class="cell-email">${esc(l.lead_email) || ''}</div>
-        </td>
+        <td class="cell-name">${esc(l.lead_name) || '—'}</td>
+        <td class="cell-email">${esc(l.lead_email) || '—'}</td>
         <td class="cell-phone">${esc(l.lead_phone) || '—'}</td>
-        <td class="cell-date">${fmtDate(l.created_at)}</td>
         <td><span class="cell-origin">${sourceLabel}</span></td>
-        <td class="cell-msg" title="${esc(l.message)}">${esc(l.message) || '—'}</td>
+        <td class="cell-date">${fmtDate(l.created_at)}</td>
       </tr>`;
     }).join('');
 
@@ -165,11 +162,11 @@
       <table class="leads-table" aria-label="Lista de leads">
         <thead>
           <tr>
-            <th>Nome / Email</th>
+            <th>Nome</th>
+            <th>Email</th>
             <th>Telefone</th>
-            <th>Data</th>
             <th>Origem</th>
-            <th>Mensagem / Interesse</th>
+            <th>Data</th>
           </tr>
         </thead>
         <tbody>${rows}</tbody>

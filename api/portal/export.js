@@ -9,7 +9,7 @@ const SOURCE_LABELS = {
 };
 
 function toCSV(rows) {
-  const headers = ['Nome', 'Email', 'Telefone', 'Data', 'Origem', 'Mensagem'];
+  const headers = ['Nome', 'Email', 'Telefone', 'Origem', 'Data', 'Mensagem'];
   const escape = (v) => {
     if (v == null) return '';
     const s = String(v).replace(/"/g, '""');
@@ -21,8 +21,8 @@ function toCSV(rows) {
       escape(r.lead_name),
       escape(r.lead_email),
       escape(r.lead_phone),
-      escape(r.created_at ? new Date(r.created_at).toLocaleString('pt-BR') : ''),
       escape(SOURCE_LABELS[r.lead_source] || r.lead_source || r.origin || ''),
+      escape(r.created_at ? new Date(r.created_at).toLocaleString('pt-BR') : ''),
       escape(r.message),
     ].join(',')),
   ];
