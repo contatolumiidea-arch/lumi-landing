@@ -114,7 +114,7 @@ function fmtDatetime(iso) {
 
 // Status pill HTML
 const STATUS_MAP = {
-  new:                { label: 'Novo cliente',         cls: 'pill-new' },
+  new:                { label: 'Novo',                 cls: 'pill-new' },
   pending_onboarding: { label: 'Aguard. onboarding',  cls: 'pill-pending' },
   in_production:      { label: 'Em produção',          cls: 'pill-production' },
   review:             { label: 'Revisão',              cls: 'pill-review' },
