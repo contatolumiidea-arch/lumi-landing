@@ -153,27 +153,21 @@
     "message": "¡Hola! Me interesa saber más sobre LUMI LANDING."
   },
 
-  "crm": {
-    "badge": "Integraciones",
-    "headline": "Tus Contactos, A Tu Manera",
-    "subheadline": "Conecta tu página con las herramientas que ya usas — sin código, sin complicaciones.",
-    "int1": "CRM Integration",
-    "int1_desc": "Cualquier CRM vía webhook",
-    "int2": "Google Sheets",
-    "int2_desc": "Contactos directo en tu hoja de cálculo",
-    "int_excel": "Excel Spreadsheet",
-    "int_excel_desc": "Contactos organizados sin necesitar CRM",
-    "int3": "Email Direct",
-    "int3_desc": "Recibe contactos en tu correo",
-    "int4": "Zapier",
-    "int4_desc": "Automatiza con más de 6.000 apps",
-    "int5": "Make",
-    "int5_desc": "Flujos avanzados sin código",
+  "leads": {
+    "badge": "Leads",
+    "headline": "Tus Leads, Siempre Organizados",
+    "subheadline": "Todos los contactos capturados por tu página quedan disponibles en un área exclusiva, donde puedes consultarlos y exportarlos cuando lo necesites.",
+    "card1_title": "Área del Cliente LUMI",
+    "card1_desc": "Accede a tus contactos captados por tu landing page en un panel simple y seguro.",
+    "card2_title": "Exportación en Excel",
+    "card2_desc": "Descarga tus leads en una planilla y úsalos como prefieras.",
+    "card3_title": "Datos Organizados",
+    "card3_desc": "Nombre, teléfono, email y origen del contacto siempre disponibles.",
+    "card4_title": "Sin Complicaciones",
+    "card4_desc": "Recibes tus contactos sin necesidad de configurar herramientas externas.",
     "flow_title": "LUMI FLOW CRM",
     "flow_badge": "Próximamente",
-    "flow_desc": "Creado para tu negocio inmobiliario. Sé el primero en saberlo.",
-    "flow_email_placeholder": "Tu dirección de correo electrónico",
-    "flow_cta": "Notificarme"
+    "flow_desc": "Una solución completa de gestión y automatización comercial para negocios inmobiliarios."
   },
 
   "pricing": {

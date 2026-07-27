@@ -153,27 +153,21 @@
     "message": "Hello! I'm interested in learning more about LUMI LANDING."
   },
 
-  "crm": {
-    "badge": "Integrations",
-    "headline": "Your Contacts, Your Way",
-    "subheadline": "Connect your page to the tools you already use — no code, no hassle.",
-    "int1": "CRM Integration",
-    "int1_desc": "Any CRM via webhook",
-    "int2": "Google Sheets",
-    "int2_desc": "Leads delivered to your spreadsheet",
-    "int_excel": "Excel Spreadsheet",
-    "int_excel_desc": "Organized contacts — no CRM needed",
-    "int3": "Email Direct",
-    "int3_desc": "Receive contacts to your inbox",
-    "int4": "Zapier",
-    "int4_desc": "Automate with 6,000+ apps",
-    "int5": "Make",
-    "int5_desc": "Advanced flows, no code required",
+  "leads": {
+    "badge": "Leads",
+    "headline": "Your Leads, Always Organized",
+    "subheadline": "Every contact captured through your page is available in a private area where you can review and export your leads whenever you need.",
+    "card1_title": "LUMI Client Area",
+    "card1_desc": "Access all contacts captured by your landing page in a simple, secure dashboard.",
+    "card2_title": "Excel Export",
+    "card2_desc": "Download your leads as a spreadsheet and use them however you prefer.",
+    "card3_title": "Organized Data",
+    "card3_desc": "Name, phone, email, and lead source — always at your fingertips.",
+    "card4_title": "No Setup Required",
+    "card4_desc": "Your contacts arrive without needing to configure any external tools.",
     "flow_title": "LUMI FLOW CRM",
     "flow_badge": "Coming Soon",
-    "flow_desc": "Built for your real estate business. Be the first to know.",
-    "flow_email_placeholder": "Your email address",
-    "flow_cta": "Notify Me"
+    "flow_desc": "A complete solution for real estate business management and sales automation."
   },
 
   "pricing": {
