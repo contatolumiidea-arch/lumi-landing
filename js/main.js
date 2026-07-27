@@ -53,6 +53,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Form submissions
   initForms(cfg);
 
+  // LUMI FLOW waitlist
+  initFlowWaitlist();
+
   // WhatsApp float
   initWhatsApp(cfg);
 
@@ -215,15 +218,17 @@ function updateWhatsApp(t, cfg) {
 function initForms(cfg) {
   const enabledForms = Array.isArray(cfg?.enabled_forms) ? cfg.enabled_forms : null;
 
-  // Hide sections whose lead_source is not in enabled_forms
-  if (enabledForms) {
+  // Sections start hidden by default in the HTML (display:none).
+  // Only reveal them on realtor landing pages (client_id present) for forms in enabled_forms.
+  if (cfg?.client_id) {
     $$("[data-form-section]").forEach(section => {
       const src = section.getAttribute("data-form-section");
-      if (src && !enabledForms.includes(src)) {
-        section.style.display = "none";
-      }
+      if (!src) return;
+      const show = !enabledForms || enabledForms.includes(src);
+      if (show) section.style.display = "";
     });
   }
+  // No client_id = LUMI sales page: sections remain hidden (set in HTML).
 
   $$("[data-form]").forEach(form => {
     const leadSource = form.getAttribute("data-lead-source") || null;
@@ -482,4 +487,48 @@ function initChatConversation() {
   }, { threshold: 0.3 });
 
   observer.observe(container.closest(".multilingual") || container);
+}
+
+// ── LUMI FLOW Waitlist ────────────────────────────────────────────────────────
+function initFlowWaitlist() {
+  const form     = document.getElementById("lumi-flow-waitlist-form");
+  const feedback = document.getElementById("lumi-flow-waitlist-feedback");
+  if (!form || !feedback) return;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn   = form.querySelector("[type='submit']");
+    const orig  = btn?.textContent;
+    if (btn) { btn.disabled = true; btn.textContent = "..."; }
+    feedback.style.display = "none";
+
+    try {
+      const res = await fetch("/api/waitlist/submit", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify({
+          name:   form.elements.name?.value?.trim()  || null,
+          email:  form.elements.email?.value?.trim() || null,
+          source: "lumi_flow_waitlist",
+        }),
+      });
+
+      const t = i18n.t.bind(i18n);
+      if (res.ok) {
+        feedback.style.color   = "var(--color-gold)";
+        feedback.textContent   = t("leads.flow_waitlist_success") || "Ótimo! Você está na lista.";
+        feedback.style.display = "block";
+        form.reset();
+      } else {
+        throw new Error("api_error");
+      }
+    } catch {
+      const t = i18n.t.bind(i18n);
+      feedback.style.color   = "#e55";
+      feedback.textContent   = t("leads.flow_waitlist_error") || "Erro ao enviar. Tente novamente.";
+      feedback.style.display = "block";
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = orig; }
+    }
+  });
 }

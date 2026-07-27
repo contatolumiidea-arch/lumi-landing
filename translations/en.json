@@ -167,7 +167,13 @@
     "card4_desc": "Your contacts arrive without needing to configure any external tools.",
     "flow_title": "LUMI FLOW CRM",
     "flow_badge": "Coming Soon",
-    "flow_desc": "A complete solution for real estate business management and sales automation."
+    "flow_desc": "A complete solution for real estate business management and sales automation.",
+    "flow_waitlist_title": "Want to be notified when we launch?",
+    "flow_waitlist_name": "Name",
+    "flow_waitlist_email": "Email",
+    "flow_waitlist_submit": "Notify Me",
+    "flow_waitlist_success": "Great! You're on the list. We'll let you know at launch.",
+    "flow_waitlist_error": "Something went wrong. Please try again."
   },
 
   "pricing": {

@@ -167,7 +167,13 @@
     "card4_desc": "Você recebe seus contatos sem precisar configurar ferramentas externas.",
     "flow_title": "LUMI FLOW CRM",
     "flow_badge": "Próximamente",
-    "flow_desc": "Uma solução completa de gestão e automação comercial para negócios imobiliários."
+    "flow_desc": "Uma solução completa de gestão e automação comercial para negócios imobiliários.",
+    "flow_waitlist_title": "Quer ser avisado quando lançarmos?",
+    "flow_waitlist_name": "Nome",
+    "flow_waitlist_email": "Email",
+    "flow_waitlist_submit": "Quero ser avisado",
+    "flow_waitlist_success": "Ótimo! Você está na lista. Vamos te avisar no lançamento.",
+    "flow_waitlist_error": "Erro ao enviar. Tente novamente."
   },
 
   "pricing": {

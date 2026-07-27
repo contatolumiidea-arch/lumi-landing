@@ -650,7 +650,7 @@
 <!-- ════════════════════════════════════════════
      BUYER FORM (buyer_form)
      ════════════════════════════════════════════ -->
-<section class="section section--white" id="buyer-form" data-form-section="buyer_form">
+<section class="section section--white" id="buyer-form" data-form-section="buyer_form" style="display:none">
   <div class="container">
     <div class="contact-form-layout">
 
@@ -705,7 +705,7 @@
 <!-- ════════════════════════════════════════════
      SELLER FORM (seller_form)
      ════════════════════════════════════════════ -->
-<section class="section section--gray" id="seller-form" data-form-section="seller_form">
+<section class="section section--gray" id="seller-form" data-form-section="seller_form" style="display:none">
   <div class="container">
     <div class="contact-form-layout contact-form-layout--reverse">
 
@@ -760,7 +760,7 @@
 <!-- ════════════════════════════════════════════
      SECTION 7 — LEAD MAGNET
      ════════════════════════════════════════════ -->
-<section class="section section--gold" id="leadmagnet" data-form-section="ebook_download">
+<section class="section section--gold" id="leadmagnet" data-form-section="ebook_download" style="display:none">
   <div class="container">
     <div class="leadmagnet-inner">
 
@@ -1086,13 +1086,24 @@
 
       </div>
 
-      <!-- LUMI FLOW — Próximamente -->
+      <!-- LUMI FLOW — Próximamente + waitlist -->
       <div class="lumi-flow-card fade-up">
         <div class="lumi-flow-badge" data-i18n="leads.flow_badge">Próximamente</div>
         <h3 class="lumi-flow-title" data-i18n="leads.flow_title">LUMI FLOW CRM</h3>
         <p class="lumi-flow-desc" data-i18n="leads.flow_desc">
           Uma solução completa de gestão e automação comercial para negócios imobiliários.
         </p>
+
+        <p class="lumi-flow-waitlist-title" data-i18n="leads.flow_waitlist_title">Quer ser avisado quando lançarmos?</p>
+
+        <form class="lumi-flow-form" id="lumi-flow-waitlist-form" novalidate>
+          <div class="lumi-flow-input-row">
+            <input class="form-control" type="text"  name="name"  autocomplete="name"  data-i18n-placeholder="leads.flow_waitlist_name"  placeholder="Nome">
+            <input class="form-control" type="email" name="email" autocomplete="email" data-i18n-placeholder="leads.flow_waitlist_email" placeholder="Email" required>
+          </div>
+          <button type="submit" class="btn btn--gold" style="width:100%;margin-top:10px;" data-i18n="leads.flow_waitlist_submit">Quero ser avisado</button>
+          <p class="lumi-flow-waitlist-feedback" id="lumi-flow-waitlist-feedback" style="display:none;margin-top:10px;font-size:.82rem;text-align:center;"></p>
+        </form>
       </div>
 
     </div>

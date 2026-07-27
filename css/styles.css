@@ -2536,6 +2536,13 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   line-height: 1.6;
   margin-bottom: 24px;
 }
+.lumi-flow-waitlist-title {
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  margin-bottom: 14px;
+  letter-spacing: .02em;
+}
 .lumi-flow-form { margin-top: 0; }
 .lumi-flow-input-row {
   display: flex;

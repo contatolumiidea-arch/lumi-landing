@@ -335,6 +335,27 @@ function renderBriefing(onboarding) {
     }</div>`;
   };
 
+  // Helper: download anchor button (LUMI gold style)
+  const dlStyle = `display:inline-flex;align-items:center;gap:5px;margin-top:7px;padding:4px 12px;background:var(--gold-mid,rgba(212,175,55,.12));border:1px solid var(--gold,#d4af37);border-radius:6px;color:var(--gold,#d4af37);font-size:.76rem;font-weight:600;text-decoration:none;cursor:pointer;`;
+  const dlBtn = (url, label) => url
+    ? `<a href="${url}" download target="_blank" style="${dlStyle}">⬇ ${label}</a>`
+    : '';
+
+  // Helper: image grid with individual download links + "Baixar todas" bulk button
+  const imgGridWithDownload = (urls, bulkLabel) => {
+    if (!urls?.length) return null;
+    const thumbs = urls.map((u, i) => `
+      <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+        <img src="${u}" style="width:64px;height:64px;object-fit:cover;border-radius:4px;background:#fff;">
+        <a href="${u}" download target="_blank" style="font-size:.68rem;color:var(--gold,#d4af37);text-decoration:underline;line-height:1.2;">⬇ ${i + 1}</a>
+      </div>`).join('');
+    const encoded = encodeURIComponent(JSON.stringify(urls));
+    return `<div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">${thumbs}</div>
+      <button onclick="downloadAll(JSON.parse(decodeURIComponent('${encoded}')))" style="${dlStyle}border:none;background:var(--gold-mid,rgba(212,175,55,.12));border:1px solid var(--gold,#d4af37);">⬇ ${bulkLabel}</button>
+    </div>`;
+  };
+
   // Compatibility: logoUrl (new) or logoDataUrl (legacy base64)
   const logoSrc = d.logoUrl || d.logoDataUrl || null;
   const profSrc = d.professionalPhotoUrl || d.professionalPhoto || null;
@@ -348,13 +369,13 @@ function renderBriefing(onboarding) {
       ? `<div class="detail-row"><span class="detail-key">Logo</span><span class="detail-val">${imgEl(logoSrc, 'Logo')}</span></div>`
       : row('Logo', null)}
     ${profSrc
-      ? `<div class="detail-row"><span class="detail-key">Foto profissional</span><span class="detail-val">${imgEl(profSrc, 'Foto profissional', 80)}</span></div>`
+      ? `<div class="detail-row"><span class="detail-key">Foto profissional</span><span class="detail-val">${imgEl(profSrc, 'Foto profissional', 80)}<br>${dlBtn(profSrc, 'Baixar imagem')}</span></div>`
       : row('Foto profissional', null)}
     ${(d.teamPhotoUrls || d.teamPhotos)?.length
-      ? `<div class="detail-row"><span class="detail-key">Fotos da equipe</span><span class="detail-val">${imgGrid(d.teamPhotoUrls || d.teamPhotos)}</span></div>`
+      ? `<div class="detail-row"><span class="detail-key">Fotos da equipe</span><span class="detail-val">${imgGridWithDownload(d.teamPhotoUrls || d.teamPhotos, 'Baixar todas')}</span></div>`
       : row('Fotos da equipe', null)}
     ${(d.brandGalleryUrls || d.brandGallery)?.length
-      ? `<div class="detail-row"><span class="detail-key">Galeria da marca</span><span class="detail-val">${imgGrid(d.brandGalleryUrls || d.brandGallery)}</span></div>`
+      ? `<div class="detail-row"><span class="detail-key">Galeria da marca</span><span class="detail-val">${imgGridWithDownload(d.brandGalleryUrls || d.brandGallery, 'Baixar galeria')}</span></div>`
       : row('Galeria da marca', null)}
     ${(() => {
       // Support new {type,url} objects (d.videos) and legacy plain-URL arrays (d.videoUrls)
@@ -449,10 +470,10 @@ function renderBriefing(onboarding) {
 
   // 8 — Materiais enviados
   const matParts = [
-    logoSrc   ? `<div class="detail-row"><span class="detail-key">Logo</span><span class="detail-val">${imgEl(logoSrc, 'Logo', 72)}</span></div>` : '',
-    profSrc   ? `<div class="detail-row"><span class="detail-key">Foto profissional</span><span class="detail-val">${imgEl(profSrc, 'Foto profissional', 90)}</span></div>` : '',
-    (d.teamPhotoUrls || d.teamPhotos)?.length    ? `<div class="detail-row"><span class="detail-key">Fotos da equipe</span><span class="detail-val">${imgGrid(d.teamPhotoUrls || d.teamPhotos)}</span></div>` : '',
-    (d.brandGalleryUrls || d.brandGallery)?.length ? `<div class="detail-row"><span class="detail-key">Galeria</span><span class="detail-val">${imgGrid(d.brandGalleryUrls || d.brandGallery)}</span></div>` : '',
+    logoSrc   ? `<div class="detail-row"><span class="detail-key">Logo</span><span class="detail-val">${imgEl(logoSrc, 'Logo', 72)}<br>${dlBtn(logoSrc, 'Baixar logo')}</span></div>` : '',
+    profSrc   ? `<div class="detail-row"><span class="detail-key">Foto profissional</span><span class="detail-val">${imgEl(profSrc, 'Foto profissional', 90)}<br>${dlBtn(profSrc, 'Baixar imagem')}</span></div>` : '',
+    (d.teamPhotoUrls || d.teamPhotos)?.length    ? `<div class="detail-row"><span class="detail-key">Fotos da equipe</span><span class="detail-val">${imgGridWithDownload(d.teamPhotoUrls || d.teamPhotos, 'Baixar todas')}</span></div>` : '',
+    (d.brandGalleryUrls || d.brandGallery)?.length ? `<div class="detail-row"><span class="detail-key">Galeria</span><span class="detail-val">${imgGridWithDownload(d.brandGalleryUrls || d.brandGallery, 'Baixar galeria')}</span></div>` : '',
     buyerEbook  ? `<div class="detail-row"><span class="detail-key">E-book Comprador</span><span class="detail-val">${fileLink(buyerEbook, '📥 Baixar PDF')}</span></div>`  : '',
     sellerEbook ? `<div class="detail-row"><span class="detail-key">E-book Vendedor</span><span class="detail-val">${fileLink(sellerEbook, '📥 Baixar PDF')}</span></div>` : '',
   ].filter(Boolean).join('');
@@ -478,6 +499,25 @@ function openStatusModal(status, notes, url) {
 
 function closeModal() {
   document.getElementById('modal-status').style.display = 'none';
+}
+
+async function downloadAll(urls) {
+  if (!urls?.length) return;
+  for (let i = 0; i < urls.length; i++) {
+    try {
+      const res = await fetch(urls[i]);
+      const blob = await res.blob();
+      const ext = blob.type.split('/')[1]?.split(';')[0] || 'jpg';
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `imagem_${i + 1}.${ext}`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+    } catch (e) {
+      window.open(urls[i], '_blank');
+    }
+    if (i < urls.length - 1) await new Promise(r => setTimeout(r, 600));
+  }
 }
 
 async function saveStatus() {

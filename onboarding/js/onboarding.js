@@ -370,6 +370,10 @@ const OnboardingApp = {
           if (tags.length) tags[tags.length - 1].remove();
         }
       });
+      input.addEventListener('blur', () => {
+        const val = input.value.trim().replace(/,$/, '');
+        if (val) { this._addTag(wrapper, val); input.value = ''; }
+      });
       wrapper.addEventListener('click', () => input.focus());
     });
   },
