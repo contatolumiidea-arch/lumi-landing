@@ -690,6 +690,7 @@ a { color: var(--gold); text-decoration: none; }
   margin-top: 8px;
 }
 .upload-preview.has-files { display: flex; }
+/* ── Preview items (images, PDFs, generic) ─────────────────── */
 .preview-item {
   position: relative;
   border-radius: var(--radius-sm);
@@ -733,6 +734,82 @@ a { color: var(--gold); text-decoration: none; }
   justify-content: center;
   cursor: pointer;
 }
+
+/* ── Video upload card ─────────────────────────────────────── */
+.preview-item--video {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.preview-item--video .preview-remove {
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  font-size: 13px;
+}
+.preview-item__video-thumb {
+  width: 72px;
+  height: 48px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #000;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.preview-item__video-el {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.preview-item__video-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+.preview-item__info {
+  flex: 1;
+  min-width: 0;
+  padding-right: 28px;
+}
+.preview-item__filename {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 3px;
+}
+.preview-item__status {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  transition: color .2s;
+}
+.preview-item__status--done  { color: #4caf50; }
+.preview-item__status--error { color: #e05a5a; }
+.preview-progress {
+  height: 3px;
+  background: rgba(255,255,255,.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.preview-progress__bar {
+  height: 100%;
+  width: 0%;
+  background: var(--gold, #C8A84B);
+  border-radius: 2px;
+  transition: width .35s ease, background .3s;
+}
+.preview-progress__bar--done  { background: #4caf50; }
+.preview-progress__bar--error { background: #e05a5a; }
 
 /* ── Color Pickers ─────────────────────────────────────────── */
 .colors-row {

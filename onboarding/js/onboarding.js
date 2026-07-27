@@ -487,26 +487,110 @@ const OnboardingApp = {
     for (let i = 0; i < toAdd; i++) {
       const file = files[i];
       const item = document.createElement('div');
-      item.className = 'preview-item uploading';
+      let spinner;
 
-      // Immediate visual preview
-      if (file.type.startsWith('image/')) {
+      if (file.type.startsWith('video/')) {
+        // ── Rich video card ────────────────────────────────────────
+        item.className = 'preview-item preview-item--video uploading';
+
+        // Thumbnail: try video element, fall back to icon
+        const thumb = document.createElement('div');
+        thumb.className = 'preview-item__video-thumb';
+        const vidEl = document.createElement('video');
+        vidEl.className = 'preview-item__video-el';
+        vidEl.src = URL.createObjectURL(file);
+        vidEl.preload = 'metadata';
+        vidEl.muted = true;
+        vidEl.playsInline = true;
+        vidEl.addEventListener('loadedmetadata', () => { vidEl.currentTime = 1; });
+        vidEl.addEventListener('error', () => {
+          thumb.innerHTML = '<span class="preview-item__video-icon">🎬</span>';
+        });
+        thumb.appendChild(vidEl);
+        item.appendChild(thumb);
+
+        // Info: filename + status + progress bar
+        const info = document.createElement('div');
+        info.className = 'preview-item__info';
+
+        const nameEl = document.createElement('div');
+        nameEl.className = 'preview-item__filename';
+        nameEl.textContent = '🎬 ' + file.name;
+        info.appendChild(nameEl);
+
+        const statusEl = document.createElement('div');
+        statusEl.className = 'preview-item__status';
+        statusEl.textContent = '⏳ Enviando vídeo... 0%';
+        info.appendChild(statusEl);
+
+        const progressTrack = document.createElement('div');
+        progressTrack.className = 'preview-progress';
+        const progressBar = document.createElement('div');
+        progressBar.className = 'preview-progress__bar';
+        progressTrack.appendChild(progressBar);
+        info.appendChild(progressTrack);
+
+        item.appendChild(info);
+
+        // Hidden span — _uploadToStorage writes textContent/className here
+        spinner = document.createElement('span');
+        spinner.style.display = 'none';
+        item.appendChild(spinner);
+
+        // Animate progress while uploading
+        let pct = 0;
+        const ticker = setInterval(() => {
+          if (pct < 85) {
+            pct = Math.min(85, pct + Math.random() * 10 + 2);
+            progressBar.style.width = pct.toFixed(0) + '%';
+            statusEl.textContent = '⏳ Enviando vídeo... ' + pct.toFixed(0) + '%';
+          }
+        }, 350);
+
+        // Watch spinner for upload completion
+        const obs = new MutationObserver(() => {
+          clearInterval(ticker);
+          if (spinner.className === 'preview-done') {
+            progressBar.style.width = '100%';
+            progressBar.classList.add('preview-progress__bar--done');
+            statusEl.textContent = '✓ Upload concluído';
+            statusEl.classList.add('preview-item__status--done');
+          } else if (spinner.className === 'preview-error') {
+            progressBar.classList.add('preview-progress__bar--error');
+            statusEl.textContent = '✗ Falha no upload';
+            statusEl.classList.add('preview-item__status--error');
+          }
+          item.classList.remove('uploading');
+          obs.disconnect();
+        });
+        obs.observe(spinner, { attributes: true, childList: true, characterData: true, subtree: true });
+
+      } else if (file.type.startsWith('image/')) {
+        // ── Image preview (unchanged) ──────────────────────────────
+        item.className = 'preview-item uploading';
         const img = document.createElement('img');
         img.src = URL.createObjectURL(file);
         img.alt = file.name;
         item.appendChild(img);
+
+        spinner = document.createElement('span');
+        spinner.className = 'preview-spinner';
+        spinner.textContent = '⏳';
+        item.appendChild(spinner);
+
       } else {
+        // ── Generic file (PDF, etc.) ───────────────────────────────
+        item.className = 'preview-item uploading';
         const nameEl = document.createElement('div');
         nameEl.className = 'preview-item__name';
         nameEl.textContent = file.name;
         item.appendChild(nameEl);
-      }
 
-      // Upload spinner
-      const spinner = document.createElement('span');
-      spinner.className = 'preview-spinner';
-      spinner.textContent = '⏳';
-      item.appendChild(spinner);
+        spinner = document.createElement('span');
+        spinner.className = 'preview-spinner';
+        spinner.textContent = '⏳';
+        item.appendChild(spinner);
+      }
 
       const rem = document.createElement('span');
       rem.className = 'preview-remove';
