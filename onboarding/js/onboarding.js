@@ -735,7 +735,13 @@ const OnboardingApp = {
 
   async _uploadToStorage(file, mapping, item, spinner) {
     this._pendingUploads++;
+    const isVideo = file.type.startsWith('video/');
     try {
+      // [DIAG vídeo] — remove após investigação
+      if (isVideo) {
+        console.log('[UPLOAD VIDEO] arquivo:', file.name, '| tipo:', file.type, '| tamanho:', (file.size / (1024 * 1024)).toFixed(1), 'MB | pasta:', mapping.folder);
+      }
+
       const res = await fetch('/api/onboarding/upload-token', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -748,6 +754,12 @@ const OnboardingApp = {
       });
 
       const json = await res.json();
+
+      // [DIAG vídeo] — remove após investigação
+      if (isVideo) {
+        console.log('[UPLOAD VIDEO] resposta do token:', res.status, JSON.stringify(json));
+      }
+
       if (!res.ok) throw new Error(json.error || 'Erro ao obter token de upload');
 
       // Upload directly to Supabase Storage — bypasses Vercel 4.5 MB body limit
@@ -756,7 +768,18 @@ const OnboardingApp = {
         headers: { 'Content-Type': file.type },
         body:    file,
       });
-      if (!uploadRes.ok) throw new Error('Erro ao enviar arquivo para o storage');
+
+      // [DIAG vídeo] — remove após investigação
+      if (isVideo) {
+        if (!uploadRes.ok) {
+          const errText = await uploadRes.text().catch(() => '(sem body)');
+          console.error('[UPLOAD VIDEO] PUT falhou:', uploadRes.status, uploadRes.statusText, '| body:', errText);
+        } else {
+          console.log('[UPLOAD VIDEO] PUT ok:', uploadRes.status, '| URL pública:', json.publicUrl);
+        }
+      }
+
+      if (!uploadRes.ok) throw new Error('Erro ao enviar arquivo para o storage (status ' + uploadRes.status + ')');
 
       // Store URL in this.data
       if (mapping.multiple) {
