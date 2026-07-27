@@ -1064,7 +1064,9 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 .referral-visual .icon { font-size: 4rem; margin-bottom: 16px; }
 
 /* ════════════════════════════════════════════════════════════
-   WHATSAPP FLOAT
+   CONTACT FLOAT BUTTON
+   Default: email / LUMI gold — switches to WhatsApp green on
+   realtor pages when cfg.whatsapp is present (via .wa-active).
    ════════════════════════════════════════════════════════════ */
 [data-whatsapp-btn] {
   position: fixed;
@@ -1073,19 +1075,32 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   z-index: 999;
   width: 60px;
   height: 60px;
-  background: #25D366;
+  background: #0e0e0e;
+  border: 1px solid rgba(212,175,55,.35);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 20px rgba(37,211,102,.4);
+  box-shadow: 0 4px 24px rgba(0,0,0,.55), 0 0 0 1px rgba(212,175,55,.1);
   transition: var(--transition);
 }
 [data-whatsapp-btn]:hover {
   transform: scale(1.1);
-  box-shadow: 0 8px 30px rgba(37,211,102,.5);
+  box-shadow: 0 8px 32px rgba(212,175,55,.25), 0 0 0 1px rgba(212,175,55,.3);
+  border-color: rgba(212,175,55,.6);
 }
-[data-whatsapp-btn] svg { width: 28px; height: 28px; fill: white; }
+[data-whatsapp-btn] svg { width: 26px; height: 26px; fill: #D4AF37; }
+/* WhatsApp mode (realtor pages) */
+[data-whatsapp-btn].wa-active {
+  background: #25D366;
+  border: none;
+  box-shadow: 0 4px 20px rgba(37,211,102,.4);
+}
+[data-whatsapp-btn].wa-active:hover {
+  box-shadow: 0 8px 30px rgba(37,211,102,.5);
+  border-color: transparent;
+}
+[data-whatsapp-btn].wa-active svg { fill: white; }
 .wa-tooltip {
   position: absolute;
   right: 70px;
@@ -1099,7 +1114,7 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   opacity: 0;
   pointer-events: none;
   transition: var(--transition);
-  border: 1px solid rgba(255,255,255,.1);
+  border: 1px solid rgba(212,175,55,.2);
 }
 [data-whatsapp-btn]:hover .wa-tooltip { opacity: 1; }
 

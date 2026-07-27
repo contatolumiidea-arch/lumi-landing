@@ -197,20 +197,30 @@ function buildInterestOptions(t) {
   });
 }
 
-// ── WhatsApp ──────────────────────────────────────────────────────────────────
+// ── Contact float button ───────────────────────────────────────────────────────
+// Default: email button (LUMI sales page). Switches to WhatsApp on realtor pages.
 function initWhatsApp(cfg) {
   const btn = $("[data-whatsapp-btn]");
-  if (!btn || !cfg.whatsapp) { if (btn) btn.style.display = "none"; return; }
-  updateWhatsApp(i18n.t.bind(i18n), cfg);
+  if (!btn) return;
+  if (cfg.whatsapp) {
+    updateWhatsApp(i18n.t.bind(i18n), cfg);
+  }
+  // No cfg.whatsapp = email mode; button stays visible as-is (mailto in HTML)
 }
 
 function updateWhatsApp(t, cfg) {
   const btn = $("[data-whatsapp-btn]");
   if (!btn || !cfg.whatsapp) return;
-  const msg = encodeURIComponent(t("whatsapp.message"));
-  btn.href = `https://wa.me/${cfg.whatsapp}?text=${msg}`;
+  btn.href = `https://wa.me/${cfg.whatsapp}?text=${encodeURIComponent(t("whatsapp.message"))}`;
   btn.setAttribute("aria-label", t("whatsapp.tooltip"));
-  const tooltip = $(".wa-tooltip");
+  btn.setAttribute("target", "_blank");
+  btn.setAttribute("rel", "noopener");
+  btn.classList.add("wa-active");
+  const emailIcon = btn.querySelector('[data-icon="email"]');
+  const waIcon = btn.querySelector('[data-icon="whatsapp"]');
+  if (emailIcon) emailIcon.style.display = "none";
+  if (waIcon) waIcon.style.display = "";
+  const tooltip = btn.querySelector(".wa-tooltip");
   if (tooltip) tooltip.textContent = t("whatsapp.tooltip");
 }
 
