@@ -124,8 +124,9 @@ function buildTestimonials(t, cfg) {
   container.innerHTML = cfg.testimonials.map(item => {
     const text = item[`text_${lang}`] || item.text_en || item.text || "";
     const stars = "★".repeat(item.rating || 5);
-    const avatar = item.photo
-      ? `<img src="${item.photo}" alt="${item.name}" class="testimonial-avatar">`
+    const avatarSrc = item.photoUrl || item.photo;
+    const avatar = avatarSrc
+      ? `<img src="${avatarSrc}" alt="${item.name}" class="testimonial-avatar">`
       : `<div class="testimonial-avatar testimonial-avatar--initials">${(item.name || '?').charAt(0).toUpperCase()}</div>`;
     return `
       <div class="testimonial-card fade-up">

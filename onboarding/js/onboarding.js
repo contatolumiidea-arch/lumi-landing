@@ -657,12 +657,40 @@ const OnboardingApp = {
     fileInput.addEventListener('change', () => {
       const file = fileInput.files[0];
       if (!file) return;
-      const reader = new FileReader();
-      reader.onload = e => {
-        zone.innerHTML = `<img src="${e.target.result}" alt="Foto" style="max-height:80px;border-radius:50%;object-fit:cover;">`;
-        zone.dataset.photoUrl = e.target.result;
-      };
-      reader.readAsDataURL(file);
+
+      // Preview imediato via ObjectURL (não persiste base64)
+      const previewUrl = URL.createObjectURL(file);
+      zone.innerHTML = `<img src="${previewUrl}" alt="Foto" style="max-height:80px;border-radius:50%;object-fit:cover;"><span class="preview-spinner">⏳</span>`;
+      zone.dataset.photoUrl = '';
+
+      this._pendingUploads++;
+      fetch('/api/onboarding/upload-token', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          uuid:        this.data.uuid,
+          folder:      'testimonials',
+          filename:    file.name,
+          contentType: file.type,
+        }),
+      })
+        .then(r => r.json())
+        .then(json => {
+          if (!json.signedUrl) throw new Error(json.error || 'Token inválido');
+          return fetch(json.signedUrl, { method: 'PUT', headers: { 'Content-Type': file.type }, body: file })
+            .then(up => {
+              if (!up.ok) throw new Error('Falha no upload');
+              zone.dataset.photoUrl = json.publicUrl;
+              const spinner = zone.querySelector('.preview-spinner');
+              if (spinner) { spinner.textContent = '✓'; spinner.className = 'preview-done'; }
+            });
+        })
+        .catch(err => {
+          console.error('[upload testimonial photo]', err.message);
+          const spinner = zone.querySelector('.preview-spinner');
+          if (spinner) { spinner.textContent = '✗'; spinner.className = 'preview-error'; }
+        })
+        .finally(() => { this._pendingUploads--; });
     });
 
     list.appendChild(card);
@@ -677,9 +705,9 @@ const OnboardingApp = {
       const idx = card.dataset.testimonial;
       const zone = card.querySelector(`[data-photo-zone="${idx}"]`);
       result.push({
-        name:  card.querySelector(`[name="tname-${idx}"]`)?.value?.trim() || '',
-        text:  card.querySelector(`[name="ttext-${idx}"]`)?.value?.trim() || '',
-        photo: zone?.dataset.photoUrl || '',
+        name:     card.querySelector(`[name="tname-${idx}"]`)?.value?.trim() || '',
+        text:     card.querySelector(`[name="ttext-${idx}"]`)?.value?.trim() || '',
+        photoUrl: zone?.dataset.photoUrl || '',
       });
     });
     return result;
@@ -795,14 +823,7 @@ const OnboardingApp = {
       onboarding_data: this.data,
     };
 
-    // ── Remover base64 do payload antes de enviar ──────────────────
-    // Testimonial photos ainda são DataURL — limpar antes de enviar
-    if (Array.isArray(payload.testimonials)) {
-      payload.testimonials = payload.testimonials.map(function(t) {
-        return Object.assign({}, t, { photo: t.photo && t.photo.startsWith('data:') ? '' : (t.photo || '') });
-      });
-    }
-    // Remover quaisquer chaves base64 antigas que possam ter vindo do localStorage
+    // ── Remover chaves base64 legadas que possam ter vindo do localStorage
     const BASE64_LEGACY_KEYS = [
       'logoDataUrl', 'professionalPhoto', 'teamPhotos', 'brandGallery',
       'videos', 'buyerEbook', 'sellerEbook',

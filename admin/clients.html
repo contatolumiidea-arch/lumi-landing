@@ -403,8 +403,8 @@ function renderBriefing(onboarding) {
     s7content = testimonials.map((t, i) => `
       <div style="padding:12px 0;${i > 0 ? 'border-top:1px solid var(--border);' : ''}">
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
-          ${t.photo
-            ? `<img src="${t.photo}" alt="${t.name || ''}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">`
+          ${(t.photoUrl || t.photo)
+            ? `<img src="${t.photoUrl || t.photo}" alt="${t.name || ''}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">`
             : `<div style="width:40px;height:40px;border-radius:50%;background:var(--gold-mid);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--gold);flex-shrink:0;">${(t.name || '?').charAt(0).toUpperCase()}</div>`}
           <strong style="color:var(--text);">${t.name || '—'}</strong>
         </div>
