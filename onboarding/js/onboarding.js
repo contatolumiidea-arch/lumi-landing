@@ -12,9 +12,13 @@ const OnboardingApp = {
 
   // ── Init ─────────────────────────────────────────────────────────
   init() {
+    // Read client_id from URL (?client_id=xxx) injected by Stripe redirect
+    const urlClientId = new URLSearchParams(window.location.search).get('client_id');
+
     this.data = {
-      uuid: this._generateUUID(),
+      uuid:      this._generateUUID(),
       startedAt: new Date().toISOString(),
+      clientId:  urlClientId || null,
     };
 
     this._bindWelcome();

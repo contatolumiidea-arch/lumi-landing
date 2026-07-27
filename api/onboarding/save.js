@@ -25,32 +25,58 @@ module.exports = async function handler(req, res) {
 
   let resolvedClientId = client_id;
 
-  // Sem client_id (sem Stripe ainda): criar registro provisório em lumi_clients
+  // Sem client_id (sem Stripe ainda): find-or-create em lumi_clients por email
   if (!resolvedClientId) {
     const name  = onboarding_data?.fullName  || onboarding_data?.businessName || 'Sem nome';
     const email = onboarding_data?.email     || null;
     const phone = onboarding_data?.phone     || null;
 
-    console.log('[ONBOARDING SAVE] sem client_id — criando cliente provisório:', { name, email });
+    console.log('[ONBOARDING SAVE] sem client_id — find-or-create:', { name, email });
 
-    const { data: newClient, error: insertErr } = await db
-      .from('lumi_clients')
-      .insert({
-        full_name:     name,
-        email,
-        phone,
-        client_status: 'pending_onboarding',
-      })
-      .select('id')
-      .single();
+    // Se temos e-mail, tenta encontrar registro existente primeiro
+    if (email) {
+      const { data: existing } = await db
+        .from('lumi_clients')
+        .select('id')
+        .eq('email', email)
+        .maybeSingle();
 
-    if (insertErr || !newClient) {
-      console.error('[ONBOARDING SAVE] erro ao criar cliente provisório:', insertErr);
-      return res.status(500).json({ error: 'Erro ao registrar cliente.' });
+      if (existing) {
+        resolvedClientId = existing.id;
+        console.log('[ONBOARDING SAVE] cliente existente reutilizado:', resolvedClientId);
+      }
     }
 
-    resolvedClientId = newClient.id;
-    console.log('[ONBOARDING SAVE] cliente provisório criado com id:', resolvedClientId);
+    // Ainda sem id: cria novo registro
+    if (!resolvedClientId) {
+      const { data: newClient, error: insertErr } = await db
+        .from('lumi_clients')
+        .insert({
+          full_name:     name,
+          email,
+          phone,
+          client_status: 'pending_onboarding',
+        })
+        .select('id')
+        .single();
+
+      if (insertErr || !newClient) {
+        console.error('[ONBOARDING SAVE ERROR] insert em lumi_clients falhou:', {
+          message: insertErr?.message,
+          code:    insertErr?.code,
+          details: insertErr?.details,
+          hint:    insertErr?.hint,
+        });
+        return res.status(500).json({
+          error:   'Erro ao registrar cliente.',
+          detail:  insertErr?.message || null,
+          code:    insertErr?.code    || null,
+        });
+      }
+
+      resolvedClientId = newClient.id;
+      console.log('[ONBOARDING SAVE] novo cliente criado:', resolvedClientId);
+    }
   } else {
     // Verificar se o cliente existe
     const { data: client } = await db
