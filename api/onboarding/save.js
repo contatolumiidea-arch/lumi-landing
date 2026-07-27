@@ -103,7 +103,7 @@ module.exports = async function handler(req, res) {
   if (social_links    !== undefined) update.social_links   = social_links;
   if (testimonials    !== undefined) update.testimonials   = testimonials;
   if (properties      !== undefined) update.properties     = properties;
-  if (onboarding_data !== undefined) update.onboarding_data = onboarding_data;
+  if (onboarding_data !== undefined) update.step1_business = onboarding_data; // coluna real na lumi_onboarding
 
   // Marcar como concluído no envio final (onboarding_data presente = submit final)
   if (onboarding_data !== undefined) {
