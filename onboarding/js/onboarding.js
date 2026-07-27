@@ -250,14 +250,9 @@ const OnboardingApp = {
       this.data.primaryColor    = document.getElementById('s2-primary-color')?.value || '#D4AF37';
       this.data.secondaryColor  = document.getElementById('s2-secondary-color')?.value || '#050505';
       this.data.stylePreference = document.querySelector('.style-card.selected')?.dataset.style || '';
-      // Merge upload URLs (stored by _uploadToStorage in videoUrls) + link items (in DOM)
-      const uploadVids = Array.isArray(this.data.videoUrls)
-        ? this.data.videoUrls.map(url => ({ type: 'upload', url }))
-        : [];
-      const linkVids = Array.from(
+      this.data.videos = Array.from(
         document.querySelectorAll('#s2-videos-preview .preview-item[data-video-url]')
       ).map(el => ({ type: el.dataset.videoType || 'link', url: el.dataset.videoUrl }));
-      this.data.videos = [...uploadVids, ...linkVids];
     }
     if (n === 3) {
       this.data.specialties   = Array.from(document.querySelectorAll('.spec-card input:checked')).map(cb => cb.value);
@@ -443,7 +438,7 @@ const OnboardingApp = {
     });
   },
 
-  // ── Video Panel (Step 2) — file upload + external link ──────────
+  // ── Video Panel (Step 2) — external link only ───────────────────
   _bindVideoPanel() {
     const panel = document.getElementById('s2-video-panel');
     if (!panel) return;
@@ -451,17 +446,6 @@ const OnboardingApp = {
     const previewEl  = document.getElementById('s2-videos-preview');
     const getCount   = () => previewEl?.querySelectorAll('.preview-item').length || 0;
 
-    // Tab switching
-    panel.querySelectorAll('.video-panel__tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        panel.querySelectorAll('.video-panel__tab').forEach(t => t.classList.remove('video-panel__tab--active'));
-        tab.classList.add('video-panel__tab--active');
-        document.getElementById('s2-video-upload-pane')?.classList.toggle('hidden-block', tab.dataset.vtab !== 'upload');
-        document.getElementById('s2-video-link-pane')?.classList.toggle('hidden-block', tab.dataset.vtab !== 'link');
-      });
-    });
-
-    // Link add
     const linkInput = document.getElementById('s2-video-link-input');
     const addBtn    = document.getElementById('s2-video-link-add');
 
@@ -586,7 +570,6 @@ const OnboardingApp = {
     's2-photo-input':   { key: 'professionalPhotoUrl', folder: 'brand',   multiple: false },
     's2-team-input':    { key: 'teamPhotoUrls',        folder: 'team',    multiple: true  },
     's2-props-input':   { key: 'brandGalleryUrls',     folder: 'gallery', multiple: true  },
-    's2-videos-input':  { key: 'videoUrls',            folder: 'videos',  multiple: true  },
     'lm-buyer-input':   { key: 'buyerEbookUrl',        folder: 'ebooks',  multiple: false },
     'lm-seller-input':  { key: 'sellerEbookUrl',       folder: 'ebooks',  multiple: false },
   },
@@ -628,79 +611,7 @@ const OnboardingApp = {
       let spinner;
       let useIconRemove = true;
 
-      if (file.type.startsWith('video/')) {
-        // ── Rich video card ──────────────────────────────────────
-        item.className = 'preview-item preview-item--video uploading';
-
-        const thumb = document.createElement('div');
-        thumb.className = 'preview-item__video-thumb';
-        const vidEl = document.createElement('video');
-        vidEl.className = 'preview-item__video-el';
-        vidEl.src = URL.createObjectURL(file);
-        vidEl.preload = 'metadata';
-        vidEl.muted = true;
-        vidEl.playsInline = true;
-        vidEl.addEventListener('loadedmetadata', () => { vidEl.currentTime = 1; });
-        vidEl.addEventListener('error', () => {
-          thumb.innerHTML = '<span class="preview-item__video-icon">🎬</span>';
-        });
-        thumb.appendChild(vidEl);
-        item.appendChild(thumb);
-
-        const info = document.createElement('div');
-        info.className = 'preview-item__info';
-
-        const vName = document.createElement('div');
-        vName.className = 'preview-item__filename';
-        vName.textContent = '🎬 ' + file.name;
-        info.appendChild(vName);
-
-        const vStatus = document.createElement('div');
-        vStatus.className = 'preview-item__status';
-        vStatus.textContent = '⏳ Enviando vídeo... 0%';
-        info.appendChild(vStatus);
-
-        const vTrack = document.createElement('div');
-        vTrack.className = 'preview-progress';
-        const vBar = document.createElement('div');
-        vBar.className = 'preview-progress__bar';
-        vTrack.appendChild(vBar);
-        info.appendChild(vTrack);
-        item.appendChild(info);
-
-        spinner = document.createElement('span');
-        spinner.style.display = 'none';
-        item.appendChild(spinner);
-
-        let vPct = 0;
-        const vTicker = setInterval(() => {
-          if (vPct < 85) {
-            vPct = Math.min(85, vPct + Math.random() * 10 + 2);
-            vBar.style.width = vPct.toFixed(0) + '%';
-            vStatus.textContent = '⏳ Enviando vídeo... ' + vPct.toFixed(0) + '%';
-          }
-        }, 350);
-
-        watchSpinner(spinner,
-          () => {
-            clearInterval(vTicker);
-            vBar.style.width = '100%';
-            vBar.classList.add('preview-progress__bar--done');
-            vStatus.textContent = '✓ Upload concluído';
-            vStatus.classList.add('preview-item__status--done');
-            item.classList.remove('uploading');
-          },
-          () => {
-            clearInterval(vTicker);
-            vBar.classList.add('preview-progress__bar--error');
-            vStatus.textContent = '✗ Falha no upload';
-            vStatus.classList.add('preview-item__status--error');
-            item.classList.remove('uploading');
-            item.classList.add('upload-failed');
-          }
-        );
-
-      } else if (file.type.startsWith('image/')) {
+      if (file.type.startsWith('image/')) {
         // ── Image card with loading overlay ─────────────────────
         item.className = 'preview-item uploading';
 
@@ -852,13 +763,7 @@ const OnboardingApp = {
 
   async _uploadToStorage(file, mapping, item, spinner) {
     this._pendingUploads++;
-    const isVideo = file.type.startsWith('video/');
     try {
-      // [DIAG vídeo] — remove após investigação
-      if (isVideo) {
-        console.log('[UPLOAD VIDEO] arquivo:', file.name, '| tipo:', file.type, '| tamanho:', (file.size / (1024 * 1024)).toFixed(1), 'MB | pasta:', mapping.folder);
-      }
-
       const res = await fetch('/api/onboarding/upload-token', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -872,29 +777,13 @@ const OnboardingApp = {
 
       const json = await res.json();
 
-      // [DIAG vídeo] — remove após investigação
-      if (isVideo) {
-        console.log('[UPLOAD VIDEO] resposta do token:', res.status, JSON.stringify(json));
-      }
-
       if (!res.ok) throw new Error(json.error || 'Erro ao obter token de upload');
 
-      // Upload directly to Supabase Storage — bypasses Vercel 4.5 MB body limit
       const uploadRes = await fetch(json.signedUrl, {
         method:  'PUT',
         headers: { 'Content-Type': file.type },
         body:    file,
       });
-
-      // [DIAG vídeo] — remove após investigação
-      if (isVideo) {
-        if (!uploadRes.ok) {
-          const errText = await uploadRes.text().catch(() => '(sem body)');
-          console.error('[UPLOAD VIDEO] PUT falhou:', uploadRes.status, uploadRes.statusText, '| body:', errText);
-        } else {
-          console.log('[UPLOAD VIDEO] PUT ok:', uploadRes.status, '| URL pública:', json.publicUrl);
-        }
-      }
 
       if (!uploadRes.ok) throw new Error('Erro ao enviar arquivo para o storage (status ' + uploadRes.status + ')');
 
@@ -1223,7 +1112,7 @@ const OnboardingApp = {
     // ── Remover chaves base64 legadas que possam ter vindo do localStorage
     const BASE64_LEGACY_KEYS = [
       'logoDataUrl', 'professionalPhoto', 'teamPhotos', 'brandGallery',
-      'videos', 'buyerEbook', 'sellerEbook',
+      'videoUrls', 'buyerEbook', 'sellerEbook',
     ];
     if (payload.onboarding_data && typeof payload.onboarding_data === 'object') {
       BASE64_LEGACY_KEYS.forEach(function(k) { delete payload.onboarding_data[k]; });

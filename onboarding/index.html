@@ -280,29 +280,11 @@
               <div class="upload-group upload-group--full">
                 <label class="form-label" data-i18n="s2.videos_label">Vídeos</label>
                 <div class="video-panel" id="s2-video-panel">
-
-                  <div class="video-panel__tabs">
-                    <button type="button" class="video-panel__tab video-panel__tab--active" data-vtab="upload">📁 Enviar arquivo</button>
-                    <button type="button" class="video-panel__tab" data-vtab="link">🔗 Adicionar link</button>
+                  <div class="video-link-row">
+                    <input type="url" class="form-input" id="s2-video-link-input" placeholder="https://www.youtube.com/watch?v=... ou link do Google Drive">
+                    <button type="button" class="video-link-add-btn" id="s2-video-link-add">Adicionar</button>
                   </div>
-
-                  <div class="video-panel__pane" id="s2-video-upload-pane">
-                    <div class="upload-zone" data-preview="s2-videos-preview">
-                      <div class="upload-icon">🎬</div>
-                      <div class="upload-cta" data-i18n="s2.upload_cta">Arraste ou clique para enviar</div>
-                      <div class="upload-hint">MP4 ou MOV · máx. 50MB · até 3 vídeos</div>
-                      <input type="file" id="s2-videos-input" accept="video/mp4,video/quicktime" multiple data-max="3">
-                    </div>
-                  </div>
-
-                  <div class="video-panel__pane hidden-block" id="s2-video-link-pane">
-                    <div class="video-link-row">
-                      <input type="url" class="form-input" id="s2-video-link-input" placeholder="https://www.youtube.com/watch?v=... ou link do Google Drive">
-                      <button type="button" class="video-link-add-btn" id="s2-video-link-add">Adicionar</button>
-                    </div>
-                    <p class="video-link-hint">ℹ️ Google Drive: o vídeo precisa estar compartilhado como <strong>"Qualquer pessoa com o link"</strong>.</p>
-                  </div>
-
+                  <p class="video-link-hint">ℹ️ Google Drive: certifique-se que o arquivo está como <strong>"Qualquer pessoa com o link pode visualizar"</strong>.</p>
                   <div class="upload-preview" id="s2-videos-preview"></div>
                 </div>
               </div>
