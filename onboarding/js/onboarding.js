@@ -271,13 +271,13 @@ const OnboardingApp = {
     }
     if (n === 5) {
       this.data.leadWho            = Array.from(document.querySelectorAll('.lead-who-card input[type="checkbox"]:checked')).map(cb => cb.value);
+      this.data.contactChannels    = Array.from(document.querySelectorAll('[name="s5-contact-channel"]:checked')).map(cb => cb.value);
       this.data.leadWhatsapp       = this._val('s5-whatsapp');
       this.data.leadEmail          = this._val('s5-email');
-      this.data.leadChannel        = document.querySelector('[name="s5-lead-channel"]:checked')?.value || '';
-      this.data.crmUsage           = document.querySelector('[name="s5-crm"]:checked')?.value || '';
+      this.data.businessHours      = this._val('s5-business-hours');
+      this.data.leadDestination    = document.querySelector('[name="s5-lead-destination"]:checked')?.value || '';
       this.data.crmName            = this._val('s5-crm-name');
       this.data.leadWelcomeMessage = this._val('s5-welcome-message');
-      this.data.businessHours      = this._val('s5-business-hours');
     }
     if (n === 6) {
       this.data.leadMagnetOption = document.querySelector('.option-card.selected')?.dataset.option || 'lumi';
@@ -312,11 +312,11 @@ const OnboardingApp = {
       });
     });
 
-    // Toggle CRM name field
-    document.querySelectorAll('[name="s5-crm"]').forEach(radio => {
+    // Toggle "Outro CRM" name field
+    document.querySelectorAll('[name="s5-lead-destination"]').forEach(radio => {
       radio.addEventListener('change', () => {
-        const wrap = document.getElementById('s5-crm-name-wrap');
-        if (wrap) wrap.style.display = radio.value === 'outro' && radio.checked ? 'block' : 'none';
+        const wrap = document.getElementById('s5-other-crm-wrap');
+        if (wrap) wrap.style.display = radio.value === 'outro_crm' && radio.checked ? 'block' : 'none';
       });
     });
 
@@ -1062,17 +1062,24 @@ const OnboardingApp = {
     const lmEl = document.getElementById('summary-leadmagnet');
     if (lmEl) lmEl.textContent = this.data.leadMagnetOption === 'own' ? 'Materiais próprios' : 'Modelos LUMI';
 
-    // Lead delivery config
-    const channelMap = { whatsapp: 'WhatsApp', email: 'Email', crm_lumi: 'CRM LUMI', outro: 'Outro' };
-    const crmMap     = { none: 'Não uso CRM', outro: 'Uso outro CRM', lumi: 'Quero CRM LUMI' };
-    const ldEl = document.getElementById('summary-lead-delivery');
+    // Contact channels
+    const channelLabelMap = { phone: 'Telefone', whatsapp: 'WhatsApp', email: 'Email', sms: 'SMS' };
+    const ccEl = document.getElementById('summary-contact-channels');
+    if (ccEl) {
+      const channels = (this.data.contactChannels || []).map(c => channelLabelMap[c] || c);
+      const parts = [...channels];
+      if (this.data.businessHours) parts.push('Atendimento: ' + this.data.businessHours);
+      ccEl.textContent = parts.join(' · ') || '—';
+    }
+
+    // Lead destination
+    const destLabelMap = { crm_lumi: 'CRM LUMI', email: 'Email', outro_crm: 'Outro CRM' };
+    const ldEl = document.getElementById('summary-lead-destination');
     if (ldEl) {
       const parts = [];
-      if (this.data.leadChannel)        parts.push('Canal: ' + (channelMap[this.data.leadChannel] || this.data.leadChannel));
-      if (this.data.crmUsage)           parts.push('CRM: ' + (crmMap[this.data.crmUsage] || this.data.crmUsage));
-      if (this.data.crmName)            parts.push('(' + this.data.crmName + ')');
-      if (this.data.businessHours)      parts.push('Atendimento: ' + this.data.businessHours);
-      ldEl.textContent = parts.join(' · ') || '—';
+      if (this.data.leadDestination) parts.push(destLabelMap[this.data.leadDestination] || this.data.leadDestination);
+      if (this.data.crmName)         parts.push('(' + this.data.crmName + ')');
+      ldEl.textContent = parts.join(' ') || '—';
     }
 
     // Testimonials

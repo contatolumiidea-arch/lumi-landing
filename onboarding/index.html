@@ -476,107 +476,114 @@
           <div class="step-inner">
             <header class="step-header">
               <div class="step-eyebrow">05 / 08</div>
-              <h2 class="step-title" data-i18n="steps.5.title">Como você quer receber seus clientes?</h2>
-              <p class="step-subtitle" data-i18n="steps.5.subtitle">Configure onde e como os contatos de potenciais clientes chegarão até você.</p>
+              <h2 class="step-title">Clientes e contatos</h2>
+              <p class="step-subtitle">Configure quem você quer atrair, como eles entram em contato e para onde os leads chegam.</p>
             </header>
 
-            <div style="margin-bottom:28px">
-              <label class="form-label" style="margin-bottom:14px;display:block" data-i18n="s5.who_label">Quem você quer receber?</label>
+            <!-- Bloco A: Público-alvo -->
+            <div class="s5-block">
+              <div class="s5-block__header">
+                <div class="s5-block__title">Quem você quer receber?</div>
+              </div>
               <div class="lead-who-grid">
                 <label class="lead-who-card" data-who="Compradores">
                   <input type="checkbox" value="Compradores">
                   <div class="lead-who-card__icon">🏠</div>
-                  <div class="lead-who-card__label" data-i18n="s5.who_buyers">Compradores</div>
+                  <div class="lead-who-card__label">Compradores</div>
                 </label>
                 <label class="lead-who-card" data-who="Vendedores">
                   <input type="checkbox" value="Vendedores">
                   <div class="lead-who-card__icon">💰</div>
-                  <div class="lead-who-card__label" data-i18n="s5.who_sellers">Vendedores</div>
+                  <div class="lead-who-card__label">Vendedores</div>
                 </label>
                 <label class="lead-who-card" data-who="Investidores">
                   <input type="checkbox" value="Investidores">
                   <div class="lead-who-card__icon">📈</div>
-                  <div class="lead-who-card__label" data-i18n="s5.who_investors">Investidores</div>
+                  <div class="lead-who-card__label">Investidores</div>
                 </label>
                 <label class="lead-who-card" data-who="Proprietários">
                   <input type="checkbox" value="Proprietários">
                   <div class="lead-who-card__icon">🔑</div>
-                  <div class="lead-who-card__label" data-i18n="s5.who_owners">Proprietários</div>
+                  <div class="lead-who-card__label">Proprietários</div>
                 </label>
                 <label class="lead-who-card" data-who="Locatários">
                   <input type="checkbox" value="Locatários">
                   <div class="lead-who-card__icon">🏢</div>
-                  <div class="lead-who-card__label" data-i18n="s5.who_renters">Locatários</div>
+                  <div class="lead-who-card__label">Locatários</div>
                 </label>
               </div>
             </div>
 
-            <div class="form-grid">
-              <div class="form-group">
-                <label class="form-label" for="s5-whatsapp" data-i18n="s5.whatsapp_label">WhatsApp de destino</label>
-                <input class="form-input" id="s5-whatsapp" type="tel" data-i18n-placeholder="s5.whatsapp_ph">
+            <!-- Bloco B: Canais de contato da landing page -->
+            <div class="s5-block">
+              <div class="s5-block__header">
+                <div class="s5-block__title">Configure seus canais de contato</div>
+                <div class="s5-block__subtitle">Escolha como seus visitantes poderão falar diretamente com você pela sua landing page.</div>
               </div>
-              <div class="form-group">
-                <label class="form-label" for="s5-email" data-i18n="s5.email_label">Email de recebimento</label>
-                <input class="form-input" id="s5-email" type="email" data-i18n-placeholder="s5.email_ph">
+              <div class="lead-who-grid" style="grid-template-columns:repeat(2,1fr)">
+                <label class="lead-who-card" data-channel="phone">
+                  <input type="checkbox" name="s5-contact-channel" value="phone">
+                  <div class="lead-who-card__icon">📞</div>
+                  <div class="lead-who-card__label">Telefone</div>
+                </label>
+                <label class="lead-who-card" data-channel="whatsapp">
+                  <input type="checkbox" name="s5-contact-channel" value="whatsapp">
+                  <div class="lead-who-card__icon">💬</div>
+                  <div class="lead-who-card__label">WhatsApp</div>
+                </label>
+                <label class="lead-who-card" data-channel="email">
+                  <input type="checkbox" name="s5-contact-channel" value="email">
+                  <div class="lead-who-card__icon">✉️</div>
+                  <div class="lead-who-card__label">Email</div>
+                </label>
+                <label class="lead-who-card" data-channel="sms">
+                  <input type="checkbox" name="s5-contact-channel" value="sms">
+                  <div class="lead-who-card__icon">💌</div>
+                  <div class="lead-who-card__label">SMS</div>
+                </label>
+              </div>
+              <div class="form-grid" style="margin-top:16px">
+                <div class="form-group">
+                  <label class="form-label" for="s5-whatsapp">WhatsApp / Telefone</label>
+                  <input class="form-input" id="s5-whatsapp" type="tel" placeholder="+55 (11) 99999-9999">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="s5-email">Email de contato</label>
+                  <input class="form-input" id="s5-email" type="email" placeholder="seu@email.com">
+                </div>
+              </div>
+              <div class="form-group" style="margin-top:8px">
+                <label class="form-label" for="s5-business-hours">Horário de atendimento</label>
+                <input class="form-input" id="s5-business-hours" type="text" placeholder="Ex: Seg–Sex das 9h às 18h">
               </div>
             </div>
 
-            <!-- Bloco: Como você quer receber seus novos clientes? -->
-            <div style="margin-top:32px;padding-top:28px;border-top:1px solid var(--border-subtle,rgba(255,255,255,.08))">
-              <label class="form-label" style="margin-bottom:14px;display:block">Como você quer receber seus novos clientes?</label>
-
-              <!-- Canal principal -->
-              <div style="margin-bottom:20px">
-                <label class="form-label" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;opacity:.7;margin-bottom:10px;display:block">Canal principal de recebimento</label>
-                <div class="lead-who-grid" style="grid-template-columns:repeat(2,1fr)">
-                  <label class="lead-who-card" data-channel="whatsapp">
-                    <input type="radio" name="s5-lead-channel" value="whatsapp">
-                    <div class="lead-who-card__icon">💬</div>
-                    <div class="lead-who-card__label">WhatsApp</div>
-                  </label>
-                  <label class="lead-who-card" data-channel="email">
-                    <input type="radio" name="s5-lead-channel" value="email">
-                    <div class="lead-who-card__icon">✉️</div>
-                    <div class="lead-who-card__label">Email</div>
-                  </label>
-                  <label class="lead-who-card" data-channel="crm_lumi">
-                    <input type="radio" name="s5-lead-channel" value="crm_lumi">
-                    <div class="lead-who-card__icon">⚡</div>
-                    <div class="lead-who-card__label">CRM LUMI</div>
-                  </label>
-                  <label class="lead-who-card" data-channel="outro">
-                    <input type="radio" name="s5-lead-channel" value="outro">
-                    <div class="lead-who-card__icon">🔗</div>
-                    <div class="lead-who-card__label">Outro</div>
-                  </label>
-                </div>
+            <!-- Bloco C: Destino dos leads do formulário -->
+            <div class="s5-block">
+              <div class="s5-block__header">
+                <div class="s5-block__title">Onde receber seus novos leads?</div>
+                <div class="s5-block__subtitle">Quando alguém preencher o formulário da sua página, para onde esse contato deve ir?</div>
+              </div>
+              <div class="lead-who-grid" style="grid-template-columns:repeat(3,1fr)">
+                <label class="lead-who-card" data-dest="crm_lumi">
+                  <input type="radio" name="s5-lead-destination" value="crm_lumi">
+                  <div class="lead-who-card__icon">⚡</div>
+                  <div class="lead-who-card__label">CRM LUMI</div>
+                </label>
+                <label class="lead-who-card" data-dest="email">
+                  <input type="radio" name="s5-lead-destination" value="email">
+                  <div class="lead-who-card__icon">✉️</div>
+                  <div class="lead-who-card__label">Email</div>
+                </label>
+                <label class="lead-who-card" data-dest="outro_crm">
+                  <input type="radio" name="s5-lead-destination" value="outro_crm">
+                  <div class="lead-who-card__icon">🔧</div>
+                  <div class="lead-who-card__label">Outro CRM</div>
+                </label>
               </div>
 
-              <!-- Usa CRM? -->
-              <div style="margin-bottom:20px">
-                <label class="form-label" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;opacity:.7;margin-bottom:10px;display:block">Usa algum CRM?</label>
-                <div class="lead-who-grid" style="grid-template-columns:repeat(3,1fr)">
-                  <label class="lead-who-card" data-crm="none">
-                    <input type="radio" name="s5-crm" value="none">
-                    <div class="lead-who-card__icon">🚫</div>
-                    <div class="lead-who-card__label">Não uso CRM</div>
-                  </label>
-                  <label class="lead-who-card" data-crm="outro">
-                    <input type="radio" name="s5-crm" value="outro">
-                    <div class="lead-who-card__icon">🔧</div>
-                    <div class="lead-who-card__label">Uso outro CRM</div>
-                  </label>
-                  <label class="lead-who-card" data-crm="lumi">
-                    <input type="radio" name="s5-crm" value="lumi">
-                    <div class="lead-who-card__icon">⚡</div>
-                    <div class="lead-who-card__label">Quero CRM LUMI</div>
-                  </label>
-                </div>
-              </div>
-
-              <!-- Nome do CRM (aparece só quando "Uso outro CRM") -->
-              <div id="s5-crm-name-wrap" style="display:none;margin-bottom:20px">
+              <!-- Nome do outro CRM -->
+              <div id="s5-other-crm-wrap" style="display:none;margin-top:14px">
                 <div class="form-group">
                   <label class="form-label" for="s5-crm-name">Qual CRM você usa?</label>
                   <input class="form-input" id="s5-crm-name" type="text" placeholder="Ex: Salesforce, HubSpot, RD Station…">
@@ -584,15 +591,9 @@
               </div>
 
               <!-- Mensagem automática -->
-              <div class="form-group" style="margin-bottom:20px">
+              <div class="form-group" style="margin-top:16px">
                 <label class="form-label" for="s5-welcome-message">Mensagem automática inicial <span style="opacity:.6;font-weight:400">(opcional)</span></label>
                 <textarea class="form-textarea" id="s5-welcome-message" rows="3" placeholder="Ex: Olá, obrigado pelo contato. Recebi sua mensagem e vou retornar em breve."></textarea>
-              </div>
-
-              <!-- Horário de atendimento -->
-              <div class="form-group">
-                <label class="form-label" for="s5-business-hours">Horário de atendimento</label>
-                <input class="form-input" id="s5-business-hours" type="text" placeholder="Ex: Seg–Sex das 9h às 18h">
               </div>
             </div>
 
@@ -743,8 +744,12 @@
                 <div class="summary-card__value" id="summary-links" style="font-size:13px">—</div>
               </div>
               <div class="summary-card">
-                <div class="summary-card__title">Recebimento de Leads</div>
-                <div class="summary-card__value" id="summary-lead-delivery" style="font-size:13px">—</div>
+                <div class="summary-card__title">Canais de contato</div>
+                <div class="summary-card__value" id="summary-contact-channels" style="font-size:13px">—</div>
+              </div>
+              <div class="summary-card">
+                <div class="summary-card__title">Destino dos leads</div>
+                <div class="summary-card__value" id="summary-lead-destination" style="font-size:13px">—</div>
               </div>
               <div class="summary-card">
                 <div class="summary-card__title" data-i18n="s9.section_leadmagnet">Lead Magnet</div>

@@ -1287,6 +1287,25 @@ a { color: var(--gold); text-decoration: none; }
 .toggle-reveal { margin-top: 14px; display: none; }
 .toggle-reveal.visible { display: block; }
 
+/* ── Step 5 Blocks ───────────────────────────────────────── */
+.s5-block {
+  padding: 24px 0;
+  border-top: 1px solid var(--border-subtle, rgba(255,255,255,.08));
+}
+.s5-block:first-child { border-top: none; padding-top: 0; }
+.s5-block__header { margin-bottom: 16px; }
+.s5-block__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary, #fff);
+  margin-bottom: 4px;
+}
+.s5-block__subtitle {
+  font-size: 13px;
+  color: var(--text-secondary, #a1a1a1);
+  line-height: 1.5;
+}
+
 /* ── Lead Who Cards (Step 5) ─────────────────────────────── */
 .lead-who-grid {
   display: grid;
