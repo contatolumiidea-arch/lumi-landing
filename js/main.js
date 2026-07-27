@@ -216,7 +216,10 @@ function updateWhatsApp(t, cfg) {
 
 // ── Forms ──────────────────────────────────────────────────────────────────────
 function initForms(cfg) {
-  const enabledForms = Array.isArray(cfg?.enabled_forms) ? cfg.enabled_forms : null;
+  // null → not configured (show all); [] → explicitly empty is treated as null (show all too).
+  // Only a non-empty array actually filters which sections are visible.
+  const rawForms = cfg?.enabled_forms;
+  const enabledForms = Array.isArray(rawForms) && rawForms.length > 0 ? rawForms : null;
 
   // Sections start hidden by default in the HTML (display:none).
   // Only reveal them on realtor landing pages (client_id present) for forms in enabled_forms.

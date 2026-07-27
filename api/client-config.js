@@ -26,11 +26,16 @@ module.exports = async function handler(req, res) {
   const s5   = data.step5_details  || {};
   const od   = Object.keys(full).length ? full : s5;
 
+  // Return null (not []) when not configured — null means "show all forms".
+  // An empty [] would mean "no forms enabled", hiding everything on the realtor page.
+  const rawForms = od.enabled_forms || od.captureForms;
+  const enabledForms = Array.isArray(rawForms) && rawForms.length > 0 ? rawForms : null;
+
   res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=60');
   return res.status(200).json({
-    enabled_forms:       od.enabled_forms   || od.captureForms || [],
-    welcome_message:     od.leadWelcomeMessage || null,
-    contact_channels:    od.contactChannels || [],
-    whatsapp:            od.leadWhatsapp    || null,
+    enabled_forms:    enabledForms,
+    welcome_message:  od.leadWelcomeMessage || null,
+    contact_channels: od.contactChannels    || [],
+    whatsapp:         od.leadWhatsapp       || null,
   });
 };
