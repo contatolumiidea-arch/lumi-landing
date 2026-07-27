@@ -77,6 +77,13 @@
 (function () {
   'use strict';
 
+  const SOURCE_LABELS = {
+    buyer_form:     'Consulta Comprador',
+    seller_form:    'Avaliação Vendedor',
+    newsletter:     'Boletim',
+    ebook_download: 'Download Ebook',
+  };
+
   const LIMIT = 50;
   let allLeads   = [];   // todos os leads carregados
   let filtered   = [];   // após busca local
@@ -139,7 +146,9 @@
       return;
     }
 
-    const rows = leads.map(l => `
+    const rows = leads.map(l => {
+      const sourceLabel = SOURCE_LABELS[l.lead_source] || esc(l.lead_source) || esc(l.origin) || 'site';
+      return `
       <tr>
         <td>
           <div class="cell-name">${esc(l.lead_name) || '—'}</div>
@@ -147,10 +156,10 @@
         </td>
         <td class="cell-phone">${esc(l.lead_phone) || '—'}</td>
         <td class="cell-date">${fmtDate(l.created_at)}</td>
-        <td><span class="cell-origin">${esc(l.origin) || 'site'}</span></td>
+        <td><span class="cell-origin">${sourceLabel}</span></td>
         <td class="cell-msg" title="${esc(l.message)}">${esc(l.message) || '—'}</td>
-      </tr>
-    `).join('');
+      </tr>`;
+    }).join('');
 
     container.innerHTML = `
       <table class="leads-table" aria-label="Lista de leads">
@@ -160,7 +169,7 @@
             <th>Telefone</th>
             <th>Data</th>
             <th>Origem</th>
-            <th>Mensagem</th>
+            <th>Mensagem / Interesse</th>
           </tr>
         </thead>
         <tbody>${rows}</tbody>

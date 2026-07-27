@@ -1,6 +1,13 @@
 const { requirePortal } = require('../_lib/portal-auth');
 const { getDb } = require('../_lib/db');
 
+const SOURCE_LABELS = {
+  buyer_form:     'Formulário de Consulta do Comprador',
+  seller_form:    'Formulário de Avaliação do Vendedor',
+  newsletter:     'Inscrição no Boletim',
+  ebook_download: 'Download de Ebook',
+};
+
 function toCSV(rows) {
   const headers = ['Nome', 'Email', 'Telefone', 'Data', 'Origem', 'Mensagem'];
   const escape = (v) => {
@@ -15,7 +22,7 @@ function toCSV(rows) {
       escape(r.lead_email),
       escape(r.lead_phone),
       escape(r.created_at ? new Date(r.created_at).toLocaleString('pt-BR') : ''),
-      escape(r.origin),
+      escape(SOURCE_LABELS[r.lead_source] || r.lead_source || r.origin || ''),
       escape(r.message),
     ].join(',')),
   ];
@@ -30,7 +37,7 @@ module.exports = requirePortal(async function handler(req, res) {
 
   const { data, error } = await db
     .from('realtor_leads')
-    .select('lead_name, lead_email, lead_phone, origin, message, created_at')
+    .select('lead_name, lead_email, lead_phone, origin, lead_source, message, created_at')
     .eq('client_id', client_id)
     .order('created_at', { ascending: false });
 

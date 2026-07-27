@@ -13,7 +13,7 @@ module.exports = requirePortal(async function handler(req, res) {
   const db = getDb();
   const { data, count, error } = await db
     .from('realtor_leads')
-    .select('id, lead_name, lead_email, lead_phone, origin, message, created_at', { count: 'exact' })
+    .select('id, lead_name, lead_email, lead_phone, origin, lead_source, message, created_at', { count: 'exact' })
     .eq('client_id', client_id)
     .order('created_at', { ascending: false })
     .range((pageNum - 1) * limitNum, pageNum * limitNum - 1);
