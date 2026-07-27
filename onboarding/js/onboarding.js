@@ -472,6 +472,18 @@ const OnboardingApp = {
 
     addBtn?.addEventListener('click', tryAddLink);
     linkInput?.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); tryAddLink(); } });
+
+    // Google Drive help toggle
+    const helpBtn   = document.getElementById('s2-drive-help-btn');
+    const helpSteps = document.getElementById('s2-drive-steps');
+    helpBtn?.addEventListener('click', () => {
+      const open = helpSteps.hidden;
+      helpSteps.hidden = !open;
+      helpBtn.setAttribute('aria-expanded', open);
+      helpBtn.textContent = open
+        ? 'Como liberar acesso no Google Drive ▴'
+        : 'Como liberar acesso no Google Drive ▾';
+    });
   },
 
   _detectVideoLinkType(url) {

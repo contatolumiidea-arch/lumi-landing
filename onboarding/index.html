@@ -284,7 +284,24 @@
                     <input type="url" class="form-input" id="s2-video-link-input" placeholder="https://www.youtube.com/watch?v=... ou link do Google Drive">
                     <button type="button" class="video-link-add-btn" id="s2-video-link-add">Adicionar</button>
                   </div>
-                  <p class="video-link-hint">ℹ️ Google Drive: certifique-se que o arquivo está como <strong>"Qualquer pessoa com o link pode visualizar"</strong>.</p>
+                  <div class="video-drive-notice">
+                    <span class="video-drive-notice__icon">⚠️</span>
+                    <div class="video-drive-notice__body">
+                      <p class="video-drive-notice__text">
+                        <strong>Importante:</strong> se usar Google Drive, o vídeo precisa estar com a permissão <strong>"Qualquer pessoa com o link pode visualizar"</strong>. Caso contrário, nossa equipe não conseguirá acessar o arquivo.
+                      </p>
+                      <button type="button" class="video-drive-help-btn" id="s2-drive-help-btn" aria-expanded="false">
+                        Como liberar acesso no Google Drive ▾
+                      </button>
+                      <ol class="video-drive-steps" id="s2-drive-steps" hidden>
+                        <li>Abra o Google Drive e localize o vídeo.</li>
+                        <li>Clique com o botão direito no arquivo e selecione <strong>"Compartilhar"</strong>.</li>
+                        <li>Em "Acesso geral", clique em <strong>"Restrito"</strong> e mude para <strong>"Qualquer pessoa com o link"</strong>.</li>
+                        <li>Confirme que o papel está como <strong>"Leitor"</strong> e clique em <strong>"Concluído"</strong>.</li>
+                        <li>Copie o link e cole no campo acima.</li>
+                      </ol>
+                    </div>
+                  </div>
                   <div class="upload-preview" id="s2-videos-preview"></div>
                 </div>
               </div>
