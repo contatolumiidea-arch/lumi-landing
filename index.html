@@ -22,14 +22,37 @@
 <!-- ════════════════════════════════════════════
      CONTACT FLOATING BUTTON
      ════════════════════════════════════════════ -->
-<a data-contact-btn
-   href="mailto:contato.lumiidea@gmail.com?subject=Tenho%20interesse%20na%20LUMI%20Landing&body=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20LUMI%20Landing."
-   aria-label="Fale com a LUMI">
+<a data-contact-btn href="#contact-modal" aria-label="Fale com a LUMI">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
   </svg>
   <span class="wa-tooltip">Fale com a LUMI</span>
 </a>
+
+<!-- ════════════════════════════════════════════
+     CONTACT MODAL
+     ════════════════════════════════════════════ -->
+<div id="contact-modal" data-contact-modal aria-modal="true" role="dialog" aria-labelledby="contact-modal-title">
+  <div class="contact-modal__overlay" data-modal-close></div>
+  <div class="contact-modal__card">
+    <button class="contact-modal__close" data-modal-close aria-label="Fechar">&times;</button>
+    <h2 class="contact-modal__title" id="contact-modal-title">Fale com a LUMI</h2>
+    <p class="contact-modal__sub">Preencha seus dados e nossa equipe entrará em contato.</p>
+    <form class="contact-modal__form" data-contact-form>
+      <div class="contact-modal__field">
+        <input type="text" name="name" placeholder="Seu nome" autocomplete="name">
+      </div>
+      <div class="contact-modal__field">
+        <input type="email" name="email" placeholder="Seu email" required autocomplete="email">
+      </div>
+      <div class="contact-modal__field">
+        <textarea name="message" rows="4" placeholder="Mensagem">Olá, gostaria de saber mais sobre a LUMI Landing.</textarea>
+      </div>
+      <button type="submit" class="contact-modal__submit">Enviar mensagem</button>
+      <p class="contact-modal__feedback" data-contact-feedback></p>
+    </form>
+  </div>
+</div>
 <!-- Realtor pages: WhatsApp float injected by JS when cfg.whatsapp is set -->
 <a data-whatsapp-btn style="display:none"
    href="#"

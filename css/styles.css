@@ -1064,6 +1064,116 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 .referral-visual .icon { font-size: 4rem; margin-bottom: 16px; }
 
 /* ════════════════════════════════════════════════════════════
+   CONTACT MODAL
+   ════════════════════════════════════════════════════════════ */
+[data-contact-modal] {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+[data-contact-modal].is-open {
+  display: flex;
+}
+.contact-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.72);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+}
+.contact-modal__card {
+  position: relative;
+  background: #0e0e0e;
+  border: 1px solid rgba(212,175,55,.3);
+  border-radius: 16px;
+  padding: 40px 36px 36px;
+  width: 100%;
+  max-width: 440px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(0,0,0,.7), 0 0 0 1px rgba(212,175,55,.08);
+  z-index: 1;
+}
+.contact-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.4);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color .2s;
+}
+.contact-modal__close:hover { color: var(--color-gold); }
+.contact-modal__title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-white);
+  margin: 0 0 8px;
+}
+.contact-modal__sub {
+  font-size: .9rem;
+  color: rgba(255,255,255,.5);
+  margin: 0 0 28px;
+  line-height: 1.5;
+}
+.contact-modal__field { margin-bottom: 14px; }
+.contact-modal__field input,
+.contact-modal__field textarea {
+  width: 100%;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px;
+  color: var(--color-white);
+  font-size: .9rem;
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  transition: border-color .2s;
+  resize: none;
+  box-sizing: border-box;
+}
+.contact-modal__field input::placeholder,
+.contact-modal__field textarea::placeholder { color: rgba(255,255,255,.3); }
+.contact-modal__field input:focus,
+.contact-modal__field textarea:focus {
+  outline: none;
+  border-color: rgba(212,175,55,.5);
+}
+.contact-modal__submit {
+  width: 100%;
+  background: linear-gradient(135deg, #F5D77A, #D4AF37, #9A6B18);
+  color: #0a0a0a;
+  border: none;
+  border-radius: 8px;
+  font-size: .95rem;
+  font-weight: 700;
+  padding: 14px;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: opacity .2s, transform .15s;
+  font-family: var(--font-body);
+}
+.contact-modal__submit:hover { opacity: .9; transform: translateY(-1px); }
+.contact-modal__submit:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+.contact-modal__feedback {
+  font-size: .85rem;
+  text-align: center;
+  margin: 12px 0 0;
+  min-height: 20px;
+  transition: opacity .2s;
+}
+.contact-modal__feedback.success { color: #4ade80; }
+.contact-modal__feedback.error   { color: #f87171; }
+
+/* ════════════════════════════════════════════════════════════
    CONTACT FLOAT BUTTON — email (LUMI sales page)
    ════════════════════════════════════════════════════════════ */
 [data-contact-btn] {

@@ -59,6 +59,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   // WhatsApp float
   initWhatsApp(cfg);
 
+  // Contact modal (LUMI sales page)
+  initContactModal();
+
   // Cookie banner
   if (cfg.features?.cookieBanner !== false) initCookieBanner();
 
@@ -197,8 +200,71 @@ function buildInterestOptions(t) {
   });
 }
 
+// ── Contact modal ─────────────────────────────────────────────────────────────
+function initContactModal() {
+  const modal   = $("[data-contact-modal]");
+  const trigger = $("[data-contact-btn]");
+  const form    = $("[data-contact-form]");
+  if (!modal || !trigger) return;
+
+  function openModal(e) {
+    e.preventDefault();
+    modal.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+    setTimeout(() => modal.querySelector("input[name='name']")?.focus(), 50);
+  }
+
+  function closeModal() {
+    modal.classList.remove("is-open");
+    document.body.style.overflow = "";
+  }
+
+  trigger.addEventListener("click", openModal);
+  $$("[data-modal-close]", modal).forEach(el => el.addEventListener("click", closeModal));
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+  if (!form) return;
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const feedback = $("[data-contact-feedback]");
+    const btn = form.querySelector("[type='submit']");
+    const orig = btn.textContent;
+
+    btn.disabled = true;
+    btn.textContent = "Enviando...";
+    if (feedback) { feedback.textContent = ""; feedback.className = "contact-modal__feedback"; }
+
+    const name    = form.elements.name?.value?.trim()    || null;
+    const email   = form.elements.email?.value?.trim()   || "";
+    const message = form.elements.message?.value?.trim() || null;
+
+    try {
+      const res = await fetch("/api/prospects/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, origin: "contact_form", metadata: { message } }),
+      });
+      if (!res.ok) throw new Error();
+      form.reset();
+      if (feedback) {
+        feedback.textContent = "Mensagem enviada. Entraremos em contato em breve.";
+        feedback.className = "contact-modal__feedback success";
+      }
+      setTimeout(closeModal, 2800);
+    } catch (_) {
+      if (feedback) {
+        feedback.textContent = "Não foi possível enviar. Tente novamente.";
+        feedback.className = "contact-modal__feedback error";
+      }
+    } finally {
+      btn.disabled = false;
+      btn.textContent = orig;
+    }
+  });
+}
+
 // ── Contact float buttons ──────────────────────────────────────────────────────
-// [data-contact-btn] = pure HTML email link, no JS needed (LUMI sales page).
+// [data-contact-btn] = opens contact modal (LUMI sales page).
 // [data-whatsapp-btn] = WhatsApp button shown on realtor pages with cfg.whatsapp.
 function initWhatsApp(cfg) {
   const waBtn = $("[data-whatsapp-btn]");
