@@ -389,21 +389,26 @@ function renderBriefing(onboarding) {
 
   // 5 — Público e clientes
   const contactChannelLabel = { phone: 'Telefone', whatsapp: 'WhatsApp', email: 'Email', sms: 'SMS' };
-  const destLabel = { crm_lumi: 'CRM LUMI', email: 'Email', outro_crm: 'Outro CRM' };
+  const captureFormLabel = {
+    buyer_form:     'Formulário de Consulta do Comprador',
+    seller_form:    'Formulário de Avaliação do Vendedor',
+    newsletter:     'Inscrição no Boletim',
+    ebook_download: 'Download de Ebook',
+  };
   const contactChannelsList = Array.isArray(d.contactChannels)
     ? d.contactChannels.map(c => contactChannelLabel[c] || c).join(', ')
-    : (d.leadChannel ? (contactChannelLabel[d.leadChannel] || d.leadChannel) : null); // compat legado
-  const leadDest = d.leadDestination
-    ? (destLabel[d.leadDestination] || d.leadDestination) + (d.crmName ? ' — ' + d.crmName : '')
-    : (d.crmUsage ? ({ none: 'Não usa CRM', outro: 'Usa outro CRM', lumi: 'Quer CRM LUMI' }[d.crmUsage] || d.crmUsage) + (d.crmName ? ' — ' + d.crmName : '') : null); // compat legado
+    : (d.leadChannel ? (contactChannelLabel[d.leadChannel] || d.leadChannel) : null);
+  const captureFormsList = Array.isArray(d.captureForms)
+    ? d.captureForms.map(f => captureFormLabel[f] || f).join(', ')
+    : null;
   const s5 = section('Público e Clientes', '🎯', `
     ${row('Público-alvo', list(d.leadWho))}
     ${row('Canais de contato da landing page', contactChannelsList)}
     ${row('WhatsApp / Telefone', d.leadWhatsapp)}
     ${row('Email de contato', d.leadEmail)}
     ${row('Horário de atendimento', d.businessHours)}
-    ${row('Destino dos leads (formulário)', leadDest)}
-    ${row('Mensagem automática inicial', d.leadWelcomeMessage ? `<span style="white-space:pre-wrap;">${d.leadWelcomeMessage}</span>` : null)}
+    ${row('Formulários de captura ativos', captureFormsList)}
+    ${row('Mensagem de confirmação ao visitante', d.leadWelcomeMessage ? `<span style="white-space:pre-wrap;">${d.leadWelcomeMessage}</span>` : null)}
   `);
 
   // Ebook URLs — new (URL) or legacy (base64 Data URL)

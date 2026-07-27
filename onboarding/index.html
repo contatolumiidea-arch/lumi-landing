@@ -476,8 +476,8 @@
           <div class="step-inner">
             <header class="step-header">
               <div class="step-eyebrow">05 / 08</div>
-              <h2 class="step-title">Clientes e contatos</h2>
-              <p class="step-subtitle">Configure quem você quer atrair, como eles entram em contato e para onde os leads chegam.</p>
+              <h2 class="step-title">Configure sua captura de clientes</h2>
+              <p class="step-subtitle">Defina quais informações seus visitantes poderão enviar através da sua landing page.</p>
             </header>
 
             <!-- Bloco A: Público-alvo -->
@@ -558,42 +558,39 @@
               </div>
             </div>
 
-            <!-- Bloco C: Destino dos leads do formulário -->
+            <!-- Bloco C: Formulários de captura -->
             <div class="s5-block">
               <div class="s5-block__header">
-                <div class="s5-block__title">Onde receber seus novos leads?</div>
-                <div class="s5-block__subtitle">Quando alguém preencher o formulário da sua página, para onde esse contato deve ir?</div>
+                <div class="s5-block__title">Quais formulários ativar na sua landing page?</div>
+                <div class="s5-block__subtitle">Cada formulário ativado gera um lead identificado pela origem. Você verá essa informação na sua Área do Cliente.</div>
               </div>
-              <div class="lead-who-grid" style="grid-template-columns:repeat(3,1fr)">
-                <label class="lead-who-card" data-dest="crm_lumi">
-                  <input type="radio" name="s5-lead-destination" value="crm_lumi">
-                  <div class="lead-who-card__icon">⚡</div>
-                  <div class="lead-who-card__label">CRM LUMI</div>
+              <div class="lead-who-grid" style="grid-template-columns:repeat(2,1fr)">
+                <label class="lead-who-card" data-form="buyer_form">
+                  <input type="checkbox" name="s5-capture-form" value="buyer_form">
+                  <div class="lead-who-card__icon">🏠</div>
+                  <div class="lead-who-card__label">Formulário de Consulta do Comprador</div>
                 </label>
-                <label class="lead-who-card" data-dest="email">
-                  <input type="radio" name="s5-lead-destination" value="email">
-                  <div class="lead-who-card__icon">✉️</div>
-                  <div class="lead-who-card__label">Email</div>
+                <label class="lead-who-card" data-form="seller_form">
+                  <input type="checkbox" name="s5-capture-form" value="seller_form">
+                  <div class="lead-who-card__icon">💰</div>
+                  <div class="lead-who-card__label">Formulário de Avaliação do Vendedor</div>
                 </label>
-                <label class="lead-who-card" data-dest="outro_crm">
-                  <input type="radio" name="s5-lead-destination" value="outro_crm">
-                  <div class="lead-who-card__icon">🔧</div>
-                  <div class="lead-who-card__label">Outro CRM</div>
+                <label class="lead-who-card" data-form="newsletter">
+                  <input type="checkbox" name="s5-capture-form" value="newsletter">
+                  <div class="lead-who-card__icon">📧</div>
+                  <div class="lead-who-card__label">Inscrição no Boletim</div>
                 </label>
-              </div>
-
-              <!-- Nome do outro CRM -->
-              <div id="s5-other-crm-wrap" style="display:none;margin-top:14px">
-                <div class="form-group">
-                  <label class="form-label" for="s5-crm-name">Qual CRM você usa?</label>
-                  <input class="form-input" id="s5-crm-name" type="text" placeholder="Ex: Salesforce, HubSpot, RD Station…">
-                </div>
+                <label class="lead-who-card" data-form="ebook_download">
+                  <input type="checkbox" name="s5-capture-form" value="ebook_download">
+                  <div class="lead-who-card__icon">📥</div>
+                  <div class="lead-who-card__label">Download de Ebook</div>
+                </label>
               </div>
 
               <!-- Mensagem automática -->
-              <div class="form-group" style="margin-top:16px">
-                <label class="form-label" for="s5-welcome-message">Mensagem automática inicial <span style="opacity:.6;font-weight:400">(opcional)</span></label>
-                <textarea class="form-textarea" id="s5-welcome-message" rows="3" placeholder="Ex: Olá, obrigado pelo contato. Recebi sua mensagem e vou retornar em breve."></textarea>
+              <div class="form-group" style="margin-top:20px">
+                <label class="form-label" for="s5-welcome-message">Mensagem de confirmação para o visitante <span style="opacity:.6;font-weight:400">(opcional)</span></label>
+                <textarea class="form-textarea" id="s5-welcome-message" rows="3" placeholder="Ex: Obrigado pelo contato! Retornaremos em breve."></textarea>
               </div>
             </div>
 
@@ -748,8 +745,8 @@
                 <div class="summary-card__value" id="summary-contact-channels" style="font-size:13px">—</div>
               </div>
               <div class="summary-card">
-                <div class="summary-card__title">Destino dos leads</div>
-                <div class="summary-card__value" id="summary-lead-destination" style="font-size:13px">—</div>
+                <div class="summary-card__title">Formulários de captura</div>
+                <div class="summary-card__value" id="summary-capture-forms" style="font-size:13px">—</div>
               </div>
               <div class="summary-card">
                 <div class="summary-card__title" data-i18n="s9.section_leadmagnet">Lead Magnet</div>

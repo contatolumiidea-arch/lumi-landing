@@ -275,8 +275,7 @@ const OnboardingApp = {
       this.data.leadWhatsapp       = this._val('s5-whatsapp');
       this.data.leadEmail          = this._val('s5-email');
       this.data.businessHours      = this._val('s5-business-hours');
-      this.data.leadDestination    = document.querySelector('[name="s5-lead-destination"]:checked')?.value || '';
-      this.data.crmName            = this._val('s5-crm-name');
+      this.data.captureForms       = Array.from(document.querySelectorAll('[name="s5-capture-form"]:checked')).map(cb => cb.value);
       this.data.leadWelcomeMessage = this._val('s5-welcome-message');
     }
     if (n === 6) {
@@ -312,13 +311,6 @@ const OnboardingApp = {
       });
     });
 
-    // Toggle "Outro CRM" name field
-    document.querySelectorAll('[name="s5-lead-destination"]').forEach(radio => {
-      radio.addEventListener('change', () => {
-        const wrap = document.getElementById('s5-other-crm-wrap');
-        if (wrap) wrap.style.display = radio.value === 'outro_crm' && radio.checked ? 'block' : 'none';
-      });
-    });
 
     // Bio counter
     const bio = document.getElementById('s3-bio');
@@ -1072,14 +1064,17 @@ const OnboardingApp = {
       ccEl.textContent = parts.join(' · ') || '—';
     }
 
-    // Lead destination
-    const destLabelMap = { crm_lumi: 'CRM LUMI', email: 'Email', outro_crm: 'Outro CRM' };
-    const ldEl = document.getElementById('summary-lead-destination');
-    if (ldEl) {
-      const parts = [];
-      if (this.data.leadDestination) parts.push(destLabelMap[this.data.leadDestination] || this.data.leadDestination);
-      if (this.data.crmName)         parts.push('(' + this.data.crmName + ')');
-      ldEl.textContent = parts.join(' ') || '—';
+    // Capture forms
+    const captureFormLabels = {
+      buyer_form:     'Consulta Comprador',
+      seller_form:    'Avaliação Vendedor',
+      newsletter:     'Boletim',
+      ebook_download: 'Download Ebook',
+    };
+    const cfEl = document.getElementById('summary-capture-forms');
+    if (cfEl) {
+      const labels = (this.data.captureForms || []).map(f => captureFormLabels[f] || f);
+      cfEl.textContent = labels.join(' · ') || '—';
     }
 
     // Testimonials
