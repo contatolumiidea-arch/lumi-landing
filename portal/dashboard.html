@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meus Leads — Portal LUMI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="/assets/favicon/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/portal/css/portal.css">
+</head>
+<body>
+
+<div class="portal-layout">
+
+  <!-- Header -->
+  <header class="portal-header">
+    <div class="portal-header__brand">LUMI LANDING · Portal do Cliente</div>
+    <div class="portal-header__user">
+      <span>Olá, <span class="portal-header__name" id="header-name">…</span></span>
+      <button class="logout-btn" id="logout-btn">Sair</button>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="portal-main">
+
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Meus Leads</h1>
+        <p class="page-meta" id="page-meta">Carregando…</p>
+      </div>
+      <button class="export-btn" id="export-btn" disabled>
+        ⬇ Exportar CSV
+      </button>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-card__value" id="stat-total">—</div>
+        <div class="stat-card__label">Total de leads</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__value" id="stat-month">—</div>
+        <div class="stat-card__label">Este mês</div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <div class="table-toolbar">
+        <input class="table-search" id="table-search" type="search"
+               placeholder="Buscar por nome, email…" aria-label="Buscar leads">
+        <span class="table-count" id="table-count"></span>
+      </div>
+
+      <div id="table-container">
+        <div class="table-state">
+          <div class="table-state__icon">⏳</div>
+          <div class="table-state__text">Carregando seus leads…</div>
+        </div>
+      </div>
+
+      <div class="pagination" id="pagination" style="display:none">
+        <button class="page-btn" id="btn-prev" disabled>← Anterior</button>
+        <span class="page-info" id="page-info"></span>
+        <button class="page-btn" id="btn-next">Próxima →</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  const LIMIT = 50;
+  let allLeads   = [];   // todos os leads carregados
+  let filtered   = [];   // após busca local
+  let currentPage = 1;
+  let totalServer = 0;
+
+  // ── Utils ──────────────────────────────────────────────────────
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    return new Date(iso).toLocaleDateString('pt-BR', {
+      day: '2-digit', month: '2-digit', year: 'numeric',
+    });
+  }
+
+  function esc(s) {
+    if (!s) return '';
+    return String(s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function showToast(msg, dur = 3000) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('visible');
+    setTimeout(() => t.classList.remove('visible'), dur);
+  }
+
+  // ── Auth check ────────────────────────────────────────────────
+  async function checkAuth() {
+    const r = await fetch('/api/portal/me', { credentials: 'include' });
+    if (!r.ok) { window.location.replace('/portal/index.html'); return null; }
+    return r.json();
+  }
+
+  // ── Load leads ────────────────────────────────────────────────
+  async function loadLeads(page = 1) {
+    const r = await fetch(`/api/portal/leads?page=${page}&limit=${LIMIT}`, { credentials: 'include' });
+    if (!r.ok) {
+      if (r.status === 401) { window.location.replace('/portal/index.html'); return; }
+      showToast('Erro ao carregar leads.');
+      return;
+    }
+    const data = await r.json();
+    return data;
+  }
+
+  // ── Render table ──────────────────────────────────────────────
+  function renderTable(leads) {
+    const container = document.getElementById('table-container');
+
+    if (!leads.length) {
+      container.innerHTML = `
+        <div class="table-state">
+          <div class="table-state__icon">📭</div>
+          <div class="table-state__text">Nenhum lead encontrado.</div>
+        </div>`;
+      document.getElementById('pagination').style.display = 'none';
+      document.getElementById('table-count').textContent = '';
+      return;
+    }
+
+    const rows = leads.map(l => `
+      <tr>
+        <td>
+          <div class="cell-name">${esc(l.lead_name) || '—'}</div>
+          <div class="cell-email">${esc(l.lead_email) || ''}</div>
+        </td>
+        <td class="cell-phone">${esc(l.lead_phone) || '—'}</td>
+        <td class="cell-date">${fmtDate(l.created_at)}</td>
+        <td><span class="cell-origin">${esc(l.origin) || 'site'}</span></td>
+        <td class="cell-msg" title="${esc(l.message)}">${esc(l.message) || '—'}</td>
+      </tr>
+    `).join('');
+
+    container.innerHTML = `
+      <table class="leads-table" aria-label="Lista de leads">
+        <thead>
+          <tr>
+            <th>Nome / Email</th>
+            <th>Telefone</th>
+            <th>Data</th>
+            <th>Origem</th>
+            <th>Mensagem</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+
+    document.getElementById('table-count').textContent =
+      leads.length + (leads.length === 1 ? ' lead' : ' leads');
+  }
+
+  // ── Search filter (client-side over all loaded leads) ─────────
+  function applyFilter(query) {
+    const q = query.trim().toLowerCase();
+    filtered = q
+      ? allLeads.filter(l =>
+          (l.lead_name  || '').toLowerCase().includes(q) ||
+          (l.lead_email || '').toLowerCase().includes(q) ||
+          (l.lead_phone || '').toLowerCase().includes(q)
+        )
+      : allLeads.slice();
+    renderTable(filtered);
+  }
+
+  // ── Stats ─────────────────────────────────────────────────────
+  function updateStats(leads, total) {
+    document.getElementById('stat-total').textContent = total;
+
+    const now   = new Date();
+    const month = leads.filter(l => {
+      if (!l.created_at) return false;
+      const d = new Date(l.created_at);
+      return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+    }).length;
+    document.getElementById('stat-month').textContent = month;
+  }
+
+  // ── Export CSV ────────────────────────────────────────────────
+  async function exportCSV() {
+    const btn = document.getElementById('export-btn');
+    btn.disabled = true;
+    btn.textContent = '⏳ Exportando…';
+    try {
+      const r = await fetch('/api/portal/export', { credentials: 'include' });
+      if (!r.ok) { showToast('Erro ao exportar.'); return; }
+      const blob  = await r.blob();
+      const url   = URL.createObjectURL(blob);
+      const a     = document.createElement('a');
+      const fname = `leads-${new Date().toISOString().slice(0,10)}.csv`;
+      a.href = url; a.download = fname; a.click();
+      URL.revokeObjectURL(url);
+      showToast('CSV exportado com sucesso.');
+    } catch {
+      showToast('Erro ao exportar CSV.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '⬇ Exportar CSV';
+    }
+  }
+
+  // ── Logout ────────────────────────────────────────────────────
+  async function logout() {
+    await fetch('/api/portal/logout', { method: 'POST', credentials: 'include' });
+    window.location.replace('/portal/index.html');
+  }
+
+  // ── Init ──────────────────────────────────────────────────────
+  async function init() {
+    const user = await checkAuth();
+    if (!user) return;
+
+    document.getElementById('header-name').textContent = user.name;
+
+    const data = await loadLeads(1);
+    if (!data) return;
+
+    allLeads    = data.leads || [];
+    filtered    = allLeads.slice();
+    totalServer = data.total || 0;
+
+    document.getElementById('page-meta').textContent =
+      totalServer === 0
+        ? 'Nenhum lead ainda.'
+        : `${totalServer} lead${totalServer !== 1 ? 's' : ''} captado${totalServer !== 1 ? 's' : ''}`;
+
+    document.getElementById('export-btn').disabled = totalServer === 0;
+
+    updateStats(allLeads, totalServer);
+    renderTable(filtered);
+
+    // Busca local
+    document.getElementById('table-search').addEventListener('input', (e) => {
+      applyFilter(e.target.value);
+    });
+
+    document.getElementById('export-btn').addEventListener('click', exportCSV);
+    document.getElementById('logout-btn').addEventListener('click', logout);
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+})();
+</script>
+</body>
+</html>
