@@ -811,6 +811,89 @@ a { color: var(--gold); text-decoration: none; }
 .preview-progress__bar--done  { background: #4caf50; }
 .preview-progress__bar--error { background: #e05a5a; }
 
+/* ── Rich file card (PDF, generic) ────────────────────── */
+.preview-item--file {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.preview-item__file-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.preview-item__file-icon {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.preview-item__file-meta {
+  flex: 1;
+  min-width: 0;
+}
+.preview-item__filesize {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.preview-item__file-actions {
+  display: flex;
+  gap: 8px;
+}
+.preview-file-btn {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: 1px solid;
+  cursor: pointer;
+  background: transparent;
+  transition: opacity .15s;
+  font-family: inherit;
+}
+.preview-file-btn:hover { opacity: .7; }
+.preview-file-btn--secondary {
+  color: var(--gold, #C8A84B);
+  border-color: rgba(200,168,75,.35);
+}
+.preview-file-btn--danger {
+  color: #e05a5a;
+  border-color: rgba(224,90,90,.3);
+}
+
+/* ── Image overlay status ──────────────────────────────── */
+.preview-item__img-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+}
+.preview-item__img-overlay--loading { background: rgba(0,0,0,.45); }
+.preview-item__img-overlay--done    { background: rgba(0,0,0,.25); }
+.preview-item__img-overlay--error   { background: rgba(224,90,90,.55); }
+.preview-item__img-badge {
+  font-size: 22px;
+  line-height: 1;
+  color: #fff;
+  font-weight: 700;
+}
+@keyframes _spin { to { transform: rotate(360deg); } }
+.preview-spinner-ring {
+  width: 22px;
+  height: 22px;
+  border: 2.5px solid rgba(255,255,255,.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: _spin .7s linear infinite;
+}
+
 /* ── Color Pickers ─────────────────────────────────────────── */
 .colors-row {
   display: grid;

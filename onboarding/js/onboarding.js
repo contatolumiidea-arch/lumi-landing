@@ -483,17 +483,38 @@ const OnboardingApp = {
     const existing = previewEl.querySelectorAll('.preview-item').length;
     const toAdd    = Math.min(files.length, maxFiles - existing);
     const mapping  = this._UPLOAD_DATA_MAP[input.id];
+    const isSingle = maxFiles === 1;
+
+    // Watch hidden spinner for _uploadToStorage completion signals
+    const watchSpinner = (sp, onDone, onError) => {
+      const obs = new MutationObserver(() => {
+        if (sp.className === 'preview-done')  { obs.disconnect(); onDone(); }
+        if (sp.className === 'preview-error') { obs.disconnect(); onError(); }
+      });
+      obs.observe(sp, { attributes: true, childList: true, characterData: true, subtree: true });
+    };
+
+    // Fake progress bar animation — resolves via watchSpinner
+    const animateProgress = (bar) => {
+      let pct = 0;
+      return setInterval(() => {
+        if (pct < 85) {
+          pct = Math.min(85, pct + Math.random() * 10 + 2);
+          bar.style.width = pct.toFixed(0) + '%';
+        }
+      }, 350);
+    };
 
     for (let i = 0; i < toAdd; i++) {
       const file = files[i];
       const item = document.createElement('div');
       let spinner;
+      let useIconRemove = true;
 
       if (file.type.startsWith('video/')) {
-        // ── Rich video card ────────────────────────────────────────
+        // ── Rich video card ──────────────────────────────────────
         item.className = 'preview-item preview-item--video uploading';
 
-        // Thumbnail: try video element, fall back to icon
         const thumb = document.createElement('div');
         thumb.className = 'preview-item__video-thumb';
         const vidEl = document.createElement('video');
@@ -509,97 +530,199 @@ const OnboardingApp = {
         thumb.appendChild(vidEl);
         item.appendChild(thumb);
 
-        // Info: filename + status + progress bar
         const info = document.createElement('div');
         info.className = 'preview-item__info';
 
-        const nameEl = document.createElement('div');
-        nameEl.className = 'preview-item__filename';
-        nameEl.textContent = '🎬 ' + file.name;
-        info.appendChild(nameEl);
+        const vName = document.createElement('div');
+        vName.className = 'preview-item__filename';
+        vName.textContent = '🎬 ' + file.name;
+        info.appendChild(vName);
 
-        const statusEl = document.createElement('div');
-        statusEl.className = 'preview-item__status';
-        statusEl.textContent = '⏳ Enviando vídeo... 0%';
-        info.appendChild(statusEl);
+        const vStatus = document.createElement('div');
+        vStatus.className = 'preview-item__status';
+        vStatus.textContent = '⏳ Enviando vídeo... 0%';
+        info.appendChild(vStatus);
 
-        const progressTrack = document.createElement('div');
-        progressTrack.className = 'preview-progress';
-        const progressBar = document.createElement('div');
-        progressBar.className = 'preview-progress__bar';
-        progressTrack.appendChild(progressBar);
-        info.appendChild(progressTrack);
-
+        const vTrack = document.createElement('div');
+        vTrack.className = 'preview-progress';
+        const vBar = document.createElement('div');
+        vBar.className = 'preview-progress__bar';
+        vTrack.appendChild(vBar);
+        info.appendChild(vTrack);
         item.appendChild(info);
 
-        // Hidden span — _uploadToStorage writes textContent/className here
         spinner = document.createElement('span');
         spinner.style.display = 'none';
         item.appendChild(spinner);
 
-        // Animate progress while uploading
-        let pct = 0;
-        const ticker = setInterval(() => {
-          if (pct < 85) {
-            pct = Math.min(85, pct + Math.random() * 10 + 2);
-            progressBar.style.width = pct.toFixed(0) + '%';
-            statusEl.textContent = '⏳ Enviando vídeo... ' + pct.toFixed(0) + '%';
+        let vPct = 0;
+        const vTicker = setInterval(() => {
+          if (vPct < 85) {
+            vPct = Math.min(85, vPct + Math.random() * 10 + 2);
+            vBar.style.width = vPct.toFixed(0) + '%';
+            vStatus.textContent = '⏳ Enviando vídeo... ' + vPct.toFixed(0) + '%';
           }
         }, 350);
 
-        // Watch spinner for upload completion
-        const obs = new MutationObserver(() => {
-          clearInterval(ticker);
-          if (spinner.className === 'preview-done') {
-            progressBar.style.width = '100%';
-            progressBar.classList.add('preview-progress__bar--done');
-            statusEl.textContent = '✓ Upload concluído';
-            statusEl.classList.add('preview-item__status--done');
-          } else if (spinner.className === 'preview-error') {
-            progressBar.classList.add('preview-progress__bar--error');
-            statusEl.textContent = '✗ Falha no upload';
-            statusEl.classList.add('preview-item__status--error');
+        watchSpinner(spinner,
+          () => {
+            clearInterval(vTicker);
+            vBar.style.width = '100%';
+            vBar.classList.add('preview-progress__bar--done');
+            vStatus.textContent = '✓ Upload concluído';
+            vStatus.classList.add('preview-item__status--done');
+            item.classList.remove('uploading');
+          },
+          () => {
+            clearInterval(vTicker);
+            vBar.classList.add('preview-progress__bar--error');
+            vStatus.textContent = '✗ Falha no upload';
+            vStatus.classList.add('preview-item__status--error');
+            item.classList.remove('uploading');
+            item.classList.add('upload-failed');
           }
-          item.classList.remove('uploading');
-          obs.disconnect();
-        });
-        obs.observe(spinner, { attributes: true, childList: true, characterData: true, subtree: true });
+        );
 
       } else if (file.type.startsWith('image/')) {
-        // ── Image preview (unchanged) ──────────────────────────────
+        // ── Image card with loading overlay ─────────────────────
         item.className = 'preview-item uploading';
+
         const img = document.createElement('img');
         img.src = URL.createObjectURL(file);
         img.alt = file.name;
         item.appendChild(img);
 
+        const overlay = document.createElement('div');
+        overlay.className = 'preview-item__img-overlay preview-item__img-overlay--loading';
+        const ring = document.createElement('div');
+        ring.className = 'preview-spinner-ring';
+        overlay.appendChild(ring);
+        item.appendChild(overlay);
+
         spinner = document.createElement('span');
-        spinner.className = 'preview-spinner';
-        spinner.textContent = '⏳';
+        spinner.style.display = 'none';
         item.appendChild(spinner);
+
+        watchSpinner(spinner,
+          () => {
+            overlay.className = 'preview-item__img-overlay preview-item__img-overlay--done';
+            overlay.innerHTML = '<span class="preview-item__img-badge">✓</span>';
+            item.classList.remove('uploading');
+            setTimeout(() => { overlay.style.opacity = '0'; overlay.style.transition = 'opacity .4s'; }, 2000);
+          },
+          () => {
+            overlay.className = 'preview-item__img-overlay preview-item__img-overlay--error';
+            overlay.innerHTML = '<span class="preview-item__img-badge">✗</span>';
+            item.classList.remove('uploading');
+            item.classList.add('upload-failed');
+          }
+        );
 
       } else {
-        // ── Generic file (PDF, etc.) ───────────────────────────────
-        item.className = 'preview-item uploading';
-        const nameEl = document.createElement('div');
-        nameEl.className = 'preview-item__name';
-        nameEl.textContent = file.name;
-        item.appendChild(nameEl);
+        // ── Rich file card (PDF, generic) ────────────────────────
+        useIconRemove = false;
+        item.className = 'preview-item preview-item--file uploading';
+
+        const fHeader = document.createElement('div');
+        fHeader.className = 'preview-item__file-header';
+
+        const fIcon = document.createElement('span');
+        fIcon.className = 'preview-item__file-icon';
+        fIcon.textContent = '📄';
+
+        const fMeta = document.createElement('div');
+        fMeta.className = 'preview-item__file-meta';
+
+        const fName = document.createElement('div');
+        fName.className = 'preview-item__filename';
+        fName.textContent = file.name;
+
+        const fSize = document.createElement('div');
+        fSize.className = 'preview-item__filesize';
+        fSize.textContent = (file.size / (1024 * 1024)).toFixed(1) + ' MB';
+
+        fMeta.appendChild(fName);
+        fMeta.appendChild(fSize);
+        fHeader.appendChild(fIcon);
+        fHeader.appendChild(fMeta);
+        item.appendChild(fHeader);
+
+        const fTrack = document.createElement('div');
+        fTrack.className = 'preview-progress';
+        const fBar = document.createElement('div');
+        fBar.className = 'preview-progress__bar';
+        fTrack.appendChild(fBar);
+        item.appendChild(fTrack);
+
+        const fStatus = document.createElement('div');
+        fStatus.className = 'preview-item__status';
+        fStatus.textContent = '⏳ Enviando...';
+        item.appendChild(fStatus);
+
+        const fActions = document.createElement('div');
+        fActions.className = 'preview-item__file-actions';
+
+        if (isSingle) {
+          const trocarBtn = document.createElement('button');
+          trocarBtn.type = 'button';
+          trocarBtn.className = 'preview-file-btn preview-file-btn--secondary';
+          trocarBtn.textContent = 'Trocar arquivo';
+          trocarBtn.addEventListener('click', () => {
+            item.remove();
+            previewEl.classList.toggle('has-files', previewEl.querySelectorAll('.preview-item').length > 0);
+            input.value = '';
+            input.click();
+          });
+          fActions.appendChild(trocarBtn);
+        }
+
+        const remBtn = document.createElement('button');
+        remBtn.type = 'button';
+        remBtn.className = 'preview-file-btn preview-file-btn--danger';
+        remBtn.textContent = 'Remover';
+        remBtn.addEventListener('click', () => {
+          item.remove();
+          previewEl.classList.toggle('has-files', previewEl.querySelectorAll('.preview-item').length > 0);
+        });
+        fActions.appendChild(remBtn);
+        item.appendChild(fActions);
 
         spinner = document.createElement('span');
-        spinner.className = 'preview-spinner';
-        spinner.textContent = '⏳';
+        spinner.style.display = 'none';
         item.appendChild(spinner);
+
+        const fTicker = animateProgress(fBar);
+
+        watchSpinner(spinner,
+          () => {
+            clearInterval(fTicker);
+            fBar.style.width = '100%';
+            fBar.classList.add('preview-progress__bar--done');
+            fStatus.textContent = '✅ Enviado';
+            fStatus.classList.add('preview-item__status--done');
+            item.classList.remove('uploading');
+          },
+          () => {
+            clearInterval(fTicker);
+            fBar.classList.add('preview-progress__bar--error');
+            fStatus.textContent = '✗ Falha no upload';
+            fStatus.classList.add('preview-item__status--error');
+            item.classList.remove('uploading');
+            item.classList.add('upload-failed');
+          }
+        );
       }
 
-      const rem = document.createElement('span');
-      rem.className = 'preview-remove';
-      rem.textContent = '×';
-      rem.addEventListener('click', () => {
-        item.remove();
-        previewEl.classList.toggle('has-files', previewEl.querySelectorAll('.preview-item').length > 0);
-      });
-      item.appendChild(rem);
+      if (useIconRemove) {
+        const rem = document.createElement('span');
+        rem.className = 'preview-remove';
+        rem.textContent = '×';
+        rem.addEventListener('click', () => {
+          item.remove();
+          previewEl.classList.toggle('has-files', previewEl.querySelectorAll('.preview-item').length > 0);
+        });
+        item.appendChild(rem);
+      }
 
       previewEl.appendChild(item);
       previewEl.classList.add('has-files');
