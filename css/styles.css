@@ -2503,69 +2503,32 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   line-height: 1.4;
 }
 
-/* LUMI FLOW Card */
-.lumi-flow-card {
-  background: rgba(212,175,55,.05);
-  border: 1.5px solid #D4AF37;
-  border-radius: var(--radius-xl);
-  padding: 40px 36px;
-  position: relative;
-  box-shadow: 0 0 40px rgba(212,175,55,.12);
-  width: 100%;
-  max-width: 540px;
-}
-.lumi-flow-badge {
+/* LUMI FLOW — discrete coming-soon teaser pill */
+.lumi-flow-teaser {
   display: inline-flex;
   align-items: center;
-  background: linear-gradient(135deg, #F5D77A, #D4AF37, #9A6B18);
-  color: var(--color-black);
-  font-size: .7rem;
+  gap: 10px;
+  padding: 10px 22px;
+  border: 1px solid rgba(212,175,55,.3);
+  border-radius: 50px;
+  background: rgba(212,175,55,.04);
+}
+.lumi-flow-teaser__soon {
+  font-size: .68rem;
   font-weight: 700;
-  padding: 4px 12px;
-  border-radius: 100px;
-  letter-spacing: .08em;
+  letter-spacing: .12em;
   text-transform: uppercase;
-  margin-bottom: 16px;
+  background: linear-gradient(135deg, #F5D77A, #D4AF37, #9A6B18);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-.lumi-flow-title {
-  font-size: 1.6rem;
-  margin-bottom: 12px;
-  color: var(--color-gold);
-  font-family: var(--font-serif);
-}
-.lumi-flow-desc {
-  font-size: .9rem;
-  color: var(--color-gray);
-  line-height: 1.6;
-  margin-bottom: 24px;
-}
-.lumi-flow-waitlist-title {
+.lumi-flow-teaser__name {
   font-size: .88rem;
   font-weight: 600;
-  color: var(--color-gold);
-  margin-bottom: 14px;
-  letter-spacing: .02em;
+  color: rgba(255,255,255,.45);
+  letter-spacing: .04em;
 }
-/* Waitlist button — alias for the primary gold CTA */
-.btn--gold {
-  background: linear-gradient(135deg, #F5D77A 0%, #D4AF37 50%, #9A6B18 100%);
-  color: #050505;
-  border: none;
-  font-weight: 700;
-}
-.btn--gold:hover {
-  background: linear-gradient(135deg, #F5D77A 0%, #e8c84a 40%, #D4AF37 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 0 32px rgba(212,175,55,.45), 0 8px 20px rgba(0,0,0,.35);
-}
-
-.lumi-flow-form { margin-top: 0; }
-.lumi-flow-input-row {
-  display: flex;
-  gap: 10px;
-}
-.lumi-flow-input-row .form-control { flex: 1; min-width: 0; }
-.lumi-flow-input-row .form-control::placeholder { color: rgba(255,255,255,.45); }
 
 /* ── Pricing ──────────────────────────────────────────────── */
 .pricing-wrapper {
@@ -2876,7 +2839,6 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   .step-connector { width: 2px; height: 32px; margin: 0 auto; }
 
   .integrations-grid { grid-template-columns: repeat(2, 1fr); }
-  .lumi-flow-card { padding: 32px 28px; max-width: 100%; }
 
   .whatsapp-inner { grid-template-columns: 1fr; gap: 48px; }
   .phone-mockup-wrap { order: -1; }
@@ -2898,8 +2860,6 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 
   .integrations-grid { grid-template-columns: repeat(2, 1fr); }
 
-  .lumi-flow-input-row { flex-direction: column; }
-  .lumi-flow-input-row .btn { width: 100%; justify-content: center; }
 
   .pricing-card { padding: 40px 24px; }
   .pricing-price { font-size: 3rem; }
