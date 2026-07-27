@@ -16,24 +16,21 @@ const STEP_FIELDS = {
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  // [DIAG] — remove após investigação
-  console.log('[ONBOARDING SAVE] body recebido:', JSON.stringify(req.body || {}, null, 2));
-
   const { client_id, step, data, social_links, testimonials, properties, onboarding_data } = req.body || {};
 
+  console.log('[ONBOARDING] client_id recebido:', client_id || '(nenhum)');
+
   const db = getDb();
+  let resolvedClientId = client_id || null;
+  let mode; // 'CREATE' | 'UPDATE' | 'REUSE'
 
-  let resolvedClientId = client_id;
-
-  // Sem client_id (sem Stripe ainda): find-or-create em lumi_clients por email
   if (!resolvedClientId) {
+    // ── Cenário 1 e 3 (sem Stripe): find-or-create por email ─────────────
     const name  = onboarding_data?.fullName  || onboarding_data?.businessName || 'Sem nome';
     const email = onboarding_data?.email     || null;
     const phone = onboarding_data?.phone     || null;
 
-    console.log('[ONBOARDING SAVE] sem client_id — find-or-create:', { name, email });
-
-    // Se temos e-mail, tenta encontrar registro existente primeiro
+    // Busca registro existente pelo email primeiro (evita duplicata)
     if (email) {
       const { data: existing } = await db
         .from('lumi_clients')
@@ -43,11 +40,11 @@ module.exports = async function handler(req, res) {
 
       if (existing) {
         resolvedClientId = existing.id;
-        console.log('[ONBOARDING SAVE] cliente existente reutilizado:', resolvedClientId);
+        mode = 'REUSE';
       }
     }
 
-    // Ainda sem id: cria novo registro
+    // Sem match por email: cria novo registro
     if (!resolvedClientId) {
       const { data: newClient, error: insertErr } = await db
         .from('lumi_clients')
@@ -61,24 +58,24 @@ module.exports = async function handler(req, res) {
         .single();
 
       if (insertErr || !newClient) {
-        console.error('[ONBOARDING SAVE ERROR] insert em lumi_clients falhou:', {
+        console.error('[ONBOARDING] erro ao criar cliente:', {
           message: insertErr?.message,
           code:    insertErr?.code,
           details: insertErr?.details,
           hint:    insertErr?.hint,
         });
         return res.status(500).json({
-          error:   'Erro ao registrar cliente.',
-          detail:  insertErr?.message || null,
-          code:    insertErr?.code    || null,
+          error:  'Erro ao registrar cliente.',
+          detail: insertErr?.message || null,
+          code:   insertErr?.code    || null,
         });
       }
 
       resolvedClientId = newClient.id;
-      console.log('[ONBOARDING SAVE] novo cliente criado:', resolvedClientId);
+      mode = 'CREATE';
     }
   } else {
-    // Verificar se o cliente existe
+    // ── Cenário 2 (com Stripe) e Cenário 3 (re-envio com client_id) ──────
     const { data: client } = await db
       .from('lumi_clients')
       .select('id')
@@ -86,10 +83,16 @@ module.exports = async function handler(req, res) {
       .single();
 
     if (!client) {
+      console.error('[ONBOARDING] client_id não encontrado em lumi_clients:', resolvedClientId);
       return res.status(404).json({ error: 'Cliente não encontrado.' });
     }
+
+    mode = 'UPDATE';
   }
 
+  console.log('[ONBOARDING] modo:', mode, '| client_id:', resolvedClientId);
+
+  // ── Monta payload para lumi_onboarding ───────────────────────────────────
   const update = { updated_at: new Date().toISOString() };
 
   if (step && STEP_FIELDS[step] && data !== undefined) {
@@ -97,36 +100,46 @@ module.exports = async function handler(req, res) {
     update.current_step = Math.max(step, 1);
   }
 
-  if (social_links    !== undefined) update.social_links  = social_links;
-  if (testimonials    !== undefined) update.testimonials  = testimonials;
-  if (properties      !== undefined) update.properties    = properties;
-  if (onboarding_data !== undefined) update.step1_business = onboarding_data;
+  if (social_links    !== undefined) update.social_links   = social_links;
+  if (testimonials    !== undefined) update.testimonials   = testimonials;
+  if (properties      !== undefined) update.properties     = properties;
+  if (onboarding_data !== undefined) update.onboarding_data = onboarding_data;
 
-  // Marcar como concluído no envio final
-  update.status       = 'completed';
-  update.completed_at = new Date().toISOString();
+  // Marcar como concluído no envio final (onboarding_data presente = submit final)
+  if (onboarding_data !== undefined) {
+    update.status       = 'completed';
+    update.completed_at = new Date().toISOString();
 
-  await db
-    .from('lumi_clients')
-    .update({
-      client_status:           'onboarding_received',
-      onboarding_completed_at: new Date().toISOString(),
-    })
-    .eq('id', resolvedClientId);
+    // Atualiza status em lumi_clients
+    await db
+      .from('lumi_clients')
+      .update({
+        client_status:           'onboarding_received',
+        onboarding_completed_at: new Date().toISOString(),
+      })
+      .eq('id', resolvedClientId);
+  }
 
-  // [DIAG] — remove após investigação
-  console.log('[ONBOARDING SAVE] tabela destino: lumi_onboarding | client_id:', resolvedClientId, '| payload keys:', Object.keys(update));
-
-  const { error } = await db
+  // ── Persiste em lumi_onboarding (upsert = INSERT ou UPDATE sem duplicata) ─
+  const { error: upsertErr } = await db
     .from('lumi_onboarding')
     .upsert({ client_id: resolvedClientId, ...update }, { onConflict: 'client_id' });
 
-  // [DIAG] — remove após investigação
-  if (error) {
-    console.error('[ONBOARDING SAVE] erro Supabase:', JSON.stringify({ message: error.message, code: error.code, details: error.details, hint: error.hint }));
-    return res.status(500).json({ error: 'Erro ao salvar dados.' });
+  if (upsertErr) {
+    console.error('[ONBOARDING] erro ao salvar em lumi_onboarding:', {
+      message: upsertErr?.message,
+      code:    upsertErr?.code,
+      details: upsertErr?.details,
+      hint:    upsertErr?.hint,
+    });
+    return res.status(500).json({
+      error:  'Erro ao salvar dados.',
+      detail: upsertErr?.message || null,
+      code:   upsertErr?.code    || null,
+    });
   }
-  console.log('[ONBOARDING SAVE] upsert ok | client_id:', resolvedClientId);
+
+  console.log('[ONBOARDING] cliente salvo:', { client_id: resolvedClientId, mode, status: update.status || 'partial' });
 
   return res.status(200).json({ ok: true, client_id: resolvedClientId });
 };
