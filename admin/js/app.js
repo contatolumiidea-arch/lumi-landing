@@ -134,6 +134,12 @@ const STATUS_MAP = {
   // prospect origins
   leadmagnet:         { label: 'Leadmagnet',           cls: 'pill-new' },
   newsletter:         { label: 'Newsletter',           cls: 'pill-production' },
+  // prospect statuses
+  contacted:          { label: 'Em contato',           cls: 'pill-pending' },
+  potential:          { label: 'Cliente potencial',    cls: 'pill-review' },
+  closed:             { label: 'Fechado',              cls: 'pill-published' },
+  archived:           { label: 'Arquivado',            cls: 'pill-canceled' },
+  converted:          { label: 'Convertido',           cls: 'pill-active' },
 };
 
 function pillHTML(key) {

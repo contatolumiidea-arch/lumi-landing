@@ -6,6 +6,144 @@
   <title>Interessados — LUMI Admin</title>
   <link rel="stylesheet" href="/admin/css/admin.css">
   <meta name="robots" content="noindex, nofollow">
+  <style>
+    /* ── Prospect detail modal ── */
+    .prospect-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.65);
+      backdrop-filter: blur(3px);
+      z-index: 900;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .prospect-modal-overlay.is-open { display: flex; }
+    .prospect-modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 560px;
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
+      box-shadow: 0 16px 48px rgba(0,0,0,.5);
+      position: relative;
+    }
+    .prospect-modal__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+    .prospect-modal__name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .prospect-modal__close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px 6px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .prospect-modal__close:hover { color: var(--text-primary); background: var(--bg-hover); }
+    .prospect-modal__body { padding: 20px 24px; }
+    .prospect-detail-row {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .875rem;
+    }
+    .prospect-detail-row:last-child { border-bottom: none; }
+    .prospect-detail-label {
+      color: var(--text-muted);
+      min-width: 100px;
+      flex-shrink: 0;
+    }
+    .prospect-detail-value {
+      color: var(--text-primary);
+      word-break: break-word;
+      flex: 1;
+    }
+    .prospect-message-box {
+      background: var(--bg-hover);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: .875rem;
+      color: var(--text-primary);
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .prospect-modal__actions {
+      display: flex;
+      gap: 10px;
+      padding: 16px 24px 20px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .prospect-modal__status-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      border-top: 1px solid var(--border);
+      background: var(--bg-hover);
+    }
+    .prospect-modal__status-label {
+      font-size: .8rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .prospect-status-select {
+      flex: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-size: .85rem;
+      cursor: pointer;
+    }
+    .prospect-status-select:focus { outline: none; border-color: var(--color-gold); }
+    .btn-reply {
+      background: none;
+      border: 1px solid var(--color-gold);
+      color: var(--color-gold);
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background .15s;
+    }
+    .btn-reply:hover { background: rgba(212,175,55,.1); }
+    .prospect-status-msg {
+      font-size: .8rem;
+      margin-left: auto;
+      padding: 0 4px;
+    }
+    .prospect-status-msg.ok  { color: #4ade80; }
+    .prospect-status-msg.err { color: #f87171; }
+    /* clickable row */
+    .prospects-table tr[data-prospect-id] { cursor: pointer; }
+    .prospects-table tr[data-prospect-id]:hover td { background: var(--bg-hover); }
+  </style>
 </head>
 <body>
 
@@ -29,7 +167,10 @@
         <select class="filter-select" id="filter-status" onchange="loadProspects(1)">
           <option value="">Todos os status</option>
           <option value="new">Novo</option>
-          <option value="contacted">Contactado</option>
+          <option value="contacted">Em contato</option>
+          <option value="potential">Cliente potencial</option>
+          <option value="closed">Fechado</option>
+          <option value="archived">Arquivado</option>
           <option value="converted">Convertido</option>
         </select>
       </div>
@@ -41,20 +182,19 @@
 
       <div class="table-wrap">
         <div class="table-wrap-scroll">
-          <table>
+          <table class="prospects-table">
             <thead>
               <tr>
                 <th>Nome</th>
                 <th>Email</th>
-                <th>Telefone</th>
-                <th>País</th>
+                <th>Mensagem</th>
                 <th>Origem</th>
                 <th>Status</th>
                 <th>Data</th>
               </tr>
             </thead>
             <tbody id="prospects-tbody">
-              <tr><td colspan="7"><div class="loading"><div class="spinner"></div></div></td></tr>
+              <tr><td colspan="6"><div class="loading"><div class="spinner"></div></div></td></tr>
             </tbody>
           </table>
         </div>
@@ -64,9 +204,60 @@
   </div>
 </div>
 
+<!-- ── Prospect detail modal ── -->
+<div class="prospect-modal-overlay" id="prospect-modal">
+  <div class="prospect-modal" role="dialog" aria-modal="true" aria-labelledby="modal-prospect-name">
+
+    <div class="prospect-modal__head">
+      <h2 class="prospect-modal__name" id="modal-prospect-name">—</h2>
+      <button class="prospect-modal__close" onclick="closeModal()" aria-label="Fechar">×</button>
+    </div>
+
+    <div class="prospect-modal__body">
+      <div class="prospect-detail-row">
+        <span class="prospect-detail-label">Email</span>
+        <span class="prospect-detail-value" id="modal-email">—</span>
+      </div>
+      <div class="prospect-detail-row">
+        <span class="prospect-detail-label">Mensagem</span>
+        <div class="prospect-detail-value" id="modal-message-wrap">—</div>
+      </div>
+      <div class="prospect-detail-row">
+        <span class="prospect-detail-label">Origem</span>
+        <span class="prospect-detail-value" id="modal-origin">—</span>
+      </div>
+      <div class="prospect-detail-row">
+        <span class="prospect-detail-label">Data</span>
+        <span class="prospect-detail-value" id="modal-date">—</span>
+      </div>
+    </div>
+
+    <div class="prospect-modal__status-row">
+      <span class="prospect-modal__status-label">Status</span>
+      <select class="prospect-status-select" id="modal-status-select" onchange="updateStatus()">
+        <option value="new">Novo</option>
+        <option value="contacted">Em contato</option>
+        <option value="potential">Cliente potencial</option>
+        <option value="closed">Fechado</option>
+        <option value="archived">Arquivado</option>
+        <option value="converted">Convertido</option>
+      </select>
+      <span class="prospect-status-msg" id="status-msg"></span>
+    </div>
+
+    <div class="prospect-modal__actions">
+      <a class="btn-reply" id="modal-reply-btn" href="#" target="_blank">
+        ✉ Responder por email
+      </a>
+    </div>
+
+  </div>
+</div>
+
 <script src="js/app.js"></script>
 <script>
 let searchTimeout;
+let currentProspectId = null;
 
 (async () => {
   renderLayout('prospects');
@@ -90,7 +281,7 @@ async function loadProspects(page = 1) {
   if (search) params.set('search', search);
 
   const tbody = document.getElementById('prospects-tbody');
-  tbody.innerHTML = `<tr><td colspan="7"><div class="loading"><div class="spinner"></div></div></td></tr>`;
+  tbody.innerHTML = `<tr><td colspan="6"><div class="loading"><div class="spinner"></div></div></td></tr>`;
 
   const data = await API.get(`/admin/prospects?${params}`);
   if (!data) return;
@@ -98,22 +289,25 @@ async function loadProspects(page = 1) {
   document.getElementById('total-count').textContent = data.total ?? 0;
 
   if (!data.prospects?.length) {
-    tbody.innerHTML = `<tr><td colspan="7"><div class="empty"><div class="empty-icon">📬</div>Nenhum interessado encontrado.</div></td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6"><div class="empty"><div class="empty-icon">📬</div>Nenhum interessado encontrado.</div></td></tr>`;
     document.getElementById('pagination').innerHTML = '';
     return;
   }
 
-  tbody.innerHTML = data.prospects.map(p => `
-    <tr>
-      <td class="td-name">${p.name || '—'}</td>
-      <td class="td-mono">${p.email}</td>
-      <td class="td-mono">${p.phone || '—'}</td>
-      <td>${p.country || '—'}</td>
-      <td>${pillHTML(p.origin)}</td>
-      <td>${pillHTML(p.status)}</td>
-      <td class="td-date">${fmtDatetime(p.created_at)}</td>
-    </tr>
-  `).join('');
+  tbody.innerHTML = data.prospects.map(p => {
+    const msg = p.metadata?.message || '';
+    const msgPreview = msg.length > 60 ? msg.slice(0, 60) + '…' : msg || '—';
+    return `
+      <tr data-prospect-id="${p.id}" onclick="openModal(${JSON.stringify(JSON.stringify(p))})">
+        <td class="td-name">${p.name || '—'}</td>
+        <td class="td-mono">${p.email}</td>
+        <td style="max-width:220px;color:var(--text-muted);font-size:.8rem">${msgPreview}</td>
+        <td>${pillHTML(p.origin)}</td>
+        <td>${pillHTML(p.status)}</td>
+        <td class="td-date">${fmtDatetime(p.created_at)}</td>
+      </tr>
+    `;
+  }).join('');
 
   const totalPages = Math.ceil(data.total / 50);
   document.getElementById('pagination').innerHTML = totalPages > 1 ? `
@@ -121,6 +315,76 @@ async function loadProspects(page = 1) {
     <button class="btn btn-outline" onclick="loadProspects(${page-1})" ${page<=1?'disabled':''}>‹ Anterior</button>
     <button class="btn btn-outline" onclick="loadProspects(${page+1})" ${page>=totalPages?'disabled':''}>Próximo ›</button>
   ` : '';
+}
+
+function openModal(prospectJson) {
+  const p = typeof prospectJson === 'string' ? JSON.parse(prospectJson) : prospectJson;
+  currentProspectId = p.id;
+
+  document.getElementById('modal-prospect-name').textContent = p.name || '(sem nome)';
+  document.getElementById('modal-email').textContent = p.email;
+  document.getElementById('modal-date').textContent = fmtDatetime(p.created_at);
+  document.getElementById('modal-origin').innerHTML = pillHTML(p.origin);
+
+  const msg = p.metadata?.message || null;
+  const msgWrap = document.getElementById('modal-message-wrap');
+  if (msg) {
+    msgWrap.innerHTML = `<div class="prospect-message-box">${escapeHtml(msg)}</div>`;
+  } else {
+    msgWrap.textContent = '—';
+  }
+
+  document.getElementById('modal-status-select').value = p.status || 'new';
+  document.getElementById('status-msg').textContent = '';
+  document.getElementById('status-msg').className = 'prospect-status-msg';
+
+  const subject = encodeURIComponent('Re: Interesse na LUMI Landing');
+  const body = encodeURIComponent(`Olá${p.name ? ', ' + p.name : ''},\n\nObrigado pelo seu interesse na LUMI Landing!\n\n`);
+  document.getElementById('modal-reply-btn').href =
+    `mailto:${p.email}?subject=${subject}&body=${body}`;
+
+  document.getElementById('prospect-modal').classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('prospect-modal').classList.remove('is-open');
+  document.body.style.overflow = '';
+  currentProspectId = null;
+}
+
+async function updateStatus() {
+  if (!currentProspectId) return;
+  const status = document.getElementById('modal-status-select').value;
+  const msgEl = document.getElementById('status-msg');
+  msgEl.textContent = 'Salvando…';
+  msgEl.className = 'prospect-status-msg';
+
+  const result = await API.patch('/admin/prospects', { id: currentProspectId, status });
+  if (result) {
+    msgEl.textContent = 'Salvo ✓';
+    msgEl.className = 'prospect-status-msg ok';
+    // update pill in the table row
+    const row = document.querySelector(`tr[data-prospect-id="${currentProspectId}"]`);
+    if (row) {
+      const cells = row.querySelectorAll('td');
+      if (cells[4]) cells[4].innerHTML = pillHTML(status);
+    }
+  } else {
+    msgEl.textContent = 'Erro ao salvar';
+    msgEl.className = 'prospect-status-msg err';
+  }
+  setTimeout(() => { if (msgEl.textContent !== '') { msgEl.textContent = ''; } }, 3000);
+}
+
+// Close on overlay click
+document.getElementById('prospect-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 </script>
 </body>
