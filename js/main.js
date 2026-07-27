@@ -202,21 +202,39 @@ function updateWhatsApp(t, cfg) {
 
 // ── Forms ──────────────────────────────────────────────────────────────────────
 function initForms(cfg) {
+  const enabledForms = Array.isArray(cfg?.enabled_forms) ? cfg.enabled_forms : null;
+
+  // Hide sections whose lead_source is not in enabled_forms
+  if (enabledForms) {
+    $$("[data-form-section]").forEach(section => {
+      const src = section.getAttribute("data-form-section");
+      if (src && !enabledForms.includes(src)) {
+        section.style.display = "none";
+      }
+    });
+  }
+
   $$("[data-form]").forEach(form => {
+    const leadSource = form.getAttribute("data-lead-source") || null;
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const formType = form.getAttribute("data-form");
-      const data = Object.fromEntries(new FormData(form));
-      data._form_type = formType;
-      data._lang = i18n.getCurrentLang();
-      data._timestamp = new Date().toISOString();
+      const raw = Object.fromEntries(new FormData(form));
+      const payload = {
+        ...raw,
+        _form_type:  formType,
+        _lead_source: leadSource,
+        _lang:        i18n.getCurrentLang(),
+        _timestamp:   new Date().toISOString(),
+      };
 
       const submitBtn = form.querySelector("[type='submit']");
       const originalText = submitBtn?.textContent;
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "..."; }
 
       try {
-        await sendFormData(data, cfg);
+        await sendFormData(payload, cfg, leadSource);
         form.reset();
         if (formType === "leadmagnet") {
           window.location.href = "/guia-exemplo";
@@ -232,33 +250,49 @@ function initForms(cfg) {
   });
 }
 
-async function sendFormData(data, cfg) {
-  const webhookUrl = cfg?.integrations?.webhook_url;
-
-  // Webhook (Zapier / Make / n8n)
-  if (webhookUrl) {
-    await fetch(webhookUrl, {
+async function sendFormData(data, cfg, leadSource) {
+  // Submit to LUMI leads API when client_id is configured
+  if (cfg?.client_id) {
+    await fetch("/api/leads/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      body: JSON.stringify({
+        client_id:   cfg.client_id,
+        name:        data.name        || null,
+        email:       data.email       || null,
+        phone:       data.phone       || null,
+        origin:      "landing_page",
+        lead_source: leadSource       || null,
+        message:     data.message     || data.interest || null,
+      }),
     });
     return;
   }
 
-  // Google Sheets
+  // Webhook fallback (Zapier / Make / n8n)
+  const webhookUrl = cfg?.integrations?.webhook_url;
+  if (webhookUrl) {
+    await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    return;
+  }
+
+  // Google Sheets fallback
   const sheetsUrl = cfg?.integrations?.google_sheets_url;
   if (sheetsUrl) {
     await fetch(sheetsUrl, {
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
     return;
   }
 
-  // Fallback: log to console (dev mode)
-  console.log("[LUMI LANDING] Form submission:", data);
+  console.log("[LUMI LANDING] Form submission (no destination configured):", data);
 }
 
 function showFormFeedback(form, type) {

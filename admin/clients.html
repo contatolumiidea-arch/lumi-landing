@@ -398,8 +398,9 @@ function renderBriefing(onboarding) {
   const contactChannelsList = Array.isArray(d.contactChannels)
     ? d.contactChannels.map(c => contactChannelLabel[c] || c).join(', ')
     : (d.leadChannel ? (contactChannelLabel[d.leadChannel] || d.leadChannel) : null);
-  const captureFormsList = Array.isArray(d.captureForms)
-    ? d.captureForms.map(f => captureFormLabel[f] || f).join(', ')
+  const _forms = d.enabled_forms || d.captureForms;
+  const captureFormsList = Array.isArray(_forms)
+    ? _forms.map(f => captureFormLabel[f] || f).join(', ')
     : null;
   const s5 = section('Público e Clientes', '🎯', `
     ${row('Público-alvo', list(d.leadWho))}

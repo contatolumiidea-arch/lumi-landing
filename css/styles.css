@@ -834,6 +834,25 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 .form-feedback--error   { background: rgba(239,68,68,.15);  border: 1px solid rgba(239,68,68,.3);  color: #f87171; }
 
 /* ════════════════════════════════════════════════════════════
+   CONTACT FORMS (buyer_form / seller_form)
+   ════════════════════════════════════════════════════════════ */
+.contact-form-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+.contact-form-layout--reverse .contact-form-copy { order: 2; }
+.contact-form-layout--reverse .contact-form-card  { order: 1; }
+.contact-form-copy .section-headline { font-size: clamp(1.5rem, 3vw, 2rem); }
+.contact-form-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius-lg, 16px);
+  padding: 36px;
+}
+
+/* ════════════════════════════════════════════════════════════
    LEAD MAGNET
    ════════════════════════════════════════════════════════════ */
 .leadmagnet-inner {
@@ -1317,6 +1336,13 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 
   /* Services */
   [data-services-grid] { grid-template-columns: 1fr; }
+
+  /* Contact Forms */
+  .contact-form-layout,
+  .contact-form-layout--reverse .contact-form-copy,
+  .contact-form-layout--reverse .contact-form-card { grid-template-columns: 1fr; order: unset; }
+  .contact-form-layout { gap: 40px; }
+  .contact-form-layout--reverse { display: flex; flex-direction: column; }
 
   /* Lead Magnet */
   .leadmagnet-inner { grid-template-columns: 1fr; gap: 40px; }

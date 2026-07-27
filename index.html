@@ -648,9 +648,119 @@
 
 
 <!-- ════════════════════════════════════════════
+     BUYER FORM (buyer_form)
+     ════════════════════════════════════════════ -->
+<section class="section section--white" id="buyer-form" data-form-section="buyer_form">
+  <div class="container">
+    <div class="contact-form-layout">
+
+      <div class="contact-form-copy fade-up">
+        <div class="section-badge" data-i18n="buyerForm.badge">Consulta de Compra</div>
+        <h2 class="section-headline" data-i18n="buyerForm.headline">Encontre o Imóvel Ideal</h2>
+        <div class="gold-line"></div>
+        <p class="section-subheadline" data-i18n="buyerForm.subheadline">
+          Conte-nos o que você procura. Entraremos em contato com as melhores opções para o seu perfil.
+        </p>
+      </div>
+
+      <form class="contact-form-card fade-up" data-form="buyer_form" data-lead-source="buyer_form">
+        <div class="form-group">
+          <input type="text" name="name" class="form-control"
+                 data-i18n-placeholder="buyerForm.form.name"
+                 placeholder="Nome completo" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <input type="email" name="email" class="form-control"
+                   data-i18n-placeholder="buyerForm.form.email"
+                   placeholder="E-mail" required>
+          </div>
+          <div class="form-group">
+            <input type="tel" name="phone" class="form-control"
+                   data-i18n-placeholder="buyerForm.form.phone"
+                   placeholder="Telefone / WhatsApp">
+          </div>
+        </div>
+        <div class="form-group">
+          <textarea name="message" class="form-control" rows="3"
+                    data-i18n-placeholder="buyerForm.form.message"
+                    placeholder="Descreva o imóvel que procura (localização, quartos, faixa de preço…)"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
+          <span data-i18n="buyerForm.form.submit">Quero ser Contactado →</span>
+        </button>
+        <div class="form-privacy">
+          🔒 <span data-i18n="buyerForm.form.privacy">Seus dados estão seguros. Não enviamos spam.</span>
+        </div>
+        <div class="form-feedback" data-form-feedback>
+          <span data-i18n="buyerForm.form.success"></span>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     SELLER FORM (seller_form)
+     ════════════════════════════════════════════ -->
+<section class="section section--gray" id="seller-form" data-form-section="seller_form">
+  <div class="container">
+    <div class="contact-form-layout contact-form-layout--reverse">
+
+      <div class="contact-form-copy fade-up">
+        <div class="section-badge" data-i18n="sellerForm.badge">Avaliação de Imóvel</div>
+        <h2 class="section-headline" data-i18n="sellerForm.headline">Quer Vender seu Imóvel?</h2>
+        <div class="gold-line"></div>
+        <p class="section-subheadline" data-i18n="sellerForm.subheadline">
+          Solicite uma avaliação gratuita. Descubra o valor de mercado do seu imóvel sem compromisso.
+        </p>
+      </div>
+
+      <form class="contact-form-card fade-up" data-form="seller_form" data-lead-source="seller_form">
+        <div class="form-group">
+          <input type="text" name="name" class="form-control"
+                 data-i18n-placeholder="sellerForm.form.name"
+                 placeholder="Nome completo" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <input type="email" name="email" class="form-control"
+                   data-i18n-placeholder="sellerForm.form.email"
+                   placeholder="E-mail" required>
+          </div>
+          <div class="form-group">
+            <input type="tel" name="phone" class="form-control"
+                   data-i18n-placeholder="sellerForm.form.phone"
+                   placeholder="Telefone / WhatsApp">
+          </div>
+        </div>
+        <div class="form-group">
+          <textarea name="message" class="form-control" rows="3"
+                    data-i18n-placeholder="sellerForm.form.message"
+                    placeholder="Endereço ou bairro do imóvel, tipo (casa/apto), área aproximada…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
+          <span data-i18n="sellerForm.form.submit">Solicitar Avaliação Gratuita →</span>
+        </button>
+        <div class="form-privacy">
+          🔒 <span data-i18n="sellerForm.form.privacy">Seus dados estão seguros. Não enviamos spam.</span>
+        </div>
+        <div class="form-feedback" data-form-feedback>
+          <span data-i18n="sellerForm.form.success"></span>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
      SECTION 7 — LEAD MAGNET
      ════════════════════════════════════════════ -->
-<section class="section section--gold" id="leadmagnet">
+<section class="section section--gold" id="leadmagnet" data-form-section="ebook_download">
   <div class="container">
     <div class="leadmagnet-inner">
 
@@ -668,7 +778,7 @@
           Offer a free guide and capture the contact of potential clients who are not yet ready to reach out.
         </p>
 
-        <form data-form="leadmagnet" style="margin-top:32px">
+        <form data-form="leadmagnet" data-lead-source="ebook_download" style="margin-top:32px">
           <div class="form-group">
             <input type="text" name="name" class="form-control"
                    data-i18n-placeholder="leadmagnet.form.name"
@@ -1006,7 +1116,7 @@
         <p class="lumi-flow-desc" data-i18n="crm.flow_desc">
           Built specifically for real estate professionals. Be the first to know.
         </p>
-        <form data-form="newsletter" class="lumi-flow-form">
+        <form data-form="newsletter" data-lead-source="newsletter" class="lumi-flow-form" data-form-section="newsletter">
           <div class="lumi-flow-input-row">
             <input type="email" name="email" class="form-control"
                    data-i18n-placeholder="crm.flow_email_placeholder"

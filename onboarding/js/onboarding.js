@@ -275,7 +275,7 @@ const OnboardingApp = {
       this.data.leadWhatsapp       = this._val('s5-whatsapp');
       this.data.leadEmail          = this._val('s5-email');
       this.data.businessHours      = this._val('s5-business-hours');
-      this.data.captureForms       = Array.from(document.querySelectorAll('[name="s5-capture-form"]:checked')).map(cb => cb.value);
+      this.data.enabled_forms      = Array.from(document.querySelectorAll('[name="s5-capture-form"]:checked')).map(cb => cb.value);
       this.data.leadWelcomeMessage = this._val('s5-welcome-message');
     }
     if (n === 6) {
@@ -1073,7 +1073,7 @@ const OnboardingApp = {
     };
     const cfEl = document.getElementById('summary-capture-forms');
     if (cfEl) {
-      const labels = (this.data.captureForms || []).map(f => captureFormLabels[f] || f);
+      const labels = (this.data.enabled_forms || []).map(f => captureFormLabels[f] || f);
       cfEl.textContent = labels.join(' · ') || '—';
     }
 
