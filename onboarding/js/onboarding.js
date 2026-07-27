@@ -19,6 +19,7 @@ const OnboardingApp = {
 
     this._bindWelcome();
     this._bindNav();
+    this._bindVideoPanel();
     this._bindSidebarSave();
     this._bindLangSwitcher();
     this._bindFields();
@@ -246,9 +247,17 @@ const OnboardingApp = {
       this.data.language      = this._val('s1-language');
     }
     if (n === 2) {
-      this.data.primaryColor   = document.getElementById('s2-primary-color')?.value || '#D4AF37';
-      this.data.secondaryColor = document.getElementById('s2-secondary-color')?.value || '#050505';
+      this.data.primaryColor    = document.getElementById('s2-primary-color')?.value || '#D4AF37';
+      this.data.secondaryColor  = document.getElementById('s2-secondary-color')?.value || '#050505';
       this.data.stylePreference = document.querySelector('.style-card.selected')?.dataset.style || '';
+      // Merge upload URLs (stored by _uploadToStorage in videoUrls) + link items (in DOM)
+      const uploadVids = Array.isArray(this.data.videoUrls)
+        ? this.data.videoUrls.map(url => ({ type: 'upload', url }))
+        : [];
+      const linkVids = Array.from(
+        document.querySelectorAll('#s2-videos-preview .preview-item[data-video-url]')
+      ).map(el => ({ type: el.dataset.videoType || 'link', url: el.dataset.videoUrl }));
+      this.data.videos = [...uploadVids, ...linkVids];
     }
     if (n === 3) {
       this.data.specialties   = Array.from(document.querySelectorAll('.spec-card input:checked')).map(cb => cb.value);
@@ -432,6 +441,114 @@ const OnboardingApp = {
         document.getElementById('lm-lumi-content')?.classList.toggle('hidden-block', opt !== 'lumi');
       });
     });
+  },
+
+  // ── Video Panel (Step 2) — file upload + external link ──────────
+  _bindVideoPanel() {
+    const panel = document.getElementById('s2-video-panel');
+    if (!panel) return;
+    const MAX        = 3;
+    const previewEl  = document.getElementById('s2-videos-preview');
+    const getCount   = () => previewEl?.querySelectorAll('.preview-item').length || 0;
+
+    // Tab switching
+    panel.querySelectorAll('.video-panel__tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        panel.querySelectorAll('.video-panel__tab').forEach(t => t.classList.remove('video-panel__tab--active'));
+        tab.classList.add('video-panel__tab--active');
+        document.getElementById('s2-video-upload-pane')?.classList.toggle('hidden-block', tab.dataset.vtab !== 'upload');
+        document.getElementById('s2-video-link-pane')?.classList.toggle('hidden-block', tab.dataset.vtab !== 'link');
+      });
+    });
+
+    // Link add
+    const linkInput = document.getElementById('s2-video-link-input');
+    const addBtn    = document.getElementById('s2-video-link-add');
+
+    const tryAddLink = () => {
+      const url = linkInput?.value?.trim();
+      if (!url) return;
+      if (getCount() >= MAX) {
+        linkInput.setCustomValidity('Máximo de 3 vídeos atingido.');
+        linkInput.reportValidity();
+        setTimeout(() => linkInput.setCustomValidity(''), 2500);
+        return;
+      }
+      const type = this._detectVideoLinkType(url);
+      if (!type) {
+        linkInput.setCustomValidity('Link inválido. Use YouTube (youtube.com / youtu.be) ou Google Drive (drive.google.com).');
+        linkInput.reportValidity();
+        setTimeout(() => linkInput.setCustomValidity(''), 3000);
+        return;
+      }
+      linkInput.setCustomValidity('');
+      this._addVideoLinkItem(url, type, previewEl);
+      linkInput.value = '';
+    };
+
+    addBtn?.addEventListener('click', tryAddLink);
+    linkInput?.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); tryAddLink(); } });
+  },
+
+  _detectVideoLinkType(url) {
+    try {
+      const host = new URL(url).hostname.replace('www.', '');
+      if (host === 'youtube.com' || host === 'youtu.be') return 'youtube';
+      if (host === 'drive.google.com')                   return 'drive';
+    } catch {}
+    return null;
+  },
+
+  _addVideoLinkItem(url, type, previewEl) {
+    const item = document.createElement('div');
+    item.className        = 'preview-item preview-item--file';
+    item.dataset.videoUrl  = url;
+    item.dataset.videoType = type;
+
+    const header = document.createElement('div');
+    header.className = 'preview-item__file-header';
+
+    const icon = document.createElement('span');
+    icon.className   = 'preview-item__file-icon';
+    icon.textContent = type === 'youtube' ? '▶️' : '🔗';
+
+    const meta = document.createElement('div');
+    meta.className = 'preview-item__file-meta';
+
+    const nameEl = document.createElement('div');
+    nameEl.className   = 'preview-item__filename';
+    nameEl.textContent = type === 'youtube' ? 'YouTube' : 'Google Drive';
+
+    const urlEl = document.createElement('div');
+    urlEl.className   = 'preview-item__filesize';
+    urlEl.textContent = url.length > 52 ? url.slice(0, 49) + '…' : url;
+
+    meta.appendChild(nameEl);
+    meta.appendChild(urlEl);
+    header.appendChild(icon);
+    header.appendChild(meta);
+    item.appendChild(header);
+
+    const status = document.createElement('div');
+    status.className   = 'preview-item__status preview-item__status--done';
+    status.textContent = '✅ Adicionado';
+    item.appendChild(status);
+
+    const actions = document.createElement('div');
+    actions.className = 'preview-item__file-actions';
+    const remBtn = document.createElement('button');
+    remBtn.type        = 'button';
+    remBtn.className   = 'preview-file-btn preview-file-btn--danger';
+    remBtn.textContent = 'Remover';
+    remBtn.addEventListener('click', () => {
+      item.remove();
+      previewEl.classList.toggle('has-files', previewEl.querySelectorAll('.preview-item').length > 0);
+    });
+    actions.appendChild(remBtn);
+    item.appendChild(actions);
+
+    previewEl.classList.add('has-files');
+    previewEl.appendChild(item);
   },
 
   // ── Uploads ──────────────────────────────────────────────────────
@@ -876,13 +993,23 @@ const OnboardingApp = {
           <label class="form-label">${t('s7.testimonial') || 'Depoimento'}</label>
           <textarea class="form-textarea" name="ttext-${idx}" rows="3" placeholder="${t('s7.testimonial_ph') || ''}"></textarea>
         </div>
-        <div class="form-group">
-          <label class="form-label">${t('s7.photo_label') || 'Foto do cliente'}</label>
-          <div class="upload-zone" data-photo-zone="${idx}" style="min-height:90px">
-            <div class="upload-icon">📷</div>
-            <div class="upload-cta">${t('s2.upload_cta') || 'Arraste ou clique'}</div>
-            <div class="upload-hint">${t('s7.photo_hint') || 'JPG ou PNG'}</div>
-            <input type="file" accept="image/*" name="tphoto-${idx}">
+        <div class="form-group form-group--full">
+          <label class="form-label">Mídia do cliente</label>
+          <div class="tmt-tabs">
+            <button type="button" class="tmt-tab tmt-tab--active" data-tmtab="photo">📷 Foto</button>
+            <button type="button" class="tmt-tab" data-tmtab="video">🎬 Vídeo do depoimento</button>
+          </div>
+          <div class="tmt-pane" data-tmcontent="photo">
+            <div class="upload-zone" data-photo-zone="${idx}" style="min-height:90px">
+              <div class="upload-icon">📷</div>
+              <div class="upload-cta">${t('s2.upload_cta') || 'Arraste ou clique'}</div>
+              <div class="upload-hint">${t('s7.photo_hint') || 'JPG ou PNG'}</div>
+              <input type="file" accept="image/*" name="tphoto-${idx}">
+            </div>
+          </div>
+          <div class="tmt-pane hidden-block" data-tmcontent="video">
+            <input type="url" class="form-input" name="tvideo-${idx}" placeholder="YouTube ou Google Drive compartilhado">
+            <p style="font-size:11px;color:var(--muted);margin-top:6px">ℹ️ Google Drive precisa estar compartilhado com <strong>"Qualquer pessoa com o link"</strong>.</p>
           </div>
         </div>
       </div>
@@ -895,13 +1022,24 @@ const OnboardingApp = {
       if (addBtn) addBtn.disabled = this._testimonialCount >= 5;
     });
 
+    // Tab switching: foto / vídeo
+    card.querySelectorAll('.tmt-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        card.querySelectorAll('.tmt-tab').forEach(tb => tb.classList.remove('tmt-tab--active'));
+        tab.classList.add('tmt-tab--active');
+        card.querySelectorAll('.tmt-pane').forEach(pane => {
+          pane.classList.toggle('hidden-block', pane.dataset.tmcontent !== tab.dataset.tmtab);
+        });
+      });
+    });
+
+    // Photo upload via Storage
     const fileInput = card.querySelector(`[name="tphoto-${idx}"]`);
     const zone = card.querySelector(`[data-photo-zone="${idx}"]`);
     fileInput.addEventListener('change', () => {
       const file = fileInput.files[0];
       if (!file) return;
 
-      // Preview imediato via ObjectURL (não persiste base64)
       const previewUrl = URL.createObjectURL(file);
       zone.innerHTML = `<img src="${previewUrl}" alt="Foto" style="max-height:80px;border-radius:50%;object-fit:cover;"><span class="preview-spinner">⏳</span>`;
       zone.dataset.photoUrl = '';
@@ -924,14 +1062,14 @@ const OnboardingApp = {
             .then(up => {
               if (!up.ok) throw new Error('Falha no upload');
               zone.dataset.photoUrl = json.publicUrl;
-              const spinner = zone.querySelector('.preview-spinner');
-              if (spinner) { spinner.textContent = '✓'; spinner.className = 'preview-done'; }
+              const sp = zone.querySelector('.preview-spinner');
+              if (sp) { sp.textContent = '✓'; sp.className = 'preview-done'; }
             });
         })
         .catch(err => {
           console.error('[upload testimonial photo]', err.message);
-          const spinner = zone.querySelector('.preview-spinner');
-          if (spinner) { spinner.textContent = '✗'; spinner.className = 'preview-error'; }
+          const sp = zone.querySelector('.preview-spinner');
+          if (sp) { sp.textContent = '✗'; sp.className = 'preview-error'; }
         })
         .finally(() => { this._pendingUploads--; });
     });
@@ -945,12 +1083,15 @@ const OnboardingApp = {
   _collectTestimonials() {
     const result = [];
     document.querySelectorAll('#testimonials-list .rep-card').forEach(card => {
-      const idx = card.dataset.testimonial;
-      const zone = card.querySelector(`[data-photo-zone="${idx}"]`);
+      const idx      = card.dataset.testimonial;
+      const zone     = card.querySelector(`[data-photo-zone="${idx}"]`);
+      const videoUrl = card.querySelector(`[name="tvideo-${idx}"]`)?.value?.trim() || '';
       result.push({
-        name:     card.querySelector(`[name="tname-${idx}"]`)?.value?.trim() || '',
-        text:     card.querySelector(`[name="ttext-${idx}"]`)?.value?.trim() || '',
-        photoUrl: zone?.dataset.photoUrl || '',
+        name:      card.querySelector(`[name="tname-${idx}"]`)?.value?.trim() || '',
+        text:      card.querySelector(`[name="ttext-${idx}"]`)?.value?.trim() || '',
+        photoUrl:  zone?.dataset.photoUrl || '',
+        videoUrl,
+        videoType: videoUrl ? (this._detectVideoLinkType(videoUrl) || '') : '',
       });
     });
     return result;

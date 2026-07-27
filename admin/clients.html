@@ -356,9 +356,20 @@ function renderBriefing(onboarding) {
     ${(d.brandGalleryUrls || d.brandGallery)?.length
       ? `<div class="detail-row"><span class="detail-key">Galeria da marca</span><span class="detail-val">${imgGrid(d.brandGalleryUrls || d.brandGallery)}</span></div>`
       : row('Galeria da marca', null)}
-    ${(d.videoUrls || d.videos)?.length
-      ? `<div class="detail-row"><span class="detail-key">Vídeos</span><span class="detail-val">${(d.videoUrls || d.videos).map((u, i) => fileLink(u, `Vídeo ${i + 1}`)).join(' &nbsp; ')}</span></div>`
-      : row('Vídeos', null)}
+    ${(() => {
+      // Support new {type,url} objects (d.videos) and legacy plain-URL arrays (d.videoUrls)
+      const items = d.videos?.length
+        ? d.videos
+        : (d.videoUrls?.length ? d.videoUrls.map(u => ({ type: 'upload', url: u })) : []);
+      if (!items.length) return row('Vídeos', null);
+      const links = items.map((v, i) => {
+        const url   = typeof v === 'string' ? v : v.url;
+        const vtype = typeof v === 'string' ? 'upload' : (v.type || 'upload');
+        const label = vtype === 'youtube' ? '▶️ YouTube' : vtype === 'drive' ? '🔗 Google Drive' : `📥 Vídeo ${i + 1}`;
+        return `<a href="${url}" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline;margin-right:10px;">${label}</a>`;
+      }).join('');
+      return `<div class="detail-row"><span class="detail-key">Vídeos</span><span class="detail-val">${links}</span></div>`;
+    })()}
   `);
 
   // 3 — Informações comerciais
@@ -412,7 +423,10 @@ function renderBriefing(onboarding) {
           ${(t.photoUrl || t.photo)
             ? `<img src="${t.photoUrl || t.photo}" alt="${t.name || ''}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;">`
             : `<div style="width:40px;height:40px;border-radius:50%;background:var(--gold-mid);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--gold);flex-shrink:0;">${(t.name || '?').charAt(0).toUpperCase()}</div>`}
-          <strong style="color:var(--text);">${t.name || '—'}</strong>
+          <div>
+            <strong style="color:var(--text);">${t.name || '—'}</strong>
+            ${t.videoUrl ? `<a href="${t.videoUrl}" target="_blank" rel="noopener" style="display:block;font-size:11px;color:var(--gold);margin-top:2px;">▶ Assistir vídeo do depoimento</a>` : ''}
+          </div>
         </div>
         <div style="color:var(--muted);font-size:.85rem;line-height:1.5;">"${t.text || '—'}"</div>
       </div>`).join('');

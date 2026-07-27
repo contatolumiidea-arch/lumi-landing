@@ -894,6 +894,97 @@ a { color: var(--gold); text-decoration: none; }
   animation: _spin .7s linear infinite;
 }
 
+/* ── Video Panel (Step 2) ──────────────────────────────────── */
+.video-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.video-panel__tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.video-panel__tab {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+  font-family: inherit;
+}
+.video-panel__tab:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.video-panel__tab--active {
+  background: rgba(200,168,75,.12);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.video-panel__pane {
+  display: flex;
+  flex-direction: column;
+}
+.video-link-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.video-link-row .form-input { flex: 1; }
+.video-link-add-btn {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 0 18px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--gold);
+  background: rgba(200,168,75,.1);
+  color: var(--gold);
+  cursor: pointer;
+  transition: background .15s;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.video-link-add-btn:hover { background: rgba(200,168,75,.2); }
+.video-link-hint {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* ── Testimonial media tabs ────────────────────────────────── */
+.tmt-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.tmt-tab {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+  font-family: inherit;
+}
+.tmt-tab:hover { border-color: var(--gold); color: var(--gold); }
+.tmt-tab--active {
+  background: rgba(200,168,75,.1);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.tmt-pane { display: flex; flex-direction: column; }
+
 /* ── Color Pickers ─────────────────────────────────────────── */
 .colors-row {
   display: grid;

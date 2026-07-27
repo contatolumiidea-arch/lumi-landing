@@ -1023,6 +1023,8 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 .testimonial-info span  { font-size: .8rem; color: var(--color-gray); }
 .testimonial-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
 .testimonial-avatar--initials { display: flex; align-items: center; justify-content: center; background: var(--color-gold, #C8A84B); color: #fff; font-weight: 700; font-size: 1.1rem; }
+.testimonial-video-link { display: inline-flex; align-items: center; gap: 5px; font-size: .8rem; font-weight: 600; color: var(--color-gold, #C8A84B); text-decoration: none; margin-bottom: 12px; opacity: .85; transition: opacity .15s; }
+.testimonial-video-link:hover { opacity: 1; }
 
 /* ════════════════════════════════════════════════════════════
    REFERRAL

@@ -128,10 +128,14 @@ function buildTestimonials(t, cfg) {
     const avatar = avatarSrc
       ? `<img src="${avatarSrc}" alt="${item.name}" class="testimonial-avatar">`
       : `<div class="testimonial-avatar testimonial-avatar--initials">${(item.name || '?').charAt(0).toUpperCase()}</div>`;
+    const videoLink = item.videoUrl
+      ? `<a href="${item.videoUrl}" target="_blank" rel="noopener" class="testimonial-video-link">▶ Ver depoimento</a>`
+      : '';
     return `
       <div class="testimonial-card fade-up">
         <div class="testimonial-stars">${stars}</div>
         <p class="testimonial-text">"${text}"</p>
+        ${videoLink}
         <div class="testimonial-author">
           ${avatar}
           <div class="testimonial-info">
