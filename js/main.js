@@ -8,7 +8,18 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
 // ── Init after DOM ready ───────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", async () => {
-  const cfg = typeof REALTOR_CONFIG !== "undefined" ? REALTOR_CONFIG : {};
+  let cfg = typeof REALTOR_CONFIG !== "undefined" ? REALTOR_CONFIG : {};
+
+  // If client_id is set but enabled_forms was not inlined, fetch from API
+  if (cfg.client_id && !Array.isArray(cfg.enabled_forms)) {
+    try {
+      const r = await fetch(`/api/client-config?client_id=${encodeURIComponent(cfg.client_id)}`);
+      if (r.ok) {
+        const remote = await r.json();
+        cfg = { ...cfg, ...remote };
+      }
+    } catch (_) { /* non-fatal — fall through with inline cfg */ }
+  }
 
   // Inject config into page
   applyConfig(cfg);

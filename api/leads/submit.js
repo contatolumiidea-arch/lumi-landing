@@ -1,6 +1,6 @@
 const { getDb } = require('../_lib/db');
 
-const VALID_ORIGINS = ['buyer_guide', 'seller_guide', 'contact_form', 'whatsapp', 'sms', 'email', 'other'];
+const VALID_ORIGINS = ['buyer_guide', 'seller_guide', 'contact_form', 'landing_page', 'whatsapp', 'sms', 'email', 'other'];
 const VALID_SOURCES = ['buyer_form', 'seller_form', 'newsletter', 'ebook_download'];
 
 module.exports = async function handler(req, res) {
