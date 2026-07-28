@@ -258,11 +258,27 @@
 <script>
 let searchTimeout;
 let currentProspectId = null;
+// Map de id → objeto prospect para uso no event delegation (evita inline JSON no onclick)
+const prospectCache = new Map();
 
 (async () => {
   renderLayout('prospects');
   await requireAuth();
   await loadProspects(1);
+
+  // Event delegation: um único listener na tbody, permanente
+  document.getElementById('prospects-tbody').addEventListener('click', (e) => {
+    const row = e.target.closest('tr[data-prospect-id]');
+    if (!row) return;
+    const p = prospectCache.get(row.dataset.prospectId);
+    if (p) openModal(p);
+  });
+
+  // Fechar modal no overlay
+  document.getElementById('prospect-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 })();
 
 function onSearch() {
@@ -294,14 +310,18 @@ async function loadProspects(page = 1) {
     return;
   }
 
+  // Armazena objetos no cache (sem trafegar dados via atributo HTML)
+  prospectCache.clear();
+  data.prospects.forEach(p => prospectCache.set(p.id, p));
+
   tbody.innerHTML = data.prospects.map(p => {
     const msg = p.metadata?.message || '';
     const msgPreview = msg.length > 60 ? msg.slice(0, 60) + '…' : msg || '—';
     return `
-      <tr data-prospect-id="${p.id}" onclick="openModal(${JSON.stringify(JSON.stringify(p))})">
-        <td class="td-name">${p.name || '—'}</td>
-        <td class="td-mono">${p.email}</td>
-        <td style="max-width:220px;color:var(--text-muted);font-size:.8rem">${msgPreview}</td>
+      <tr data-prospect-id="${p.id}">
+        <td class="td-name">${escapeHtml(p.name || '—')}</td>
+        <td class="td-mono">${escapeHtml(p.email)}</td>
+        <td style="max-width:220px;color:var(--text-muted);font-size:.8rem">${escapeHtml(msgPreview)}</td>
         <td>${pillHTML(p.origin)}</td>
         <td>${pillHTML(p.status)}</td>
         <td class="td-date">${fmtDatetime(p.created_at)}</td>
@@ -376,12 +396,6 @@ async function updateStatus() {
   }
   setTimeout(() => { if (msgEl.textContent !== '') { msgEl.textContent = ''; } }, 3000);
 }
-
-// Close on overlay click
-document.getElementById('prospect-modal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 function escapeHtml(str) {
   return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');

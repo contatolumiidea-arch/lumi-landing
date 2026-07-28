@@ -101,7 +101,15 @@
     "card3_title": "Newsletter Signup",
     "card3_desc": "Stay top of mind with market updates.",
     "card4_title": "Ebook Download",
-    "card4_desc": "Offer value in exchange for contact information."
+    "card4_desc": "Offer value in exchange for contact information.",
+    "guides_title": "Two ready-to-use guides to generate leads from your page",
+    "guide1_name": "Buyer's Guide",
+    "guide1_obj": "Goal: capture buyers at the start of their home search journey.",
+    "guide2_name": "Seller's Guide",
+    "guide2_obj": "Goal: capture homeowners interested in listing their property for sale.",
+    "flow_step1": "Visitor fills in name and email",
+    "flow_step2": "Receives the free guide in exchange",
+    "flow_step3": "Contact appears as a lead in the Realtor's Client Area"
   },
 
   "leadmagnet": {

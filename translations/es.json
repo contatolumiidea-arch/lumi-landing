@@ -101,7 +101,15 @@
     "card3_title": "Suscripción al Boletín",
     "card3_desc": "Mantente presente con actualizaciones del mercado.",
     "card4_title": "Descarga de Ebook",
-    "card4_desc": "Ofrece valor a cambio de información de contacto."
+    "card4_desc": "Ofrece valor a cambio de información de contacto.",
+    "guides_title": "Dos guías listos para generar leads desde tu página",
+    "guide1_name": "Guía del Comprador",
+    "guide1_obj": "Objetivo: capturar compradores al inicio de su búsqueda de propiedad.",
+    "guide2_name": "Guía del Vendedor",
+    "guide2_obj": "Objetivo: capturar propietarios interesados en poner su propiedad en venta.",
+    "flow_step1": "El visitante completa nombre y correo",
+    "flow_step2": "Recibe la guía gratuita a cambio",
+    "flow_step3": "El contacto aparece como lead del corredor en el Área del Cliente"
   },
 
   "leadmagnet": {
