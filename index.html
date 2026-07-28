@@ -755,110 +755,72 @@
 <!-- ════════════════════════════════════════════
      SECTION 7 — LEAD MAGNET
      ════════════════════════════════════════════ -->
-<section class="section section--gold lm-fullwidth" id="leadmagnet" data-form-section="ebook_download">
+<section class="section section--gold" id="leadmagnet" data-form-section="ebook_download">
   <div class="container">
+    <div class="leadmagnet-inner">
 
-    <!-- ① Cabeçalho centralizado -->
-    <div class="lm-header fade-up">
-      <div class="section-badge" data-i18n="leadmagnet.badge">Guias Gratuitos Incluídos</div>
-      <h2 class="section-headline" data-i18n="leadmagnet.headline">Dois guias prontos para gerar leads para sua página</h2>
-      <div class="gold-line gold-line--center"></div>
-      <p class="lm-intro" data-i18n="leadmagnet.note">Este é um exemplo do guia gratuito incluído em toda página LUMI LANDING.</p>
-    </div>
-
-    <!-- ② Apresentação dos guias -->
-    <div class="lm-guides-row fade-up">
-      <div class="lm-guide-pill">
-        <span class="lm-guide-pill__name" data-i18n="leadmagnet.guide1_name">Guia do Comprador</span>
-        <span class="lm-guide-pill__obj" data-i18n="leadmagnet.guide1_obj">Objetivo: capturar compradores no início da jornada de busca por imóvel.</span>
+      <!-- Ebook Visual -->
+      <div class="ebook-cover fade-in">
+        <img src="/assets/images/ebooks.svg" alt="Buyer Guide &amp; Seller Guide" class="ebook-mockup-img">
       </div>
-      <div class="lm-guide-sep"></div>
-      <div class="lm-guide-pill">
-        <span class="lm-guide-pill__name" data-i18n="leadmagnet.guide2_name">Guia do Vendedor</span>
-        <span class="lm-guide-pill__obj" data-i18n="leadmagnet.guide2_obj">Objetivo: capturar proprietários interessados em colocar o imóvel à venda.</span>
-      </div>
-    </div>
 
-    <!-- ③ Imagens dos ebooks + botão -->
-    <div class="lm-visual-block fade-up">
-      <div class="lm-ebooks-pair">
-        <img src="/assets/images/ebooks.svg" alt="Buyer Guide &amp; Seller Guide" class="lm-ebooks-img">
-      </div>
-      <button class="btn btn-primary lm-cta-btn" id="lm-toggle-form" type="button"
-              data-i18n="leadmagnet.cta_btn">
-        Veja como meus clientes recebem esses guias
-      </button>
-    </div>
+      <!-- Texto + Formulário -->
+      <div>
+        <div class="section-badge" data-i18n="leadmagnet.badge">Guias Gratuitos Incluídos</div>
+        <h2 class="section-headline" data-i18n="leadmagnet.headline">Dois guias prontos para gerar leads para sua página</h2>
+        <div class="gold-line"></div>
 
-    <!-- ④ Formulário (oculto por padrão, revelado pelo botão) -->
-    <div class="lm-form-panel" id="lm-form-panel" hidden>
-      <form class="lm-form-inner" data-form="leadmagnet" data-lead-source="ebook_download">
-        <div class="form-group">
-          <input type="text" name="name" class="form-control"
-                 data-i18n-placeholder="leadmagnet.form.name"
-                 placeholder="Nome Completo" required>
+        <!-- Descrição dos guias -->
+        <div class="lm-guides-desc">
+          <p class="lm-guide-item">
+            <strong data-i18n="leadmagnet.guide1_name">Guia do Comprador</strong><br>
+            <span class="lm-guide-obj-inline" data-i18n="leadmagnet.guide1_obj">Objetivo: capturar compradores no início da jornada de busca por imóvel.</span>
+          </p>
+          <p class="lm-guide-item">
+            <strong data-i18n="leadmagnet.guide2_name">Guia do Vendedor</strong><br>
+            <span class="lm-guide-obj-inline" data-i18n="leadmagnet.guide2_obj">Objetivo: capturar proprietários interessados em colocar o imóvel à venda.</span>
+          </p>
         </div>
-        <div class="form-row">
+
+        <!-- Nota de demonstração -->
+        <p class="leadmagnet-note" data-i18n="leadmagnet.note">
+          Este é um exemplo do guia gratuito incluído em toda página LUMI LANDING.
+        </p>
+
+        <form data-form="leadmagnet" data-lead-source="ebook_download" style="margin-top:20px">
           <div class="form-group">
-            <input type="email" name="email" class="form-control"
-                   data-i18n-placeholder="leadmagnet.form.email"
-                   placeholder="Endereço de E-mail" required>
+            <input type="text" name="name" class="form-control"
+                   data-i18n-placeholder="leadmagnet.form.name"
+                   placeholder="Nome Completo" required>
           </div>
-          <div class="form-group">
-            <input type="tel" name="phone" class="form-control"
-                   data-i18n-placeholder="leadmagnet.form.phone"
-                   placeholder="Número de Telefone">
+          <div class="form-row">
+            <div class="form-group">
+              <input type="email" name="email" class="form-control"
+                     data-i18n-placeholder="leadmagnet.form.email"
+                     placeholder="Endereço de E-mail" required>
+            </div>
+            <div class="form-group">
+              <input type="tel" name="phone" class="form-control"
+                     data-i18n-placeholder="leadmagnet.form.phone"
+                     placeholder="Número de Telefone">
+            </div>
           </div>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
-          <span data-i18n="leadmagnet.form.submit">Ver Como Meus Clientes Recebem →</span>
-        </button>
-        <div class="form-privacy">
-          🔒 <span data-i18n="leadmagnet.form.privacy">Seus dados estão seguros. Não enviamos spam.</span>
-        </div>
-        <div class="form-feedback" data-form-feedback>
-          <span data-i18n="leadmagnet.form.success"></span>
-        </div>
-      </form>
-    </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
+            <span data-i18n="leadmagnet.form.submit">Ver Como Meus Clientes Recebem →</span>
+          </button>
+          <div class="form-privacy">
+            🔒 <span data-i18n="leadmagnet.form.privacy">Seus dados estão seguros. Não enviamos spam.</span>
+          </div>
+          <div class="form-feedback" data-form-feedback>
+            <span data-i18n="leadmagnet.form.success"></span>
+          </div>
+        </form>
+      </div>
 
-    <!-- ⑤ Fluxo -->
-    <div class="lm-flow-strip fade-up">
-      <div class="lm-fs-step">
-        <span class="lm-fs-num">1</span>
-        <span class="lm-fs-label" data-i18n="leadmagnet.flow_step1">Visitante preenche nome e e-mail</span>
-      </div>
-      <div class="lm-fs-arrow">→</div>
-      <div class="lm-fs-step">
-        <span class="lm-fs-num">2</span>
-        <span class="lm-fs-label" data-i18n="leadmagnet.flow_step2">Recebe o guia gratuito como troca</span>
-      </div>
-      <div class="lm-fs-arrow">→</div>
-      <div class="lm-fs-step">
-        <span class="lm-fs-num">3</span>
-        <span class="lm-fs-label" data-i18n="leadmagnet.flow_step3">Contato aparece como lead do corretor na Área do Cliente</span>
-      </div>
     </div>
-
   </div>
 </section>
 
-<script>
-(function () {
-  var btn = document.getElementById('lm-toggle-form');
-  var panel = document.getElementById('lm-form-panel');
-  if (!btn || !panel) return;
-  btn.addEventListener('click', function () {
-    var opening = panel.hasAttribute('hidden');
-    if (opening) {
-      panel.removeAttribute('hidden');
-      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    } else {
-      panel.setAttribute('hidden', '');
-    }
-  });
-})();
-</script>
 
 
 <!-- ════════════════════════════════════════════
