@@ -14,25 +14,55 @@
     <div class="login-logo">LUMI IDEA</div>
     <div class="login-subtitle">Painel Administrativo · Acesso restrito</div>
 
-    <div class="login-error" id="login-error"></div>
+    <!-- ── Login ── -->
+    <div id="view-login">
+      <div class="login-error" id="login-error"></div>
 
-    <form id="login-form">
-      <div class="field-group">
-        <label class="field-label" for="email">Email</label>
-        <input class="field-input" id="email" type="email" name="email" autocomplete="email" required placeholder="equipe@lumiidea.com">
-      </div>
-      <div class="field-group">
-        <label class="field-label" for="password">Senha</label>
-        <div style="position:relative">
-          <input class="field-input" id="password" type="password" name="password" autocomplete="current-password" required placeholder="••••••••" style="padding-right:42px">
-          <button type="button" id="toggle-password" aria-label="Mostrar senha" onclick="togglePassword()" style="position:absolute;right:0;top:0;height:100%;width:40px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(212,175,55,.5);padding:0;transition:color .15s" onmouseenter="this.style.color='rgba(212,175,55,.9)'" onmouseleave="this.style.color='rgba(212,175,55,.5)'">
-            <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            <svg id="eye-off-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-          </button>
+      <form id="login-form">
+        <div class="field-group">
+          <label class="field-label" for="email">Email</label>
+          <input class="field-input" id="email" type="email" name="email" autocomplete="email" required placeholder="contato.lumiidea@gmail.com">
         </div>
+        <div class="field-group">
+          <label class="field-label" for="password">Senha</label>
+          <div style="position:relative">
+            <input class="field-input" id="password" type="password" name="password" autocomplete="current-password" required placeholder="••••••••" style="padding-right:42px">
+            <button type="button" id="toggle-password" aria-label="Mostrar senha" onclick="togglePassword()" style="position:absolute;right:0;top:0;height:100%;width:40px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(212,175,55,.5);padding:0;transition:color .15s" onmouseenter="this.style.color='rgba(212,175,55,.9)'" onmouseleave="this.style.color='rgba(212,175,55,.5)'">
+              <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg id="eye-off-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
+        </div>
+        <button class="login-btn" type="submit" id="login-btn">Entrar</button>
+      </form>
+
+      <div style="text-align:center;margin-top:18px">
+        <button onclick="showForgot()" style="background:none;border:none;color:var(--text-muted);font-size:.83rem;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:0">Esqueci minha senha</button>
       </div>
-      <button class="login-btn" type="submit" id="login-btn">Entrar</button>
-    </form>
+    </div>
+
+    <!-- ── Esqueci minha senha ── -->
+    <div id="view-forgot" style="display:none">
+      <p style="color:var(--text-muted);font-size:.875rem;line-height:1.6;margin:0 0 20px">Informe o email do administrador. Se existir uma conta, enviaremos um link para redefinir a senha.</p>
+
+      <div class="login-error" id="forgot-error"></div>
+      <div id="forgot-success" style="display:none;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.3);border-radius:8px;padding:14px 16px;font-size:.875rem;color:#4ade80;line-height:1.5;margin-bottom:16px">
+        Se este email estiver cadastrado, você receberá as instruções em breve.
+      </div>
+
+      <form id="forgot-form">
+        <div class="field-group">
+          <label class="field-label" for="forgot-email">Email</label>
+          <input class="field-input" id="forgot-email" type="email" required autocomplete="email" placeholder="contato.lumiidea@gmail.com">
+        </div>
+        <button class="login-btn" type="submit" id="forgot-btn">Enviar link de recuperação</button>
+      </form>
+
+      <div style="text-align:center;margin-top:18px">
+        <button onclick="showLogin()" style="background:none;border:none;color:var(--text-muted);font-size:.83rem;cursor:pointer;text-decoration:none;padding:0">← Voltar ao login</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -49,6 +79,17 @@
     btn.setAttribute('aria-label', showing ? 'Mostrar senha' : 'Ocultar senha');
   }
 
+  function showForgot() {
+    document.getElementById('view-login').style.display  = 'none';
+    document.getElementById('view-forgot').style.display = '';
+    document.getElementById('forgot-email').focus();
+  }
+
+  function showLogin() {
+    document.getElementById('view-forgot').style.display = 'none';
+    document.getElementById('view-login').style.display  = '';
+  }
+
   // Se já estiver logado, redirecionar para dashboard
   (async () => {
     try {
@@ -59,23 +100,21 @@
 
   document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const btn = document.getElementById('login-btn');
+    const btn   = document.getElementById('login-btn');
     const errEl = document.getElementById('login-error');
     errEl.style.display = 'none';
     btn.disabled = true;
     btn.textContent = 'Entrando...';
-
-    const body = {
-      email:    document.getElementById('email').value,
-      password: document.getElementById('password').value,
-    };
 
     try {
       const r = await fetch('/api/auth/login', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        body: JSON.stringify({
+          email:    document.getElementById('email').value,
+          password: document.getElementById('password').value,
+        }),
       });
       const data = await r.json();
 
@@ -93,6 +132,32 @@
       errEl.style.display = 'block';
       btn.disabled = false;
       btn.textContent = 'Entrar';
+    }
+  });
+
+  document.getElementById('forgot-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn     = document.getElementById('forgot-btn');
+    const errEl   = document.getElementById('forgot-error');
+    const success = document.getElementById('forgot-success');
+    errEl.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    try {
+      await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: document.getElementById('forgot-email').value }),
+      });
+      // Sempre mostra sucesso (resposta genérica por segurança)
+      document.getElementById('forgot-form').style.display = 'none';
+      success.style.display = 'block';
+    } catch {
+      errEl.textContent = 'Erro de conexão. Tente novamente.';
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Enviar link de recuperação';
     }
   });
 </script>
