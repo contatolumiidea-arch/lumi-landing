@@ -4,7 +4,8 @@ const { Resend } = require('resend');
 const VALID_ORIGINS = ['leadmagnet', 'newsletter', 'contact_form', 'other'];
 
 const NOTIFY_EMAIL = 'contato.lumiidea@gmail.com';
-const FROM_EMAIL   = 'LUMI IDEA <onboarding@resend.dev>';
+const FROM_EMAIL   = 'Lumi Idea <contato@lumiidea.com>';
+const REPLY_TO     = 'contato@lumiidea.com';
 
 async function sendNotification({ name, email, message, createdAt }) {
   const apiKey = process.env.RESEND_API_KEY;
@@ -17,9 +18,10 @@ async function sendNotification({ name, email, message, createdAt }) {
   const dateStr = new Date(createdAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
 
   await resend.emails.send({
-    from: FROM_EMAIL,
-    to:   NOTIFY_EMAIL,
-    subject: 'Novo interessado na LUMI Landing',
+    from:     FROM_EMAIL,
+    reply_to: REPLY_TO,
+    to:       NOTIFY_EMAIL,
+    subject:  'Novo interessado na LUMI Landing',
     html: `
       <div style="font-family:sans-serif;max-width:520px;margin:0 auto;padding:32px 24px;background:#0e0e0e;color:#f0f0f0;border-radius:12px;border:1px solid rgba(212,175,55,.3)">
         <h2 style="color:#D4AF37;margin:0 0 24px;font-size:1.2rem">Novo interessado na LUMI Landing</h2>
@@ -42,9 +44,10 @@ async function sendAutoReply({ name, email }) {
   const firstName = name ? name.split(' ')[0] : null;
 
   await resend.emails.send({
-    from: FROM_EMAIL,
-    to:   email,
-    subject: 'Recebemos seu contato — LUMI IDEA',
+    from:     FROM_EMAIL,
+    reply_to: REPLY_TO,
+    to:       email,
+    subject:  'Recebemos seu contato — LUMI IDEA',
     html: `
       <div style="font-family:sans-serif;max-width:540px;margin:0 auto;padding:32px 24px;background:#0e0e0e;color:#f0f0f0;border-radius:12px;border:1px solid rgba(212,175,55,.3)">
         <p style="color:#ccc;margin:0 0 20px">Olá${firstName ? ', ' + firstName : ''},</p>

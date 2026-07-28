@@ -2,7 +2,8 @@ const { requireAdmin } = require('../_lib/auth');
 const { getDb } = require('../_lib/db');
 const { Resend } = require('resend');
 
-const FROM_EMAIL = 'LUMI IDEA <onboarding@resend.dev>';
+const FROM_EMAIL = 'Lumi Idea <contato@lumiidea.com>';
+const REPLY_TO   = 'contato@lumiidea.com';
 
 module.exports = requireAdmin(async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
@@ -21,7 +22,7 @@ module.exports = requireAdmin(async function handler(req, res) {
   const db = getDb();
   const { data: prospect, error: dbError } = await db
     .from('lumi_prospects')
-    .select('id, name, email')
+    .select('id, name, email, status')
     .eq('id', prospectId)
     .single();
 
@@ -29,15 +30,41 @@ module.exports = requireAdmin(async function handler(req, res) {
     return res.status(404).json({ error: 'Interessado não encontrado.' });
   }
 
+  const now = new Date().toISOString();
+
+  // Salvar no histórico ANTES do envio — histórico não depende do email
+  const { data: savedMsg, error: msgError } = await db
+    .from('prospect_messages')
+    .insert({
+      prospect_id: prospectId,
+      sender_type: 'admin',
+      message:     message.trim(),
+    })
+    .select('id, created_at')
+    .single();
+
+  if (msgError) {
+    console.error('[Admin reply] Erro ao salvar histórico:', msgError);
+  }
+
+  // Atualizar status e última interação
+  const statusUpdate = prospect.status === 'new'
+    ? { status: 'contacted', last_contacted_at: now }
+    : { last_contacted_at: now };
+
+  await db.from('lumi_prospects').update(statusUpdate).eq('id', prospectId);
+
+  // Enviar email
   const resend = new Resend(apiKey);
   const { error: emailError } = await resend.emails.send({
-    from: FROM_EMAIL,
-    to: prospect.email,
-    subject: 'Retorno da equipe LUMI IDEA',
+    from:     FROM_EMAIL,
+    reply_to: REPLY_TO,
+    to:       prospect.email,
+    subject:  'Retorno da equipe LUMI IDEA',
     html: `
       <div style="font-family:sans-serif;max-width:540px;margin:0 auto;padding:32px 24px;background:#0e0e0e;color:#f0f0f0;border-radius:12px;border:1px solid rgba(212,175,55,.3)">
         <p style="color:#ccc;margin:0 0 20px">Olá${prospect.name ? ', ' + prospect.name : ''},</p>
-        <div style="white-space:pre-wrap;color:#f0f0f0;line-height:1.7;margin-bottom:28px">${message.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+        <div style="white-space:pre-wrap;color:#f0f0f0;line-height:1.7;margin-bottom:28px">${message.trim().replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
         <hr style="border:none;border-top:1px solid rgba(212,175,55,.2);margin:24px 0">
         <p style="color:#999;font-size:.85rem;margin:0">Equipe LUMI IDEA<br>
           <a href="https://lumiidea.com" style="color:#D4AF37">lumiidea.com</a>
@@ -49,30 +76,10 @@ module.exports = requireAdmin(async function handler(req, res) {
   if (emailError) {
     const detail = emailError?.message || emailError?.name || JSON.stringify(emailError);
     console.error('[Admin reply] Resend error:', detail, emailError);
-    return res.status(500).json({ error: 'Erro ao enviar email.', detail });
+    // Histórico já salvo — retorna erro sem apagar a mensagem
+    return res.status(500).json({ error: 'Mensagem salva no histórico, mas o email não foi entregue.', detail });
   }
 
-  const now = new Date().toISOString();
-
-  // Salvar resposta no histórico
-  await db.from('prospect_messages').insert({
-    prospect_id: prospectId,
-    sender_type: 'admin',
-    message:     message.trim(),
-  });
-
-  // Atualizar status e última interação
-  await db
-    .from('lumi_prospects')
-    .update({ status: 'contacted', last_contacted_at: now })
-    .eq('id', prospectId)
-    .eq('status', 'new');
-
-  await db
-    .from('lumi_prospects')
-    .update({ last_contacted_at: now })
-    .eq('id', prospectId)
-    .neq('status', 'new');
-
-  return res.status(200).json({ ok: true, sentAt: now });
+  const sentAt = savedMsg?.created_at || now;
+  return res.status(200).json({ ok: true, sentAt, newStatus: statusUpdate.status || prospect.status });
 });

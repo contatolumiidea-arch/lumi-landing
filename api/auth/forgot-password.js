@@ -2,7 +2,7 @@ const { getDb } = require('../_lib/db');
 const { Resend } = require('resend');
 const crypto = require('crypto');
 
-const FROM_EMAIL  = 'LUMI IDEA <onboarding@resend.dev>';
+const FROM_EMAIL  = 'Lumi Idea <contato@lumiidea.com>';
 const TOKEN_TTL_H = 2; // token expira em 2 horas
 
 module.exports = async function handler(req, res) {
@@ -42,9 +42,10 @@ module.exports = async function handler(req, res) {
 
   const resend = new Resend(apiKey);
   await resend.emails.send({
-    from: FROM_EMAIL,
-    to:   user.email,
-    subject: 'Redefinição de senha — LUMI IDEA Admin',
+    from:     FROM_EMAIL,
+    reply_to: 'contato@lumiidea.com',
+    to:       user.email,
+    subject:  'Redefinição de senha — LUMI IDEA Admin',
     html: `
       <div style="font-family:sans-serif;max-width:520px;margin:0 auto;padding:32px 24px;background:#0e0e0e;color:#f0f0f0;border-radius:12px;border:1px solid rgba(212,175,55,.3)">
         <h2 style="color:#D4AF37;margin:0 0 20px;font-size:1.1rem">Redefinição de senha</h2>
