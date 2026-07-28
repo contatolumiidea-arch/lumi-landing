@@ -45,6 +45,10 @@ module.exports = requireAdmin(async function handler(req, res) {
 
   if (msgError) {
     console.error('[Admin reply] Erro ao salvar histórico:', msgError);
+    return res.status(500).json({
+      error: 'Não foi possível salvar a mensagem no histórico.',
+      detail: msgError?.message || msgError?.code || JSON.stringify(msgError),
+    });
   }
 
   // Atualizar status e última interação

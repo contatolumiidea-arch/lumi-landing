@@ -496,7 +496,15 @@ async function loadThread(p) {
   thread.innerHTML = `<div class="pm-thread-loading"><div class="spinner"></div> Carregando histórico…</div>`;
 
   const data = await API.get(`/admin/prospect-messages?prospectId=${p.id}`);
-  renderThread(data?.messages || [], p);
+
+  if (!data || data.error) {
+    const msg = data?.error || 'Erro ao carregar histórico.';
+    const detail = data?.detail ? ` — ${data.detail}` : '';
+    thread.innerHTML = `<div class="pm-thread-empty" style="color:#f87171">${msg}${detail}</div>`;
+    return;
+  }
+
+  renderThread(data.messages || [], p);
 }
 
 function renderThread(messages, p) {
