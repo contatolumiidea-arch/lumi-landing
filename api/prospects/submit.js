@@ -4,6 +4,7 @@ const { Resend } = require('resend');
 const VALID_ORIGINS = ['leadmagnet', 'newsletter', 'contact_form', 'other'];
 
 const NOTIFY_EMAIL = 'contato.lumiidea@gmail.com';
+const FROM_EMAIL   = 'LUMI IDEA <onboarding@resend.dev>';
 
 async function sendNotification({ name, email, message, createdAt }) {
   const apiKey = process.env.RESEND_API_KEY;
@@ -16,7 +17,7 @@ async function sendNotification({ name, email, message, createdAt }) {
   const dateStr = new Date(createdAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
 
   await resend.emails.send({
-    from: 'LUMI Landing <onboarding@resend.dev>',
+    from: FROM_EMAIL,
     to:   NOTIFY_EMAIL,
     subject: 'Novo interessado na LUMI Landing',
     html: `
@@ -28,6 +29,32 @@ async function sendNotification({ name, email, message, createdAt }) {
           <tr><td style="padding:8px 0;color:#999;vertical-align:top">Mensagem</td><td style="padding:8px 0;color:#fff">${message || '—'}</td></tr>
           <tr><td style="padding:8px 0;color:#999">Data</td><td style="padding:8px 0;color:#fff">${dateStr}</td></tr>
         </table>
+      </div>
+    `,
+  });
+}
+
+async function sendAutoReply({ name, email }) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return;
+
+  const resend = new Resend(apiKey);
+  const firstName = name ? name.split(' ')[0] : null;
+
+  await resend.emails.send({
+    from: FROM_EMAIL,
+    to:   email,
+    subject: 'Recebemos seu contato — LUMI IDEA',
+    html: `
+      <div style="font-family:sans-serif;max-width:540px;margin:0 auto;padding:32px 24px;background:#0e0e0e;color:#f0f0f0;border-radius:12px;border:1px solid rgba(212,175,55,.3)">
+        <p style="color:#ccc;margin:0 0 20px">Olá${firstName ? ', ' + firstName : ''},</p>
+        <p style="line-height:1.7;margin:0 0 16px">Recebemos sua solicitação de contato com a <strong style="color:#D4AF37">LUMI IDEA</strong>.</p>
+        <p style="line-height:1.7;margin:0 0 16px">Nossa equipe recebeu sua mensagem e entraremos em contato em breve.</p>
+        <p style="line-height:1.7;margin:0 0 28px">Obrigado pelo interesse.</p>
+        <hr style="border:none;border-top:1px solid rgba(212,175,55,.2);margin:24px 0">
+        <p style="color:#999;font-size:.85rem;margin:0">Equipe LUMI IDEA<br>
+          <a href="https://lumiidea.com" style="color:#D4AF37">lumiidea.com</a>
+        </p>
       </div>
     `,
   });
@@ -67,14 +94,18 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: 'Erro ao salvar contato.' });
   }
 
-  // Notificação por email — falha silenciosa para não impedir o fluxo
+  // Notificação + auto-resposta — falha silenciosa para não impedir o fluxo
   if (origin === 'contact_form') {
+    const cleanEmail = email.toLowerCase().trim();
     sendNotification({
       name,
-      email: email.toLowerCase().trim(),
+      email: cleanEmail,
       message: metadata?.message || null,
       createdAt,
     }).catch(err => console.error('[Prospect notify]', err.message));
+
+    sendAutoReply({ name, email: cleanEmail })
+      .catch(err => console.error('[Prospect auto-reply]', err.message));
   }
 
   return res.status(200).json({ ok: true });

@@ -143,6 +143,70 @@
     /* clickable row */
     .prospects-table tr[data-prospect-id] { cursor: pointer; }
     .prospects-table tr[data-prospect-id]:hover td { background: var(--bg-hover); }
+    /* reply area */
+    .reply-area {
+      display: none;
+      padding: 16px 24px 20px;
+      border-top: 1px solid var(--border);
+      flex-direction: column;
+      gap: 10px;
+    }
+    .reply-area.is-open { display: flex; }
+    .reply-area__label {
+      font-size: .8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .reply-area__to {
+      font-size: .8rem;
+      color: var(--text-muted);
+      margin-top: -4px;
+    }
+    .reply-textarea {
+      width: 100%;
+      min-height: 120px;
+      background: var(--bg-hover);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: .875rem;
+      line-height: 1.6;
+      padding: 10px 12px;
+      resize: vertical;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+    .reply-textarea:focus { outline: none; border-color: var(--color-gold); }
+    .reply-actions { display: flex; gap: 8px; align-items: center; }
+    .btn-send-reply {
+      background: var(--color-gold);
+      border: none;
+      color: #000;
+      border-radius: 6px;
+      padding: 8px 18px;
+      font-size: .85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity .15s;
+    }
+    .btn-send-reply:disabled { opacity: .5; cursor: not-allowed; }
+    .btn-cancel-reply {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-size: .85rem;
+      cursor: pointer;
+    }
+    .reply-status {
+      font-size: .8rem;
+      margin-left: auto;
+    }
+    .reply-status.ok  { color: #4ade80; }
+    .reply-status.err { color: #f87171; }
   </style>
 </head>
 <body>
@@ -218,6 +282,10 @@
         <span class="prospect-detail-label">Email</span>
         <span class="prospect-detail-value" id="modal-email">—</span>
       </div>
+      <div class="prospect-detail-row" id="modal-phone-row">
+        <span class="prospect-detail-label">Telefone</span>
+        <span class="prospect-detail-value" id="modal-phone">—</span>
+      </div>
       <div class="prospect-detail-row">
         <span class="prospect-detail-label">Mensagem</span>
         <div class="prospect-detail-value" id="modal-message-wrap">—</div>
@@ -246,9 +314,20 @@
     </div>
 
     <div class="prospect-modal__actions">
-      <a class="btn-reply" id="modal-reply-btn" href="#" target="_blank">
+      <button class="btn-reply" id="modal-reply-btn" onclick="toggleReplyArea()">
         ✉ Responder por email
-      </a>
+      </button>
+    </div>
+
+    <div class="reply-area" id="reply-area">
+      <span class="reply-area__label">Resposta</span>
+      <span class="reply-area__to" id="reply-area-to"></span>
+      <textarea class="reply-textarea" id="reply-textarea" placeholder="Digite sua mensagem..."></textarea>
+      <div class="reply-actions">
+        <button class="btn-send-reply" id="btn-send-reply" onclick="sendReply()">Enviar</button>
+        <button class="btn-cancel-reply" onclick="toggleReplyArea()">Cancelar</button>
+        <span class="reply-status" id="reply-status"></span>
+      </div>
     </div>
 
   </div>
@@ -346,6 +425,15 @@ function openModal(prospectJson) {
   document.getElementById('modal-date').textContent = fmtDatetime(p.created_at);
   document.getElementById('modal-origin').innerHTML = pillHTML(p.origin);
 
+  // Telefone — ocultar linha se não existir
+  const phoneRow = document.getElementById('modal-phone-row');
+  if (p.phone) {
+    document.getElementById('modal-phone').textContent = p.phone;
+    phoneRow.style.display = '';
+  } else {
+    phoneRow.style.display = 'none';
+  }
+
   const msg = p.metadata?.message || null;
   const msgWrap = document.getElementById('modal-message-wrap');
   if (msg) {
@@ -358,10 +446,8 @@ function openModal(prospectJson) {
   document.getElementById('status-msg').textContent = '';
   document.getElementById('status-msg').className = 'prospect-status-msg';
 
-  const subject = encodeURIComponent('Re: Interesse na LUMI Landing');
-  const body = encodeURIComponent(`Olá${p.name ? ', ' + p.name : ''},\n\nObrigado pelo seu interesse na LUMI Landing!\n\n`);
-  document.getElementById('modal-reply-btn').href =
-    `mailto:${p.email}?subject=${subject}&body=${body}`;
+  // Reset reply area
+  closeReplyArea();
 
   document.getElementById('prospect-modal').classList.add('is-open');
   document.body.style.overflow = 'hidden';
@@ -371,6 +457,65 @@ function closeModal() {
   document.getElementById('prospect-modal').classList.remove('is-open');
   document.body.style.overflow = '';
   currentProspectId = null;
+  closeReplyArea();
+}
+
+function closeReplyArea() {
+  document.getElementById('reply-area').classList.remove('is-open');
+  document.getElementById('reply-textarea').value = '';
+  document.getElementById('reply-status').textContent = '';
+  document.getElementById('reply-status').className = 'reply-status';
+}
+
+function toggleReplyArea() {
+  const area = document.getElementById('reply-area');
+  if (area.classList.contains('is-open')) {
+    closeReplyArea();
+    return;
+  }
+  // Preenche o "Para:" com o email atual
+  const email = document.getElementById('modal-email').textContent;
+  document.getElementById('reply-area-to').textContent = 'Para: ' + email;
+  area.classList.add('is-open');
+  document.getElementById('reply-textarea').focus();
+}
+
+async function sendReply() {
+  if (!currentProspectId) return;
+  const message = document.getElementById('reply-textarea').value.trim();
+  if (!message) return;
+
+  const btn = document.getElementById('btn-send-reply');
+  const statusEl = document.getElementById('reply-status');
+  btn.disabled = true;
+  statusEl.textContent = 'Enviando…';
+  statusEl.className = 'reply-status';
+
+  const result = await API.post('/admin/reply', { prospectId: currentProspectId, message });
+
+  if (result && result.ok) {
+    statusEl.textContent = 'Email enviado ✓';
+    statusEl.className = 'reply-status ok';
+    document.getElementById('reply-textarea').value = '';
+    // Atualiza status na tabela para "contacted" se for "new"
+    const select = document.getElementById('modal-status-select');
+    if (select.value === 'new') {
+      select.value = 'contacted';
+      const row = document.querySelector(`tr[data-prospect-id="${currentProspectId}"]`);
+      if (row) {
+        const cells = row.querySelectorAll('td');
+        if (cells[4]) cells[4].innerHTML = pillHTML('contacted');
+      }
+    }
+    setTimeout(() => {
+      statusEl.textContent = '';
+      statusEl.className = 'reply-status';
+    }, 4000);
+  } else {
+    statusEl.textContent = result?.error || 'Erro ao enviar. Tente novamente.';
+    statusEl.className = 'reply-status err';
+  }
+  btn.disabled = false;
 }
 
 async function updateStatus() {
