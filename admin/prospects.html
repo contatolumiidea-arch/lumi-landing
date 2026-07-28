@@ -108,15 +108,18 @@
     }
     .prospect-status-select {
       flex: 1;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      color: var(--text-primary);
+      background: #0b0b0b;
+      border: 1px solid rgba(212,175,55,.4);
+      color: #f0f0f0;
       border-radius: 6px;
       padding: 7px 10px;
       font-size: .85rem;
       cursor: pointer;
+      color-scheme: dark;
+      appearance: auto;
     }
-    .prospect-status-select:focus { outline: none; border-color: var(--color-gold); }
+    .prospect-status-select:focus { outline: none; border-color: var(--color-gold); box-shadow: 0 0 0 2px rgba(212,175,55,.15); }
+    .prospect-status-select option { background: #111; color: #f0f0f0; }
     .btn-reply {
       background: none;
       border: 1px solid var(--color-gold);
