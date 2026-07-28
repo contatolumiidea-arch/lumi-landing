@@ -50,8 +50,12 @@ module.exports = requireAdmin(async function handler(req, res) {
   });
 
   if (emailError) {
-    console.error('[Admin reply] Resend error:', emailError);
-    return res.status(500).json({ error: 'Erro ao enviar email. Tente novamente.' });
+    const detail = emailError?.message || emailError?.name || JSON.stringify(emailError);
+    console.error('[Admin reply] Resend error:', detail, emailError);
+    return res.status(500).json({
+      error: 'Erro ao enviar email.',
+      detail,
+    });
   }
 
   // Atualiza status para "contacted" se ainda for "new"

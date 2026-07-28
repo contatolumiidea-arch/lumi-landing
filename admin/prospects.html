@@ -184,7 +184,7 @@
     .reply-textarea:focus { outline: none; border-color: var(--color-gold); }
     .reply-actions { display: flex; gap: 8px; align-items: center; }
     .btn-send-reply {
-      background: var(--color-gold);
+      background: var(--gold, #C8A84B);
       border: none;
       color: #000;
       border-radius: 6px;
@@ -194,7 +194,8 @@
       cursor: pointer;
       transition: opacity .15s;
     }
-    .btn-send-reply:disabled { opacity: .5; cursor: not-allowed; }
+    .btn-send-reply:hover:not(:disabled) { opacity: .88; }
+    .btn-send-reply:disabled { opacity: .45; cursor: not-allowed; }
     .btn-cancel-reply {
       background: none;
       border: 1px solid var(--border);
@@ -517,7 +518,9 @@ async function sendReply() {
       statusEl.className = 'reply-status';
     }, 4000);
   } else {
-    statusEl.textContent = result?.error || 'Erro ao enviar. Tente novamente.';
+    const msg = result?.error || 'Erro ao enviar. Tente novamente.';
+    const detail = result?.detail ? ` (${result.detail})` : '';
+    statusEl.textContent = msg + detail;
     statusEl.className = 'reply-status err';
   }
   btn.disabled = false;
