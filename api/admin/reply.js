@@ -36,9 +36,6 @@ module.exports = requireAdmin(async function handler(req, res) {
     subject: 'Retorno da equipe LUMI IDEA',
     html: `
       <div style="font-family:sans-serif;max-width:540px;margin:0 auto;padding:32px 24px;background:#0e0e0e;color:#f0f0f0;border-radius:12px;border:1px solid rgba(212,175,55,.3)">
-        <div style="margin-bottom:24px">
-          <img src="https://lumiidea.com/assets/images/logo.svg" alt="LUMI IDEA" style="height:32px" onerror="this.style.display='none'">
-        </div>
         <p style="color:#ccc;margin:0 0 20px">Olá${prospect.name ? ', ' + prospect.name : ''},</p>
         <div style="white-space:pre-wrap;color:#f0f0f0;line-height:1.7;margin-bottom:28px">${message.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
         <hr style="border:none;border-top:1px solid rgba(212,175,55,.2);margin:24px 0">
@@ -52,18 +49,30 @@ module.exports = requireAdmin(async function handler(req, res) {
   if (emailError) {
     const detail = emailError?.message || emailError?.name || JSON.stringify(emailError);
     console.error('[Admin reply] Resend error:', detail, emailError);
-    return res.status(500).json({
-      error: 'Erro ao enviar email.',
-      detail,
-    });
+    return res.status(500).json({ error: 'Erro ao enviar email.', detail });
   }
 
-  // Atualiza status para "contacted" se ainda for "new"
+  const now = new Date().toISOString();
+
+  // Salvar resposta no histórico
+  await db.from('prospect_messages').insert({
+    prospect_id: prospectId,
+    sender_type: 'admin',
+    message:     message.trim(),
+  });
+
+  // Atualizar status e última interação
   await db
     .from('lumi_prospects')
-    .update({ status: 'contacted' })
+    .update({ status: 'contacted', last_contacted_at: now })
     .eq('id', prospectId)
     .eq('status', 'new');
 
-  return res.status(200).json({ ok: true });
+  await db
+    .from('lumi_prospects')
+    .update({ last_contacted_at: now })
+    .eq('id', prospectId)
+    .neq('status', 'new');
+
+  return res.status(200).json({ ok: true, sentAt: now });
 });

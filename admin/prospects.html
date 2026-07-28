@@ -7,210 +7,264 @@
   <link rel="stylesheet" href="/admin/css/admin.css">
   <meta name="robots" content="noindex, nofollow">
   <style>
-    /* ── Prospect detail modal ── */
+    /* ── Modal overlay ── */
     .prospect-modal-overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,.65);
-      backdrop-filter: blur(3px);
+      background: rgba(0,0,0,.7);
+      backdrop-filter: blur(4px);
       z-index: 900;
       align-items: center;
       justify-content: center;
       padding: 16px;
     }
     .prospect-modal-overlay.is-open { display: flex; }
+
+    /* ── Modal shell ── */
     .prospect-modal {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      background: var(--card, #11111C);
+      border: 1px solid var(--border, #1E1E30);
+      border-radius: 14px;
       width: 100%;
-      max-width: 560px;
+      max-width: 620px;
       max-height: calc(100vh - 32px);
-      overflow-y: auto;
-      box-shadow: 0 16px 48px rgba(0,0,0,.5);
-      position: relative;
-    }
-    .prospect-modal__head {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      box-shadow: 0 24px 64px rgba(0,0,0,.6);
+      overflow: hidden;
+    }
+
+    /* ── Header ── */
+    .pm-head {
+      display: flex;
+      align-items: flex-start;
       justify-content: space-between;
       padding: 20px 24px 16px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--border, #1E1E30);
       gap: 12px;
+      flex-shrink: 0;
     }
-    .prospect-modal__name {
+    .pm-head__info { flex: 1; min-width: 0; }
+    .pm-head__name {
       font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin: 0;
+      font-weight: 700;
+      color: var(--text, #EAEAF4);
+      margin: 0 0 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .prospect-modal__close {
+    .pm-head__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+      font-size: .8rem;
+      color: var(--muted, #7070A0);
+    }
+    .pm-head__meta span { display: flex; align-items: center; gap: 4px; }
+    .pm-close {
       background: none;
       border: none;
-      color: var(--text-muted);
-      font-size: 1.4rem;
+      color: var(--muted, #7070A0);
+      font-size: 1.5rem;
       cursor: pointer;
       line-height: 1;
-      padding: 4px 6px;
+      padding: 2px 6px;
       border-radius: 4px;
       flex-shrink: 0;
+      margin-top: -2px;
     }
-    .prospect-modal__close:hover { color: var(--text-primary); background: var(--bg-hover); }
-    .prospect-modal__body { padding: 20px 24px; }
-    .prospect-detail-row {
+    .pm-close:hover { color: var(--text, #EAEAF4); background: rgba(255,255,255,.05); }
+
+    /* ── Status bar ── */
+    .pm-status-bar {
       display: flex;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: .875rem;
-    }
-    .prospect-detail-row:last-child { border-bottom: none; }
-    .prospect-detail-label {
-      color: var(--text-muted);
-      min-width: 100px;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 24px;
+      background: rgba(255,255,255,.025);
+      border-bottom: 1px solid var(--border, #1E1E30);
       flex-shrink: 0;
     }
-    .prospect-detail-value {
-      color: var(--text-primary);
-      word-break: break-word;
+    .pm-status-label { font-size: .78rem; color: var(--muted, #7070A0); white-space: nowrap; }
+    .pm-status-select {
       flex: 1;
+      background: #0b0b0b;
+      border: 1px solid rgba(200,168,75,.35);
+      color: #f0f0f0;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: .82rem;
+      cursor: pointer;
+      color-scheme: dark;
     }
-    .prospect-message-box {
-      background: var(--bg-hover);
-      border-radius: 8px;
-      padding: 12px 14px;
+    .pm-status-select:focus { outline: none; border-color: var(--gold, #C8A84B); }
+    .pm-status-select option { background: #111; color: #f0f0f0; }
+    .pm-status-msg { font-size: .78rem; }
+    .pm-status-msg.ok  { color: #4ade80; }
+    .pm-status-msg.err { color: #f87171; }
+
+    /* ── Conversation thread ── */
+    .pm-thread {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 0;
+    }
+    .pm-thread-label {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--muted, #7070A0);
+      margin-bottom: 4px;
+    }
+    .pm-thread-empty {
+      font-size: .85rem;
+      color: var(--muted, #7070A0);
+      text-align: center;
+      padding: 24px 0;
+    }
+
+    /* ── Message bubbles ── */
+    .pm-msg {
+      display: flex;
+      flex-direction: column;
+      max-width: 88%;
+    }
+    .pm-msg--cliente { align-self: flex-start; }
+    .pm-msg--admin   { align-self: flex-end; }
+
+    .pm-msg__bubble {
+      padding: 11px 15px;
+      border-radius: 12px;
       font-size: .875rem;
-      color: var(--text-primary);
-      line-height: 1.6;
+      line-height: 1.65;
       white-space: pre-wrap;
       word-break: break-word;
     }
-    .prospect-modal__actions {
+    .pm-msg--cliente .pm-msg__bubble {
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border, #1E1E30);
+      color: var(--text, #EAEAF4);
+      border-top-left-radius: 4px;
+    }
+    .pm-msg--admin .pm-msg__bubble {
+      background: rgba(200,168,75,.12);
+      border: 1px solid rgba(200,168,75,.25);
+      color: var(--text, #EAEAF4);
+      border-top-right-radius: 4px;
+    }
+
+    .pm-msg__footer {
       display: flex;
-      gap: 10px;
-      padding: 16px 24px 20px;
-      border-top: 1px solid var(--border);
-      flex-wrap: wrap;
-    }
-    .prospect-modal__status-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 24px;
-      border-top: 1px solid var(--border);
-      background: var(--bg-hover);
-    }
-    .prospect-modal__status-label {
-      font-size: .8rem;
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
-    .prospect-status-select {
-      flex: 1;
-      background: #0b0b0b;
-      border: 1px solid rgba(212,175,55,.4);
-      color: #f0f0f0;
-      border-radius: 6px;
-      padding: 7px 10px;
-      font-size: .85rem;
-      cursor: pointer;
-      color-scheme: dark;
-      appearance: auto;
-    }
-    .prospect-status-select:focus { outline: none; border-color: var(--color-gold); box-shadow: 0 0 0 2px rgba(212,175,55,.15); }
-    .prospect-status-select option { background: #111; color: #f0f0f0; }
-    .btn-reply {
-      background: none;
-      border: 1px solid var(--color-gold);
-      color: var(--color-gold);
-      border-radius: 6px;
-      padding: 8px 16px;
-      font-size: .85rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: background .15s;
+      margin-top: 4px;
+      font-size: .72rem;
+      color: var(--muted, #7070A0);
     }
-    .btn-reply:hover { background: rgba(212,175,55,.1); }
-    .prospect-status-msg {
-      font-size: .8rem;
-      margin-left: auto;
-      padding: 0 4px;
-    }
-    .prospect-status-msg.ok  { color: #4ade80; }
-    .prospect-status-msg.err { color: #f87171; }
-    /* clickable row */
-    .prospects-table tr[data-prospect-id] { cursor: pointer; }
-    .prospects-table tr[data-prospect-id]:hover td { background: var(--bg-hover); }
-    /* reply area */
-    .reply-area {
-      display: none;
-      padding: 16px 24px 20px;
-      border-top: 1px solid var(--border);
-      flex-direction: column;
-      gap: 10px;
-    }
-    .reply-area.is-open { display: flex; }
-    .reply-area__label {
-      font-size: .8rem;
-      color: var(--text-muted);
+    .pm-msg--admin .pm-msg__footer { justify-content: flex-end; }
+
+    .pm-msg__sender {
       font-weight: 600;
+    }
+    .pm-msg--cliente .pm-msg__sender { color: var(--text-soft, #B8B8D0); }
+    .pm-msg--admin   .pm-msg__sender { color: var(--gold, #C8A84B); }
+
+    /* ── Loading skeleton for thread ── */
+    .pm-thread-loading {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted, #7070A0);
+      font-size: .82rem;
+      padding: 12px 0;
+    }
+    .pm-thread-loading .spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(200,168,75,.2);
+      border-top-color: var(--gold, #C8A84B);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+
+    /* ── Reply box ── */
+    .pm-reply {
+      border-top: 1px solid var(--border, #1E1E30);
+      padding: 16px 24px 20px;
+      flex-shrink: 0;
+    }
+    .pm-reply__label {
+      font-size: .72rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: .04em;
+      letter-spacing: .06em;
+      color: var(--muted, #7070A0);
+      margin-bottom: 8px;
     }
-    .reply-area__to {
-      font-size: .8rem;
-      color: var(--text-muted);
-      margin-top: -4px;
+    .pm-reply__to {
+      font-size: .78rem;
+      color: var(--muted, #7070A0);
+      margin-bottom: 8px;
     }
-    .reply-textarea {
+    .pm-reply__textarea {
       width: 100%;
-      min-height: 120px;
-      background: var(--bg-hover);
-      border: 1px solid var(--border);
+      min-height: 96px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border, #1E1E30);
       border-radius: 8px;
-      color: var(--text-primary);
+      color: var(--text, #EAEAF4);
       font-size: .875rem;
       line-height: 1.6;
       padding: 10px 12px;
       resize: vertical;
       font-family: inherit;
       box-sizing: border-box;
+      transition: border-color .15s;
     }
-    .reply-textarea:focus { outline: none; border-color: var(--color-gold); }
-    .reply-actions { display: flex; gap: 8px; align-items: center; }
-    .btn-send-reply {
+    .pm-reply__textarea:focus {
+      outline: none;
+      border-color: var(--gold, #C8A84B);
+    }
+    .pm-reply__textarea::placeholder { color: var(--muted, #7070A0); }
+    .pm-reply__actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .pm-btn-send {
       background: var(--gold, #C8A84B);
       border: none;
       color: #000;
-      border-radius: 6px;
-      padding: 8px 18px;
+      border-radius: 7px;
+      padding: 9px 22px;
       font-size: .85rem;
       font-weight: 700;
       cursor: pointer;
       transition: opacity .15s;
+      letter-spacing: .01em;
     }
-    .btn-send-reply:hover:not(:disabled) { opacity: .88; }
-    .btn-send-reply:disabled { opacity: .45; cursor: not-allowed; }
-    .btn-cancel-reply {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      border-radius: 6px;
-      padding: 8px 14px;
-      font-size: .85rem;
-      cursor: pointer;
-    }
-    .reply-status {
+    .pm-btn-send:hover:not(:disabled) { opacity: .88; }
+    .pm-btn-send:disabled { opacity: .4; cursor: not-allowed; }
+    .pm-reply__status {
       font-size: .8rem;
       margin-left: auto;
     }
-    .reply-status.ok  { color: #4ade80; }
-    .reply-status.err { color: #f87171; }
+    .pm-reply__status.ok  { color: #4ade80; }
+    .pm-reply__status.err { color: #f87171; }
+
+    /* ── Table ── */
+    .prospects-table tr[data-prospect-id] { cursor: pointer; }
+    .prospects-table tr[data-prospect-id]:hover td { background: var(--bg-hover); }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
@@ -273,41 +327,28 @@
   </div>
 </div>
 
-<!-- ── Prospect detail modal ── -->
+<!-- ── Prospect modal ── -->
 <div class="prospect-modal-overlay" id="prospect-modal">
-  <div class="prospect-modal" role="dialog" aria-modal="true" aria-labelledby="modal-prospect-name">
+  <div class="prospect-modal" role="dialog" aria-modal="true" aria-labelledby="pm-name">
 
-    <div class="prospect-modal__head">
-      <h2 class="prospect-modal__name" id="modal-prospect-name">—</h2>
-      <button class="prospect-modal__close" onclick="closeModal()" aria-label="Fechar">×</button>
+    <!-- Header -->
+    <div class="pm-head">
+      <div class="pm-head__info">
+        <h2 class="pm-head__name" id="pm-name">—</h2>
+        <div class="pm-head__meta">
+          <span id="pm-email">—</span>
+          <span id="pm-phone" style="display:none">—</span>
+          <span id="pm-origin">—</span>
+          <span id="pm-date">—</span>
+        </div>
+      </div>
+      <button class="pm-close" onclick="closeModal()" aria-label="Fechar">×</button>
     </div>
 
-    <div class="prospect-modal__body">
-      <div class="prospect-detail-row">
-        <span class="prospect-detail-label">Email</span>
-        <span class="prospect-detail-value" id="modal-email">—</span>
-      </div>
-      <div class="prospect-detail-row" id="modal-phone-row">
-        <span class="prospect-detail-label">Telefone</span>
-        <span class="prospect-detail-value" id="modal-phone">—</span>
-      </div>
-      <div class="prospect-detail-row">
-        <span class="prospect-detail-label">Mensagem</span>
-        <div class="prospect-detail-value" id="modal-message-wrap">—</div>
-      </div>
-      <div class="prospect-detail-row">
-        <span class="prospect-detail-label">Origem</span>
-        <span class="prospect-detail-value" id="modal-origin">—</span>
-      </div>
-      <div class="prospect-detail-row">
-        <span class="prospect-detail-label">Data</span>
-        <span class="prospect-detail-value" id="modal-date">—</span>
-      </div>
-    </div>
-
-    <div class="prospect-modal__status-row">
-      <span class="prospect-modal__status-label">Status</span>
-      <select class="prospect-status-select" id="modal-status-select" onchange="updateStatus()">
+    <!-- Status -->
+    <div class="pm-status-bar">
+      <span class="pm-status-label">Status</span>
+      <select class="pm-status-select" id="pm-status-select" onchange="updateStatus()">
         <option value="new">Novo</option>
         <option value="contacted">Em contato</option>
         <option value="potential">Cliente potencial</option>
@@ -315,23 +356,24 @@
         <option value="archived">Arquivado</option>
         <option value="converted">Convertido</option>
       </select>
-      <span class="prospect-status-msg" id="status-msg"></span>
+      <span class="pm-status-msg" id="pm-status-msg"></span>
     </div>
 
-    <div class="prospect-modal__actions">
-      <button class="btn-reply" id="modal-reply-btn" onclick="toggleReplyArea()">
-        ✉ Responder por email
-      </button>
+    <!-- Thread -->
+    <div class="pm-thread" id="pm-thread">
+      <div class="pm-thread-loading" id="pm-thread-loading">
+        <div class="spinner"></div> Carregando histórico…
+      </div>
     </div>
 
-    <div class="reply-area" id="reply-area">
-      <span class="reply-area__label">Resposta</span>
-      <span class="reply-area__to" id="reply-area-to"></span>
-      <textarea class="reply-textarea" id="reply-textarea" placeholder="Digite sua mensagem..."></textarea>
-      <div class="reply-actions">
-        <button class="btn-send-reply" id="btn-send-reply" onclick="sendReply()">Enviar</button>
-        <button class="btn-cancel-reply" onclick="toggleReplyArea()">Cancelar</button>
-        <span class="reply-status" id="reply-status"></span>
+    <!-- Reply -->
+    <div class="pm-reply">
+      <div class="pm-reply__label">Nova resposta</div>
+      <div class="pm-reply__to" id="pm-reply-to"></div>
+      <textarea class="pm-reply__textarea" id="pm-reply-textarea" placeholder="Digite sua mensagem para o interessado..."></textarea>
+      <div class="pm-reply__actions">
+        <button class="pm-btn-send" id="pm-btn-send" onclick="sendReply()">Enviar email</button>
+        <span class="pm-reply__status" id="pm-reply-status"></span>
       </div>
     </div>
 
@@ -342,7 +384,6 @@
 <script>
 let searchTimeout;
 let currentProspectId = null;
-// Map de id → objeto prospect para uso no event delegation (evita inline JSON no onclick)
 const prospectCache = new Map();
 
 (async () => {
@@ -350,7 +391,6 @@ const prospectCache = new Map();
   await requireAuth();
   await loadProspects(1);
 
-  // Event delegation: um único listener na tbody, permanente
   document.getElementById('prospects-tbody').addEventListener('click', (e) => {
     const row = e.target.closest('tr[data-prospect-id]');
     if (!row) return;
@@ -358,7 +398,6 @@ const prospectCache = new Map();
     if (p) openModal(p);
   });
 
-  // Fechar modal no overlay
   document.getElementById('prospect-modal').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
   });
@@ -394,7 +433,6 @@ async function loadProspects(page = 1) {
     return;
   }
 
-  // Armazena objetos no cache (sem trafegar dados via atributo HTML)
   prospectCache.clear();
   data.prospects.forEach(p => prospectCache.set(p.id, p));
 
@@ -422,136 +460,170 @@ async function loadProspects(page = 1) {
   ` : '';
 }
 
-function openModal(prospectJson) {
-  const p = typeof prospectJson === 'string' ? JSON.parse(prospectJson) : prospectJson;
+async function openModal(p) {
   currentProspectId = p.id;
 
-  document.getElementById('modal-prospect-name').textContent = p.name || '(sem nome)';
-  document.getElementById('modal-email').textContent = p.email;
-  document.getElementById('modal-date').textContent = fmtDatetime(p.created_at);
-  document.getElementById('modal-origin').innerHTML = pillHTML(p.origin);
+  document.getElementById('pm-name').textContent = p.name || '(sem nome)';
+  document.getElementById('pm-email').textContent = '✉ ' + p.email;
+  document.getElementById('pm-date').textContent = '🕐 ' + fmtDatetime(p.created_at);
+  document.getElementById('pm-origin').innerHTML = pillHTML(p.origin);
+  document.getElementById('pm-reply-to').textContent = 'Para: ' + p.email;
 
-  // Telefone — ocultar linha se não existir
-  const phoneRow = document.getElementById('modal-phone-row');
+  const phoneEl = document.getElementById('pm-phone');
   if (p.phone) {
-    document.getElementById('modal-phone').textContent = p.phone;
-    phoneRow.style.display = '';
+    phoneEl.textContent = '📞 ' + p.phone;
+    phoneEl.style.display = '';
   } else {
-    phoneRow.style.display = 'none';
+    phoneEl.style.display = 'none';
   }
 
-  const msg = p.metadata?.message || null;
-  const msgWrap = document.getElementById('modal-message-wrap');
-  if (msg) {
-    msgWrap.innerHTML = `<div class="prospect-message-box">${escapeHtml(msg)}</div>`;
-  } else {
-    msgWrap.textContent = '—';
-  }
+  document.getElementById('pm-status-select').value = p.status || 'new';
+  document.getElementById('pm-status-msg').textContent = '';
+  document.getElementById('pm-status-msg').className = 'pm-status-msg';
 
-  document.getElementById('modal-status-select').value = p.status || 'new';
-  document.getElementById('status-msg').textContent = '';
-  document.getElementById('status-msg').className = 'prospect-status-msg';
-
-  // Reset reply area
-  closeReplyArea();
+  document.getElementById('pm-reply-textarea').value = '';
+  document.getElementById('pm-reply-status').textContent = '';
+  document.getElementById('pm-reply-status').className = 'pm-reply__status';
 
   document.getElementById('prospect-modal').classList.add('is-open');
   document.body.style.overflow = 'hidden';
+
+  await loadThread(p);
+}
+
+async function loadThread(p) {
+  const thread = document.getElementById('pm-thread');
+  thread.innerHTML = `<div class="pm-thread-loading"><div class="spinner"></div> Carregando histórico…</div>`;
+
+  const data = await API.get(`/admin/prospect-messages?prospectId=${p.id}`);
+  renderThread(data?.messages || [], p);
+}
+
+function renderThread(messages, p) {
+  const thread = document.getElementById('pm-thread');
+
+  if (!messages.length) {
+    // Se não há mensagens no histórico mas tem mensagem no metadata, exibir como inicial
+    const initialMsg = p?.metadata?.message;
+    if (initialMsg) {
+      thread.innerHTML = `
+        <div class="pm-thread-label">Histórico de atendimento</div>
+        ${buildBubble({ sender_type: 'cliente', message: initialMsg, created_at: p.created_at }, p)}
+      `;
+    } else {
+      thread.innerHTML = `
+        <div class="pm-thread-label">Histórico de atendimento</div>
+        <div class="pm-thread-empty">Nenhuma mensagem registrada ainda.</div>
+      `;
+    }
+    return;
+  }
+
+  thread.innerHTML = `
+    <div class="pm-thread-label">Histórico de atendimento</div>
+    ${messages.map(m => buildBubble(m, p)).join('')}
+  `;
+
+  // Rolar para o fim do histórico
+  thread.scrollTop = thread.scrollHeight;
+}
+
+function buildBubble(m, p) {
+  const isAdmin = m.sender_type === 'admin';
+  const sender  = isAdmin ? 'LUMI IDEA' : (p?.name || 'Interessado');
+  const time    = fmtDatetime(m.created_at);
+  return `
+    <div class="pm-msg pm-msg--${m.sender_type}">
+      <div class="pm-msg__bubble">${escapeHtml(m.message)}</div>
+      <div class="pm-msg__footer">
+        <span class="pm-msg__sender">${escapeHtml(sender)}</span>
+        <span>${time}</span>
+      </div>
+    </div>
+  `;
 }
 
 function closeModal() {
   document.getElementById('prospect-modal').classList.remove('is-open');
   document.body.style.overflow = '';
   currentProspectId = null;
-  closeReplyArea();
 }
 
-function closeReplyArea() {
-  document.getElementById('reply-area').classList.remove('is-open');
-  document.getElementById('reply-textarea').value = '';
-  document.getElementById('reply-status').textContent = '';
-  document.getElementById('reply-status').className = 'reply-status';
-}
+async function updateStatus() {
+  if (!currentProspectId) return;
+  const status = document.getElementById('pm-status-select').value;
+  const msgEl = document.getElementById('pm-status-msg');
+  msgEl.textContent = 'Salvando…';
+  msgEl.className = 'pm-status-msg';
 
-function toggleReplyArea() {
-  const area = document.getElementById('reply-area');
-  if (area.classList.contains('is-open')) {
-    closeReplyArea();
-    return;
+  const result = await API.patch('/admin/prospects', { id: currentProspectId, status });
+  if (result) {
+    msgEl.textContent = 'Salvo ✓';
+    msgEl.className = 'pm-status-msg ok';
+    const row = document.querySelector(`tr[data-prospect-id="${currentProspectId}"]`);
+    if (row) {
+      const cells = row.querySelectorAll('td');
+      if (cells[5]) cells[5].innerHTML = pillHTML(status);
+    }
+  } else {
+    msgEl.textContent = 'Erro ao salvar';
+    msgEl.className = 'pm-status-msg err';
   }
-  // Preenche o "Para:" com o email atual
-  const email = document.getElementById('modal-email').textContent;
-  document.getElementById('reply-area-to').textContent = 'Para: ' + email;
-  area.classList.add('is-open');
-  document.getElementById('reply-textarea').focus();
+  setTimeout(() => { msgEl.textContent = ''; }, 3000);
 }
 
 async function sendReply() {
   if (!currentProspectId) return;
-  const message = document.getElementById('reply-textarea').value.trim();
+  const message = document.getElementById('pm-reply-textarea').value.trim();
   if (!message) return;
 
-  const btn = document.getElementById('btn-send-reply');
-  const statusEl = document.getElementById('reply-status');
+  const btn      = document.getElementById('pm-btn-send');
+  const statusEl = document.getElementById('pm-reply-status');
   btn.disabled = true;
   statusEl.textContent = 'Enviando…';
-  statusEl.className = 'reply-status';
+  statusEl.className = 'pm-reply__status';
 
   const result = await API.post('/admin/reply', { prospectId: currentProspectId, message });
 
   if (result && result.ok) {
-    statusEl.textContent = 'Email enviado ✓';
-    statusEl.className = 'reply-status ok';
-    document.getElementById('reply-textarea').value = '';
-    // Atualiza status na tabela para "contacted" se for "new"
-    const select = document.getElementById('modal-status-select');
+    // Adicionar bolha da resposta imediatamente no thread
+    const thread = document.getElementById('pm-thread');
+    const now    = result.sentAt || new Date().toISOString();
+    const bubble = buildBubble({ sender_type: 'admin', message, created_at: now }, null);
+    // Remove empty state se existir
+    const empty = thread.querySelector('.pm-thread-empty');
+    if (empty) empty.remove();
+    thread.insertAdjacentHTML('beforeend', bubble);
+    thread.scrollTop = thread.scrollHeight;
+
+    document.getElementById('pm-reply-textarea').value = '';
+    statusEl.textContent = 'Enviado ✓';
+    statusEl.className = 'pm-reply__status ok';
+
+    // Atualizar status na tabela e no select se for "new"
+    const select = document.getElementById('pm-status-select');
     if (select.value === 'new') {
       select.value = 'contacted';
       const row = document.querySelector(`tr[data-prospect-id="${currentProspectId}"]`);
       if (row) {
         const cells = row.querySelectorAll('td');
-        if (cells[4]) cells[4].innerHTML = pillHTML('contacted');
+        if (cells[5]) cells[5].innerHTML = pillHTML('contacted');
       }
     }
-    setTimeout(() => {
-      statusEl.textContent = '';
-      statusEl.className = 'reply-status';
-    }, 4000);
+
+    setTimeout(() => { statusEl.textContent = ''; statusEl.className = 'pm-reply__status'; }, 4000);
   } else {
-    const msg = result?.error || 'Erro ao enviar. Tente novamente.';
+    const msg    = result?.error  || 'Erro ao enviar. Tente novamente.';
     const detail = result?.detail ? ` (${result.detail})` : '';
     statusEl.textContent = msg + detail;
-    statusEl.className = 'reply-status err';
+    statusEl.className = 'pm-reply__status err';
   }
   btn.disabled = false;
 }
 
-async function updateStatus() {
-  if (!currentProspectId) return;
-  const status = document.getElementById('modal-status-select').value;
-  const msgEl = document.getElementById('status-msg');
-  msgEl.textContent = 'Salvando…';
-  msgEl.className = 'prospect-status-msg';
-
-  const result = await API.patch('/admin/prospects', { id: currentProspectId, status });
-  if (result) {
-    msgEl.textContent = 'Salvo ✓';
-    msgEl.className = 'prospect-status-msg ok';
-    // update pill in the table row
-    const row = document.querySelector(`tr[data-prospect-id="${currentProspectId}"]`);
-    if (row) {
-      const cells = row.querySelectorAll('td');
-      if (cells[4]) cells[4].innerHTML = pillHTML(status);
-    }
-  } else {
-    msgEl.textContent = 'Erro ao salvar';
-    msgEl.className = 'prospect-status-msg err';
-  }
-  setTimeout(() => { if (msgEl.textContent !== '') { msgEl.textContent = ''; } }, 3000);
-}
-
 function escapeHtml(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 </script>
 </body>

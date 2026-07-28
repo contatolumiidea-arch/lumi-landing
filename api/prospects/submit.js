@@ -76,7 +76,7 @@ module.exports = async function handler(req, res) {
   const db = getDb();
   const createdAt = new Date().toISOString();
 
-  const { error } = await db.from('lumi_prospects').insert({
+  const { data: inserted, error } = await db.from('lumi_prospects').insert({
     name:     name    || null,
     email:    email.toLowerCase().trim(),
     phone:    phone   || null,
@@ -84,7 +84,7 @@ module.exports = async function handler(req, res) {
     origin,
     status:   'new',
     metadata: metadata || null,
-  });
+  }).select('id').single();
 
   if (error) {
     if (error.code === '23505') {
@@ -92,6 +92,15 @@ module.exports = async function handler(req, res) {
     }
     console.error('[Prospect submit]', error);
     return res.status(500).json({ error: 'Erro ao salvar contato.' });
+  }
+
+  // Salvar mensagem inicial no histórico (somente contact_form com mensagem)
+  if (origin === 'contact_form' && metadata?.message && inserted?.id) {
+    db.from('prospect_messages').insert({
+      prospect_id: inserted.id,
+      sender_type: 'cliente',
+      message:     metadata.message.trim(),
+    }).then().catch(err => console.error('[Prospect msg save]', err.message));
   }
 
   // Notificação + auto-resposta — falha silenciosa para não impedir o fluxo
