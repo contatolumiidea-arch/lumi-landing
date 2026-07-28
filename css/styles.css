@@ -853,8 +853,10 @@ textarea.form-control { min-height: 120px; resize: vertical; }
 }
 
 /* ════════════════════════════════════════════════════════════
-   LEAD MAGNET
+   LEAD MAGNET — full-width redesign
    ════════════════════════════════════════════════════════════ */
+
+/* Legacy classes kept for realtor pages that may still use them */
 .leadmagnet-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -872,6 +874,134 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   border-radius: var(--radius-lg);
   box-shadow: 0 24px 64px rgba(0,0,0,.22);
   display: block;
+}
+
+/* ── Full-width sales page layout ─────────────────────────── */
+.lm-fullwidth { text-align: center; }
+.lm-fullwidth .container { max-width: 860px; }
+
+.lm-header { margin-bottom: 48px; }
+.lm-header .section-headline { max-width: 600px; margin-inline: auto; }
+.lm-intro {
+  font-size: .95rem;
+  color: rgba(255,255,255,.65);
+  margin-top: 16px;
+  max-width: 480px;
+  margin-inline: auto;
+}
+
+/* Guides pills */
+.lm-guides-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+}
+.lm-guide-pill {
+  flex: 1;
+  min-width: 220px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 24px 28px;
+}
+.lm-guide-pill__name {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  display: block;
+}
+.lm-guide-pill__obj {
+  font-size: .85rem;
+  color: rgba(255,255,255,.7);
+  line-height: 1.55;
+}
+.lm-guide-sep {
+  width: 1px;
+  background: rgba(212,175,55,.25);
+  align-self: stretch;
+  margin: 8px 0;
+}
+
+/* Ebook images */
+.lm-visual-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  margin-bottom: 56px;
+}
+.lm-ebooks-img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 32px 80px rgba(0,0,0,.35);
+  display: block;
+}
+.lm-cta-btn {
+  font-size: 1rem;
+  padding: 14px 32px;
+}
+
+/* Form panel */
+.lm-form-panel {
+  max-width: 480px;
+  margin: 0 auto 56px;
+  text-align: left;
+}
+.lm-form-inner { width: 100%; }
+
+/* Flow strip */
+.lm-flow-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  max-width: 360px;
+  margin-inline: auto;
+  padding: 28px 32px;
+  background: rgba(212,175,55,.08);
+  border: 1px solid rgba(212,175,55,.2);
+  border-radius: 14px;
+}
+.lm-fs-step {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: .88rem;
+  color: rgba(255,255,255,.9);
+  width: 100%;
+}
+.lm-fs-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: #0e0e0e;
+  font-size: .78rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.lm-fs-label { line-height: 1.4; }
+.lm-fs-arrow {
+  color: var(--color-gold);
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 2px 0;
+}
+
+@media (max-width: 600px) {
+  .lm-guides-row { flex-direction: column; align-items: center; }
+  .lm-guide-sep { width: 80px; height: 1px; align-self: auto; margin: 0; }
+  .lm-guide-pill { text-align: center; }
 }
 .ebook-mockup {
   width: 260px;
