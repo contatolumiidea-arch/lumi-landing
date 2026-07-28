@@ -383,8 +383,13 @@
 <script src="js/app.js"></script>
 <script>
 let searchTimeout;
-let currentProspectId = null;
+let currentProspectId   = null;
+let currentProspect     = null;   // objeto completo para polling
+let pollInterval        = null;
+let lastMessageCount    = 0;
 const prospectCache = new Map();
+
+const POLL_INTERVAL_MS = 30000; // 30 segundos
 
 (async () => {
   renderLayout('prospects');
@@ -488,7 +493,9 @@ async function openModal(p) {
   document.getElementById('prospect-modal').classList.add('is-open');
   document.body.style.overflow = 'hidden';
 
+  currentProspect = p;
   await loadThread(p);
+  startPolling(p);
 }
 
 async function loadThread(p) {
@@ -505,6 +512,24 @@ async function loadThread(p) {
   }
 
   renderThread(data.messages || [], p);
+}
+
+function startPolling(p) {
+  stopPolling();
+  pollInterval = setInterval(() => pollThread(p), POLL_INTERVAL_MS);
+}
+
+function stopPolling() {
+  if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
+}
+
+async function pollThread(p) {
+  if (!currentProspectId) return;
+  const data = await API.get(`/admin/prospect-messages?prospectId=${p.id}`);
+  if (!data || data.error || !data.messages) return;
+  if (data.messages.length > lastMessageCount) {
+    renderThread(data.messages, p);
+  }
 }
 
 function renderThread(messages, p) {
@@ -527,13 +552,19 @@ function renderThread(messages, p) {
     return;
   }
 
+  const atBottom = thread.scrollHeight - thread.scrollTop - thread.clientHeight < 60;
+
   thread.innerHTML = `
     <div class="pm-thread-label">Histórico de atendimento</div>
     ${messages.map(m => buildBubble(m, p)).join('')}
   `;
 
-  // Rolar para o fim do histórico
-  thread.scrollTop = thread.scrollHeight;
+  lastMessageCount = messages.length;
+
+  // Rolar para o fim apenas se já estava no fim (não interrompe scroll manual)
+  if (atBottom || lastMessageCount === messages.length) {
+    thread.scrollTop = thread.scrollHeight;
+  }
 }
 
 function buildBubble(m, p) {
@@ -552,9 +583,12 @@ function buildBubble(m, p) {
 }
 
 function closeModal() {
+  stopPolling();
   document.getElementById('prospect-modal').classList.remove('is-open');
   document.body.style.overflow = '';
-  currentProspectId = null;
+  currentProspectId  = null;
+  currentProspect    = null;
+  lastMessageCount   = 0;
 }
 
 async function updateStatus() {
