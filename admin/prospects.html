@@ -251,6 +251,7 @@
               <tr>
                 <th>Nome</th>
                 <th>Email</th>
+                <th>Telefone</th>
                 <th>Mensagem</th>
                 <th>Origem</th>
                 <th>Status</th>
@@ -258,7 +259,7 @@
               </tr>
             </thead>
             <tbody id="prospects-tbody">
-              <tr><td colspan="6"><div class="loading"><div class="spinner"></div></div></td></tr>
+              <tr><td colspan="7"><div class="loading"><div class="spinner"></div></div></td></tr>
             </tbody>
           </table>
         </div>
@@ -376,7 +377,7 @@ async function loadProspects(page = 1) {
   if (search) params.set('search', search);
 
   const tbody = document.getElementById('prospects-tbody');
-  tbody.innerHTML = `<tr><td colspan="6"><div class="loading"><div class="spinner"></div></div></td></tr>`;
+  tbody.innerHTML = `<tr><td colspan="7"><div class="loading"><div class="spinner"></div></div></td></tr>`;
 
   const data = await API.get(`/admin/prospects?${params}`);
   if (!data) return;
@@ -384,7 +385,7 @@ async function loadProspects(page = 1) {
   document.getElementById('total-count').textContent = data.total ?? 0;
 
   if (!data.prospects?.length) {
-    tbody.innerHTML = `<tr><td colspan="6"><div class="empty"><div class="empty-icon">📬</div>Nenhum interessado encontrado.</div></td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7"><div class="empty"><div class="empty-icon">📬</div>Nenhum interessado encontrado.</div></td></tr>`;
     document.getElementById('pagination').innerHTML = '';
     return;
   }
@@ -400,7 +401,8 @@ async function loadProspects(page = 1) {
       <tr data-prospect-id="${p.id}">
         <td class="td-name">${escapeHtml(p.name || '—')}</td>
         <td class="td-mono">${escapeHtml(p.email)}</td>
-        <td style="max-width:220px;color:var(--text-muted);font-size:.8rem">${escapeHtml(msgPreview)}</td>
+        <td class="td-mono" style="font-size:.8rem">${escapeHtml(p.phone || '—')}</td>
+        <td style="max-width:200px;color:var(--text-muted);font-size:.8rem">${escapeHtml(msgPreview)}</td>
         <td>${pillHTML(p.origin)}</td>
         <td>${pillHTML(p.status)}</td>
         <td class="td-date">${fmtDatetime(p.created_at)}</td>
