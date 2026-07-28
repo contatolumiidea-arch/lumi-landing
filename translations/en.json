@@ -113,9 +113,16 @@
   },
 
   "leadmagnet": {
-    "badge": "Free Guide",
-    "headline": "Turn Your Knowledge Into New Clients",
+    "badge": "Free Guides Included",
+    "headline": "Two guides ready to generate leads for your page",
     "subheadline": "Offer a free guide and capture the contact of potential clients who are not yet ready to reach out.",
+    "guide1_name": "Buyer's Guide",
+    "guide1_obj": "Goal: capture buyers at the start of their home search journey.",
+    "guide2_name": "Seller's Guide",
+    "guide2_obj": "Goal: capture homeowners interested in listing their property for sale.",
+    "flow_step1": "Visitor fills in name and email",
+    "flow_step2": "Receives the free guide in exchange",
+    "flow_step3": "Contact appears as a lead in the Realtor's Client Area",
     "note": "This is an example of the free guide included in every LUMI LANDING page.",
     "ebook_title": "Home Buyer's Guide",
     "ebook_sub": "Everything you need to know before buying a home in the USA",

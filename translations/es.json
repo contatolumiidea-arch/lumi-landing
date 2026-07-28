@@ -113,9 +113,16 @@
   },
 
   "leadmagnet": {
-    "badge": "Guía Gratuita",
-    "headline": "Convierte Tu Conocimiento en Nuevos Clientes",
+    "badge": "Guías Gratuitas Incluidas",
+    "headline": "Dos guías listas para generar leads para tu página",
     "subheadline": "Ofrece una guía gratuita y captura el contacto de clientes potenciales que aún no están listos para comunicarse.",
+    "guide1_name": "Guía del Comprador",
+    "guide1_obj": "Objetivo: capturar compradores al inicio de su búsqueda de propiedad.",
+    "guide2_name": "Guía del Vendedor",
+    "guide2_obj": "Objetivo: capturar propietarios interesados en poner su propiedad en venta.",
+    "flow_step1": "El visitante completa nombre y correo",
+    "flow_step2": "Recibe la guía gratuita a cambio",
+    "flow_step3": "El contacto aparece como lead del corredor en el Área del Cliente",
     "note": "Este es un ejemplo de la guía gratuita incluida en cada página de LUMI LANDING.",
     "ebook_title": "Guía del Comprador de Vivienda",
     "ebook_sub": "Todo lo que necesitas saber antes de comprar una vivienda en EE.UU.",

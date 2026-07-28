@@ -2335,6 +2335,51 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   .lm-flow-label { max-width: none; }
 }
 
+/* ── Leadmagnet guides description ───────────────────────── */
+.lm-guides-desc { margin: 20px 0 24px; }
+.lm-guide-item { margin: 0 0 14px; font-size: .9rem; line-height: 1.5; }
+.lm-guide-item strong { display: block; font-size: 1rem; color: var(--color-gold); margin-bottom: 2px; }
+.lm-guide-obj-inline { color: rgba(255,255,255,.7); }
+
+/* ── Leadmagnet vertical flow ─────────────────────────────── */
+.lm-flow-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 24px;
+  padding: 16px 18px;
+  background: rgba(212,175,55,.08);
+  border: 1px solid rgba(212,175,55,.2);
+  border-radius: 10px;
+}
+.lm-fv-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: .85rem;
+  color: rgba(255,255,255,.9);
+}
+.lm-fv-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: #0e0e0e;
+  font-size: .75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.lm-fv-arrow {
+  text-align: center;
+  color: var(--color-gold);
+  font-size: 1rem;
+  line-height: 1;
+  padding: 2px 0 2px 36px;
+}
+
 /* ── Lead Magnet note ─────────────────────────────────────── */
 .leadmagnet-note {
   margin-top: 16px;
