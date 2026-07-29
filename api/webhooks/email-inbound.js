@@ -53,6 +53,7 @@ function extractFromEmail(from) {
 const SKIP_SENDERS = /mailer-daemon|no-?reply|postmaster|noreply|auto-?reply|bounce/i;
 
 module.exports = async function handler(req, res) {
+  console.log('[INBOUND RECEIVED]', JSON.stringify(req.body));
   if (req.method !== 'POST') return res.status(405).end();
 
   // ── Verificação do segredo ───────────────────────────────────────────────
