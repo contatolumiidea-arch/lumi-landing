@@ -99,11 +99,14 @@ module.exports = async function handler(req, res) {
 
   // Salvar mensagem inicial no histórico (somente contact_form com mensagem)
   if (origin === 'contact_form' && metadata?.message && inserted?.id) {
-    db.from('prospect_messages').insert({
+    const { error: msgError } = await db.from('prospect_messages').insert({
       prospect_id: inserted.id,
       sender_type: 'cliente',
       message:     metadata.message.trim(),
-    }).then().catch(err => console.error('[Prospect msg save]', err.message));
+    });
+    if (msgError) {
+      console.error('[Prospect msg save] Erro ao salvar mensagem inicial:', msgError);
+    }
   }
 
   // Notificação + auto-resposta — falha silenciosa para não impedir o fluxo
