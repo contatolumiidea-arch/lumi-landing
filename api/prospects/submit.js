@@ -5,7 +5,7 @@ const VALID_ORIGINS = ['leadmagnet', 'newsletter', 'contact_form', 'other'];
 
 const NOTIFY_EMAIL = 'contato.lumiidea@gmail.com';
 const FROM_EMAIL   = 'Lumi Idea <contato@lumiidea.com>';
-const REPLY_TO     = 'contato@lumiidea.com';
+const REPLY_TO     = 'replies@respostas.lumiidea.com';
 
 async function sendNotification({ name, email, message, createdAt }) {
   const apiKey = process.env.RESEND_API_KEY;

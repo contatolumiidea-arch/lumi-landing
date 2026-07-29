@@ -3,7 +3,7 @@ const { getDb } = require('../_lib/db');
 const { Resend } = require('resend');
 
 const FROM_EMAIL = 'Lumi Idea <contato@lumiidea.com>';
-const REPLY_TO   = 'contato@replies.lumiidea.com';
+const REPLY_TO   = 'replies@respostas.lumiidea.com';
 
 module.exports = requireAdmin(async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
