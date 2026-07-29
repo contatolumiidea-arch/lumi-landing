@@ -60,10 +60,10 @@ module.exports = requireAdmin(async function handler(req, res) {
 
   // Enviar email
   const resend = new Resend(apiKey);
-  console.log('[Admin reply] payload Resend:', { from: FROM_EMAIL, to: prospect.email, reply_to: REPLY_TO });
-  const { error: emailError } = await resend.emails.send({
-    from:     FROM_EMAIL,
-    reply_to: REPLY_TO,
+  console.log('[Admin reply] payload Resend:', { from: FROM_EMAIL, to: prospect.email, replyTo: REPLY_TO });
+  const { data: emailData, error: emailError } = await resend.emails.send({
+    from:    FROM_EMAIL,
+    replyTo: REPLY_TO,
     to:       prospect.email,
     subject:  'Retorno da equipe LUMI IDEA',
     html: `

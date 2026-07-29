@@ -19,7 +19,7 @@ async function sendNotification({ name, email, message, createdAt }) {
 
   await resend.emails.send({
     from:     FROM_EMAIL,
-    reply_to: REPLY_TO,
+    replyTo: REPLY_TO,
     to:       NOTIFY_EMAIL,
     subject:  'Novo interessado na LUMI Landing',
     html: `
@@ -45,7 +45,7 @@ async function sendAutoReply({ name, email }) {
 
   await resend.emails.send({
     from:     FROM_EMAIL,
-    reply_to: REPLY_TO,
+    replyTo: REPLY_TO,
     to:       email,
     subject:  'Recebemos seu contato — LUMI IDEA',
     html: `

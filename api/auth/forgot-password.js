@@ -43,7 +43,7 @@ module.exports = async function handler(req, res) {
   const resend = new Resend(apiKey);
   await resend.emails.send({
     from:     FROM_EMAIL,
-    reply_to: 'replies@respostas.lumiidea.com',
+    replyTo: 'replies@respostas.lumiidea.com',
     to:       user.email,
     subject:  'Redefinição de senha — LUMI IDEA Admin',
     html: `
